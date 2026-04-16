@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>Billetadministration — Virksomheder og organisationer</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; max-width: 860px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .intro { color: #555; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+  h2 { font-size: 16px; color: #333; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; margin-top: 32px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+  th { background: #f5f5f5; text-align: left; padding: 10px 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; border-bottom: 2px solid #ddd; }
+  td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: top; font-size: 14px; }
+  .flow-title { font-weight: 600; font-size: 15px; color: #111; margin-bottom: 2px; }
+  .flow-subtitle { font-size: 13px; color: #888; margin-bottom: 0; }
+  .flow-desc { line-height: 1.5; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; margin-right: 4px; }
+  .tag-permanent { background: #fce4ec; color: #c62828; }
+  .tag-no-app { background: #e3f2fd; color: #1565c0; }
+  .tag-needs-app { background: #fff3e0; color: #e65100; }
+  .tag-info { background: #f3e5f5; color: #6a1b9a; }
+  .tag-draft { background: #fff3e0; color: #e65100; border: 1px dashed #e65100; }
+  .video-link { color: #1976d2; text-decoration: none; font-size: 13px; }
+  .video-link:hover { text-decoration: underline; }
+  .note { font-size: 12px; color: #999; font-style: italic; }
+  .section-intro { font-size: 14px; color: #555; margin-bottom: 16px; line-height: 1.5; }
+  .draft-banner { background: #fff3e0; border: 2px dashed #e65100; border-radius: 8px; padding: 14px 16px; margin: 24px 0; font-size: 14px; line-height: 1.6; color: #5d4037; }
+  .summary-table td { padding: 8px 12px; }
+  .summary-table tr:hover { background: #fafafa; }
+</style>
+</head>
+<body>
+
+<h1>Billetadministration — Virksomheder og organisationer</h1>
+<p class="intro">Guide til virksomheder, foreninger og organisationer der har købt billetter til medarbejdere, medlemmer eller gæster.</p>
+
+<div class="draft-banner">
+  <strong>Udkast:</strong> Denne side er under udarbejdelse. Use cases og flows er endnu ikke endeligt afklaret.
+</div>
+
+<!-- ── Typisk use case ── -->
+<h2>Hvem er denne guide for?</h2>
+<p class="section-intro">
+  Du repræsenterer en virksomhed eller organisation der har købt et større antal billetter (f.eks. 10, 50 eller 100 stk.) som skal fordeles til medarbejdere, kunder eller gæster. Som virksomhed får du adgang til et <strong>webinterface</strong> hvor du kan administrere billetter, adgange og Beats — alt sammen fra din computer.
+</p>
+
+<!-- ── 1. Kom i gang ── -->
+<h2>1. Kom i gang som ordreholder</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Funktion</th>
+      <th style="width:50%">Beskrivelse</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Log ind på webportalen</div>
+        <div class="flow-subtitle">Administrér alt fra din computer</div>
+      </td>
+      <td class="flow-desc">
+        Du modtager et login til webportalen, hvor du kan se og administrere alle dine billetter, adgange og Beats-konti. Herfra kan du fordele billetter, følge status og håndtere Beats-opladninger.
+        <br><br>
+        <span class="note">Webportalen er designet til administration af mange billetter — du behøver ikke appen til dette.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Overblik over alle billetter</div>
+        <div class="flow-subtitle">Se status, filtrér og søg på tværs af alle dine billetter</div>
+      </td>
+      <td class="flow-desc">
+        Webportalen giver dig et samlet overblik over alle billetter med status: ikke tildelt, overført, accepteret m.m. Du kan filtrere, søge og sortere for at holde styr på større antal.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── 2. Fordel billetter ── -->
+<h2>2. Fordel billetter til modtagere</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Funktion</th>
+      <th style="width:50%">Beskrivelse</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Overfør billet (transfer)</div>
+        <div class="flow-subtitle">Billetten overdrages permanent til modtageren</div>
+        <br>
+        <span class="tag tag-permanent">Permanent overførsel</span>
+        <span class="tag tag-needs-app">Modtager behøver appen</span>
+      </td>
+      <td class="flow-desc">
+        Vælg en billet i webportalen og vælg "Overfør". Indtast modtagerens navn og email. Modtageren modtager en email med oplysninger om adgangen og et link til at acceptere i appen med en MitID-verificeret profil. Billetten forlader din konto og bliver modtagerens.
+        <br><br>
+        <span class="note">Overførslen er permanent. Hvis du har brug for billetten retur, skal modtageren overføre den tilbage til dig.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Tilføj person (delegation)</div>
+        <div class="flow-subtitle">Billetten forbliver hos dig — personen får adgang via armbånd</div>
+        <br>
+        <span class="tag tag-no-app">Ingen app krævet</span>
+        <span class="tag tag-info">Skal følges med dig</span>
+      </td>
+      <td class="flow-desc">
+        Vælg en billet i webportalen og vælg "Tilføj person". Indtast personens navn og email. Personen modtager en email med oplysninger om adgangen. Billetten og adgangen forbliver på din konto — personen skal følges med dig og får et chip-armbånd som knyttes til din profil.
+        <br><br>
+        <span class="note">Chip-armbånd kan købes i barene eller ved Service Desk. Du kan have flere armbånd tilknyttet din profil. Delegerede personer handler på din Beats-konto via armbåndet.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Batch-fordeling</div>
+        <div class="flow-subtitle">Fordel flere billetter på én gang — som transfer eller delegation</div>
+        <br>
+        <span class="tag tag-draft">Afventer afklaring</span>
+      </td>
+      <td class="flow-desc">
+        Når du har mange billetter at fordele, kan du tildele navn og email til flere billetter i webportalen og sende dem samlet. For hver billet vælger du om det skal være en overførsel (transfer) eller en tilføjelse (delegation).
+        <br><br>
+        <span class="note">Afventer afklaring af batch-flow.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── 3. Følg op ── -->
+<h2>3. Følg op på status</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Funktion</th>
+      <th style="width:50%">Beskrivelse</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Importér fra CSV</div>
+        <div class="flow-subtitle">Upload en liste med navne og emails</div>
+      </td>
+      <td class="flow-desc">
+        Har du en liste med modtagere klar? Upload en CSV-fil med navne og emails, og webportalen fordeler automatisk billetter til hver person. For hver modtager vælger du om det skal være en overførsel (transfer) eller en tilføjelse (delegation).
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Se status og check-in i realtid</div>
+        <div class="flow-subtitle">Følg med i hvem der har accepteret og hvem der er ankommet</div>
+      </td>
+      <td class="flow-desc">
+        Webportalen viser status per billet: ikke tildelt, overført, accepteret, udløbet — og realtids check-in status, så du kan se hvem af dine gæster der er ankommet til festivalen.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Gensend udløbede invitationer</div>
+        <div class="flow-subtitle">Send en ny invitation hvis modtageren ikke har accepteret</div>
+      </td>
+      <td class="flow-desc">
+        Invitationslinks udløber efter 72 timer. Find den udløbede overførsel og tryk "Gensend" for at sende et nyt link til modtageren.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── 4. Beats ── -->
+<h2>4. Beats-administration</h2>
+<p class="section-intro">Webportalen giver dig også mulighed for at administrere Beats — den digitale valuta der bruges til køb på festivalpladsen.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Funktion</th>
+      <th style="width:50%">Beskrivelse</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Oplad din Beats-konto</div>
+        <div class="flow-subtitle">Køb Beats og fordel til medarbejdere og gæster</div>
+      </td>
+      <td class="flow-desc">
+        Du oplader Beats på din egen konto via webportalen og fordeler herfra til dine medarbejdere og gæster. Delegerede personer (med chip-armbånd) bruger automatisk din Beats-konto.
+        <br><br>
+        <span class="note">Overførte billetter (transfer): modtageren har sin egen Beats-konto. Delegerede personer: handler på din konto via armbåndet.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Rapportering og eksport</div>
+        <div class="flow-subtitle">Følg Beats-forbrug og eksportér til regnskab</div>
+      </td>
+      <td class="flow-desc">
+        Webportalen giver et samlet overblik over Beats-forbrug på tværs af alle dine medarbejdere og gæster. Du kan eksportere data til brug i virksomhedens regnskab.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── Åbne spørgsmål ── -->
+<h2 style="color: #e65100;">Åbne spørgsmål</h2>
+<ul style="font-size: 14px; line-height: 1.8; color: #555;">
+  <li>Hvilket CSV-format skal bruges? (kolonner, separator, encoding)</li>
+  <li>Kan en virksomhed have flere administratorer med delt adgang til webportalen — og med forskellige rettigheder?</li>
+  <li>Kan delegerede personers armbånd have en Beats-grænse (max beløb)?</li>
+  <li>Hvilke eksportformater understøttes for Beats-rapportering? (CSV, PDF, Excel)</li>
+  <li>Skal check-in status push-notificeres til admin, eller kun vises ved opslag?</li>
+</ul>
+
+<p class="note" style="margin-top: 24px; text-align: center;">
+  Denne side opdateres når B2B-flows er endeligt afklaret.
+</p>
+
+</body>
+</html>

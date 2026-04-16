@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>Billetadministration — Oversigt over funktioner</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; max-width: 860px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .intro { color: #555; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+  h2 { font-size: 16px; color: #333; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; margin-top: 32px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+  th { background: #f5f5f5; text-align: left; padding: 10px 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; border-bottom: 2px solid #ddd; }
+  td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: top; font-size: 14px; }
+  .flow-title { font-weight: 600; font-size: 15px; color: #111; margin-bottom: 2px; }
+  .flow-subtitle { font-size: 13px; color: #888; margin-bottom: 0; }
+  .flow-desc { line-height: 1.5; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; margin-right: 4px; }
+  .tag-permanent { background: #fce4ec; color: #c62828; }
+  .tag-no-app { background: #e3f2fd; color: #1565c0; }
+  .tag-needs-app { background: #fff3e0; color: #e65100; }
+  .tag-info { background: #f3e5f5; color: #6a1b9a; }
+  .video-link { color: #1976d2; text-decoration: none; font-size: 13px; }
+  .video-link:hover { text-decoration: underline; }
+  .note { font-size: 12px; color: #999; font-style: italic; }
+  .section-intro { font-size: 14px; color: #555; margin-bottom: 16px; line-height: 1.5; }
+  .hint { background: #f5f5f5; border-left: 3px solid #1976d2; padding: 10px 14px; margin: 12px 0; font-size: 13px; line-height: 1.5; color: #333; }
+
+  /* Tab navigation */
+  .tabs { display: flex; gap: 0; margin-bottom: 0; border-bottom: 2px solid #e0e0e0; }
+  .tab { padding: 12px 24px; font-size: 15px; font-weight: 600; cursor: pointer; border: 2px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0; background: #f5f5f5; color: #888; margin-bottom: -2px; transition: all 0.2s; user-select: none; }
+  .tab:hover { background: #eee; color: #555; }
+  .tab.active { background: #fff; color: #1976d2; border-color: #e0e0e0; border-bottom-color: #fff; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .tab-count { font-size: 12px; font-weight: 400; color: #aaa; margin-left: 6px; }
+  .tab.active .tab-count { color: #1976d2; }
+
+  /* Summary table */
+  .summary-table td { padding: 8px 12px; }
+  .summary-table tr:hover { background: #fafafa; }
+
+  /* Disclaimer banner */
+  .disclaimer-banner { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 14px 16px; margin: 24px 0; font-size: 13px; line-height: 1.6; color: #5d4037; }
+  .disclaimer-banner strong { color: #e65100; }
+  .disclaimer-link { color: #1976d2; text-decoration: underline; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<h1>Billetadministration — Oversigt over funktioner</h1>
+<p class="intro">Herunder finder du en oversigt over alle de måder du kan administrere og overføre dine billetter i appen. Vælg om du vil se guiden som afsender eller modtager.</p>
+
+<!-- ═══════════════════ TAB NAVIGATION ═══════════════════ -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('sender')">Jeg har billetter jeg vil sende eller administrere<span class="tab-count">9 flows</span></div>
+  <div class="tab" onclick="switchTab('receiver')">Jeg modtager en billet<span class="tab-count">3 flows</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--                     AFSENDER TAB                       -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-sender" class="tab-content active">
+
+<!-- ── 1. Indløs ── -->
+<h2>1. Indløs og importer billetter</h2>
+<p class="section-intro">Før du kan administrere dine billetter, skal de indløses i appen. Der er flere måder at gøre det på.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Funktion</th>
+      <th style="width:50%">Beskrivelse</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Indløs billet fra e-mail</div>
+        <div class="flow-subtitle">Del PDF'en fra Mail-appen direkte til festival-appen</div>
+      </td>
+      <td class="flow-desc">
+        Åbn den email du modtog da du købte dine billetter. Tryk på PDF-vedhæftningen, og brug delingsikonet (firkant med pil) til at dele filen til festival-appen. Billetkoderne importeres automatisk.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Indløs fra billede</div>
+        <div class="flow-subtitle">Tag et screenshot af din billet og importér</div>
+      </td>
+      <td class="flow-desc">
+        Du kan tage et screenshot af din billet-PDF hvis du vil gemme den som billede først. Vælg derefter "Fra billede" i appen og vælg billedet fra dine Fotos. Appen scanner billedet og finder automatisk billetkoderne.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Scan QR-kode</div>
+        <div class="flow-subtitle">Brug kameraet til at scanne billetkoden</div>
+      </td>
+      <td class="flow-desc">
+        Har du printet din billet ud? Du kan scanne QR-koden direkte med kameraet. Vælg "Scan QR" og ret kameraet mod koden på den udprintede billet.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Importér fra fil (PDF)</div>
+        <div class="flow-subtitle">Vælg en PDF-fil fra din telefon</div>
+      </td>
+      <td class="flow-desc">
+        Har du billet-PDF'en gemt på telefonen? Vælg "Fra fil" og find filen. Appen scanner PDF'en og finder alle billetkoder automatisk.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Indsæt fra udklipsholder</div>
+        <div class="flow-subtitle">Kopiér koden og lad appen finde den</div>
+      </td>
+      <td class="flow-desc">
+        Hvis du har kopieret en billetkode til udklipsholderen, kan du vælge "Indsæt fra udklipsholder". Appen finder automatisk billetkoden i den kopierede tekst.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── 2. Overfør billet ── -->
+<h2>2. Overfør billet til en anden person</h2>
+<p class="section-intro">Du kan overføre hele din billet — eller udvalgte adgange — permanent til en anden person. Modtageren bliver den nye ejer og skal have appen med en MitID-verificeret profil.</p>
+
+<div class="disclaimer-banner">
+  <strong>Ved salg eller overdragelse:</strong> Billetprisen må ikke overstige den originale købspris. Livecloud og festivalen er ikke part i økonomiske aftaler mellem brugere — vi stiller en platform til rådighed som sikrer at begge parter har en gyldig, MitID-verificeret konto. <a class="disclaimer-link" href="#disclaimer">Læs de fulde vilkår her</a>.
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Funktion</th>
+      <th style="width:50%">Beskrivelse</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Overfør hele din billet</div>
+        <div class="flow-subtitle">Overfør permanent alle adgange til en anden person</div>
+        <br>
+        <span class="tag tag-permanent">Permanent overførsel</span>
+        <span class="tag tag-needs-app">Modtager behøver appen</span>
+      </td>
+      <td class="flow-desc">
+        Gå til "Dine billetter" og vælg "Overfør billet". Alle adgange på billetten (f.eks. alle dage på en partout eller alle adgange på en campingbillet) overføres samlet til modtageren. Indtast modtagerens navn og email. Modtageren får en email og skal acceptere overførslen i appen.
+        <br><br>
+        <span class="note">Denne handling er permanent og kan ikke fortrydes. Hvis du ønsker billetten retur, skal modtageren overføre den tilbage til dig.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Overfør enkelt adgang</div>
+        <div class="flow-subtitle">Overfør én eller flere dage/adgange fra en partout eller campingbillet</div>
+        <br>
+        <span class="tag tag-permanent">Permanent overførsel</span>
+        <span class="tag tag-needs-app">Modtager behøver appen</span>
+      </td>
+      <td class="flow-desc">
+        Har du en partout- eller campingbillet med flere adgange? Du kan overføre udvalgte adgange enkeltvis til forskellige personer. Gå til "Dine billetter", vælg den specifikke adgang og tryk "Overfør". Indtast modtagerens navn og email.
+        <br><br>
+        <span class="note">Hver adgang overføres permanent. Modtageren bliver den nye ejer og skal acceptere i appen. Ønsker du adgangen retur, skal modtageren overføre den tilbage.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Videresend billetkode</div>
+        <div class="flow-subtitle">Del en uindløst billetkode via SMS, Messenger, email m.m.</div>
+        <br>
+        <span class="tag tag-needs-app">Modtager behøver appen</span>
+      </td>
+      <td class="flow-desc">
+        Hvis du har importeret billetkoder men ikke indløst dem alle, kan du videresende koden til en anden via telefonens delingsmenu. Modtageren får et link og kan selv indløse billetten i appen.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── 3. Delegation (barn / ledsager) ── -->
+<h2>3. Giv adgang til et barn eller en ledsager</h2>
+<p class="section-intro">Du kan give adgang til børn under 15 eller ledsagere uden at de behøver egen telefon, app eller profil. Adgangen forbliver på din profil — du er ansvarlig for personen ved ind- og udgang.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Funktion</th>
+      <th style="width:50%">Beskrivelse</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Giv adgang til et barn</div>
+        <div class="flow-subtitle">Tilknyt et barn under 15 til din billet</div>
+        <br>
+        <span class="tag tag-no-app">Ingen app krævet</span>
+        <span class="tag tag-info">Barnet skal følges af dig</span>
+      </td>
+      <td class="flow-desc">
+        Gå til "Dine billetter", vælg en adgang og tryk "Tilknyt barn". Indtast barnets navn og alder (0–14 år). Barnet behøver ikke egen telefon, app eller profil — barnet skal være sammen med dig når I skal ind og ud af festivalpladsen.
+        <br><br>
+        <div class="hint">
+          <strong>Tip:</strong> Du kan købe et chip-armbånd i barene eller ved Service Desk. Armbåndet knyttes til din profil, og barnet kan bære det som adgang samt handle på din Beats-konto — praktisk hvis barnet vil rundt på egen hånd inden for festivalpladsen. Du kan have flere armbånd tilknyttet din profil.
+        </div>
+        <span class="note">Gælder for børn under 15 år som ikke har egen telefon eller profil i appen.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Giv adgang til en ledsager</div>
+        <div class="flow-subtitle">Tilknyt en ledsager til din billet</div>
+        <br>
+        <span class="tag tag-no-app">Ingen app krævet</span>
+        <span class="tag tag-info">Ledsager skal følges af dig</span>
+      </td>
+      <td class="flow-desc">
+        Gå til "Dine billetter", vælg en adgang og tryk "Tilknyt ledsager". Indtast ledsagerens navn og eventuelt relation. Ledsageren behøver ikke egen telefon, app eller profil — I skal være sammen ved ind- og udgang af festivalpladsen.
+        <br><br>
+        <span class="note">Velegnet til personer der ikke har egen telefon eller som har brug for at følges med dig. Ved check-in fremviser du din app, og I kommer begge ind.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── 4. Administrer ── -->
+<h2>4. Administrer dine billetter</h2>
+<p class="section-intro">Du kan til enhver tid se status på dine billetter og tilknyttede personer.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Funktion</th>
+      <th style="width:50%">Beskrivelse</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Gensend invitation</div>
+        <div class="flow-subtitle">Send invitationen igen hvis modtageren ikke har accepteret</div>
+      </td>
+      <td class="flow-desc">
+        Har modtageren ikke accepteret inden for 72 timer? Invitationslinket udløber automatisk. Gå til "Dine billetter", find den udløbede overførsel og tryk "Gensend". En ny invitation sendes til modtageren med et nyt link.
+        <br><br>
+        <span class="note">Det gamle link bliver ugyldigt, og et nyt 72-timers link sendes til samme email.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── Hurtigoversigt (afsender) ── -->
+<h2>Hurtigoversigt</h2>
+
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th>Funktion</th>
+      <th>Modtager kræver</th>
+      <th>Permanent?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Indløs billet</strong></td>
+      <td>— (dig selv)</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><strong>Overfør hele billet</strong></td>
+      <td>App + MitID-verificeret profil</td>
+      <td>Ja — modtager skal sende retur</td>
+    </tr>
+    <tr>
+      <td><strong>Overfør enkelt adgang</strong></td>
+      <td>App + MitID-verificeret profil</td>
+      <td>Ja — modtager skal sende retur</td>
+    </tr>
+    <tr>
+      <td><strong>Videresend billetkode</strong></td>
+      <td>App + profil</td>
+      <td>Ja, når indløst</td>
+    </tr>
+    <tr>
+      <td><strong>Tilknyt barn (under 15)</strong></td>
+      <td>Ingenting</td>
+      <td>Nej — kan ændres</td>
+    </tr>
+    <tr>
+      <td><strong>Tilknyt ledsager</strong></td>
+      <td>Ingenting</td>
+      <td>Nej — kan ændres</td>
+    </tr>
+    <tr>
+      <td><strong>Gensend invitation</strong></td>
+      <td>—</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+</div><!-- /tab-sender -->
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--                    MODTAGER TAB                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tab-receiver" class="tab-content">
+
+<!-- ── 1. Modtag overførsel ── -->
+<h2>1. Du har modtaget en billet via email</h2>
+<p class="section-intro">Nogen har overført en billet eller en adgang til dig. Du skal acceptere overførslen i appen.</p>
+
+<div class="disclaimer-banner">
+  <strong>Ved køb fra privatperson:</strong> Sørg for at prisen ikke overstiger den originale billetpris. Livecloud og festivalen er ikke part i økonomiske aftaler mellem brugere. Begge parter skal have en gyldig, MitID-verificeret konto. <a class="disclaimer-link" href="#disclaimer">Læs de fulde vilkår her</a>.
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Scenarie</th>
+      <th style="width:50%">Hvad skal du gøre?</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Acceptér en billetoverførsel</div>
+        <div class="flow-subtitle">Nogen har overført en billet eller adgang til dig</div>
+        <br>
+        <span class="tag tag-needs-app">Kræver appen + MitID</span>
+      </td>
+      <td class="flow-desc">
+        Du modtager en email med et link til at hente din billet. Tryk på linket — det åbner festival-appen, hvor du kan se billetdetaljerne. Vælg "Acceptér" for at modtage billetten, eller "Afvis" hvis du ikke ønsker den. Når du accepterer, er billetten din.
+        <br><br>
+        <span class="note">Linket er gyldigt i 72 timer. Hvis det udløber, kan afsenderen gensende det til dig. Du skal have en MitID-verificeret profil i appen.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="flow-title">Har du fået tilsendt en billetkode?</div>
+        <div class="flow-subtitle">Indløs en kode du har modtaget via SMS, Messenger eller email</div>
+        <br>
+        <span class="tag tag-needs-app">Kræver appen</span>
+      </td>
+      <td class="flow-desc">
+        Har du fået tilsendt en billetkode fra en ven eller kollega? Åbn festival-appen, vælg "Indløs billetter" og indtast koden manuelt. Har du modtaget et link sammen med koden, kan du trykke på linket for at indløse automatisk.
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── 2. Barn / ledsager ── -->
+<h2>2. Dit barn eller din ledsager har fået adgang</h2>
+<p class="section-intro">Hvis du er tilknyttet en billet som barn eller ledsager, behøver du ikke gøre noget i appen.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:30%">Scenarie</th>
+      <th style="width:50%">Hvad skal du gøre?</th>
+      <th style="width:20%">Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="flow-title">Barn under 15 / Ledsager</div>
+        <div class="flow-subtitle">Adgangen er klar — ingen app eller profil krævet</div>
+        <br>
+        <span class="tag tag-no-app">Ingen app krævet</span>
+      </td>
+      <td class="flow-desc">
+        Hvis du er tilknyttet en billet som barn eller ledsager, behøver du ingenting. Du kommer ind og ud af festivalpladsen sammen med den person der har tilknyttet dig. Ved check-in fremviser personen sin app, og I kommer begge ind.
+        <br><br>
+        <div class="hint">
+          <strong>Tip:</strong> Du kan få et chip-armbånd som købes i barene eller ved Service Desk. Med armbåndet kan du gå ind og ud på egen hånd og handle på den ansvarlige persons Beats-konto.
+        </div>
+        <span class="note">Børn under 15 og ledsagere behøver hverken telefon, app eller profil.</span>
+      </td>
+      <td><a class="video-link" href="#">Se video &rarr;</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── Hurtigoversigt (modtager) ── -->
+<h2>Hurtigoversigt</h2>
+
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th>Scenarie</th>
+      <th>Hvad kræves af dig?</th>
+      <th>Handling</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Billetoverførsel (email-link)</strong></td>
+      <td>App + MitID-verificeret profil</td>
+      <td>Acceptér eller afvis i appen</td>
+    </tr>
+    <tr>
+      <td><strong>Billetkode (SMS/Messenger)</strong></td>
+      <td>App + profil</td>
+      <td>Tryk link eller indtast koden</td>
+    </tr>
+    <tr>
+      <td><strong>Barn under 15 / Ledsager</strong></td>
+      <td>Ingenting</td>
+      <td>Følg med den ansvarlige person</td>
+    </tr>
+  </tbody>
+</table>
+
+</div><!-- /tab-receiver -->
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--                  JURIDISK DISCLAIMER                   -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="disclaimer" style="margin-top: 48px; padding-top: 32px; border-top: 2px solid #e0e0e0;">
+
+<h2 style="border-bottom: none; margin-top: 0;">Vilkår for overførsel af billetter mellem brugere</h2>
+
+<div style="font-size: 14px; line-height: 1.7; color: #333;">
+
+<p><strong>1. Platformens rolle</strong><br>
+Livecloud ApS ("Livecloud") og den pågældende festival/event-arrangør ("Arrangøren") stiller en digital platform til rådighed, som gør det muligt for brugere at overføre billetter og adgange til andre brugere. Livecloud og Arrangøren er ikke part i nogen økonomisk transaktion mellem brugere og påtager sig intet ansvar for aftaler, betalinger eller tvister der måtte opstå i forbindelse med overførsel af billetter.</p>
+
+<p><strong>2. Prisbegrænsning ved videresalg</strong><br>
+Ved salg eller overdragelse af en billet til en anden person må salgsprisen ikke overstige den originale købspris inklusive gebyrer. Overtrædelse af denne bestemmelse kan medføre annullering af billetten uden kompensation. Det er afsenderens og modtagerens ansvar at sikre at prisen overholder denne begrænsning.</p>
+
+<p><strong>3. Identitetsverificering</strong><br>
+Både afsender og modtager skal have en gyldig konto i systemet, verificeret med MitID (dansk digital identitet). Verifikationen sikrer at begge parter kan identificeres, og at billetten knyttes til en verificeret person. Livecloud forbeholder sig retten til at afvise overførsler hvor en eller begge parter ikke er behørigt verificeret.</p>
+
+<p><strong>4. Permanent overførsel</strong><br>
+Overførsel af en billet er permanent. Når modtageren har accepteret overførslen, er billetten modtagerens ejendom. Ønsker afsenderen billetten retur, skal modtageren selv foretage en ny overførsel. Livecloud og Arrangøren kan ikke formidle eller gennemtvinge returnering af en overført billet.</p>
+
+<p><strong>5. Ansvarsfraskrivelse</strong><br>
+Livecloud og Arrangøren er ikke ansvarlige for: (a) tab som følge af overførsler mellem brugere, (b) manglende betaling mellem afsender og modtager, (c) tvister vedrørende pris, kvalitet eller vilkår aftalt mellem brugere, (d) tekniske problemer der forhindrer rettidig accept af en overførsel. Det er brugerens eget ansvar at sikre at overførslen sker til den rette person.</p>
+
+<p><strong>6. Børn og ledsagere</strong><br>
+Tilknytning af børn under 15 år og ledsagere er ikke en overførsel — adgangen forbliver på den ansvarlige persons profil. Den ansvarlige person bærer det fulde ansvar for tilknyttede personer, herunder adgang til og adfærd på festivalområdet. Chip-armbånd kan købes i barene eller ved Service Desk og knyttes til den ansvarlige persons profil. Man kan have flere armbånd tilknyttet sin profil. Armbåndet er personens ansvar, og eventuelle køb foretaget med armbåndet debiteres personens Beats-konto.</p>
+
+<p><strong>7. Misbrug</strong><br>
+Livecloud forbeholder sig retten til at spærre konti, annullere billetter og nægte adgang ved mistanke om misbrug, herunder men ikke begrænset til: systematisk videresalg over købspris, forsøg på overførsel med uverificerede konti, eller anden brug der strider mod disse vilkår eller Arrangørens betingelser.</p>
+
+<p style="font-size: 12px; color: #999; margin-top: 24px;"><em>Sidst opdateret: april 2026. Disse vilkår kan ændres. Den til enhver tid gældende version er tilgængelig via dette link.</em></p>
+
+</div>
+</div>
+
+<p class="note" style="margin-top: 24px; text-align: center;">
+  Videolinks opdateres løbende. Har du spørgsmål? Kontakt os på support.
+</p>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+</script>
+
+</body>
+</html>

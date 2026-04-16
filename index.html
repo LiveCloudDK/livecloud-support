@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LiveCloud Support &amp; Dokumentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --text: #F0F0F5;
+    --text-muted: #8B8FA3;
+    --border: #2A2E3D;
+    --accent-green: #2D6E44;
+    --accent-green-light: #5CB77A;
+    --accent-blue: #3B82F6;
+    --accent-blue-light: #60A5FA;
+    --accent-amber: #F59E0B;
+    --accent-purple: #8B5CF6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 64px 0 80px;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent-blue-light);
+    margin-bottom: 20px;
+  }
+
+  .hero-badge span { font-size: 14px; }
+
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .card-icon.green { background: rgba(45, 110, 68, 0.15); }
+  .card-icon.blue { background: rgba(59, 130, 246, 0.15); }
+  .card-icon.amber { background: rgba(245, 158, 11, 0.15); }
+  .card-icon.purple { background: rgba(139, 92, 246, 0.15); }
+
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: all 0.2s;
+  }
+
+  .card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  .card.featured {
+    grid-column: 1 / -1;
+  }
+
+  .footer {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .footer a {
+    color: var(--accent-blue-light);
+    text-decoration: none;
+  }
+
+  .footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .container { padding: 40px 0 60px; }
+    .hero h1 { font-size: 28px; }
+    .cards { grid-template-columns: 1fr; }
+    .card.featured { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&#9889;</span>
+      LiveCloud Support
+    </div>
+    <h1>Support & Dokumentation</h1>
+    <p>Chatbot, billetflows og guides til festivalgaester, virksomheder og akkrediterede.</p>
+  </div>
+
+  <!-- ── Chatbot ── -->
+  <div class="section-label">Chatbot</div>
+  <div class="cards">
+    <a href="ringsted-chatbot.html" class="card featured">
+      <div class="card-icon green">&#127795;</div>
+      <h3>Ringsted Festival Support Chatbot</h3>
+      <p>Interaktiv chatbot med svar på alt fra profil, billetter, Beats, NFC-armbånd, betaling, sikkerhed, børn og mere. Fuld knowledge base med keyword-matching.</p>
+      <div class="card-tags">
+        <span class="tag">Chatbot</span>
+        <span class="tag">Ringsted Festival 2026</span>
+        <span class="tag">FAQ</span>
+        <span class="tag">Interaktiv</span>
+      </div>
+      <svg class="card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+  <!-- ── Billetflows ── -->
+  <div class="section-label">Billetflows & Guides</div>
+  <div class="cards">
+    <a href="ticket-flows-qa.html" class="card">
+      <div class="card-icon blue">&#127915;</div>
+      <h3>Billetadministration — Oversigt</h3>
+      <p>Komplet oversigt over alle billetfunktioner: indloes, overfoer, videresend kode, tilknyt barn/ledsager, gensend invitation.</p>
+      <div class="card-tags">
+        <span class="tag">Afsender</span>
+        <span class="tag">Modtager</span>
+        <span class="tag">9 + 3 flows</span>
+      </div>
+      <svg class="card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+
+    <a href="ticket-flows-accreditation.html" class="card">
+      <div class="card-icon purple">&#127908;</div>
+      <h3>Akkreditering</h3>
+      <p>Guide til ordreholdere der administrerer adgang for crew, artister, presse og frivillige. Delegation, armbånd og check-in.</p>
+      <div class="card-tags">
+        <span class="tag">Crew</span>
+        <span class="tag">Artister</span>
+        <span class="tag">Presse</span>
+      </div>
+      <svg class="card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+
+    <a href="ticket-flows-b2b.html" class="card">
+      <div class="card-icon amber">&#127970;</div>
+      <h3>Virksomheder & Organisationer</h3>
+      <p>Guide til virksomheder der har købt billetter til medarbejdere, kunder eller gaester. Webportal, batch-fordeling, Beats-administration.</p>
+      <div class="card-tags">
+        <span class="tag">B2B</span>
+        <span class="tag">Webportal</span>
+        <span class="tag">Udkast</span>
+      </div>
+      <svg class="card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>LiveCloud ApS &mdash; Support &amp; Dokumentation<br>
+    Har du spørgsmål? Kontakt os på <a href="mailto:konto@ringstedfestival.dk">konto@ringstedfestival.dk</a></p>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -564,41 +564,41 @@ function getKB() {
       related: ['claim', 'transfer', 'armbånd']
     },
     beats: {
-      title: 'Beats — Festival Credits',
-      reply: `<strong>Beats</strong> er festivalens valuta — og den <strong>eneste måde</strong> at betale på pladsen. Til gengæld slipper du for kortkøen og får lynhurtig betjening.`,
+      title: 'Beats — festivalens egne penge',
+      reply: `<strong>Beats</strong> er festivalens egne penge. Du bruger Beats, når du handler i alle barer og boder på pladsen.`,
       steps: [
-        '<strong>Fyld Beats op i appen:</strong> Gå til "Wallet" → "Køb Beats" → vælg beløb',
-        '<strong>Fyld op i barerne:</strong> Du kan også toppe op direkte ved baren på dagen',
-        'Betal optankningen med <strong>kort, Apple Pay, Google Pay eller MobilePay</strong>',
-        '<strong>Automatisk optankning:</strong> Tilknyt et kreditkort i appen — så fyldes dine Beats op automatisk når saldoen er lav',
-        `Brug Beats til at <strong>handle i alle barer og boder</strong> til ${b.event.name}`
+        'Åbn appen og gå til "Wallet" — det er din digitale pung',
+        'Tryk på "Køb Beats", og vælg beløb',
+        'Betal med kort, Apple Pay, Google Pay eller MobilePay',
+        'Du kan også fylde op ved baren på selve dagen',
+        `Brug derefter dine Beats til at handle i alle barer og boder til ${b.event.name}`
       ],
-      followUp: `${b.tipPrefix}: Slå <strong>automatisk optankning</strong> til i appen — så behøver du aldrig at tænke på om der er Beats nok til næste runde!`,
+      followUp: `Et godt råd: Slå <strong>automatisk optankning</strong> til. Så bliver dine Beats fyldt op af sig selv, når du er ved at løbe tør — og du slipper for at tænke over det.`,
       related: ['auto_optankning', 'armbånd', 'betaling', 'wallet']
     },
     armbånd: {
-      title: 'NFC / Chip-armbånd',
-      reply: 'Chip-armbåndet er et valgfrit tilkøb — det koster <strong>ca. 50 kr.</strong> og gør din oplevelse ekstra smidig:',
+      title: 'Chip-armbånd',
+      reply: 'Chip-armbåndet er et lille armbånd med en chip inde i. Det koster cirka 50 kr. og kan gøre din oplevelse nemmere.',
       steps: [
-        '<strong>Køb armbåndet ved indgangen</strong> når du checker ind — det kobles til din profil',
-        'Brug det til <strong>identifikation og betaling</strong> i barer og boder med <strong>Beats</strong>',
-        '<strong>Virker uden telefon</strong> — perfekt hvis du løber tør for strøm eller net',
-        '<strong>Børn og ledsagere:</strong> Køb et ekstra armbånd koblet til din profil — så kan de gå rundt på egen hånd og handle på din Beats-konto',
-        'Evt. køb foretaget med armbåndet <strong>debiteres din Beats-konto</strong>'
+        'Du kan købe armbåndet i webshoppen og få det udleveret ved Service Desk — eller købe det ved indgangen på selve dagen',
+        'Armbåndet kobles til din profil',
+        'Du kan bruge det til at komme ind og til at betale i barer og boder (det trækker dine Beats)',
+        'Det virker helt uden telefon — en god sikring, hvis strømmen slipper op',
+        'Du kan også købe et ekstra armbånd til et barn eller en ledsager. Så kan de gå rundt på egen hånd og handle på dine Beats'
       ],
-      followUp: 'Armbåndet er valgfrit — du kan sagtens klare dig med appen alene. Men det er en hurtigere og mere praktisk måde at betale og identificere dig, især hvis telefonen løber tør.',
+      followUp: 'Armbåndet er frivilligt — du kan sagtens klare dig med appen alene. Men mange synes, det giver en ekstra tryghed, særligt hvis man er bange for at løbe tør for batteri.',
       related: ['beats', 'betaling', 'billet', 'børn', 'strøm']
     },
     betaling: {
       title: 'Betaling',
-      reply: `På festivalpladsen kan du <strong>kun betale med Beats</strong> — det er den eneste valuta i alle barer og boder.`,
+      reply: `På festivalpladsen betaler du altid med <strong>Beats</strong> — det er festivalens egne penge, og den eneste valuta i alle barer og boder.`,
       steps: [
-        '<strong>Beats i appen</strong> — vis Beats-koden i appen ved betaling',
-        '<strong>NFC-armbånd</strong> — hold armbåndet op til scanneren (trækker fra dine Beats)',
-        'Beats fyldes op i appen eller direkte ved baren — med <strong>kort, Apple Pay, Google Pay eller MobilePay</strong>',
-        '<strong>Automatisk optankning:</strong> Tilknyt et kreditkort, så dine Beats fyldes op automatisk'
+        'Du kan vise dine Beats i appen eller bruge dit chip-armbånd',
+        'Ved baren holder du blot armbåndet op, eller viser koden i appen',
+        'Du køber Beats i appen eller ved baren — med kort, Apple Pay, Google Pay eller MobilePay',
+        'Du kan også slå <strong>automatisk optankning</strong> til, så dine Beats fyldes op af sig selv'
       ],
-      followUp: `${b.tipPrefix}: Slå <strong>automatisk optankning</strong> til — så behøver du aldrig at tænke over om der er Beats nok til næste runde. Køb inden ${b.event.name}, eller top op ved baren på dagen.`,
+      followUp: `Godt råd: Slå automatisk optankning til, så behøver du aldrig at tænke på, om du har nok til næste runde. Du kan også købe Beats hjemmefra inden ${b.event.name} — så slipper du for at stå i kø første gang.`,
       related: ['beats', 'auto_optankning', 'armbånd', 'wallet']
     },
     wallet: {
@@ -718,68 +718,68 @@ function getKB() {
     // ============================================================
     betalingskort: {
       title: 'Betalingskort i appen',
-      reply: `På pladsen kan du <strong>kun betale med Beats</strong> — så dit kort bruges kun til at fylde Beats op. Det behøver du ikke oprette på forhånd:`,
+      reply: `Nej, du behøver ikke sætte dit kort op i appen på forhånd. På festivalen betaler du altid med Beats, og dit kort bruges kun til at købe Beats for.`,
       steps: [
-        '<strong>Engangs-optankning:</strong> Indtast kortoplysninger i købs-øjeblikket i appen, eller top op ved baren',
-        '<strong>Automatisk optankning (anbefalet):</strong> Tilknyt et kreditkort i appen, så Beats fyldes op automatisk når saldoen er lav',
-        'Du kan betale optankningen med <strong>kort, Apple Pay, Google Pay eller MobilePay</strong>',
-        'Ved engangs-køb gemmer vi <strong>ikke</strong> dine kortoplysninger — vi bruger kun kortet i det ene øjeblik'
+        'Du kan skrive kortoplysningerne ind i appen, den dag du køber Beats',
+        'Du kan betale ved baren, når du står der',
+        'Eller du kan gemme dit kort én gang og bruge <strong>automatisk optankning</strong>',
+        'Vi accepterer kort, Apple Pay, Google Pay og MobilePay'
       ],
-      followUp: 'Auto-optankning er den smarteste løsning — du risikerer aldrig at stå i kø med for få Beats.',
+      followUp: `<strong>Dine kortoplysninger er sikre.</strong> Vi ser aldrig selv dit kortnummer — det opbevares af vores betalingspartner, på samme sikkerhedsniveau som din bank bruger, og helt som når du handler i en webshop.`,
       related: ['beats', 'auto_optankning', 'betaling', 'kort_typer']
     },
 
     kort_typer: {
       title: 'Hvilke betalingskort virker?',
-      reply: `På pladsen handler du kun med <strong>Beats</strong> — dine kort bruges altså kun til at fylde Beats op. Og der er fuld fleksibilitet:`,
+      reply: `De mest almindelige kort og betalingsmetoder virker fint:`,
       steps: [
-        '<strong>Visa</strong> og <strong>Mastercard</strong> — både debet og kredit',
-        '<strong>Apple Pay</strong> og <strong>Google Pay</strong> — bare vælg den ved optankning',
-        '<strong>MobilePay</strong> — nemt og hurtigt',
-        '<strong>Dankort</strong> — fungerer som alle andre kort',
-        'Du kan fylde Beats op <strong>i appen</strong> eller <strong>direkte ved baren</strong>'
+        'Visa og Mastercard — både debet- og kreditkort',
+        'Dankort',
+        'Apple Pay og Google Pay, hvis du bruger dem',
+        'MobilePay',
+        'På selve festivalen handler du altid med Beats. Dit kort bruges kun til at købe Beats for'
       ],
-      followUp: 'Vi accepterer <strong>ikke</strong> kontanter — al betaling foregår digitalt. Det betyder kortere køer og hurtigere betjening, så du kan bruge mere tid på musikken.',
+      followUp: 'Vi tager ikke imod kontanter. Det er for at holde køerne korte, så du får mere tid til musikken.',
       related: ['betalingskort', 'auto_optankning', 'betaling', 'beats']
     },
 
     ingen_mobilpay: {
-      title: 'Uden Apple Pay / MobilePay',
-      reply: 'Ingen Apple Pay eller MobilePay? Ingen problem — appen spiller med alt:',
+      title: 'Uden Apple Pay eller MobilePay',
+      reply: 'Det gør ikke noget. Du behøver ingen af delene for at bruge appen.',
       steps: [
-        '<strong>Fyld Beats op i appen</strong> med et helt almindeligt betalingskort (Visa/Mastercard)',
-        '<strong>Top op direkte ved baren</strong> hvis du hellere vil gøre det på dagen',
-        '<strong>Automatisk optankning:</strong> Tilknyt dit kort én gang, så ordner appen resten',
-        'Du behøver altså hverken Apple Pay eller MobilePay — et <strong>almindeligt kort</strong> er nok'
+        'Du kan betale med et helt almindeligt betalingskort (Visa, Mastercard eller Dankort)',
+        'Det virker både i appen og ved baren',
+        'Du kan også gemme kortet én gang i appen og bruge automatisk optankning',
+        'Apple Pay og MobilePay er kun et alternativ — ikke et krav'
       ],
-      followUp: 'Med appen er du godt dækket ind uanset hvilken betalingsløsning du plejer at bruge. Slå auto-optankning til og glem alt om kort-bøvl på pladsen.',
+      followUp: 'Kortet er nok. Det er den enkleste vej til at være med.',
       related: ['betalingskort', 'auto_optankning', 'kort_typer', 'beats']
     },
 
     ingen_wallet: {
       title: 'Kort ikke i telefonens wallet',
-      reply: 'Du behøver <strong>slet ikke</strong> have dit kort i telefonens wallet for at bruge appen:',
+      reply: 'Det er helt i orden. Du behøver slet ikke have dit kort liggende i telefonens wallet for at bruge vores app.',
       steps: [
-        '<strong>Fyld Beats op direkte i appen</strong> — indtast kortoplysninger manuelt ved optankning',
-        '<strong>Top op ved baren</strong> hvis det er nemmest for dig',
-        '<strong>Auto-optankning:</strong> Tilknyt dit kort én gang — så fylder appen selv op, når du er ved at løbe tør',
-        'Apple Pay / Google Pay er blot én af flere muligheder — <strong>ikke et krav</strong>'
+        'Du kan skrive dit kortnummer ind i appen, når du køber Beats',
+        'Du kan fylde op ved baren, hvis du hellere vil gøre det på dagen',
+        'Du kan gemme dit kort én gang og bruge automatisk optankning',
+        'Apple Pay og Google Pay er kun bonus, ikke et krav'
       ],
-      followUp: 'Har du et betalingskort (Visa/Mastercard/Dankort), så har appen dig dækket. Det er hele pointen — én app til det hele.',
+      followUp: 'Har du et helt almindeligt betalingskort, er du godt dækket ind.',
       related: ['betalingskort', 'auto_optankning', 'kort_typer', 'ingen_mobilpay']
     },
 
     auto_optankning: {
       title: 'Automatisk optankning af Beats',
-      reply: `Det her er en af appens smarteste features — <strong>auto-optankning</strong> sørger for at du <em>aldrig</em> står og mangler Beats:`,
+      reply: `Ja. Hvis du vil, kan appen fylde dine Beats op af sig selv — så du aldrig pludselig står og mangler penge på festivalen.`,
       steps: [
-        'Gå til <strong>"Wallet"</strong> i appen og tryk <strong>"Automatisk optankning"</strong>',
-        'Tilknyt dit <strong>kreditkort</strong> én gang',
-        'Vælg hvornår der skal fyldes op — f.eks. når saldoen går under 100 Beats',
-        'Vælg optankningsbeløb — f.eks. 300 Beats ad gangen',
-        'Færdig! Du bliver aldrig stoppet ved baren med "for få Beats"'
+        'Åbn appen og gå ind i "Wallet"',
+        'Tryk på "Automatisk optankning"',
+        'Tilknyt dit kort',
+        'Vælg, hvornår der skal fyldes op — f.eks. når du har færre end 100 Beats tilbage',
+        'Vælg, hvor meget der skal fyldes på — f.eks. 300 Beats ad gangen'
       ],
-      followUp: 'Helt ærligt: dette er hele grunden til at appen er så behagelig. Køb en runde til vennerne uden at tjekke saldo — appen klarer resten i baggrunden.',
+      followUp: '<strong>Dit kort ligger trygt.</strong> Vi gemmer ikke selv dit kortnummer — det opbevares sikkert af vores betalingspartner, på samme måde som når du bruger netbank eller handler online. Du kan til enhver tid slå automatisk optankning fra inde i appen.',
       related: ['beats', 'betalingskort', 'betaling']
     },
 
@@ -787,41 +787,41 @@ function getKB() {
     // FAQ — Sikkerhed & Mistet mobil
     // ============================================================
     mistet_mobil: {
-      title: 'Mistet mobil / telefon',
-      reply: 'Mister du din telefon, er din konto stadig <strong>sikret</strong>:',
+      title: 'Mistet mobil eller telefon',
+      reply: 'Bare rolig. Dine billetter og dine Beats er sikre, også selvom du mister telefonen.',
       steps: [
-        'Din profil er beskyttet med <strong>MitID</strong> — ingen andre kan logge ind',
-        'Log ind på en <strong>ny enhed</strong> med din profil og verificér med MitID',
-        'Dine <strong>billetter og Beats</strong> følger din profil — ikke din telefon',
-        'Andre kan <strong>ikke misbruge</strong> din konto, selv hvis de har din telefon'
+        'Din konto er beskyttet med MitID. Ingen andre kan logge ind uden det',
+        'Dine billetter og dine Beats er knyttet til din profil — ikke til din telefon',
+        'Du kan bare logge ind på en ny eller lånt telefon, og så har du det hele igen',
+        'Andre kan ikke bruge dine billetter eller Beats, selvom de finder din telefon'
       ],
-      followUp: `Hvis du har brug for akut hjælp, kontakt os på <strong>${b.supportEmail}</strong> — vi kan spærre din konto med det samme.`,
+      followUp: `Har du brug for akut hjælp? Skriv til os på <strong>${b.supportEmail}</strong>. Vi kan spærre din konto med det samme, hvis du vil være helt sikker.`,
       related: ['datasikkerhed', 'misbrug', 'strøm']
     },
 
     misbrug: {
       title: 'Kan andre misbruge min konto?',
-      reply: '<strong>Nej</strong> — din konto er godt beskyttet:',
+      reply: 'Nej. Din konto er rigtig godt beskyttet.',
       steps: [
-        'Appen kræver <strong>MitID-login</strong> — andre kan ikke bare åbne den',
-        'Har din telefon <strong>kode/Face ID/fingeraftryk?</strong> Så er appen ekstra beskyttet',
-        'Selv uden telefonlås kan andre <strong>ikke overføre Beats</strong> eller billetter uden MitID',
-        `Ved mistanke: kontakt <strong>${b.supportEmail}</strong> — vi spærrer kontoen øjeblikkeligt`
+        'For at åbne appen skal man kunne logge ind med MitID. Og det kan kun du',
+        'Er din telefon også låst med kode, Face ID eller fingeraftryk, er der et ekstra lag beskyttelse',
+        'Selv hvis nogen kommer ind i telefonen, kan de ikke flytte dine Beats eller billetter uden MitID',
+        `Ved mistanke om misbrug: skriv til os på <strong>${b.supportEmail}</strong>. Vi spærrer din konto med det samme`
       ],
-      followUp: 'Kort sagt: det kræver MitID at gøre noget vigtigt i appen, og MitID kan kun du bruge.',
+      followUp: 'Kort sagt: det kræver MitID at gøre noget vigtigt i appen. Og MitID kan kun du selv bruge.',
       related: ['mistet_mobil', 'datasikkerhed']
     },
 
     datasikkerhed: {
       title: 'Er mine oplysninger sikret?',
-      reply: 'Ja — vi tager datasikkerhed meget alvorligt:',
+      reply: 'Ja. Du kan være helt rolig — vi passer godt på dine oplysninger.',
       steps: [
-        '<strong>MitID-data</strong> bruges kun til verificering — vi gemmer ingen personnumre',
-        '<strong>Kortoplysninger</strong> håndteres af vores betalingspartner — samme sikkerhedsniveau som din bank bruger. Vi ser dem aldrig',
-        '<strong>Krypteret kommunikation</strong> — al data overføres via sikre forbindelser (HTTPS/TLS)',
-        'Vi overholder <strong>GDPR</strong> og opbevarer kun nødvendige oplysninger'
+        '<strong>MitID</strong> bruger vi kun til at bekræfte, hvem du er. Vi gemmer ikke dit CPR-nummer',
+        '<strong>Dit kortnummer</strong> ser vi aldrig. Det bliver håndteret af vores betalingspartner — på samme sikkerhedsniveau som din bank bruger',
+        '<strong>Alle oplysninger</strong> sendes krypteret — altså i en form, som ingen andre kan læse',
+        'Vi overholder <strong>GDPR</strong> og gemmer kun det, vi har brug for'
       ],
-      followUp: 'Dine data er i trygge hænder. Vi deler aldrig dine oplysninger med tredjepart uden dit samtykke.',
+      followUp: 'Vi deler aldrig dine oplysninger med andre uden dit samtykke.',
       related: ['misbrug', 'mistet_mobil', 'mitid']
     },
 
@@ -830,27 +830,27 @@ function getKB() {
     // ============================================================
     strøm: {
       title: 'Løber tør for strøm',
-      reply: 'Her viser appen og armbåndet deres værd — du er dækket ind selv hvis telefonen dør:',
+      reply: 'Bare rolig. Du er stadig dækket ind, selvom telefonen løber tør.',
       steps: [
-        '<strong>NFC-armbåndet virker uden telefon</strong> — det er koblet til din profil og dine Beats',
-        'På pladsen betales der <strong>kun med Beats</strong> — og dem trækker du direkte via armbåndet',
-        'Ved indgangen: Personalet kan <strong>scanne dit armbånd</strong> i stedet for appen',
-        '<strong>Tip:</strong> Lad op inden du tager afsted, og overvej en powerbank — men armbåndet er din forsikring'
+        'Chip-armbåndet er koblet til din profil og dine Beats — og virker uden telefon',
+        'Ved baren holder du bare armbåndet op til terminalen. Så trækkes dine Beats derfra',
+        'Ved indgangen kan personalet scanne dit armbånd i stedet for din billet',
+        'Et godt råd: Lad telefonen op inden du tager afsted, og overvej en powerbank — men armbåndet er din sikring'
       ],
-      followUp: 'Dit NFC-armbånd og dine Beats virker selv om telefonen er slukket — det er hele pointen med armbåndet. Har du også slået auto-optankning til, fyldes dine Beats automatisk op via dit tilknyttede kort.',
+      followUp: 'Dine Beats og din adgang er koblet til din profil, ikke til din telefon. Så selv hvis skærmen bliver sort, virker armbåndet stadig.',
       related: ['armbånd', 'offline', 'auto_optankning', 'betaling']
     },
 
     offline: {
       title: 'Ingen netforbindelse',
-      reply: 'Dårlig forbindelse? Ingen panik:',
+      reply: 'Det er der også tænkt på. Appen er lavet til at kunne håndtere dårligt signal.',
       steps: [
-        '<strong>NFC-armbåndet virker offline</strong> — betaling og identifikation kører via armbåndets chip',
-        'Din <strong>billet-QR-kode</strong> caches i appen, så den virker uden net ved indgangen',
-        '<strong>Beats-balance</strong> opdateres, når du får forbindelse igen',
-        '<strong>Tip:</strong> Åbn appen og din billet <strong>inden du ankommer</strong>, så er den klar i cache'
+        'Chip-armbåndet virker helt uden internet — betaling og adgang kører igennem selve chippen',
+        'Din billet bliver gemt i appen, så den virker uden net ved indgangen',
+        'Din Beats-saldo bliver opdateret igen, så snart du har forbindelse',
+        'Et godt råd: Åbn din billet i appen, mens du har et godt signal — gerne før du når frem'
       ],
-      followUp: 'Vi anbefaler at åbne appen og tjekke din billet mens du har god forbindelse — så er du klar uanset netdækning.',
+      followUp: 'Så har du din billet klar, uanset hvordan signalet er, når du står ved indgangen.',
       related: ['strøm', 'armbånd', 'indgang_problem']
     },
 
@@ -859,15 +859,15 @@ function getKB() {
     // ============================================================
     ingen_smartphone: {
       title: 'Ingen smartphone',
-      reply: `Du skal stadig have en <strong>profil</strong> for at deltage i ${b.event.name} — men du behøver ikke nødvendigvis en smartphone på selve dagen:`,
+      reply: `Du kan sagtens være med, selvom du ikke har en smartphone. Løsningen er vores webshop og et chip-armbånd, som du får udleveret ved Service Desk, når du kommer til ${b.event.name}.`,
       steps: [
-        '<strong>Du skal have en profil:</strong> Opret din profil og verificér med MitID — det kan gøres på en computer eller en lånt telefon',
-        'Bed nogen om at <strong>claime din billet</strong> i deres app og <strong>overføre den</strong> til din profil via email-link',
-        'Acceptér overførslen fra en computer eller lånt enhed',
-        'Ved indgangen kan du <strong>købe et NFC-armbånd</strong> (ca. 50 kr.) — det kobles til din profil og fungerer som din adgang og betalingsmiddel',
-        `For <strong>særlige behov</strong> — kontakt os på <strong>${b.supportEmail}</strong>`
+        '<strong>Opret en profil i webshoppen</strong> — det kan du gøre på en almindelig computer eller en lånt enhed. Profilen bekræfter du med MitID',
+        '<strong>Tilknyt din billet i webshoppen</strong> — du indtaster billetkoden, der står på din billet, og så er den knyttet til din profil',
+        '<strong>Køb et chip-armbånd i webshoppen</strong> — armbåndet bestilles på forhånd og udleveres ved <strong>Service Desk</strong>, når du ankommer',
+        '<strong>Brug armbåndet som billet og pung</strong> — du holder det op til scanneren ved indgangen og ved baren',
+        'Du kan fylde Beats på armbåndet via webshoppen eller ved baren på dagen'
       ],
-      followUp: `En profil er påkrævet uanset hvad — men selve smartphone-appen er ikke nødvendig på dagen, hvis du har et armbånd. Skriv til <strong>${b.supportEmail}</strong> inden festivalen, så finder vi den bedste løsning.`,
+      followUp: `Bestil armbåndet i god tid i webshoppen, så er det klar til afhentning, når du kommer. Har du særlige behov, så skriv endelig til os på <strong>${b.supportEmail}</strong>. Vi finder den bedste løsning for dig.`,
       related: ['ældre_telefon', 'børn', 'profil', 'armbånd', 'kontakt']
     },
 
@@ -901,16 +901,16 @@ function getKB() {
     },
 
     børn: {
-      title: 'Børn under 15 / Ledsager',
-      reply: 'Børn under 15 og ledsagere behøver <strong>hverken app, telefon eller profil</strong>:',
+      title: 'Børn og ledsagere',
+      reply: 'Det er helt i orden. Børn under 15 og ledsagere behøver hverken egen telefon, app eller profil.',
       steps: [
-        '<strong>Tilknyt barn:</strong> Gå til "Dine billetter" → vælg en adgang → tryk "Tilknyt barn" → indtast navn og alder (0–14 år)',
-        '<strong>Tilknyt ledsager:</strong> Samme flow — tryk "Tilknyt ledsager" → indtast navn og evt. relation',
-        'Ved indgangen fremviser <strong>du din app</strong>, og I kommer begge ind',
-        '<strong>Chip-armbånd:</strong> Køb et armbånd der knyttes til din profil — barnet/ledsageren kan gå rundt på egen hånd og handle på din Beats-konto',
-        'Tilknytningen er <strong>ikke permanent</strong> — du kan ændre den efterfølgende'
+        'Gå til "Dine billetter" i appen',
+        'Vælg en adgang, og tryk på "Tilknyt barn" (eller "Tilknyt ledsager")',
+        'Skriv navnet og alderen (0 til 14 år for børn)',
+        'Ved indgangen viser du selv din app, og I går ind sammen',
+        'Vil barnet gerne kunne gå rundt på egen hånd? Så kan I købe et chip-armbånd, som kobles til din profil'
       ],
-      followUp: 'Tilknytning er ikke en overførsel — adgangen forbliver på din profil. Du er ansvarlig for tilknyttede personer ved ind- og udgang.',
+      followUp: '<strong>Du har fuld kontrol.</strong> Armbåndet er koblet til din profil, så du kan følge med i, hvad barnet køber — direkte i din app. Du bestemmer også, hvor mange Beats der er til rådighed.',
       related: ['billet', 'armbånd', 'profil', 'uddel_billetter']
     },
 
@@ -1030,14 +1030,14 @@ function getKB() {
     // ============================================================
     indgang_problem: {
       title: 'App virker ikke ved indgangen',
-      reply: 'Hvis appen driller ved indgangen — bare rolig:',
+      reply: 'Bare rolig. Selv hvis appen skulle drille, kommer du ind. Vi har flere måder at hjælpe dig på.',
       steps: [
-        '<strong>Prøv at lukke og åbne appen</strong> — det løser de fleste problemer',
-        '<strong>Vis dit NFC-armbånd</strong> — personalet kan scanne det i stedet',
-        '<strong>Intet virker?</strong> Gå til <strong>info-standen</strong> ved indgangen',
-        'Personalet kan <strong>slå din billet op</strong> på navn og hjælpe dig ind'
+        'Prøv først at lukke appen helt og åbne den igen — det løser næsten alt',
+        'Har du et chip-armbånd, så vis det — personalet kan scanne det i stedet',
+        'Virker intet? Gå hen til info-standen ved indgangen',
+        'Personalet kan altid slå din billet op på dit navn og hjælpe dig ind'
       ],
-      followUp: 'Vi har altid personale klar ved indgangen til at hjælpe. Du kommer ind — det sørger vi for!',
+      followUp: 'Vi har altid personale klar ved indgangen til at hjælpe. Du bliver ikke afvist.',
       related: ['billet', 'armbånd', 'offline', 'strøm']
     }
   };

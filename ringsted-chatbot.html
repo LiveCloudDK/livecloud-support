@@ -793,10 +793,11 @@ function getKB() {
         'Din konto er beskyttet med MitID. Ingen andre kan logge ind uden det',
         'Dine billetter og dine Beats er knyttet til din profil — ikke til din telefon',
         'Du kan bare logge ind på en ny eller lånt telefon, og så har du det hele igen',
-        'Andre kan ikke bruge dine billetter eller Beats, selvom de finder din telefon'
+        'Andre kan ikke bruge dine billetter eller Beats, selvom de finder din telefon',
+        '<strong>Er du på festivalen?</strong> Køb et chip-armbånd ved Service Desk og få det knyttet til din profil — så kan du fortsætte, indtil du er tilbage på en telefon'
       ],
       followUp: `Har du brug for akut hjælp? Skriv til os på <strong>${b.supportEmail}</strong>. Vi kan spærre din konto med det samme, hvis du vil være helt sikker.`,
-      related: ['datasikkerhed', 'misbrug', 'strøm']
+      related: ['datasikkerhed', 'misbrug', 'strøm', 'armbånd']
     },
 
     misbrug: {
@@ -919,41 +920,42 @@ function getKB() {
     // ============================================================
     uddel_billetter: {
       title: 'Uddel billetter til andre',
-      reply: 'Har du købt flere billetter? Sådan fordeler du dem:',
+      reply: 'Har du købt flere billetter — fx til venner eller familie — skal de uddeles og aktiveres på hver enkelt modtagers egen profil. Du kan nemlig som udgangspunkt kun have én aktiv billet selv.',
       steps: [
-        'Åbn appen og gå til <strong>"Mine billetter"</strong>',
-        'Vælg en billet og tryk <strong>"Overfør"</strong>',
-        'Indtast <strong>modtagerens email</strong> — de får et link',
-        'Gentag for <strong>hver billet</strong> du vil uddele',
-        'Modtageren opretter profil med MitID og accepterer billetten'
+        'Åbn appen og gå til "Mine billetter"',
+        'Vælg en billet og tryk "Overfør"',
+        'Indtast modtagerens e-mailadresse — de får et link',
+        'Gentag for hver billet, du vil uddele',
+        'Modtageren skal have en profil, bekræftet med MitID, for at acceptere'
       ],
-      followUp: 'Du kan overføre billetter <strong>én ad gangen</strong>. Hver modtager skal have sin egen profil med MitID.',
+      followUp: 'Det gælder også for enkelte dage af en partout-billet. MitID-kravet sikrer, at billetten kommer frem til den rigtige person — og at ingen kan snyde sig til en billet.',
       related: ['transfer', 'overdrag_dage', 'flere_billetter']
     },
 
     overdrag_dage: {
-      title: 'Overdrag enkeltdage',
-      reply: 'Har du en flerdages-billet og vil give en dag væk?',
+      title: 'Overdrag enkelte dage',
+      reply: 'Ja, det kan du sagtens. Har du en partout-billet (eller anden billet over flere dage), kan du uddele en eller flere enkelte dage til andre.',
       steps: [
-        'En flerdages-billet kan <strong>ikke splittes op i enkeltdage</strong>',
-        'Du kan overføre <strong>hele billetten</strong> til en anden person',
-        'Alternativt: Lån dit <strong>NFC-armbånd</strong> til en ven for en dag (armbåndet giver adgang)',
-        `For <strong>særlige arrangementer</strong> — kontakt <strong>${b.supportEmail}</strong>`
+        'Åbn appen og gå til "Mine billetter"',
+        'Vælg den dag, du vil give videre',
+        'Tryk "Overfør", og skriv modtagerens e-mailadresse',
+        'Modtageren får et link og skal acceptere i sin egen app',
+        'Modtageren skal have en profil, bekræftet med MitID'
       ],
-      followUp: 'Husk: armbåndet er knyttet til din profil. Hvis du låner det ud, har den anden person også adgang til dine Beats.',
-      related: ['transfer', 'uddel_billetter', 'armbånd']
+      followUp: 'De dage, du ikke uddeler, bliver på din egen billet. Bemærk: Din profil, billet og Beats er strengt personlige — du må ikke bare låne dit eget armbånd eller din app ud.',
+      related: ['transfer', 'uddel_billetter', 'armbånd', 'vilkår_overførsel']
     },
 
     flere_billetter: {
       title: 'Flere billetter i appen',
-      reply: '<strong>Ja!</strong> Du kan have flere billetter i din app:',
+      reply: 'Du kan som udgangspunkt kun have <strong>én aktiv billet</strong> på din profil. Dog gælder én undtagelse: dine børns billetter kan godt være knyttet til din profil.',
       steps: [
-        'Alle billetter du claimer vises under <strong>"Mine billetter"</strong>',
-        'Du kan have <strong>billetter til forskellige events</strong> samtidig',
-        'Du kan også <strong>holde billetter for andre</strong> midlertidigt, inden du overfører dem',
-        'Ved indgangen vælger du <strong>hvilken billet</strong> der skal scannes'
+        'Har du købt flere billetter — fx til venner eller familie — skal de uddeles',
+        'Hver enkelt billet skal aktiveres på modtagerens egen profil',
+        'Modtageren skal have en profil, bekræftet med MitID',
+        'Du uddeler billetterne én ad gangen fra "Mine billetter"'
       ],
-      followUp: 'Husk at overføre billetter til de rigtige personer inden festivalen — hver person skal have sin egen billet i sin egen profil for at komme ind.',
+      followUp: 'Én billet pr. profil sikrer, at der ikke kan snydes med billetter, og at hver person er entydigt bekræftet. Det beskytter både dig og festivalen.',
       related: ['billet', 'uddel_billetter', 'transfer']
     },
 
@@ -961,41 +963,42 @@ function getKB() {
     // FAQ — Beats & Penge
     // ============================================================
     indsæt_penge: {
-      title: 'Indsæt Beats til andre',
-      reply: 'Ja, du kan sætte Beats ind til andre — f.eks. børn eller medarbejdere:',
+      title: 'Give Beats til børn eller medarbejdere',
+      reply: 'Du kan ikke overføre Beats direkte til andre. Men du kan i stedet knytte deres chip-armbånd til din profil — så trækker deres køb fra dine Beats.',
       steps: [
-        'Den anden person skal have et <strong>NFC-armbånd</strong> koblet til en profil',
-        'Åbn <strong>"Beats"</strong> i din app og tryk <strong>"Send Beats"</strong>',
-        'Vælg <strong>modtager</strong> og <strong>beløb</strong>',
-        'Beats overføres <strong>med det samme</strong> til modtagerens armbånd'
+        'Du kan knytte et eller flere armbånd til din profil',
+        'Når fx dit barn køber noget med sit armbånd, trækkes beløbet fra <strong>dine</strong> Beats',
+        'Du kan sætte et <strong>maks-forbrug</strong> per armbånd',
+        'Du kan altid se i appen, hvad hvert armbånd har brugt — i realtid'
       ],
-      followUp: 'For børn: Deres armbånd kan kobles til din profil, så du har fuld kontrol over deres forbrug direkte i din app.',
-      related: ['beats', 'børn', 'betal_for_andre']
+      followUp: 'Det er en tryg måde at give børn frihed på egen hånd, uden at give slip på økonomien. Du kan altid justere maks-grænsen eller fjerne armbåndet igen.',
+      related: ['beats', 'børn', 'betal_for_andre', 'maks_forbrug']
     },
 
     betal_for_andre: {
-      title: 'Betal for venner / familie',
-      reply: '<strong>Ja!</strong> Du kan nemt betale for andre:',
+      title: 'Betal for venner eller familie',
+      reply: 'Ja, det er nemt. Du kan ikke overføre Beats direkte til andre, men du kan traktere på flere andre måder:',
       steps: [
-        '<strong>Ved baren:</strong> Brug dit eget armbånd eller kort — du betaler bare ekstra',
-        '<strong>Send Beats:</strong> Overfør Beats fra din app til deres armbånd',
-        '<strong>Køb Beats til børn:</strong> Sæt Beats direkte ind på børnenes armbånd fra din app',
-        'Der er <strong>ingen grænse</strong> for hvor mange du kan traktere!'
+        '<strong>Pre-bestilling i appen:</strong> Bestil en runde til dig og dine venner direkte i appen. Beats trækkes fra din saldo',
+        '<strong>Bordbestilling:</strong> Udvalgte steder kan du få bragt bestillingen ud til jer — I slipper for køen',
+        '<strong>Ved baren:</strong> Bestil for hele flokken, og betal med din app eller dit armbånd. Beats trækkes fra din saldo',
+        '<strong>For børn:</strong> Knyt deres armbånd til din profil — så trækkes deres køb direkte fra dine Beats'
       ],
-      followUp: 'Den nemmeste måde er at købe en runde med dit eget armbånd — ligesom du ville betale med kort i enhver bar.',
+      followUp: 'Der er ingen grænse for, hvor mange du kan invitere på en omgang. Og med pre-bestilling slipper I helt for køen.',
       related: ['indsæt_penge', 'beats', 'betaling']
     },
 
     maks_forbrug: {
-      title: 'Sæt maks forbrug',
-      reply: 'Du kan styre dit forbrug på flere måder:',
+      title: 'Sæt et maks-forbrug',
+      reply: 'Ja. Særligt hvis du har børn eller medarbejdere med armbånd, har du god kontrol direkte i appen.',
       steps: [
-        '<strong>Køb kun det antal Beats du vil bruge</strong> — når de er opbrugt, stopper forbruget',
-        'Du har <strong>fuld oversigt</strong> over alle køb i appen under "Historik"',
-        '<strong>For børn:</strong> Sæt kun et bestemt antal Beats ind på deres armbånd',
-        'En dedikeret maks-grænse-funktion er <strong>under udvikling</strong>'
+        '<strong>For armbånd knyttet til din profil:</strong> Du kan sætte et maks-beløb per armbånd',
+        'Når grænsen er nået, kan der ikke købes mere med det armbånd',
+        'Du kan altid justere eller fjerne grænsen igen',
+        'For dit eget forbrug: Køb kun det antal Beats, du vil bruge — og lad være med at slå automatisk optankning til',
+        'Tjek din historik i appen for fuld oversigt over alle køb'
       ],
-      followUp: 'Beats er den bedste måde at kontrollere forbrug — køb et fast beløb, og når de er brugt, er de brugt.',
+      followUp: 'Du ser forbruget i realtid, så du ved præcis, hvor meget der er brugt — både dit eget og dine børns.',
       related: ['indsæt_penge', 'beats', 'købshistorik']
     },
 
@@ -1013,21 +1016,49 @@ function getKB() {
     },
 
     refundering: {
-      title: 'Refundering af Beats / billet',
-      reply: 'Angående tilbagebetaling:',
+      title: 'Refundering af Beats eller billet',
+      reply: 'Har du Beats tilbage efter festivalen, har du to muligheder:',
       steps: [
-        '<strong>Ubrugte Beats</strong> kan refunderes efter festivalen — beløbet returneres til dit betalingskort',
+        '<strong>Få pengene retur:</strong> Ubrugte Beats kan refunderes efter festivalen, mod et mindre gebyr. Beløbet returneres til det kort, du købte Beats for',
+        '<strong>Lad dem stå til næste år:</strong> Du kan gemme dine Beats og bruge dem til næste års billet — det er gratis',
         '<strong>Billetrefundering</strong> afhænger af arrangørens vilkår',
-        `Kontakt <strong>${b.supportEmail}</strong> med dit <strong>navn</strong> og <strong>ordrenummer</strong>`,
-        'Vi behandler refunderinger indenfor <strong>5-10 hverdage</strong>'
+        `Kontakt <strong>${b.supportEmail}</strong> med dit navn og ordrenummer`,
+        'Vi behandler refunderinger inden for 5-10 hverdage'
       ],
-      followUp: `For refunderingsspørgsmål — skriv til <strong>${b.supportEmail}</strong>. Vi hjælper dig videre.`,
+      followUp: `Hvis du kommer igen til næste år, er det typisk nemmest at lade Beats stå — så er du klar fra start. Ellers skriv til <strong>${b.supportEmail}</strong>, så hjælper vi dig videre.`,
       related: ['beats', 'kontakt']
     },
 
     // ============================================================
     // FAQ — Indgang & Praktisk
     // ============================================================
+    personligt: {
+      title: 'Må jeg låne min telefon eller mit armbånd ud?',
+      reply: 'Nej. Din profil, din billet og dine Beats er <strong>strengt personlige</strong>.',
+      steps: [
+        'Du må ikke lade andre bruge din telefon med din billet i',
+        'Du må ikke låne dit chip-armbånd til nogen andre',
+        'Din adgang og dine Beats må kun bruges af dig selv',
+        'Skal nogen andre have adgang, så overfør billetten til deres egen profil',
+        'For børn og ledsagere: Tilknyt dem i appen, eller giv dem et eget armbånd knyttet til din profil'
+      ],
+      followUp: 'Reglen er lavet for at beskytte dig. Profil, billet og Beats er knyttet til dig og din MitID-bekræftelse. Låner du dem ud, kan både du og den anden person risikere at miste adgangen.',
+      related: ['vilkår_overførsel', 'uddel_billetter', 'børn']
+    },
+
+    pre_order: {
+      title: 'Pre-bestilling og bordservice',
+      reply: 'Ja. Du kan bruge appen til at slippe for at stå i kø.',
+      steps: [
+        '<strong>Pre-bestilling:</strong> Bestil drikkevarer eller mad til dig selv og dine venner direkte i appen',
+        '<strong>Bordbestilling:</strong> Udvalgte steder kan du bestille til bordet',
+        '<strong>Bestilling til lejeren:</strong> Udvalgte steder kan I få leveret direkte til jeres leje på pladsen',
+        'Alle bestillinger betales med Beats fra din saldo'
+      ],
+      followUp: 'Tjek i appen, hvilke steder der tilbyder pre-bestilling, bordbestilling eller levering. Det er ikke alle steder, der har det — men antallet vokser.',
+      related: ['beats', 'betal_for_andre', 'betaling']
+    },
+
     indgang_problem: {
       title: 'App virker ikke ved indgangen',
       reply: 'Bare rolig. Selv hvis appen skulle drille, kommer du ind. Vi har flere måder at hjælpe dig på.',
@@ -1064,6 +1095,8 @@ const keywordMap = [
 
   // Beats & Betaling
   { keys: ['auto', 'automatisk optankning', 'auto-optankning', 'automatisk beats', 'fyld op automatisk', 'tilknyt kort', 'auto optankning', 'autofyldning', 'auto-fyld', 'automatisk påfyldning'], topic: 'auto_optankning' },
+  { keys: ['låne telefon', 'låne armbånd', 'dele armbånd', 'personligt', 'strengt personlig', 'må andre bruge', 'låne ud', 'låne min app', 'dele min billet', 'give min billet', 'låne billet'], topic: 'personligt' },
+  { keys: ['pre-order', 'pre order', 'prebestilling', 'pre-bestilling', 'bordbestilling', 'bord bestilling', 'bestilling til bordet', 'bestilling til lejeren', 'levering til leje', 'slippe for kø', 'slippe for ko'], topic: 'pre_order' },
   { keys: ['beats', 'credits', 'festival valuta', 'saldo', 'køb beats', 'festivalvaluta', 'festival-credits', 'fyld op', 'optankning', 'top op', 'topop', 'topup'], topic: 'beats' },
   { keys: ['betalingskort', 'oprette kort', 'registrere kort', 'tilføje kort', 'kort i appen'], topic: 'betalingskort' },
   { keys: ['hvilke kort', 'kort virker', 'visa', 'mastercard', 'dankort'], topic: 'kort_typer' },

@@ -565,16 +565,16 @@ function getKB() {
     },
     beats: {
       title: 'Beats — Festival Credits',
-      reply: '<strong>Beats</strong> er din festival-valuta! Med Beats slipper du for kortkøen og får hurtigere betjening.',
+      reply: `<strong>Beats</strong> er festivalens valuta — og den <strong>eneste måde</strong> at betale på pladsen. Til gengæld slipper du for kortkøen og får lynhurtig betjening.`,
       steps: [
-        'Åbn appen og gå til <strong>"Wallet"</strong>',
-        'Tryk <strong>"Køb Beats"</strong> og vælg beløb',
-        'Betal med <strong>kort</strong> — pengene bliver til Beats i din wallet',
-        `Brug Beats til at <strong>betale i barer og boder</strong> til ${b.event.name}`,
-        'Du kan også købe Beats <strong>ved baren</strong> på selve dagen'
+        '<strong>Fyld Beats op i appen:</strong> Gå til "Wallet" → "Køb Beats" → vælg beløb',
+        '<strong>Fyld op i barerne:</strong> Du kan også toppe op direkte ved baren på dagen',
+        'Betal optankningen med <strong>kort, Apple Pay, Google Pay eller MobilePay</strong>',
+        '<strong>Automatisk optankning:</strong> Tilknyt et kreditkort i appen — så fyldes dine Beats op automatisk når saldoen er lav',
+        `Brug Beats til at <strong>handle i alle barer og boder</strong> til ${b.event.name}`
       ],
-      followUp: `${b.tipPrefix}: Køb Beats <strong>på forhånd</strong> i appen — så er du klar fra start og slipper for ventetid!`,
-      related: ['armbånd', 'betaling', 'wallet']
+      followUp: `${b.tipPrefix}: Slå <strong>automatisk optankning</strong> til i appen — så behøver du aldrig at tænke på om der er Beats nok til næste runde!`,
+      related: ['auto_optankning', 'armbånd', 'betaling', 'wallet']
     },
     armbånd: {
       title: 'NFC / Chip-armbånd',
@@ -591,14 +591,15 @@ function getKB() {
     },
     betaling: {
       title: 'Betaling',
-      reply: 'Du har flere måder at betale på:',
+      reply: `På festivalpladsen kan du <strong>kun betale med Beats</strong> — det er den eneste valuta i alle barer og boder.`,
       steps: [
-        '<strong>Beats (festival credits)</strong> — hurtigst! Forudkøbt i appen eller ved baren',
-        '<strong>Kontaktløs kortbetaling</strong> — Apple Pay, Google Pay eller fysisk kort',
-        '<strong>NFC-armbånd</strong> — hold armbåndet op til scanneren'
+        '<strong>Beats i appen</strong> — vis Beats-koden i appen ved betaling',
+        '<strong>NFC-armbånd</strong> — hold armbåndet op til scanneren (trækker fra dine Beats)',
+        'Beats fyldes op i appen eller direkte ved baren — med <strong>kort, Apple Pay, Google Pay eller MobilePay</strong>',
+        '<strong>Automatisk optankning:</strong> Tilknyt et kreditkort, så dine Beats fyldes op automatisk'
       ],
-      followUp: `${b.tipPrefix}: Beats giver <strong>hurtigere betjening</strong> og kortere kø. Køb dem i appen inden ${b.event.name}!`,
-      related: ['beats', 'armbånd', 'wallet']
+      followUp: `${b.tipPrefix}: Slå <strong>automatisk optankning</strong> til — så behøver du aldrig at tænke over om der er Beats nok til næste runde. Køb inden ${b.event.name}, eller top op ved baren på dagen.`,
+      related: ['beats', 'auto_optankning', 'armbånd', 'wallet']
     },
     wallet: {
       title: 'Din Wallet',
@@ -717,52 +718,69 @@ function getKB() {
     // ============================================================
     betalingskort: {
       title: 'Betalingskort i appen',
-      reply: 'Du behøver <strong>ikke oprette dit betalingskort i appen</strong> på forhånd:',
+      reply: `På pladsen kan du <strong>kun betale med Beats</strong> — så dit kort bruges kun til at fylde Beats op. Det behøver du ikke oprette på forhånd:`,
       steps: [
-        '<strong>Beats (anbefalet)</strong> — køb Beats i appen med kort eller MobilePay. De er klar med det samme',
-        '<strong>Kontaktløs betaling</strong> — brug Apple Pay, Google Pay eller dit fysiske kort direkte ved baren',
-        '<strong>MobilePay</strong> — også en mulighed til køb af Beats',
-        'Dit kort bruges kun i det øjeblik du køber Beats — vi gemmer <strong>ikke</strong> dine kortoplysninger'
+        '<strong>Engangs-optankning:</strong> Indtast kortoplysninger i købs-øjeblikket i appen, eller top op ved baren',
+        '<strong>Automatisk optankning (anbefalet):</strong> Tilknyt et kreditkort i appen, så Beats fyldes op automatisk når saldoen er lav',
+        'Du kan betale optankningen med <strong>kort, Apple Pay, Google Pay eller MobilePay</strong>',
+        'Ved engangs-køb gemmer vi <strong>ikke</strong> dine kortoplysninger — vi bruger kun kortet i det ene øjeblik'
       ],
-      followUp: 'Du vælger selv din betalingsmetode i købs-øjeblikket. Intet skal sættes op på forhånd.',
-      related: ['beats', 'betaling', 'kort_typer']
+      followUp: 'Auto-optankning er den smarteste løsning — du risikerer aldrig at stå i kø med for få Beats.',
+      related: ['beats', 'auto_optankning', 'betaling', 'kort_typer']
     },
 
     kort_typer: {
       title: 'Hvilke betalingskort virker?',
-      reply: 'Vi accepterer de mest gængse betalingsmetoder:',
+      reply: `På pladsen handler du kun med <strong>Beats</strong> — dine kort bruges altså kun til at fylde Beats op. Og der er fuld fleksibilitet:`,
       steps: [
         '<strong>Visa</strong> og <strong>Mastercard</strong> — både debet og kredit',
-        '<strong>Apple Pay</strong> og <strong>Google Pay</strong> — kontaktløs via mobilen',
-        '<strong>MobilePay</strong> — til køb af Beats i appen',
-        '<strong>Dankort</strong> — fysisk kontaktløs betaling ved baren'
+        '<strong>Apple Pay</strong> og <strong>Google Pay</strong> — bare vælg den ved optankning',
+        '<strong>MobilePay</strong> — nemt og hurtigt',
+        '<strong>Dankort</strong> — fungerer som alle andre kort',
+        'Du kan fylde Beats op <strong>i appen</strong> eller <strong>direkte ved baren</strong>'
       ],
-      followUp: 'Vi accepterer <strong>ikke</strong> kontanter. Al betaling foregår digitalt for en hurtigere oplevelse.',
-      related: ['betalingskort', 'betaling', 'beats']
+      followUp: 'Vi accepterer <strong>ikke</strong> kontanter — al betaling foregår digitalt. Det betyder kortere køer og hurtigere betjening, så du kan bruge mere tid på musikken.',
+      related: ['betalingskort', 'auto_optankning', 'betaling', 'beats']
     },
 
     ingen_mobilpay: {
       title: 'Uden Apple Pay / MobilePay',
-      reply: 'Ingen Apple Pay eller MobilePay? Ingen problem!',
+      reply: 'Ingen Apple Pay eller MobilePay? Ingen problem — appen spiller med alt:',
       steps: [
-        '<strong>Køb Beats i appen</strong> — du kan betale med et helt almindeligt betalingskort (Visa/Mastercard)',
-        '<strong>Fysisk kort ved baren</strong> — hold dit kontaktløse kort op til terminalen',
+        '<strong>Fyld Beats op i appen</strong> med et helt almindeligt betalingskort (Visa/Mastercard)',
+        '<strong>Top op direkte ved baren</strong> hvis du hellere vil gøre det på dagen',
+        '<strong>Automatisk optankning:</strong> Tilknyt dit kort én gang, så ordner appen resten',
         'Du behøver altså hverken Apple Pay eller MobilePay — et <strong>almindeligt kort</strong> er nok'
       ],
-      followUp: 'Beats er stadig den hurtigste måde at betale. Køb dem i appen med dit kort inden festivalen, og du er klar!',
-      related: ['betalingskort', 'kort_typer', 'beats']
+      followUp: 'Med appen er du godt dækket ind uanset hvilken betalingsløsning du plejer at bruge. Slå auto-optankning til og glem alt om kort-bøvl på pladsen.',
+      related: ['betalingskort', 'auto_optankning', 'kort_typer', 'beats']
     },
 
     ingen_wallet: {
       title: 'Kort ikke i telefonens wallet',
-      reply: 'Du behøver <strong>ikke</strong> have dit kort i telefonens wallet:',
+      reply: 'Du behøver <strong>slet ikke</strong> have dit kort i telefonens wallet for at bruge appen:',
       steps: [
-        '<strong>Køb Beats direkte i appen</strong> — indtast kortoplysninger manuelt ved køb',
-        'Eller <strong>brug dit fysiske kort</strong> kontaktløst ved baren',
-        'Apple Pay / Google Pay er blot en ekstra mulighed — <strong>ikke et krav</strong>'
+        '<strong>Fyld Beats op direkte i appen</strong> — indtast kortoplysninger manuelt ved optankning',
+        '<strong>Top op ved baren</strong> hvis det er nemmest for dig',
+        '<strong>Auto-optankning:</strong> Tilknyt dit kort én gang — så fylder appen selv op, når du er ved at løbe tør',
+        'Apple Pay / Google Pay er blot én af flere muligheder — <strong>ikke et krav</strong>'
       ],
-      followUp: 'Har du et betalingskort (Visa/Mastercard/Dankort), så er du dækket.',
-      related: ['betalingskort', 'kort_typer', 'ingen_mobilpay']
+      followUp: 'Har du et betalingskort (Visa/Mastercard/Dankort), så har appen dig dækket. Det er hele pointen — én app til det hele.',
+      related: ['betalingskort', 'auto_optankning', 'kort_typer', 'ingen_mobilpay']
+    },
+
+    auto_optankning: {
+      title: 'Automatisk optankning af Beats',
+      reply: `Det her er en af appens smarteste features — <strong>auto-optankning</strong> sørger for at du <em>aldrig</em> står og mangler Beats:`,
+      steps: [
+        'Gå til <strong>"Wallet"</strong> i appen og tryk <strong>"Automatisk optankning"</strong>',
+        'Tilknyt dit <strong>kreditkort</strong> én gang',
+        'Vælg hvornår der skal fyldes op — f.eks. når saldoen går under 100 Beats',
+        'Vælg optankningsbeløb — f.eks. 300 Beats ad gangen',
+        'Færdig! Du bliver aldrig stoppet ved baren med "for få Beats"'
+      ],
+      followUp: 'Helt ærligt: dette er hele grunden til at appen er så behagelig. Køb en runde til vennerne uden at tjekke saldo — appen klarer resten i baggrunden.',
+      related: ['beats', 'betalingskort', 'betaling']
     },
 
     // ============================================================
@@ -812,15 +830,15 @@ function getKB() {
     // ============================================================
     strøm: {
       title: 'Løber tør for strøm',
-      reply: 'Godt spørgsmål! Her er dine muligheder:',
+      reply: 'Her viser appen og armbåndet deres værd — du er dækket ind selv hvis telefonen dør:',
       steps: [
-        '<strong>NFC-armbåndet virker uden telefon</strong> — det er koblet til din profil og virker uafhængigt',
-        'Du kan stadig <strong>betale med fysisk kort</strong> kontaktløst ved baren',
-        '<strong>Tip:</strong> Lad op inden du tager afsted, og overvej en powerbank',
-        'Ved indgangen: Personalet kan <strong>scanne dit armbånd</strong> i stedet for appen'
+        '<strong>NFC-armbåndet virker uden telefon</strong> — det er koblet til din profil og dine Beats',
+        'På pladsen betales der <strong>kun med Beats</strong> — og dem trækker du direkte via armbåndet',
+        'Ved indgangen: Personalet kan <strong>scanne dit armbånd</strong> i stedet for appen',
+        '<strong>Tip:</strong> Lad op inden du tager afsted, og overvej en powerbank — men armbåndet er din forsikring'
       ],
-      followUp: 'Dit NFC-armbånd og dine Beats virker selv om telefonen er slukket — det er hele pointen med armbåndet!',
-      related: ['armbånd', 'offline', 'betaling']
+      followUp: 'Dit NFC-armbånd og dine Beats virker selv om telefonen er slukket — det er hele pointen med armbåndet. Har du også slået auto-optankning til, fyldes dine Beats automatisk op via dit tilknyttede kort.',
+      related: ['armbånd', 'offline', 'auto_optankning', 'betaling']
     },
 
     offline: {
@@ -1045,7 +1063,8 @@ const keywordMap = [
   { keys: ['billet', 'ticket', 'billetter', 'adgang', 'entre'], topic: 'billet' },
 
   // Beats & Betaling
-  { keys: ['beats', 'credits', 'festival valuta', 'saldo', 'køb beats', 'festivalvaluta', 'festival-credits'], topic: 'beats' },
+  { keys: ['auto', 'automatisk optankning', 'auto-optankning', 'automatisk beats', 'fyld op automatisk', 'tilknyt kort', 'auto optankning', 'autofyldning', 'auto-fyld', 'automatisk påfyldning'], topic: 'auto_optankning' },
+  { keys: ['beats', 'credits', 'festival valuta', 'saldo', 'køb beats', 'festivalvaluta', 'festival-credits', 'fyld op', 'optankning', 'top op', 'topop', 'topup'], topic: 'beats' },
   { keys: ['betalingskort', 'oprette kort', 'registrere kort', 'tilføje kort', 'kort i appen'], topic: 'betalingskort' },
   { keys: ['hvilke kort', 'kort virker', 'visa', 'mastercard', 'dankort'], topic: 'kort_typer' },
   { keys: ['apple pay', 'mobilepay', 'google pay', 'hverken apple', 'ingen mobilepay', 'ikke mobilepay', 'ikke har apple pay', 'ikke har mobilepay', 'har ikke apple pay', 'har ikke mobilepay'], topic: 'ingen_mobilpay' },

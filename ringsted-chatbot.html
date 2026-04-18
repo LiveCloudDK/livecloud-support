@@ -565,7 +565,7 @@ function getKB() {
     },
     beats: {
       title: 'Beats — festivalens egne penge',
-      reply: `<strong>Beats</strong> er festivalens egne penge. Du bruger Beats, når du handler i alle barer og boder på pladsen.`,
+      reply: `<strong>Beats</strong> er festivalens egne penge. Du bruger Beats, når du handler i alle barer og boder på pladsen. Dine Beats ligger på din <strong>profil</strong> i appen — sammen med din adgang til festivalen. Så ét sted samler både billet og pung.`,
       steps: [
         'Åbn appen og gå til "Wallet" — det er din digitale pung',
         'Tryk på "Køb Beats", og vælg beløb',
@@ -718,11 +718,12 @@ function getKB() {
     // ============================================================
     betalingskort: {
       title: 'Betalingskort i appen',
-      reply: `Nej, du behøver ikke sætte dit kort op i appen på forhånd. På festivalen betaler du altid med Beats, og dit kort bruges kun til at købe Beats for.`,
+      reply: `Nej, du behøver det ikke. Men det er faktisk en rigtig god idé, for det giver dig en nemmere festivaldag.`,
       steps: [
-        'Du kan skrive kortoplysningerne ind i appen, den dag du køber Beats',
-        'Du kan betale ved baren, når du står der',
-        'Eller du kan gemme dit kort én gang og bruge <strong>automatisk optankning</strong>',
+        'Du kan slå <strong>automatisk optankning</strong> til — så fyldes dine Beats op af sig selv',
+        'Du kan <strong>pre-bestille</strong> fra appen og slippe for køen',
+        'Du har hele tiden fuld oversigt over, hvad du har brugt',
+        'Alternativt kan du skrive kortoplysningerne ind hver gang, eller betale ved baren',
         'Vi accepterer kort, Apple Pay, Google Pay og MobilePay'
       ],
       followUp: `<strong>Dine kortoplysninger er sikre.</strong> Vi ser aldrig selv dit kortnummer — det opbevares af vores betalingspartner, på samme sikkerhedsniveau som din bank bruger, og helt som når du handler i en webshop.`,
@@ -745,24 +746,24 @@ function getKB() {
 
     ingen_mobilpay: {
       title: 'Uden Apple Pay eller MobilePay',
-      reply: 'Det gør ikke noget. Du behøver ingen af delene for at bruge appen.',
+      reply: 'Det gør ikke noget. Du behøver ingen af delene — et helt almindeligt betalingskort (Visa, Mastercard eller Dankort) er nok.',
       steps: [
-        'Du kan betale med et helt almindeligt betalingskort (Visa, Mastercard eller Dankort)',
-        'Det virker både i appen og ved baren',
-        'Du kan også gemme kortet én gang i appen og bruge automatisk optankning',
+        'Det smarteste er at gemme kortet i appen og slå <strong>automatisk optankning</strong> til',
+        'Så fylder appen selv dine Beats op, når du er ved at løbe tør',
+        'Alternativt kan du betale i appen hver gang, eller ved baren',
         'Apple Pay og MobilePay er kun et alternativ — ikke et krav'
       ],
-      followUp: 'Kortet er nok. Det er den enkleste vej til at være med.',
+      followUp: 'Kortet er nok. Og med auto-optankning behøver du aldrig at tænke over saldoen undervejs.',
       related: ['betalingskort', 'auto_optankning', 'kort_typer', 'beats']
     },
 
     ingen_wallet: {
       title: 'Kort ikke i telefonens wallet',
-      reply: 'Det er helt i orden. Du behøver slet ikke have dit kort liggende i telefonens wallet for at bruge vores app.',
+      reply: 'Det er helt i orden — vores app kræver det ikke. Men det kan alligevel være smart at gemme dit kort i appen, for så kan du bruge <strong>automatisk optankning</strong>. Så fyldes dine Beats op af sig selv.',
       steps: [
-        'Du kan skrive dit kortnummer ind i appen, når du køber Beats',
+        'Du kan skrive dit kortnummer ind i appen, når du sætter din Beats-konto op',
         'Du kan fylde op ved baren, hvis du hellere vil gøre det på dagen',
-        'Du kan gemme dit kort én gang og bruge automatisk optankning',
+        'Du kan gemme dit kort én gang og bruge automatisk optankning — det er det nemmeste',
         'Apple Pay og Google Pay er kun bonus, ikke et krav'
       ],
       followUp: 'Har du et helt almindeligt betalingskort, er du godt dækket ind.',
@@ -948,7 +949,7 @@ function getKB() {
 
     flere_billetter: {
       title: 'Flere billetter i appen',
-      reply: 'Du kan som udgangspunkt kun have <strong>én aktiv billet</strong> på din profil. Dog gælder én undtagelse: dine børns billetter kan godt være knyttet til din profil.',
+      reply: 'Når du aktiverer en billet på din profil, bliver den til en eller flere <strong>adgange</strong>. Som udgangspunkt kan du kun have én billet aktiv på din profil ad gangen (dine børns billetter kan dog godt ligge på din profil).',
       steps: [
         'Din billet kan indeholde <strong>flere adgange</strong> — fx en partout med torsdag, fredag og lørdag, eller en campingbillet som tilkøb. Det tæller stadig som én billet',
         'Har du købt flere billetter — fx til venner eller familie — skal de uddeles',

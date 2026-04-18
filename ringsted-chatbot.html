@@ -934,14 +934,15 @@ function getKB() {
     },
 
     overdrag_dage: {
-      title: 'Overdrag enkelte dage',
-      reply: 'Ja, det kan du sagtens. Har du en partout-billet (eller en anden billet med flere adgange), kan du uddele en eller flere af adgangene enkeltvis.',
+      title: 'Overdrag enkelte dage eller adgange',
+      reply: 'Ja, det kan du sagtens — så længe din billet indeholder <strong>flere adgange</strong>.',
       steps: [
+        'Det gælder fx en <strong>partout-billet</strong> (torsdag, fredag, lørdag) eller en <strong>glamcamp-billet</strong> med 2 eller 4 adgange',
         'Åbn appen og gå til "Mine billetter"',
-        'Vælg den adgang, du vil give videre — fx torsdag',
+        'Vælg den adgang, du vil give videre — fx torsdag, eller én af glamcamp-adgangene',
         'Tryk "Overfør", og skriv modtagerens e-mailadresse',
-        'Modtageren får et link og skal acceptere i sin egen app',
-        'Modtageren skal have en profil, bekræftet med MitID'
+        'Modtageren får et link og skal acceptere i sin egen app (bekræftet med MitID)',
+        '<strong>Almindelige campingbilletter</strong> dækker hele festivalens periode og kan kun overdrages som helhed — ikke stykkes ud'
       ],
       followUp: 'De adgange, du ikke uddeler, bliver på din egen billet. Bemærk: Din profil, billet og Beats er strengt personlige — du må ikke bare låne dit eget armbånd eller din app ud.',
       related: ['transfer', 'uddel_billetter', 'armbånd', 'vilkår_overførsel']
@@ -1091,7 +1092,7 @@ const keywordMap = [
   { keys: ['modtag', 'fået billet', 'nogen sendt', 'accepter', 'modtaget', 'tilsendt', 'fået tilsendt'], topic: 'modtag' },
   { keys: ['se billet', 'mine billet', 'vis billet', 'hvor er min billet', 'find billet'], topic: 'billet' },
   { keys: ['uddel', 'uddele', 'fordel billetter', 'dele billetter ud'], topic: 'uddel_billetter' },
-  { keys: ['overdrag dage', 'overdrage dage', 'enkeltdag', 'give en dag', 'låne dag', 'enkelt dag'], topic: 'overdrag_dage' },
+  { keys: ['overdrag dage', 'overdrage dage', 'enkeltdag', 'give en dag', 'låne dag', 'enkelt dag', 'glamcamp', 'glamping', 'campingbillet', 'camping billet', 'camping-billet', 'uddele adgang', 'uddele dag', 'partout dage'], topic: 'overdrag_dage' },
   { keys: ['flere billetter', 'mange billetter', 'mere end én billet', 'flere i appen'], topic: 'flere_billetter' },
   { keys: ['billet', 'ticket', 'billetter', 'adgang', 'entre'], topic: 'billet' },
 

@@ -934,15 +934,15 @@ function getKB() {
 
     overdrag_dage: {
       title: 'Overdrag enkelte dage',
-      reply: 'Ja, det kan du sagtens. Har du en partout-billet (eller anden billet over flere dage), kan du uddele en eller flere enkelte dage til andre.',
+      reply: 'Ja, det kan du sagtens. Har du en partout-billet (eller en anden billet med flere adgange), kan du uddele en eller flere af adgangene enkeltvis.',
       steps: [
         'Åbn appen og gå til "Mine billetter"',
-        'Vælg den dag, du vil give videre',
+        'Vælg den adgang, du vil give videre — fx torsdag',
         'Tryk "Overfør", og skriv modtagerens e-mailadresse',
         'Modtageren får et link og skal acceptere i sin egen app',
         'Modtageren skal have en profil, bekræftet med MitID'
       ],
-      followUp: 'De dage, du ikke uddeler, bliver på din egen billet. Bemærk: Din profil, billet og Beats er strengt personlige — du må ikke bare låne dit eget armbånd eller din app ud.',
+      followUp: 'De adgange, du ikke uddeler, bliver på din egen billet. Bemærk: Din profil, billet og Beats er strengt personlige — du må ikke bare låne dit eget armbånd eller din app ud.',
       related: ['transfer', 'uddel_billetter', 'armbånd', 'vilkår_overførsel']
     },
 
@@ -950,13 +950,14 @@ function getKB() {
       title: 'Flere billetter i appen',
       reply: 'Du kan som udgangspunkt kun have <strong>én aktiv billet</strong> på din profil. Dog gælder én undtagelse: dine børns billetter kan godt være knyttet til din profil.',
       steps: [
+        'Din billet kan indeholde <strong>flere adgange</strong> — fx en partout med torsdag, fredag og lørdag, eller en campingbillet som tilkøb. Det tæller stadig som én billet',
         'Har du købt flere billetter — fx til venner eller familie — skal de uddeles',
         'Hver enkelt billet skal aktiveres på modtagerens egen profil',
         'Modtageren skal have en profil, bekræftet med MitID',
-        'Du uddeler billetterne én ad gangen fra "Mine billetter"'
+        'Du kan uddele enkelte adgange fra din partout, hvis du vil (se "Overdrag enkelte dage")'
       ],
       followUp: 'Én billet pr. profil sikrer, at der ikke kan snydes med billetter, og at hver person er entydigt bekræftet. Det beskytter både dig og festivalen.',
-      related: ['billet', 'uddel_billetter', 'transfer']
+      related: ['billet', 'uddel_billetter', 'overdrag_dage', 'transfer']
     },
 
     // ============================================================

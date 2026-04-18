@@ -1426,13 +1426,34 @@ function applyTheme(brandKey) {
   activeBrand = 'ringsted';
   applyTheme('ringsted');
   chatArea.innerHTML = '';
+
+  // Deep-link support: ?topic=<name> opens a specific topic directly.
+  //                    ?q=<text>     sends a raw question through keyword matching.
+  const params = new URLSearchParams(window.location.search);
+  const deepTopic = params.get('topic');
+  const deepQuery = params.get('q');
+
   setTimeout(() => {
     addMessage('bot', brand().welcome);
     setTimeout(() => {
-      addMessage('bot', brand().welcomeFollowup);
-      setTimeout(() => {
-        addQuickReplies(['profil', 'claim', 'transfer', 'billet', 'beats', 'armbånd', 'program', 'event', 'app']);
-      }, 300);
+      if (deepTopic && getKB()[deepTopic]) {
+        // Simulate user asking about this topic, then answer it directly.
+        setTimeout(() => {
+          addMessage('user', getKB()[deepTopic].title);
+          setTimeout(() => handleTopic(deepTopic), 400);
+        }, 300);
+      } else if (deepQuery) {
+        setTimeout(() => {
+          addMessage('user', deepQuery);
+          const topic = findTopic(deepQuery);
+          setTimeout(() => { topic ? handleTopic(topic) : showFallback(); }, 400);
+        }, 300);
+      } else {
+        addMessage('bot', brand().welcomeFollowup);
+        setTimeout(() => {
+          addQuickReplies(['profil', 'claim', 'transfer', 'billet', 'beats', 'armbånd', 'program', 'event', 'app']);
+        }, 300);
+      }
     }, 500);
   }, 300);
 })();

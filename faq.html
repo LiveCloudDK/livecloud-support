@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ofte stillede spørgsmål — LiveCloud Support</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --bg-answer: #151821;
+    --text: #F0F0F5;
+    --text-muted: #8B8FA3;
+    --text-dim: #6B6F80;
+    --border: #2A2E3D;
+    --accent: #60A5FA;
+    --accent-dark: #3B82F6;
+    --accent-green: #5CB77A;
+    --accent-amber: #F59E0B;
+    --accent-purple: #A78BFA;
+    --accent-rose: #F472B6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 0 80px;
+  }
+
+  /* ── Header ── */
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .hero {
+    margin-bottom: 40px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(96, 165, 250, 0.1);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+  .hero p {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 620px;
+    line-height: 1.6;
+  }
+
+  /* ── Search ── */
+  .search {
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .search input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px 14px 44px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    outline: none;
+  }
+  .search input::placeholder { color: var(--text-dim); }
+  .search input:focus {
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
+  }
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    pointer-events: none;
+  }
+
+  /* ── Category nav ── */
+  .categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .cat-chip {
+    font-size: 13px;
+    padding: 7px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .cat-chip:hover {
+    background: var(--bg-card-hover);
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 40px;
+    scroll-margin-top: 24px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-icon.blue { background: rgba(96, 165, 250, 0.12); }
+  .section-icon.green { background: rgba(92, 183, 122, 0.12); }
+  .section-icon.amber { background: rgba(245, 158, 11, 0.12); }
+  .section-icon.purple { background: rgba(167, 139, 250, 0.12); }
+  .section-icon.rose { background: rgba(244, 114, 182, 0.12); }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+
+  /* ── FAQ item ── */
+  details {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: all 0.15s;
+  }
+  details[open] {
+    background: var(--bg-answer);
+    border-color: rgba(96, 165, 250, 0.3);
+  }
+  details:hover { border-color: rgba(96, 165, 250, 0.2); }
+
+  summary {
+    cursor: pointer;
+    padding: 16px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--text-muted);
+    border-bottom: 2px solid var(--text-muted);
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details[open] summary::after {
+    transform: rotate(-135deg);
+    border-color: var(--accent);
+  }
+  details[open] summary { color: var(--text); }
+
+  .answer {
+    padding: 0 20px 20px;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .answer p { margin-bottom: 10px; }
+  .answer p:last-child { margin-bottom: 0; }
+  .answer strong { color: var(--text); font-weight: 600; }
+  .answer ul { list-style: none; padding: 0; margin-bottom: 12px; }
+  .answer ul li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .answer ul li::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 15px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .callout {
+    background: rgba(96, 165, 250, 0.08);
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .chatbot-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 6px 12px;
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 16px;
+    transition: all 0.15s;
+  }
+  .chatbot-link:hover {
+    background: rgba(96, 165, 250, 0.15);
+    transform: translateX(2px);
+  }
+  .chatbot-link svg { transition: transform 0.15s; }
+  .chatbot-link:hover svg { transform: translateX(2px); }
+
+  /* ── Bottom CTA ── */
+  .cta {
+    margin-top: 48px;
+    padding: 28px;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(167, 139, 250, 0.08));
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 16px;
+    text-align: center;
+  }
+  .cta h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .cta p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #0F1117;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: all 0.15s;
+  }
+  .cta-btn:hover {
+    background: var(--accent-dark);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  .no-results {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    display: none;
+  }
+  .no-results.visible { display: block; }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .container { padding: 32px 0 60px; }
+    .hero h1 { font-size: 26px; }
+    summary { padding: 14px 16px; font-size: 14px; }
+    .answer { padding: 0 16px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Support</a>
+    <span>/</span>
+    <span style="color: var(--text);">Ofte stillede spørgsmål</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&#128172;</span>
+      Q&amp;A
+    </div>
+    <h1>Ofte stillede spørgsmål</h1>
+    <p>Her finder du svar på de mest almindelige spørgsmål om Ringsted Festival-appen, profilen, billetter, betaling og mere. Har du brug for uddybning, kan du altid chatte med vores support-bot.</p>
+  </div>
+
+  <!-- Search -->
+  <div class="search">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Søg i spørgsmål..." autocomplete="off">
+  </div>
+
+  <!-- Category nav -->
+  <div class="categories">
+    <a href="#payment" class="cat-chip">Betaling &amp; kort</a>
+    <a href="#beats" class="cat-chip">Beats &amp; penge</a>
+    <a href="#tickets" class="cat-chip">Billetter</a>
+    <a href="#security" class="cat-chip">Sikkerhed</a>
+    <a href="#connectivity" class="cat-chip">Strøm &amp; net</a>
+    <a href="#devices" class="cat-chip">Enheder</a>
+    <a href="#identity" class="cat-chip">MitID &amp; børn</a>
+  </div>
+
+  <!-- No results -->
+  <div class="no-results" id="noResults">
+    Ingen spørgsmål matcher din søgning. Prøv et andet ord eller <a href="ringsted-chatbot.html" style="color: var(--accent);">spørg chatbotten</a>.
+  </div>
+
+  <!-- ════════════════ Betaling & kort ════════════════ -->
+  <div class="section" id="payment" data-category="Betaling &amp; kort">
+    <div class="section-header">
+      <div class="section-icon blue">&#128179;</div>
+      <h2>Betaling &amp; kort</h2>
+    </div>
+
+    <details data-q="skal jeg oprette mit betalingskort i appen kort opret">
+      <summary>Skal jeg oprette mit betalingskort i appen?</summary>
+      <div class="answer">
+        <p><strong>Nej</strong> — du behøver ikke oprette dit betalingskort i appen på forhånd. Du har flere muligheder:</p>
+        <ul>
+          <li><strong>Beats (anbefalet)</strong> — køb Beats i appen med kort eller MobilePay. De er klar med det samme.</li>
+          <li><strong>Kontaktløs betaling</strong> — brug Apple Pay, Google Pay eller dit fysiske kort direkte ved baren.</li>
+          <li><strong>MobilePay</strong> — også en mulighed til køb af Beats.</li>
+        </ul>
+        <div class="callout">Dit kort bruges kun i det øjeblik du køber Beats — vi gemmer <strong>ikke</strong> dine kortoplysninger.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=betalingskort">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="hvilke betalingskort virker visa mastercard dankort apple pay google pay mobilepay">
+      <summary>Hvilke betalingskort virker?</summary>
+      <div class="answer">
+        <p>Vi accepterer de mest gængse betalingsmetoder:</p>
+        <ul>
+          <li><strong>Visa</strong> og <strong>Mastercard</strong> — både debet og kredit.</li>
+          <li><strong>Apple Pay</strong> og <strong>Google Pay</strong> — kontaktløs via mobilen.</li>
+          <li><strong>MobilePay</strong> — til køb af Beats i appen.</li>
+          <li><strong>Dankort</strong> — fysisk kontaktløs betaling ved baren.</li>
+        </ul>
+        <div class="callout">Vi accepterer <strong>ikke</strong> kontanter. Al betaling foregår digitalt for en hurtigere oplevelse.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=kort_typer">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="jeg har ikke lagt mit kort ind på telefonen i wallet apple">
+      <summary>Jeg har ikke lagt mit kort ind på telefonen (wallet)</summary>
+      <div class="answer">
+        <p>Du behøver <strong>ikke</strong> have dit kort i telefonens wallet:</p>
+        <ul>
+          <li><strong>Køb Beats direkte i appen</strong> — indtast kortoplysninger manuelt ved køb.</li>
+          <li><strong>Brug dit fysiske kort</strong> kontaktløst ved baren.</li>
+          <li>Apple Pay / Google Pay er blot en ekstra mulighed — <strong>ikke et krav</strong>.</li>
+        </ul>
+        <p>Har du et betalingskort (Visa/Mastercard/Dankort), så er du dækket.</p>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=ingen_wallet">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="jeg har hverken apple pay eller mobilepay">
+      <summary>Jeg har hverken Apple Pay eller MobilePay</summary>
+      <div class="answer">
+        <p>Ingen Apple Pay eller MobilePay? Ingen problem!</p>
+        <ul>
+          <li><strong>Køb Beats i appen</strong> — du kan betale med et helt almindeligt betalingskort (Visa/Mastercard).</li>
+          <li><strong>Fysisk kort ved baren</strong> — hold dit kontaktløse kort op til terminalen.</li>
+          <li>Du behøver hverken Apple Pay eller MobilePay — et <strong>almindeligt kort</strong> er nok.</li>
+        </ul>
+        <div class="callout">Beats er stadig den hurtigste måde at betale. Køb dem i appen med dit kort inden festivalen, og du er klar!</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=ingen_mobilpay">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="kan jeg få mine penge tilbage refundering refund">
+      <summary>Kan jeg få mine penge tilbage?</summary>
+      <div class="answer">
+        <p>Angående tilbagebetaling:</p>
+        <ul>
+          <li><strong>Ubrugte Beats</strong> kan refunderes efter festivalen — beløbet returneres til dit betalingskort.</li>
+          <li><strong>Billetrefundering</strong> afhænger af arrangørens vilkår.</li>
+          <li>Kontakt <strong>konto@ringstedfestival.dk</strong> med dit navn og ordrenummer.</li>
+          <li>Vi behandler refunderinger indenfor <strong>5–10 hverdage</strong>.</li>
+        </ul>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=refundering">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="kan jeg sætte en maks forbrug grænse begrænsning">
+      <summary>Kan jeg sætte et maks-forbrug?</summary>
+      <div class="answer">
+        <p>Du kan styre dit forbrug på flere måder:</p>
+        <ul>
+          <li><strong>Køb kun det antal Beats du vil bruge</strong> — når de er opbrugt, stopper forbruget.</li>
+          <li>Du har <strong>fuld oversigt</strong> over alle køb i appen under "Historik".</li>
+          <li>For <strong>børn:</strong> sæt kun et bestemt antal Beats ind på deres armbånd.</li>
+          <li>En dedikeret maks-grænse-funktion er <strong>under udvikling</strong>.</li>
+        </ul>
+        <p>Beats er den bedste måde at kontrollere forbrug — køb et fast beløb, og når de er brugt, er de brugt.</p>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=maks_forbrug">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="kan jeg se mine tidligere køb historik transaktioner">
+      <summary>Kan jeg se mine tidligere køb?</summary>
+      <div class="answer">
+        <p><strong>Ja!</strong> Du har fuld oversigt over alle transaktioner:</p>
+        <ul>
+          <li>Åbn appen og gå til <strong>"Beats"</strong>.</li>
+          <li>Tryk på <strong>"Historik"</strong>.</li>
+          <li>Se alle køb med <strong>tidspunkt, sted og beløb</strong>.</li>
+          <li>Historikken er tilgængelig <strong>også efter festivalen</strong>.</li>
+        </ul>
+        <p>Perfekt til at holde styr på festivalbudgettet — du kan se præcis hvad du har brugt, hvor og hvornår.</p>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=købshistorik">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Beats & penge ════════════════ -->
+  <div class="section" id="beats" data-category="Beats">
+    <div class="section-header">
+      <div class="section-icon amber">&#127867;</div>
+      <h2>Beats &amp; penge til andre</h2>
+    </div>
+
+    <details data-q="kan jeg indsætte penge til mine børn eller medarbejdere beats send">
+      <summary>Kan jeg indsætte penge til mine børn eller medarbejdere?</summary>
+      <div class="answer">
+        <p><strong>Ja</strong> — du kan sætte Beats ind til andre, f.eks. børn eller medarbejdere:</p>
+        <ul>
+          <li>Den anden person skal have et <strong>NFC-armbånd</strong> koblet til en profil.</li>
+          <li>Åbn <strong>"Beats"</strong> i din app og tryk <strong>"Send Beats"</strong>.</li>
+          <li>Vælg <strong>modtager</strong> og <strong>beløb</strong>.</li>
+          <li>Beats overføres <strong>med det samme</strong> til modtagerens armbånd.</li>
+        </ul>
+        <div class="callout">For børn: Deres armbånd kan kobles til din profil, så du har fuld kontrol over deres forbrug direkte i din app.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=indsæt_penge">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="kan jeg betale for mine venner familie runde traktere">
+      <summary>Kan jeg betale for mine venner / familie?</summary>
+      <div class="answer">
+        <p><strong>Ja!</strong> Du kan nemt betale for andre:</p>
+        <ul>
+          <li><strong>Ved baren:</strong> Brug dit eget armbånd eller kort — du betaler bare ekstra.</li>
+          <li><strong>Send Beats:</strong> Overfør Beats fra din app til deres armbånd.</li>
+          <li><strong>Køb Beats til børn:</strong> Sæt Beats direkte ind på børnenes armbånd fra din app.</li>
+          <li>Der er <strong>ingen grænse</strong> for hvor mange du kan traktere!</li>
+        </ul>
+        <p>Den nemmeste måde er at købe en runde med dit eget armbånd — ligesom du ville betale med kort i enhver bar.</p>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=betal_for_andre">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="hvad er beats festival credits valuta saldo køb">
+      <summary>Hvad er Beats — og hvordan køber jeg dem?</summary>
+      <div class="answer">
+        <p><strong>Beats</strong> er din festival-valuta. Med Beats slipper du for kortkøen og får hurtigere betjening:</p>
+        <ul>
+          <li>Åbn appen og gå til <strong>"Wallet"</strong>.</li>
+          <li>Tryk <strong>"Køb Beats"</strong> og vælg beløb.</li>
+          <li>Betal med <strong>kort eller MobilePay</strong> — pengene bliver til Beats i din wallet.</li>
+          <li>Brug Beats til at <strong>betale i barer og boder</strong> til festivalen.</li>
+          <li>Du kan også købe Beats <strong>ved baren</strong> på selve dagen.</li>
+        </ul>
+        <div class="callout"><strong>Tip:</strong> Køb Beats <strong>på forhånd</strong> i appen — så er du klar fra start og slipper for ventetid!</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=beats">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Billetter ════════════════ -->
+  <div class="section" id="tickets" data-category="Billetter">
+    <div class="section-header">
+      <div class="section-icon green">&#127915;</div>
+      <h2>Billetter</h2>
+    </div>
+
+    <details data-q="hvordan uddeler jeg billetter overfør fordel mange">
+      <summary>Hvordan uddeler jeg billetter?</summary>
+      <div class="answer">
+        <p>Har du købt flere billetter? Sådan fordeler du dem:</p>
+        <ul>
+          <li>Åbn appen og gå til <strong>"Mine billetter"</strong>.</li>
+          <li>Vælg en billet og tryk <strong>"Overfør"</strong>.</li>
+          <li>Indtast <strong>modtagerens email</strong> — de får et link.</li>
+          <li>Gentag for <strong>hver billet</strong> du vil uddele.</li>
+          <li>Modtageren opretter profil med MitID og accepterer billetten.</li>
+        </ul>
+        <div class="callout">Du kan overføre billetter <strong>én ad gangen</strong>. Hver modtager skal have sin egen profil med MitID.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=uddel_billetter">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="hvordan overdrager jeg dage partout enkelt dag flerdag">
+      <summary>Hvordan overdrager jeg dage?</summary>
+      <div class="answer">
+        <p>Har du en flerdages-billet og vil give en dag væk?</p>
+        <ul>
+          <li>En flerdages-billet kan <strong>ikke splittes op i enkeltdage</strong>.</li>
+          <li>Du kan overføre <strong>hele billetten</strong> til en anden person.</li>
+          <li>Alternativt: Lån dit <strong>NFC-armbånd</strong> til en ven for en dag (armbåndet giver adgang).</li>
+          <li>For særlige arrangementer — kontakt <strong>konto@ringstedfestival.dk</strong>.</li>
+        </ul>
+        <div class="callout">Husk: armbåndet er knyttet til din profil. Hvis du låner det ud, har den anden person også adgang til dine Beats.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=overdrag_dage">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="kan jeg have flere billetter i min app mange">
+      <summary>Kan jeg have flere billetter i min app?</summary>
+      <div class="answer">
+        <p><strong>Ja!</strong> Du kan have flere billetter i din app:</p>
+        <ul>
+          <li>Alle billetter du claimer vises under <strong>"Mine billetter"</strong>.</li>
+          <li>Du kan have <strong>billetter til forskellige events</strong> samtidig.</li>
+          <li>Du kan også <strong>holde billetter for andre</strong> midlertidigt, inden du overfører dem.</li>
+          <li>Ved indgangen vælger du <strong>hvilken billet</strong> der skal scannes.</li>
+        </ul>
+        <div class="callout">Husk at overføre billetter til de rigtige personer inden festivalen — hver person skal have sin egen billet i sin egen profil for at komme ind.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=flere_billetter">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="modtageren har ikke accepteret 72 timer udløbet link gensend">
+      <summary>Modtageren har ikke accepteret billetten endnu</summary>
+      <div class="answer">
+        <p>Invitationslinket er gyldigt i <strong>72 timer</strong>. Hvis det udløber:</p>
+        <ul>
+          <li>Gå til <strong>"Dine billetter"</strong> i appen.</li>
+          <li>Find den udløbede overførsel.</li>
+          <li>Tryk <strong>"Gensend"</strong> — et nyt link sendes til modtageren.</li>
+          <li>Det gamle link bliver <strong>ugyldigt</strong>, og et nyt 72-timers link sendes til samme email.</li>
+        </ul>
+        <p>Du kan gensende så mange gange du vil. Husk at modtageren skal have en MitID-verificeret profil i appen for at acceptere.</p>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=gensend_invitation">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="må jeg sælge min billet vilkår videresalg pris">
+      <summary>Må jeg sælge min billet videre?</summary>
+      <div class="answer">
+        <p>De vigtigste regler for overførsel af billetter:</p>
+        <ul>
+          <li><strong>Prisbegrænsning:</strong> Billetprisen må ikke overstige den originale købspris inkl. gebyrer.</li>
+          <li><strong>Identitetsverificering:</strong> Både afsender og modtager skal have en MitID-verificeret konto.</li>
+          <li><strong>Permanent overførsel:</strong> Når modtageren accepterer, er billetten deres — ønsker du den retur, skal modtageren overføre den tilbage.</li>
+          <li><strong>Platformens rolle:</strong> Livecloud og arrangøren er ikke part i økonomiske aftaler mellem brugere.</li>
+          <li><strong>Misbrug:</strong> Systematisk videresalg over købspris kan medføre spærring af konto og annullering af billetter.</li>
+        </ul>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=vilkår_overførsel">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Sikkerhed ════════════════ -->
+  <div class="section" id="security" data-category="Sikkerhed">
+    <div class="section-header">
+      <div class="section-icon purple">&#128274;</div>
+      <h2>Sikkerhed &amp; mistet telefon</h2>
+    </div>
+
+    <details data-q="hvad hvis jeg mister min mobil telefon stjålet tabt">
+      <summary>Hvad hvis jeg mister min mobil?</summary>
+      <div class="answer">
+        <p>Mister du din telefon, er din konto stadig <strong>sikret</strong>:</p>
+        <ul>
+          <li>Din profil er beskyttet med <strong>MitID</strong> — ingen andre kan logge ind.</li>
+          <li>Log ind på en <strong>ny enhed</strong> med din profil og verificér med MitID.</li>
+          <li>Dine <strong>billetter og Beats</strong> følger din profil — ikke din telefon.</li>
+          <li>Andre kan <strong>ikke misbruge</strong> din konto, selv hvis de har din telefon.</li>
+        </ul>
+        <div class="callout">Hvis du har brug for akut hjælp, kontakt os på <strong>konto@ringstedfestival.dk</strong> — vi kan spærre din konto med det samme.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=mistet_mobil">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="hvis jeg mister min telefon kan andre misbruge den hacket">
+      <summary>Hvis jeg mister min telefon, kan andre så misbruge den?</summary>
+      <div class="answer">
+        <p><strong>Nej</strong> — din konto er godt beskyttet:</p>
+        <ul>
+          <li>Appen kræver <strong>MitID-login</strong> — andre kan ikke bare åbne den.</li>
+          <li>Har din telefon <strong>kode / Face ID / fingeraftryk?</strong> Så er appen ekstra beskyttet.</li>
+          <li>Selv uden telefonlås kan andre <strong>ikke overføre Beats</strong> eller billetter uden MitID.</li>
+          <li>Ved mistanke: kontakt <strong>konto@ringstedfestival.dk</strong> — vi spærrer kontoen øjeblikkeligt.</li>
+        </ul>
+        <p>Kort sagt: det kræver MitID at gøre noget vigtigt i appen, og MitID kan kun du bruge.</p>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=misbrug">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="er mine oplysninger sikret data gdpr privatliv sikkerhed">
+      <summary>Er mine oplysninger sikret?</summary>
+      <div class="answer">
+        <p><strong>Ja</strong> — vi tager datasikkerhed meget alvorligt:</p>
+        <ul>
+          <li><strong>MitID-data</strong> bruges kun til verificering — vi gemmer ingen personnumre.</li>
+          <li><strong>Kortoplysninger</strong> håndteres af certificerede betalingsudbydere (PCI DSS) — vi ser dem aldrig.</li>
+          <li><strong>Krypteret kommunikation</strong> — al data overføres via sikre forbindelser (HTTPS/TLS).</li>
+          <li>Vi overholder <strong>GDPR</strong> og opbevarer kun nødvendige oplysninger.</li>
+        </ul>
+        <div class="callout">Dine data er i trygge hænder. Vi deler aldrig dine oplysninger med tredjepart uden dit samtykke.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=datasikkerhed">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Strøm & net ════════════════ -->
+  <div class="section" id="connectivity" data-category="Strøm &amp; net">
+    <div class="section-header">
+      <div class="section-icon rose">&#9889;</div>
+      <h2>Strøm, net &amp; indgang</h2>
+    </div>
+
+    <details data-q="hvad hvis jeg løber tør for strøm batteri tomt powerbank">
+      <summary>Hvad hvis jeg løber tør for strøm?</summary>
+      <div class="answer">
+        <p>Godt spørgsmål! Her er dine muligheder:</p>
+        <ul>
+          <li><strong>NFC-armbåndet virker uden telefon</strong> — det er koblet til din profil og virker uafhængigt.</li>
+          <li>Du kan stadig <strong>betale med fysisk kort</strong> kontaktløst ved baren.</li>
+          <li><strong>Tip:</strong> Lad op inden du tager afsted, og overvej en powerbank.</li>
+          <li>Ved indgangen: Personalet kan <strong>scanne dit armbånd</strong> i stedet for appen.</li>
+        </ul>
+        <div class="callout">Dit NFC-armbånd og dine Beats virker selv om telefonen er slukket — det er hele pointen med armbåndet!</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=strøm">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="hvad hvis der ikke er netforbindelse internet offline wifi">
+      <summary>Hvad hvis der ikke er netforbindelse?</summary>
+      <div class="answer">
+        <p>Dårlig forbindelse? Ingen panik:</p>
+        <ul>
+          <li><strong>NFC-armbåndet virker offline</strong> — betaling og identifikation kører via armbåndets chip.</li>
+          <li>Din <strong>billet-QR-kode</strong> caches i appen, så den virker uden net ved indgangen.</li>
+          <li><strong>Beats-balance</strong> opdateres, når du får forbindelse igen.</li>
+          <li><strong>Tip:</strong> Åbn appen og din billet <strong>inden du ankommer</strong>, så er den klar i cache.</li>
+        </ul>
+        <p>Vi anbefaler at åbne appen og tjekke din billet mens du har god forbindelse — så er du klar uanset netdækning.</p>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=offline">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="hvad hvis appen ikke virker ved indgangen scanner kommer ikke ind">
+      <summary>Hvad hvis appen ikke virker ved indgangen?</summary>
+      <div class="answer">
+        <p>Hvis appen driller ved indgangen — bare rolig:</p>
+        <ul>
+          <li><strong>Prøv at lukke og åbne appen</strong> — det løser de fleste problemer.</li>
+          <li><strong>Vis dit NFC-armbånd</strong> — personalet kan scanne det i stedet.</li>
+          <li><strong>Intet virker?</strong> Gå til <strong>info-standen</strong> ved indgangen.</li>
+          <li>Personalet kan <strong>slå din billet op</strong> på navn og hjælpe dig ind.</li>
+        </ul>
+        <div class="callout">Vi har altid personale klar ved indgangen til at hjælpe. Du kommer ind — det sørger vi for!</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=indgang_problem">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Enheder ════════════════ -->
+  <div class="section" id="devices" data-category="Enheder">
+    <div class="section-header">
+      <div class="section-icon blue">&#128241;</div>
+      <h2>Enheder &amp; kompatibilitet</h2>
+    </div>
+
+    <details data-q="jeg har ikke en smartphone uden mobil telefon">
+      <summary>Jeg har ikke en smartphone, hvad så?</summary>
+      <div class="answer">
+        <p>Du skal stadig have en <strong>profil</strong> for at deltage i Ringsted Festival — men du behøver ikke nødvendigvis en smartphone på selve dagen:</p>
+        <ul>
+          <li><strong>Du skal have en profil:</strong> Opret din profil og verificér med MitID — det kan gøres på en computer eller en lånt telefon.</li>
+          <li>Bed nogen om at <strong>claime din billet</strong> i deres app og <strong>overføre den</strong> til din profil via email-link.</li>
+          <li>Acceptér overførslen fra en computer eller lånt enhed.</li>
+          <li>Ved indgangen kan du <strong>købe et NFC-armbånd</strong> (ca. 50 kr.) — det kobles til din profil og fungerer som din adgang og betalingsmiddel.</li>
+          <li>For <strong>særlige behov</strong> — kontakt os på <strong>konto@ringstedfestival.dk</strong>.</li>
+        </ul>
+        <div class="callout">En profil er påkrævet uanset hvad — men selve smartphone-appen er ikke nødvendig på dagen, hvis du har et armbånd.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=ingen_smartphone">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="jeg har en iphone 7 ældre smartphone gammel telefon virker android">
+      <summary>Jeg har en iPhone 7 (ældre smartphone) — virker den?</summary>
+      <div class="answer">
+        <p>Festival-appen virker på de fleste smartphones:</p>
+        <ul>
+          <li><strong>iPhone:</strong> Kræver iOS 15 eller nyere (iPhone 7 og nyere ✓).</li>
+          <li><strong>Android:</strong> Kræver Android 8.0 eller nyere (de fleste telefoner fra 2018+).</li>
+          <li>Appen er <strong>optimeret til ældre enheder</strong> og bruger minimal strøm.</li>
+          <li>Har du problemer med installation? Prøv at <strong>opdatere dit styresystem</strong> først.</li>
+        </ul>
+        <p>Er din telefon for gammel? Se mulighederne under "Jeg har ikke en smartphone" — eller kontakt <strong>konto@ringstedfestival.dk</strong>.</p>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=ældre_telefon">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ MitID & børn ════════════════ -->
+  <div class="section" id="identity" data-category="MitID &amp; børn">
+    <div class="section-header">
+      <div class="section-icon green">&#128103;</div>
+      <h2>MitID &amp; børn</h2>
+    </div>
+
+    <details data-q="jeg har ikke mitid fritaget udlænding">
+      <summary>Jeg har ikke MitID — jeg er fritaget</summary>
+      <div class="answer">
+        <p>Har du ikke MitID? Der er stadig muligheder:</p>
+        <ul>
+          <li><strong>Under 15 år?</strong> Børn kan deltage via en voksens profil — se "Mine børn har ikke smartphone/MitID".</li>
+          <li><strong>Fritaget fra MitID?</strong> Kontakt os, så finder vi en alternativ verifikationsmetode.</li>
+          <li><strong>Udenlandsk gæst?</strong> Vi arbejder på løsninger — kontakt os for hjælp.</li>
+          <li>Skriv til <strong>konto@ringstedfestival.dk</strong> med dit navn og billetordre-nummer.</li>
+        </ul>
+        <div class="callout">Vi vil gerne have alle med! Skriv til os i god tid inden festivalen, så vi kan arrangere det.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=ingen_mitid">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+
+    <details data-q="mine børn har ikke smartphone mitid barn under 15 ledsager">
+      <summary>Mine børn har ikke en smartphone / MitID</summary>
+      <div class="answer">
+        <p>Børn under 15 og ledsagere behøver <strong>hverken app, telefon eller profil</strong>:</p>
+        <ul>
+          <li><strong>Tilknyt barn:</strong> Gå til "Dine billetter" → vælg en adgang → tryk "Tilknyt barn" → indtast navn og alder (0–14 år).</li>
+          <li><strong>Tilknyt ledsager:</strong> Samme flow — tryk "Tilknyt ledsager" → indtast navn og evt. relation.</li>
+          <li>Ved indgangen fremviser <strong>du din app</strong>, og I kommer begge ind.</li>
+          <li><strong>Chip-armbånd:</strong> Køb et armbånd der knyttes til din profil — barnet/ledsageren kan gå rundt på egen hånd og handle på din Beats-konto.</li>
+          <li>Tilknytningen er <strong>ikke permanent</strong> — du kan ændre den efterfølgende.</li>
+        </ul>
+        <div class="callout">Tilknytning er ikke en overførsel — adgangen forbliver på din profil. Du er ansvarlig for tilknyttede personer ved ind- og udgang.</div>
+        <a class="chatbot-link" href="ringsted-chatbot.html?topic=børn">Uddybning i chatbotten <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </details>
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="cta">
+    <h3>Fandt du ikke svar på dit spørgsmål?</h3>
+    <p>Chat med vores support-bot eller skriv direkte til os.</p>
+    <a class="cta-btn" href="ringsted-chatbot.html">
+      <span>&#128172;</span>
+      Åbn chatbotten
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+</div>
+
+<script>
+  // ── Simple search: filters details elements by matching their summary + data-q keywords ──
+  const searchInput = document.getElementById('searchInput');
+  const noResults = document.getElementById('noResults');
+  const allDetails = document.querySelectorAll('details');
+  const allSections = document.querySelectorAll('.section');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+
+    if (!q) {
+      allDetails.forEach(d => d.style.display = '');
+      allSections.forEach(s => s.style.display = '');
+      noResults.classList.remove('visible');
+      return;
+    }
+
+    let totalMatches = 0;
+
+    allSections.forEach(section => {
+      let sectionMatches = 0;
+      section.querySelectorAll('details').forEach(d => {
+        const haystack = (
+          d.querySelector('summary').textContent + ' ' +
+          (d.dataset.q || '') + ' ' +
+          d.querySelector('.answer').textContent
+        ).toLowerCase();
+
+        if (haystack.includes(q)) {
+          d.style.display = '';
+          d.open = true;
+          sectionMatches++;
+          totalMatches++;
+        } else {
+          d.style.display = 'none';
+          d.open = false;
+        }
+      });
+      section.style.display = sectionMatches > 0 ? '' : 'none';
+    });
+
+    noResults.classList.toggle('visible', totalMatches === 0);
+  });
+
+  // ── Smooth scroll for category chips ──
+  document.querySelectorAll('.cat-chip').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = chip.getAttribute('href').slice(1);
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ── If URL has ?q=, pre-fill search and focus it ──
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlQuery = urlParams.get('q');
+  if (urlQuery) {
+    searchInput.value = urlQuery;
+    searchInput.dispatchEvent(new Event('input'));
+  }
+</script>
+
+</body>
+</html>

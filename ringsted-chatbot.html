@@ -564,8 +564,8 @@ function getKB() {
       related: ['claim', 'transfer', 'armbånd']
     },
     beats: {
-      title: 'Beats — festivalens egne penge',
-      reply: `<strong>Beats</strong> er festivalens egne penge. Du bruger Beats, når du handler i alle barer og boder <strong>på festivalpladsen</strong> — Beats kan kun bruges dér. Dine Beats ligger på din <strong>profil</strong> i appen, sammen med din adgang til festivalen. Så ét sted samler både billet og pung.`,
+      title: 'Beats — festivalens digitale valuta',
+      reply: `<strong>Beats</strong> er festivalens digitale valuta. Du bruger Beats, når du handler i alle barer og boder <strong>på festivalpladsen</strong> — Beats kan kun bruges dér. Dine Beats ligger på din <strong>profil</strong> i appen, sammen med din adgang til festivalen. Så ét sted samler både billet og pung.`,
       steps: [
         'Åbn appen og gå til "Wallet" — det er din digitale pung',
         'Tryk på "Køb Beats", og vælg beløb',
@@ -592,7 +592,7 @@ function getKB() {
     },
     betaling: {
       title: 'Betaling',
-      reply: `På festivalpladsen betaler du altid med <strong>Beats</strong> — det er festivalens egne penge, og den eneste valuta i alle barer og boder. Beats kan kun bruges på festivalpladsen.`,
+      reply: `På festivalpladsen betaler du altid med <strong>Beats</strong> — det er festivalens digitale valuta, og den eneste måde at betale på i alle barer og boder. Beats kan kun bruges på festivalpladsen.`,
       steps: [
         'Du kan vise dine Beats i appen eller bruge dit chip-armbånd',
         'Ved baren holder du blot armbåndet op, eller viser koden i appen',
@@ -967,7 +967,7 @@ function getKB() {
     // FAQ — Beats & Penge
     // ============================================================
     indsæt_penge: {
-      title: 'Give Beats til børn eller medarbejdere',
+      title: 'Give Beats til dine børn',
       reply: 'Du kan ikke overføre Beats direkte til andre. Men du kan i stedet knytte deres chip-armbånd til din profil — så trækker deres køb fra dine Beats.',
       steps: [
         'Du kan knytte et eller flere armbånd til din profil',
@@ -994,13 +994,13 @@ function getKB() {
 
     maks_forbrug: {
       title: 'Sæt et maks-forbrug',
-      reply: 'Ja. Særligt hvis du har børn eller medarbejdere med armbånd, har du god kontrol direkte i appen.',
+      reply: 'Ja. Særligt hvis du har børn med armbånd, har du god kontrol direkte i appen.',
       steps: [
         '<strong>For armbånd knyttet til din profil:</strong> Du kan sætte et maks-beløb per armbånd',
         'Når grænsen er nået, kan der ikke købes mere med det armbånd',
         'Du kan altid justere eller fjerne grænsen igen',
         'For dit eget forbrug: Køb kun det antal Beats, du vil bruge — og lad være med at slå automatisk optankning til',
-        'Tjek din historik i appen for fuld oversigt over alle køb'
+        'Tjek dine kvitteringer i appen for fuld oversigt over alle køb'
       ],
       followUp: 'Du ser forbruget i realtid, så du ved præcis, hvor meget der er brugt — både dit eget og dine børns.',
       related: ['indsæt_penge', 'beats', 'købshistorik']
@@ -1011,9 +1011,9 @@ function getKB() {
       reply: '<strong>Ja!</strong> Du har fuld oversigt over alle transaktioner:',
       steps: [
         'Åbn appen og gå til <strong>"Beats"</strong>',
-        'Tryk på <strong>"Historik"</strong>',
+        'Tryk på <strong>"Kvitteringer"</strong>',
         'Se alle køb med <strong>tidspunkt, sted og beløb</strong>',
-        'Historikken er tilgængelig <strong>også efter festivalen</strong>'
+        'Dine kvitteringer er tilgængelige <strong>også efter festivalen</strong>'
       ],
       followUp: 'Du kan se præcis hvad du har brugt, hvor og hvornår — perfekt til at holde styr på festivalbudgettet.',
       related: ['beats', 'maks_forbrug']
@@ -1108,9 +1108,9 @@ const keywordMap = [
   { keys: ['wallet telefon', 'kort i wallet', 'telefonens wallet', 'ikke lagt kort', 'ikke i wallet', 'har ikke wallet', 'ikke har wallet', 'kort ikke i'], topic: 'ingen_wallet' },
   { keys: ['betal', 'betaling', 'penge', 'kontaktløs', 'købe øl', 'købe drinks'], topic: 'betaling' },
   { keys: ['betal for andre', 'betale for venner', 'betale for familie', 'traktere', 'købe til andre'], topic: 'betal_for_andre' },
-  { keys: ['indsæt penge', 'penge til børn', 'beats til andre', 'beats til medarbejder', 'sætte penge ind'], topic: 'indsæt_penge' },
+  { keys: ['indsæt penge', 'penge til børn', 'beats til andre', 'beats til børn', 'sætte penge ind'], topic: 'indsæt_penge' },
   { keys: ['maks forbrug', 'maks grænse', 'maksforbrug', 'sætte grænse', 'begrænse forbrug'], topic: 'maks_forbrug' },
-  { keys: ['historik', 'tidligere køb', 'mine køb', 'købshistorik', 'se forbrug', 'transaktioner'], topic: 'købshistorik' },
+  { keys: ['kvittering', 'kvitteringer', 'historik', 'tidligere køb', 'mine køb', 'købshistorik', 'se forbrug', 'transaktioner'], topic: 'købshistorik' },
   { keys: ['refunder', 'penge tilbage', 'tilbagebetaling', 'returnere', 'fortryde', 'refusion', 'penge retur', 'pengene tilbage', 'pengene retur', 'få penge', 'mine penge'], topic: 'refundering' },
 
   // Hardware & Kompatibilitet
@@ -1228,7 +1228,7 @@ function getRelatedLabel(topic) {
     indsæt_penge: 'Beats til andre',
     betal_for_andre: 'Betal for andre',
     maks_forbrug: 'Maks forbrug',
-    købshistorik: 'Købshistorik',
+    købshistorik: 'Kvitteringer',
     refundering: 'Refundering',
     indgang_problem: 'Indgangsproblemer',
     videresend_kode: 'Del billetkode',

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&amp;A for virksomheder — LiveCloud Support</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --bg-answer: #151821;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #6B6F80;
+    --border: #2A2E3D;
+    --accent: #F59E0B;
+    --accent-dark: #D97706;
+    --accent-green: #5CB77A;
+    --accent-blue: #60A5FA;
+    --accent-purple: #A78BFA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 0 80px;
+  }
+
+  .breadcrumb { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .hero { margin-bottom: 40px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .hero p { font-size: 16px; color: var(--text-muted); max-width: 640px; line-height: 1.65; }
+
+  .search { position: relative; margin-bottom: 32px; }
+  .search input {
+    width: 100%; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 16px 14px 44px;
+    font-size: 16px; font-family: inherit; color: var(--text); outline: none; transition: all 0.15s;
+  }
+  .search input:focus { border-color: var(--accent); background: var(--bg-card-hover); }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-dim); }
+
+  .categories { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+  .cat-chip {
+    font-size: 14px; padding: 8px 14px; background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 20px;
+    color: var(--text-muted); text-decoration: none; font-weight: 500;
+    transition: all 0.15s; cursor: pointer;
+  }
+  .cat-chip:hover { background: var(--bg-card-hover); color: var(--text); border-color: var(--accent); }
+
+  .section { margin-bottom: 40px; scroll-margin-top: 24px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .section-icon.amber { background: rgba(245, 158, 11, 0.12); }
+  .section-icon.blue { background: rgba(96, 165, 250, 0.12); }
+  .section-icon.green { background: rgba(92, 183, 122, 0.12); }
+  .section-icon.purple { background: rgba(167, 139, 250, 0.12); }
+  .section h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.2px; }
+
+  details {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; margin-bottom: 8px; overflow: hidden; transition: all 0.15s;
+  }
+  details[open] { background: var(--bg-answer); border-color: rgba(245, 158, 11, 0.3); }
+  details:hover { border-color: rgba(245, 158, 11, 0.2); }
+  summary {
+    cursor: pointer; padding: 18px 20px; font-size: 16px; font-weight: 600; list-style: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    user-select: none; line-height: 1.4;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: ''; width: 9px; height: 9px;
+    border-right: 2px solid var(--text-muted); border-bottom: 2px solid var(--text-muted);
+    transform: rotate(45deg); transition: transform 0.2s; flex-shrink: 0;
+  }
+  details[open] summary::after { transform: rotate(-135deg); border-color: var(--accent); }
+
+  .answer { padding: 0 20px 20px; color: var(--text-muted); font-size: 15px; line-height: 1.7; }
+  .answer p { margin-bottom: 12px; }
+  .answer p:last-child { margin-bottom: 0; }
+  .answer strong { color: var(--text); font-weight: 600; }
+  .answer ul { list-style: none; padding: 0; margin-bottom: 14px; }
+  .answer ul li { padding: 6px 0 6px 24px; position: relative; line-height: 1.6; }
+  .answer ul li::before {
+    content: ''; position: absolute; left: 6px; top: 15px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+  }
+  .answer ol { list-style: none; counter-reset: step; padding: 0; margin-bottom: 14px; }
+  .answer ol li { padding: 6px 0 6px 34px; position: relative; counter-increment: step; line-height: 1.6; margin-bottom: 2px; }
+  .answer ol li::before {
+    content: counter(step); position: absolute; left: 0; top: 6px;
+    width: 24px; height: 24px; border-radius: 50%; background: rgba(245, 158, 11, 0.15);
+    color: var(--accent); font-weight: 700; font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .callout {
+    background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--accent);
+    padding: 12px 16px; border-radius: 4px; margin: 14px 0;
+    font-size: 14px; color: var(--text); line-height: 1.6;
+  }
+  .callout.tip { background: rgba(96, 165, 250, 0.08); border-left-color: var(--accent-blue); }
+  .callout.tip::before { content: '💡 '; margin-right: 4px; }
+  .callout.secure { background: rgba(92, 183, 122, 0.08); border-left-color: var(--accent-green); }
+  .callout.secure::before { content: '🔒 '; margin-right: 4px; }
+  .callout.draft { background: rgba(167, 139, 250, 0.08); border-left-color: var(--accent-purple); font-style: italic; }
+  .callout.draft::before { content: '✍️ '; margin-right: 4px; font-style: normal; }
+
+  .flow-link {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+    font-size: 14px; font-weight: 500; color: var(--accent);
+    text-decoration: none; padding: 7px 14px;
+    background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 16px; transition: all 0.15s;
+  }
+  .flow-link:hover { background: rgba(245, 158, 11, 0.15); }
+
+  .help-link { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .help-link:hover { text-decoration: underline; }
+
+  .cta {
+    margin-top: 48px; padding: 28px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(96, 165, 250, 0.08));
+    border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 16px; text-align: center;
+  }
+  .cta h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .cta p { color: var(--text-muted); font-size: 15px; margin-bottom: 18px; line-height: 1.6; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #0F1117; text-decoration: none;
+    font-weight: 600; font-size: 15px; padding: 11px 22px; border-radius: 10px;
+    transition: all 0.15s;
+  }
+  .cta-btn:hover { background: var(--accent-dark); color: #fff; transform: translateY(-1px); }
+
+  .no-results { padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 15px; display: none; }
+  .no-results.visible { display: block; }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .container { padding: 32px 0 60px; }
+    .hero h1 { font-size: 26px; }
+    summary { padding: 16px; font-size: 15px; }
+    .answer { padding: 0 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="index.html">Support</a>
+    <span>/</span>
+    <span style="color: var(--text);">Q&amp;A for virksomheder</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&#127970;</span>
+      For virksomheder &amp; organisationer
+    </div>
+    <h1>Spørgsmål fra virksomheder</h1>
+    <p>Svar til virksomheder, foreninger og organisationer, der har købt billetter til medarbejdere, medlemmer eller gæster. Spørgsmål om webportal, fordeling, Beats-administration og rapportering. For detaljerede flows henviser vi til <a class="help-link" href="ticket-flows-b2b.html">B2B-flowsiden</a>.</p>
+  </div>
+
+  <div class="callout draft">Denne Q&amp;A er under opbygning. Nogle funktioner er stadig ved at blive finpudset — se "Åbne spørgsmål" nederst, eller kontakt os på <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a> med konkrete behov.</div>
+
+  <div class="search">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Søg i spørgsmål..." autocomplete="off">
+  </div>
+
+  <div class="categories">
+    <a href="#ordering" class="cat-chip">Bestilling &amp; fordeling</a>
+    <a href="#beats" class="cat-chip">Beats-administration</a>
+    <a href="#portal" class="cat-chip">Webportal &amp; adgang</a>
+    <a href="#reporting" class="cat-chip">Rapportering</a>
+    <a href="#employees" class="cat-chip">Medarbejdere &amp; gæster</a>
+  </div>
+
+  <div class="no-results" id="noResults">
+    Ingen spørgsmål matcher din søgning. Prøv et andet ord, eller skriv til <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a>.
+  </div>
+
+  <!-- ════════════════ Bestilling & fordeling ════════════════ -->
+  <div class="section" id="ordering">
+    <div class="section-header">
+      <div class="section-icon amber">&#128722;</div>
+      <h2>Bestilling &amp; fordeling</h2>
+    </div>
+
+    <details data-q="bestille flere billetter mange antal stor ordre b2b">
+      <summary>Kan vi bestille et større antal billetter ad gangen?</summary>
+      <div class="answer">
+        <p>Ja. Virksomheder, foreninger og organisationer kan bestille billetter i større antal — typisk 10, 50 eller 100 stk. — og fordele dem til medarbejdere, medlemmer eller gæster efterfølgende.</p>
+        <p>Som virksomhed får I adgang til et <strong>webinterface (webportal)</strong>, hvor I kan administrere billetter, adgange og Beats — alt sammen fra computeren.</p>
+        <p>Kontakt os på <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a> med antal og formål, så sætter vi det op for jer.</p>
+        <a class="flow-link" href="ticket-flows-b2b.html">Se B2B-flows &rarr;</a>
+      </div>
+    </details>
+
+    <details data-q="fordele billetter medarbejdere batch transfer delegation">
+      <summary>Hvordan fordeler vi billetter til vores medarbejdere?</summary>
+      <div class="answer">
+        <p>I kan fordele billetter på to måder, afhængigt af hvad der passer bedst:</p>
+        <ul>
+          <li><strong>Transfer (overførsel):</strong> Billetten flyttes permanent til modtagerens egen profil. Modtageren har sin egen Beats-konto og er selv ansvarlig for sin adgang.</li>
+          <li><strong>Delegation (tilføjelse):</strong> Billetten forbliver på jeres konto, og personen får et chip-armbånd ved ankomsten. Armbåndet er knyttet til jeres profil, og personens køb trækkes fra jeres Beats-konto.</li>
+        </ul>
+        <p>Webportalen lader jer vælge pr. billet, om det skal være transfer eller delegation. I kan også importere en CSV-fil med navne og e-mails for at fordele mange billetter på én gang.</p>
+        <a class="flow-link" href="ticket-flows-b2b.html">Se fulde B2B-flows &rarr;</a>
+      </div>
+    </details>
+
+    <details data-q="csv import batch navne emails fil upload">
+      <summary>Kan vi importere en liste med navne og e-mails?</summary>
+      <div class="answer">
+        <p>Ja. I kan uploade en CSV-fil med modtageres navne og e-mails, og webportalen fordeler automatisk billetter til hver person. For hver modtager vælger I, om billetten skal være en transfer (overførsel) eller delegation (tilknytning).</p>
+        <div class="callout draft">Det præcise CSV-format (kolonner, separator, encoding) er ved at blive finpudset. Kontakt os for aktuelle specifikationer.</div>
+      </div>
+    </details>
+
+    <details data-q="status check-in hvem ankommet overblik">
+      <summary>Kan vi følge med i, hvem der er ankommet?</summary>
+      <div class="answer">
+        <p>Ja. Webportalen viser status pr. billet: ikke tildelt, overført, accepteret, udløbet — samt <strong>realtids check-in status</strong>, så I kan se, hvem af jeres medarbejdere eller gæster der er ankommet til festivalen.</p>
+        <p>Det gælder både for transfer-billetter og delegerede personer.</p>
+      </div>
+    </details>
+
+    <details data-q="gensend udløbet invitation 72 timer">
+      <summary>Hvad gør vi, hvis en invitation er udløbet?</summary>
+      <div class="answer">
+        <p>Invitationslinks udløber efter 72 timer. Hvis en medarbejder eller gæst ikke har accepteret i tide:</p>
+        <ol>
+          <li>Find den udløbede overførsel i webportalen.</li>
+          <li>Tryk "Gensend".</li>
+          <li>Et nyt link sendes til modtageren med ny 72-timers frist.</li>
+        </ol>
+        <p>I kan gensende så mange gange, det er nødvendigt.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Beats-administration ════════════════ -->
+  <div class="section" id="beats">
+    <div class="section-header">
+      <div class="section-icon green">&#127867;</div>
+      <h2>Beats-administration</h2>
+    </div>
+
+    <details data-q="hvad er beats digital valuta festival penge">
+      <summary>Hvad er Beats — kort fortalt?</summary>
+      <div class="answer">
+        <p>Beats er <strong>festivalens digitale valuta</strong>. På festivalpladsen betales der kun med Beats — kontanter og kort tages ikke imod direkte ved baren. Beats kan <strong>kun bruges på festivalpladsen</strong> og kan ikke veksles til kontanter.</p>
+        <p>Virksomheder administrerer typisk Beats samlet fra webportalen og fordeler til medarbejdere og gæster via tilknyttede armbånd eller overførte billetter.</p>
+      </div>
+    </details>
+
+    <details data-q="oplade fylde beats konto webportal">
+      <summary>Hvordan oplader vi Beats på virksomhedens konto?</summary>
+      <div class="answer">
+        <p>I webportalen kan I:</p>
+        <ol>
+          <li>Gå til "Beats-administration".</li>
+          <li>Vælge beløb og betale med firmakort, MobilePay eller faktura (aftales).</li>
+          <li>Eventuelt slå <strong>automatisk optankning</strong> til, så saldoen fyldes op ved lav balance — særligt praktisk ved større arrangementer.</li>
+        </ol>
+        <p>Delegerede personer med chip-armbånd bruger jeres Beats-konto automatisk. Transfer-modtagere har egne konti.</p>
+      </div>
+    </details>
+
+    <details data-q="maks grænse forbrug armbånd begrænse">
+      <summary>Kan vi sætte et maks-forbrug per armbånd?</summary>
+      <div class="answer">
+        <p>Ja. For hvert armbånd I tilknytter jeres profil, kan I sætte et <strong>maks-forbrug</strong> i webportalen. Det betyder at medarbejderen eller gæsten kun kan bruge op til det beløb, I har valgt — herefter kan armbåndet ikke købe mere.</p>
+        <p>I kan til enhver tid justere maks-grænsen eller fjerne den igen. I ser forbruget i realtid for hvert armbånd.</p>
+      </div>
+    </details>
+
+    <details data-q="faktura betaling virksomhed erhverv kredit">
+      <summary>Kan vi betale med faktura?</summary>
+      <div class="answer">
+        <p>Ja — for virksomheder og organisationer kan vi typisk aftale faktura-betaling. Det gælder både for billetkøb og oplad af Beats-konto.</p>
+        <p>Kontakt os på <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a> med CVR-nummer og beløb, så sender vi en faktura.</p>
+        <div class="callout draft">Nøjagtige betalingsbetingelser og kreditgrænser aftales individuelt.</div>
+      </div>
+    </details>
+
+    <details data-q="ubrugte beats refundering efter festival tilbage">
+      <summary>Får vi ubrugte Beats tilbage efter festivalen?</summary>
+      <div class="answer">
+        <p>Ubrugte Beats kan refunderes efter festivalen, mod et mindre gebyr. Alternativt kan I <strong>lade dem stå til næste år</strong> og bruge dem til næste års billetkøb eller Beats-administration. Det er gratis.</p>
+        <p>Kontakt os på <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a> for refundering — angiv ordrenummer og CVR.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Webportal & adgang ════════════════ -->
+  <div class="section" id="portal">
+    <div class="section-header">
+      <div class="section-icon blue">&#128187;</div>
+      <h2>Webportal &amp; brugeradgang</h2>
+    </div>
+
+    <details data-q="logge ind webportal firma virksomhed adgang">
+      <summary>Hvordan logger vi ind i webportalen?</summary>
+      <div class="answer">
+        <p>Når I har bestilt billetter som virksomhed, sender vi et link til webportalen sammen med jeres ordrebekræftelse. I logger ind med:</p>
+        <ul>
+          <li>Jeres firma-e-mail (den I bestilte med).</li>
+          <li>Et password, I opretter ved første login.</li>
+        </ul>
+        <p>Webportalen er et browser-interface — I behøver ikke installere noget.</p>
+      </div>
+    </details>
+
+    <details data-q="flere administratorer delt adgang firma team">
+      <summary>Kan flere medarbejdere dele adgangen til webportalen?</summary>
+      <div class="answer">
+        <div class="callout draft">Dette er under afklaring. Hvis I har behov for flere administratorer med forskellige rettigheder (fx én til bestilling og én til Beats-administration), så skriv til <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a>, så finder vi en løsning.</div>
+      </div>
+    </details>
+
+    <details data-q="medarbejder uden mitid ikke mitid udenlandsk">
+      <summary>En af vores medarbejdere har ikke MitID — hvad gør vi?</summary>
+      <div class="answer">
+        <p>MitID-kravet gælder for individuelle gæste-profiler, der modtager en <strong>transfer</strong> (overført billet). For <strong>delegation</strong> (hvor billetten forbliver hos jer og personen får et armbånd) er MitID ikke nødvendigt for modtageren.</p>
+        <p>Alternativer for medarbejdere uden MitID:</p>
+        <ul>
+          <li>Brug delegation i stedet for transfer — personen behøver hverken app eller profil.</li>
+          <li>Ved udenlandske medarbejdere: Kontakt os — vi arbejder på alternativer.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Rapportering ════════════════ -->
+  <div class="section" id="reporting">
+    <div class="section-header">
+      <div class="section-icon purple">&#128202;</div>
+      <h2>Rapportering &amp; bogføring</h2>
+    </div>
+
+    <details data-q="beats rapport bogføring forbrug oversigt eksport">
+      <summary>Kan vi få en Beats-rapport til bogføring?</summary>
+      <div class="answer">
+        <p>Ja. Webportalen giver et samlet overblik over Beats-forbrug på tværs af alle jeres tilknyttede armbånd og overførte billetter. I kan eksportere data til brug i virksomhedens regnskab.</p>
+        <div class="callout draft">Konkrete eksportformater (CSV, PDF, Excel) er under afklaring. Skriv til os, hvis I har specifikke krav til bogføringsformatet.</div>
+      </div>
+    </details>
+
+    <details data-q="moms faktura kvittering bogholderi">
+      <summary>Hvordan håndteres moms og fakturaer?</summary>
+      <div class="answer">
+        <p>Fakturaer for billetkøb og Beats-oplad sendes med korrekt moms-specifikation. Kvitteringer for forbrug på festivalen er tilgængelige via webportalens eksport.</p>
+        <p>Har I særlige krav til faktureringen, så skriv til <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a>.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Medarbejdere & gæster ════════════════ -->
+  <div class="section" id="employees">
+    <div class="section-header">
+      <div class="section-icon amber">&#128100;</div>
+      <h2>Medarbejdere &amp; gæster</h2>
+    </div>
+
+    <details data-q="medarbejder uden smartphone armbånd service desk">
+      <summary>Hvad med medarbejdere uden smartphone?</summary>
+      <div class="answer">
+        <p>Medarbejdere uden smartphone kan sagtens deltage. I har to muligheder:</p>
+        <ul>
+          <li><strong>Delegation med armbånd (anbefalet):</strong> Billetten forbliver hos jer, og personen får et chip-armbånd ved Service Desk ved ankomst. Ingen app, ingen profil nødvendig for personen.</li>
+          <li><strong>Transfer med webshop-profil:</strong> Personen opretter en profil i vores webshop (på computer) og aktiverer billetten der. Derefter bestiller de et armbånd, som de henter ved Service Desk.</li>
+        </ul>
+        <p>Bestil armbåndene i god tid, så de er klar ved ankomsten.</p>
+      </div>
+    </details>
+
+    <details data-q="sikre ikke overforbrug medarbejder grænse kontrol">
+      <summary>Hvordan sikrer vi, at en medarbejder ikke overforbruger?</summary>
+      <div class="answer">
+        <p>For delegerede personer (med armbånd knyttet til jeres profil) kan I:</p>
+        <ul>
+          <li>Sætte et <strong>maks-forbrug per armbånd</strong> i webportalen.</li>
+          <li>Følge forbruget i realtid for hvert armbånd.</li>
+          <li>Justere grænsen eller fjerne armbåndet, hvis noget ser forkert ud.</li>
+        </ul>
+        <p>For transfer-billetter har modtageren sin egen Beats-konto og står selv for forbruget.</p>
+      </div>
+    </details>
+
+    <details data-q="spærre armbånd mistet tab service desk">
+      <summary>Hvad gør vi, hvis en medarbejder mister sit armbånd?</summary>
+      <div class="answer">
+        <div class="callout draft">Realtids-spærring af armbånd er under udvikling. Indtil da kan medarbejderen henvende sig ved Service Desk, der kan udstede et erstatnings-armbånd og deaktivere det mistede.</div>
+        <p>Kontakt også gerne <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a>, hvis der er mistanke om misbrug.</p>
+      </div>
+    </details>
+
+    <details data-q="personligt profil billet beats strengt personlig låne">
+      <summary>Må en medarbejder låne sit armbånd til en kollega?</summary>
+      <div class="answer">
+        <p>Nej. Profil, billet og Beats er <strong>strengt personlige</strong>. Hvert armbånd er knyttet til én bestemt person, og udlån er ikke tilladt.</p>
+        <p>Har I brug for at skifte, hvem der har adgang (fx ved vagtskifte under festivalen), kan I fjerne et armbånd fra en person i webportalen og tilknytte det til en anden — men ikke under aktivt brug på dagen.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ════════════════ Åbne spørgsmål ════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon purple">&#10067;</div>
+      <h2>Åbne spørgsmål</h2>
+    </div>
+    <div class="callout draft">
+      <strong>Ting, der stadig er ved at blive finpudset:</strong>
+      <ul style="margin-top: 8px; list-style: none; padding: 0;">
+        <li style="padding: 4px 0 4px 16px; position: relative;"><span style="position: absolute; left: 0;">&ndash;</span> Præcist CSV-format for batch-import (kolonner, separator, encoding).</li>
+        <li style="padding: 4px 0 4px 16px; position: relative;"><span style="position: absolute; left: 0;">&ndash;</span> Flere administratorer per virksomhed med forskellige rettigheder.</li>
+        <li style="padding: 4px 0 4px 16px; position: relative;"><span style="position: absolute; left: 0;">&ndash;</span> Konkrete eksportformater for Beats-rapportering.</li>
+        <li style="padding: 4px 0 4px 16px; position: relative;"><span style="position: absolute; left: 0;">&ndash;</span> Push-notifikationer af check-in status til admin.</li>
+      </ul>
+      Har I brug for noget specifikt, så skriv til <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a>.
+    </div>
+  </div>
+
+  <div class="cta">
+    <h3>Har I spørgsmål, vi ikke har svaret på?</h3>
+    <p>Vi arbejder sammen med jer om at finde den bedste løsning. Skriv direkte til os — gerne med CVR og beløb/antal.</p>
+    <a class="cta-btn" href="mailto:kontor@ringstedfestival.dk">
+      <span>&#9993;</span>
+      Kontakt os
+    </a>
+  </div>
+
+</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const noResults = document.getElementById('noResults');
+  const allDetails = document.querySelectorAll('details');
+  const allSections = document.querySelectorAll('.section');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) {
+      allDetails.forEach(d => d.style.display = '');
+      allSections.forEach(s => s.style.display = '');
+      noResults.classList.remove('visible');
+      return;
+    }
+    let totalMatches = 0;
+    allSections.forEach(section => {
+      let sectionMatches = 0;
+      section.querySelectorAll('details').forEach(d => {
+        const haystack = (
+          d.querySelector('summary').textContent + ' ' +
+          (d.dataset.q || '') + ' ' +
+          d.querySelector('.answer').textContent
+        ).toLowerCase();
+        if (haystack.includes(q)) { d.style.display = ''; d.open = true; sectionMatches++; totalMatches++; }
+        else { d.style.display = 'none'; d.open = false; }
+      });
+      section.style.display = sectionMatches > 0 ? '' : 'none';
+    });
+    noResults.classList.toggle('visible', totalMatches === 0);
+  });
+
+  document.querySelectorAll('.cat-chip').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = chip.getAttribute('href').slice(1);
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>

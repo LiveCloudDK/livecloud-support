@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klar til festivalen — LiveCloud Support</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --bg-answer: #151821;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #6B6F80;
+    --border: #2A2E3D;
+    --accent: #60A5FA;
+    --accent-dark: #3B82F6;
+    --accent-green: #5CB77A;
+    --accent-amber: #F59E0B;
+    --accent-purple: #A78BFA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 0 80px;
+  }
+
+  .breadcrumb {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .hero { margin-bottom: 40px; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(92, 183, 122, 0.1);
+    border: 1px solid rgba(92, 183, 122, 0.25);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent-green);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+  .hero p {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 620px;
+    line-height: 1.65;
+  }
+
+  /* Step card */
+  .steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .step {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    display: flex;
+    gap: 18px;
+    transition: all 0.15s;
+    align-items: flex-start;
+  }
+  .step:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(96, 165, 250, 0.3);
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(96, 165, 250, 0.15);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-body { flex: 1; min-width: 0; }
+  .step h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .step p {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .step p:last-child { margin-bottom: 0; }
+  .step strong { color: var(--text); font-weight: 600; }
+  .step .inline-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.3);
+  }
+  .step .inline-link:hover { border-bottom-color: var(--accent); }
+
+  .optional-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(245, 158, 11, 0.12);
+    color: var(--accent-amber);
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .recommend-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(92, 183, 122, 0.12);
+    color: var(--accent-green);
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* Info card */
+  .info-card {
+    background: rgba(96, 165, 250, 0.06);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-left-width: 3px;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 28px 0;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .info-card strong { color: var(--text); font-weight: 600; }
+  .info-card.alt {
+    background: rgba(167, 139, 250, 0.06);
+    border-color: rgba(167, 139, 250, 0.2);
+  }
+  .info-card h4 {
+    font-size: 15px;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  /* CTA */
+  .cta {
+    margin-top: 48px;
+    padding: 28px;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(167, 139, 250, 0.08));
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 16px;
+    text-align: center;
+  }
+  .cta h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .cta p { color: var(--text-muted); font-size: 15px; margin-bottom: 18px; line-height: 1.6; }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #0F1117;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 11px 22px;
+    border-radius: 10px;
+    transition: all 0.15s;
+  }
+  .cta-btn:hover {
+    background: var(--accent-dark);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  .help-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .help-link:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .container { padding: 32px 0 60px; }
+    .hero h1 { font-size: 26px; }
+    .step { padding: 18px; gap: 14px; }
+    .step-num { width: 32px; height: 32px; font-size: 14px; }
+    .step h3 { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="index.html">Support</a>
+    <span>/</span>
+    <span style="color: var(--text);">Klar til festivalen</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&#10003;</span>
+      Før du tager afsted
+    </div>
+    <h1>Klar til festivalen på 5 minutter</h1>
+    <p>Brug et øjeblik hjemmefra, så er alt klart, når du ankommer. Ingen stress ved indgangen, ingen kø for at fylde Beats op — bare god musik, gode venner, og fede oplevelser fra det øjeblik du træder ind på pladsen.</p>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Download festival-appen</h3>
+        <p>Find appen i <strong>App Store</strong> (iPhone) eller <strong>Google Play</strong> (Android). Søg efter Ringsted Festival.</p>
+        <p style="font-size: 13px; color: var(--text-dim);">Kræver iOS 16 eller Android 8.0 og nyere.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Opret din profil med MitID</h3>
+        <p>Åbn appen og tryk <strong>"Opret profil"</strong>. MitID bekræfter din identitet og alder — og beskytter din konto, så ingen andre kan bruge den.</p>
+        <p style="font-size: 13px; color: var(--text-dim);">Har du ikke MitID? Se mulighederne i <a class="inline-link" href="faq.html#identity">FAQ'en</a>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Aktivér din billet</h3>
+        <p>Indtast <strong>billetkoden</strong> fra din ordrebekræftelse — eller del PDF-filen direkte ind i appen fra din mail.</p>
+        <p>Din billet bliver nu til en eller flere <strong>adgange</strong> på din profil, klar til indgangen.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Tilføj dit kort og slå automatisk optankning til <span class="recommend-tag">Anbefalet</span></h3>
+        <p>Gå til <strong>"Wallet"</strong> og tilføj dit betalingskort. Slå <strong>automatisk optankning</strong> til, så fyldes dine Beats op af sig selv, når du er ved at løbe tør.</p>
+        <p>Så slipper du for at tjekke saldo undervejs — du handler bare løs, og resten klarer appen.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>Køb Beats hjemmefra <span class="recommend-tag">Anbefalet</span></h3>
+        <p>Beats er <strong>festivalens digitale valuta</strong> — det eneste, du betaler med på pladsen. Køb et passende beløb i appen, så slipper du for at fylde op ved baren, første gang du skal have en øl.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h3>Uddel billetter til din flok <span class="optional-tag">Hvis relevant</span></h3>
+        <p>Har du købt billetter til venner eller familie? De skal <strong>uddeles</strong>, før I kommer — hver person skal have sin egen billet på sin egen profil for at komme ind.</p>
+        <p>Gå til "Mine billetter" → vælg en billet → tryk "Overfør" → indtast modtagerens e-mail. Gentag for hver billet.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <h3>Download programmet <span class="optional-tag">Anbefalet</span></h3>
+        <p>Åbn <strong>"Program"</strong> i appen, og sæt <strong>påmindelser</strong> for de kunstnere, du ikke vil gå glip af. Programmet cacher også offline, så det virker, selvom signalet er dårligt.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Special case: No smartphone -->
+  <div class="info-card alt">
+    <h4>Har du ikke en smartphone?</h4>
+    Du kan også være med — men så skal alt sættes op i vores webshop <strong>i god tid inden festivalen</strong>. Opret profil med MitID, aktivér din billet med billetkoden, og bestil et chip-armbånd, som du henter ved <strong>Service Desk</strong>, når du ankommer. <a class="help-link" href="faq.html#devices">Se den fulde vejledning</a>.
+  </div>
+
+  <!-- Why it matters -->
+  <div class="info-card">
+    <h4>Hvorfor det er en god idé at gøre det hjemmefra</h4>
+    Alt er klar, når du ankommer. Du slipper for kø ved indgangen, kø for at fylde Beats op, og tid spildt på at lede efter billetkoden, mens vennerne venter på dig. Du går ind, du er klar — og så er det bare musik, venner og god stemning resten af festivalen.
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h3>Har du spørgsmål?</h3>
+    <p>Tjek vores Q&amp;A eller spørg chatbotten — den svarer på alt fra betaling og billetter til sikkerhed og mistet mobil.</p>
+    <a class="cta-btn" href="faq.html">
+      <span>&#128172;</span>
+      Gå til Q&amp;A
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>

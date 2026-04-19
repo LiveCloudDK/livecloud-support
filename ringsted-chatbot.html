@@ -565,12 +565,12 @@ function getKB() {
     },
     beats: {
       title: 'Beats — festivalens egne penge',
-      reply: `<strong>Beats</strong> er festivalens egne penge. Du bruger Beats, når du handler i alle barer og boder på pladsen. Dine Beats ligger på din <strong>profil</strong> i appen — sammen med din adgang til festivalen. Så ét sted samler både billet og pung.`,
+      reply: `<strong>Beats</strong> er festivalens egne penge. Du bruger Beats, når du handler i alle barer og boder <strong>på festivalpladsen</strong> — Beats kan kun bruges dér. Dine Beats ligger på din <strong>profil</strong> i appen, sammen med din adgang til festivalen. Så ét sted samler både billet og pung.`,
       steps: [
         'Åbn appen og gå til "Wallet" — det er din digitale pung',
         'Tryk på "Køb Beats", og vælg beløb',
         'Betal med kort, Apple Pay, Google Pay eller MobilePay',
-        'Du kan også fylde op ved baren på selve dagen',
+        'Du kan også fylde op ved baren under festivalen',
         `Brug derefter dine Beats til at handle i alle barer og boder til ${b.event.name}`
       ],
       followUp: `Et godt råd: Slå <strong>automatisk optankning</strong> til. Så bliver dine Beats fyldt op af sig selv, når du er ved at løbe tør — og du slipper for at tænke over det.`,
@@ -580,7 +580,7 @@ function getKB() {
       title: 'Chip-armbånd',
       reply: 'Chip-armbåndet er et lille armbånd med en chip inde i. Det koster cirka 50 kr. og kan gøre din oplevelse nemmere.',
       steps: [
-        'Du kan købe armbåndet i webshoppen og få det udleveret ved Service Desk — eller købe det ved indgangen på selve dagen',
+        'Du kan købe armbåndet i webshoppen og få det udleveret ved Service Desk — eller købe det ved indgangen, når du kommer til festivalen',
         'Armbåndet kobles til din profil',
         'Du kan bruge det til at komme ind og til at betale i barer og boder (det trækker dine Beats)',
         '<strong>Armbåndet er ikke adgangsgivende i sig selv</strong> — det virker kun, når det er knyttet til en profil med en gyldig adgang',
@@ -592,7 +592,7 @@ function getKB() {
     },
     betaling: {
       title: 'Betaling',
-      reply: `På festivalpladsen betaler du altid med <strong>Beats</strong> — det er festivalens egne penge, og den eneste valuta i alle barer og boder.`,
+      reply: `På festivalpladsen betaler du altid med <strong>Beats</strong> — det er festivalens egne penge, og den eneste valuta i alle barer og boder. Beats kan kun bruges på festivalpladsen.`,
       steps: [
         'Du kan vise dine Beats i appen eller bruge dit chip-armbånd',
         'Ved baren holder du blot armbåndet op, eller viser koden i appen',
@@ -719,7 +719,7 @@ function getKB() {
     // ============================================================
     betalingskort: {
       title: 'Betalingskort i appen',
-      reply: `Nej, du behøver det ikke. Men det er faktisk en rigtig god idé, for det giver dig en nemmere festivaldag.`,
+      reply: `Nej, du behøver det ikke. Men det er faktisk en rigtig god idé, for det giver dig en nemmere oplevelse under festivalen.`,
       steps: [
         'Du kan slå <strong>automatisk optankning</strong> til — så fyldes dine Beats op af sig selv',
         'Du kan <strong>pre-bestille</strong> fra appen og slippe for køen',
@@ -763,7 +763,7 @@ function getKB() {
       reply: 'Det er helt i orden — vores app kræver det ikke. Men det kan alligevel være smart at gemme dit kort i appen, for så kan du bruge <strong>automatisk optankning</strong>. Så fyldes dine Beats op af sig selv.',
       steps: [
         'Du kan skrive dit kortnummer ind i appen, når du sætter din Beats-konto op',
-        'Du kan fylde op ved baren, hvis du hellere vil gøre det på dagen',
+        'Du kan fylde op ved baren, hvis du hellere vil gøre det under festivalen',
         'Du kan gemme dit kort én gang og bruge automatisk optankning — det er det nemmeste',
         'Apple Pay og Google Pay er kun bonus, ikke et krav'
       ],
@@ -868,7 +868,7 @@ function getKB() {
         '<strong>Tilknyt din billet i webshoppen</strong> — du indtaster billetkoden, der står på din billet, og så er den knyttet til din profil',
         '<strong>Køb et chip-armbånd i webshoppen</strong> — armbåndet bestilles på forhånd og udleveres ved <strong>Service Desk</strong>, når du ankommer',
         '<strong>Brug armbåndet som billet og pung</strong> — du holder det op til scanneren ved indgangen og ved baren',
-        'Du kan fylde Beats på armbåndet via webshoppen eller ved baren på dagen'
+        'Du kan fylde Beats på armbåndet via webshoppen eller ved baren under festivalen'
       ],
       followUp: `Bestil armbåndet i god tid i webshoppen, så er det klar til afhentning, når du kommer. Har du særlige behov, så skriv endelig til os på <strong>${b.supportEmail}</strong>. Vi finder den bedste løsning for dig.`,
       related: ['ældre_telefon', 'børn', 'profil', 'armbånd', 'kontakt']

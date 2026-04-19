@@ -1,0 +1,1985 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mini-spil — LiveCloud Support</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #6B6F80;
+    --border: #2A2E3D;
+    --blue: #60A5FA;
+    --green: #5CB77A;
+    --amber: #F59E0B;
+    --purple: #A78BFA;
+    --pink: #F472B6;
+    --red: #EF4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 20px;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px 0 60px;
+  }
+
+  .breadcrumb {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--blue); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  /* ── Menu view ── */
+  .hero { margin-bottom: 40px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(167, 139, 250, 0.12); border: 1px solid rgba(167, 139, 250, 0.25);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; color: var(--purple); margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 36px; font-weight: 900; letter-spacing: -0.6px; margin-bottom: 10px; line-height: 1.1; }
+  .hero p { font-size: 16px; color: var(--text-muted); max-width: 580px; line-height: 1.65; }
+
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 540px) { .game-grid { grid-template-columns: 1fr; } }
+
+  .game-tile {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text);
+    text-align: left;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--tile-gradient);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .game-tile:hover::before { opacity: 0.15; }
+  .game-tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--tile-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  .game-tile:active { transform: translateY(-1px); }
+
+  .game-tile.spotlight { --tile-color: var(--blue); --tile-gradient: linear-gradient(135deg, var(--blue), var(--purple)); }
+  .game-tile.bartender { --tile-color: var(--amber); --tile-gradient: linear-gradient(135deg, var(--amber), var(--pink)); }
+  .game-tile.beatshop { --tile-color: var(--green); --tile-gradient: linear-gradient(135deg, var(--green), var(--blue)); }
+  .game-tile.duckhop { --tile-color: var(--pink); --tile-gradient: linear-gradient(135deg, var(--pink), var(--red)); }
+  .game-tile.beatstris { --tile-color: var(--purple); --tile-gradient: linear-gradient(135deg, var(--purple), var(--amber)); }
+
+  .tile-emoji { font-size: 40px; margin-bottom: 12px; display: block; }
+  .game-tile h2 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    margin-bottom: 6px;
+  }
+  .game-tile p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .tile-hi {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--tile-color);
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    display: inline-block;
+  }
+
+  /* ── Game view ── */
+  .game-view { display: none; }
+  .game-view.active { display: block; }
+
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    gap: 10px;
+  }
+  .game-title {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .back-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .back-btn:hover { background: var(--bg-card); color: var(--text); }
+
+  .hud-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .hud-item {
+    flex: 1;
+    min-width: 90px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 14px;
+  }
+  .hud-item .lbl {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .hud-item .val {
+    font-size: 20px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+  .hud-item .val.warn { color: var(--amber); }
+  .hud-item .val.danger { color: var(--red); }
+  .hud-item .val.good { color: var(--green); }
+
+  .canvas-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    touch-action: none;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  /* Overlay on game */
+  .game-over {
+    position: absolute;
+    inset: 14px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 17, 23, 0.94);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    z-index: 5;
+  }
+  .game-over.show { display: flex; animation: overlayIn 0.3s ease; }
+  @keyframes overlayIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .go-title {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 6px;
+    letter-spacing: -0.4px;
+  }
+  .go-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .go-score {
+    font-size: 46px;
+    font-weight: 900;
+    margin: 6px 0 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .go-stat {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .go-new {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    font-size: 15px;
+    margin: 8px 0;
+    letter-spacing: 1px;
+    animation: newPulse 1s ease infinite;
+  }
+  @keyframes newPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  .go-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .go-btn {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 11px 20px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .go-btn:hover { background: var(--bg-card); }
+  .go-btn.primary { background: var(--blue); color: #0F1117; border-color: var(--blue); }
+  .go-btn.primary:hover { background: var(--purple); border-color: var(--purple); }
+
+  .instructions {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* Start overlay */
+  .start-overlay {
+    position: absolute;
+    inset: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 17, 23, 0.88);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 5;
+    padding: 24px;
+    text-align: center;
+    transition: opacity 0.2s;
+  }
+  .start-overlay.hide { opacity: 0; pointer-events: none; }
+  .start-emoji {
+    font-size: 48px;
+    margin-bottom: 14px;
+    animation: float 2s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .start-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .start-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    max-width: 340px;
+  }
+  .start-prompt {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text);
+    padding: 10px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    animation: pulsePrompt 1.2s ease infinite;
+  }
+  @keyframes pulsePrompt {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+
+  /* Confetti */
+  #confetti {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 998;
+    overflow: hidden;
+  }
+  .cf {
+    position: absolute;
+    top: -20px;
+    width: 8px;
+    height: 14px;
+    border-radius: 2px;
+    animation: cf-fall linear forwards;
+  }
+  @keyframes cf-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0.7; }
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    transition: transform 0.3s;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 28px 0 50px; }
+    .hero h1 { font-size: 28px; }
+    .canvas-wrap { padding: 8px; border-radius: 14px; }
+    .hud-item .val { font-size: 17px; }
+    .go-score { font-size: 36px; }
+    .go-title { font-size: 22px; }
+    .start-emoji { font-size: 40px; }
+    .start-title { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="confetti"></div>
+
+<div class="wrap">
+
+  <div class="breadcrumb">
+    <a href="index.html">Support</a>
+    <span>/</span>
+    <span style="color: var(--text);">Mini-spil</span>
+  </div>
+
+  <!-- ===== Menu ===== -->
+  <div id="menuView">
+    <div class="hero">
+      <div class="hero-badge"><span>🎮</span> Casual mini-spil</div>
+      <h1>Mini-spil</h1>
+      <p>Tre små spil du kan spille mens du venter på næste koncert. Ingen download, ingen login — bare tap og spil. Sæt high-score og udfordr dine venner.</p>
+    </div>
+
+    <div class="game-grid">
+      <button class="game-tile spotlight" data-game="spotlight">
+        <span class="tile-emoji">💡</span>
+        <h2>Spotlight</h2>
+        <p>Reflektoren springer mellem fire scener. Tap den, der lyser — så hurtigt du kan. 10 runder.</p>
+        <div class="tile-hi">HI-SCORE: <span id="hi-spotlight">0</span></div>
+      </button>
+
+      <button class="game-tile bartender" data-game="bartender">
+        <span class="tile-emoji">🍺</span>
+        <h2>Bar-tender</h2>
+        <p>Gæster vil have drinks. Tap den rigtige drink hurtigt nok. Jo flere i træk, jo bedre bonus.</p>
+        <div class="tile-hi">HI-SCORE: <span id="hi-bartender">0</span></div>
+      </button>
+
+      <button class="game-tile beatshop" data-game="beatshop">
+        <span class="tile-emoji">🪙</span>
+        <h2>Beats-Hop</h2>
+        <p>Hjælp dit Beat-mønt gennem gaps i højttalerstakkene. Tap for at hoppe. Hvor langt kommer du?</p>
+        <div class="tile-hi">HI-SCORE: <span id="hi-beatshop">0</span></div>
+      </button>
+
+      <button class="game-tile duckhop" data-game="duckhop">
+        <span class="tile-emoji">🏃</span>
+        <h2>Hop &amp; Duk</h2>
+        <p>Flyvende Beats nærmer sig! Hop over dem på jorden og duk for dem i luften. Hvor længe overlever du?</p>
+        <div class="tile-hi">HI-SCORE: <span id="hi-duckhop">0</span></div>
+      </button>
+
+      <button class="game-tile beatstris" data-game="beatstris">
+        <span class="tile-emoji">🟨</span>
+        <h2>Beats-Tris</h2>
+        <p>Stabl blokke af Beats og ryd linjer. Klassisk puzzle med festival-farver og stigende tempo.</p>
+        <div class="tile-hi">HI-SCORE: <span id="hi-beatstris">0</span></div>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== Game ===== -->
+  <div class="game-view" id="gameView">
+    <div class="game-header">
+      <div class="game-title" id="gameTitle">Spil</div>
+      <button class="back-btn" onclick="exitGame()">← Menu</button>
+    </div>
+
+    <div class="hud-bar" id="hudBar"></div>
+
+    <div class="canvas-wrap">
+      <canvas id="canvas" width="600" height="400"></canvas>
+      <div class="start-overlay" id="startOverlay">
+        <div class="start-emoji" id="startEmoji">🎮</div>
+        <div class="start-title" id="startTitle">Klar?</div>
+        <div class="start-desc" id="startDesc">Tap for at starte</div>
+        <div class="start-prompt">👆 TAP FOR AT STARTE</div>
+      </div>
+      <div class="game-over" id="gameOver">
+        <div class="go-title" id="goTitle">Game Over</div>
+        <div class="go-sub" id="goSub"></div>
+        <div class="go-score" id="goScore">0</div>
+        <div class="go-stat" id="goStat"></div>
+        <div class="go-new" id="goNew" style="display:none;">✨ NY REKORD ✨</div>
+        <div class="go-actions">
+          <button class="go-btn primary" onclick="restartGame()">Spil igen</button>
+          <button class="go-btn" onclick="exitGame()">Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="instructions" id="instructions"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CORE
+// ============================================================
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const W = canvas.width;
+const H = canvas.height;
+
+let currentGame = null;
+let animationId = null;
+let lastTime = 0;
+let gameActive = false;
+
+const C = {
+  bg: '#0F1117',
+  bgCard: '#1A1D27',
+  text: '#F0F0F5',
+  muted: '#9499AD',
+  dim: '#6B6F80',
+  blue: '#60A5FA',
+  green: '#5CB77A',
+  amber: '#F59E0B',
+  purple: '#A78BFA',
+  pink: '#F472B6',
+  red: '#EF4444'
+};
+
+// Hi-scores
+const getHi = (g) => parseInt(localStorage.getItem('mini-hi-' + g)) || 0;
+const setHi = (g, s) => { try { localStorage.setItem('mini-hi-' + g, String(s)); } catch {} };
+function refreshMenuHi() {
+  ['spotlight', 'bartender', 'beatshop', 'duckhop', 'beatstris'].forEach(g => {
+    const el = document.getElementById('hi-' + g);
+    if (el) el.textContent = getHi(g);
+  });
+}
+
+// Confetti
+function confetti(count = 80) {
+  const container = document.getElementById('confetti');
+  const colors = [C.blue, C.green, C.amber, C.purple, C.pink, '#FCD34D'];
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'cf';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.animationDelay = (Math.random() * 0.5) + 's';
+    p.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+    container.appendChild(p);
+    setTimeout(() => p.remove(), 5500);
+  }
+}
+
+// Pointer
+function pointerPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const t = e.touches ? e.touches[0] : e;
+  return {
+    x: (t.clientX - rect.left) * (W / rect.width),
+    y: (t.clientY - rect.top) * (H / rect.height)
+  };
+}
+
+// Drawing helpers (anti-aliased, modern)
+function roundRect(x, y, w, h, r, fill, stroke) {
+  if (typeof r === 'number') r = [r, r, r, r];
+  ctx.beginPath();
+  ctx.moveTo(x + r[0], y);
+  ctx.lineTo(x + w - r[1], y);
+  ctx.arcTo(x + w, y, x + w, y + r[1], r[1]);
+  ctx.lineTo(x + w, y + h - r[2]);
+  ctx.arcTo(x + w, y + h, x + w - r[2], y + h, r[2]);
+  ctx.lineTo(x + r[3], y + h);
+  ctx.arcTo(x, y + h, x, y + h - r[3], r[3]);
+  ctx.lineTo(x, y + r[0]);
+  ctx.arcTo(x, y, x + r[0], y, r[0]);
+  ctx.closePath();
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); }
+}
+function circle(x, y, r, fill, stroke) {
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); }
+}
+function text(s, x, y, opts = {}) {
+  const { size = 14, color = C.text, align = 'left', weight = 600 } = opts;
+  ctx.font = `${weight} ${size}px Inter, sans-serif`;
+  ctx.fillStyle = color;
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = align;
+  ctx.fillText(s, x, y);
+}
+function emoji(e, x, y, size = 32) {
+  ctx.font = `${size}px "Apple Color Emoji", "Segoe UI Emoji", sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(e, x, y);
+}
+function clear(color = C.bg) {
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function setHud(items) {
+  // items: [{label, value, className}]
+  const bar = document.getElementById('hudBar');
+  bar.innerHTML = items.map(item => `
+    <div class="hud-item">
+      <div class="lbl">${item.label}</div>
+      <div class="val${item.className ? ' ' + item.className : ''}">${item.value}</div>
+    </div>
+  `).join('');
+}
+
+function showStart(emoji, title, desc) {
+  document.getElementById('startEmoji').textContent = emoji;
+  document.getElementById('startTitle').textContent = title;
+  document.getElementById('startDesc').textContent = desc;
+  document.getElementById('startOverlay').classList.remove('hide');
+}
+function hideStart() {
+  document.getElementById('startOverlay').classList.add('hide');
+}
+
+function showGameOver(title, sub, score, stat, game) {
+  document.getElementById('goTitle').textContent = title;
+  document.getElementById('goSub').textContent = sub || '';
+  document.getElementById('goScore').textContent = score;
+  document.getElementById('goStat').textContent = stat || '';
+  const hi = getHi(game);
+  if (score > hi) {
+    setHi(game, score);
+    document.getElementById('goNew').style.display = 'block';
+    confetti(100);
+  } else {
+    document.getElementById('goNew').style.display = 'none';
+  }
+  document.getElementById('gameOver').classList.add('show');
+}
+function hideGameOver() { document.getElementById('gameOver').classList.remove('show'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ============================================================
+// GAME 1: SPOTLIGHT (Reaction)
+// ============================================================
+const spotlight = {
+  key: 'spotlight',
+  init() {
+    this.s = {
+      round: 0, maxRounds: 10,
+      phase: 'wait', // wait | armed | done
+      armTime: 0,
+      startTime: 0,
+      current: -1,
+      reactions: [],
+      score: 0,
+      feedback: null, // {text, color, time}
+      circles: [
+        { x: W * 0.3, y: H * 0.35, r: 55, color: C.blue, name: 0 },
+        { x: W * 0.7, y: H * 0.35, r: 55, color: C.green, name: 1 },
+        { x: W * 0.3, y: H * 0.72, r: 55, color: C.amber, name: 2 },
+        { x: W * 0.7, y: H * 0.72, r: 55, color: C.pink, name: 3 }
+      ]
+    };
+    showStart('💡', 'Spotlight', 'Reflektoren lyser op én af fire scener. Tap den hurtigst muligt — men undgå at tappe forkert eller for tidligt!');
+    canvas.addEventListener('mousedown', this.onTap);
+    canvas.addEventListener('touchstart', this.onTap, { passive: false });
+    setHud([
+      { label: 'Runde', value: '0/10' },
+      { label: 'Score', value: '0' },
+      { label: 'Hi', value: getHi('spotlight') }
+    ]);
+    document.getElementById('instructions').textContent = 'Hurtig reaktion = høj score. Målet er under 300ms per tryk.';
+  },
+  startRound() {
+    this.s.round++;
+    this.s.phase = 'wait';
+    this.s.armTime = performance.now() + 800 + Math.random() * 1800;
+    this.s.current = -1;
+  },
+  onTap(e) {
+    e.preventDefault();
+    const s = spotlight.s;
+    const p = pointerPos(e);
+
+    // First tap: start the game
+    if (!gameActive) {
+      gameActive = true;
+      hideStart();
+      spotlight.startRound();
+      return;
+    }
+
+    if (s.phase === 'done') return;
+
+    if (s.phase === 'wait') {
+      // Tapped too early
+      s.feedback = { text: 'FOR TIDLIGT!', color: C.red, time: performance.now() };
+      // Don't penalize harshly; move on
+      s.reactions.push(999);
+      s.phase = 'between';
+      setTimeout(() => {
+        if (s.round >= s.maxRounds) {
+          spotlight.finish();
+        } else {
+          spotlight.startRound();
+        }
+      }, 800);
+      return;
+    }
+
+    if (s.phase === 'armed') {
+      // Find if hit correct circle
+      const hit = s.circles.find(c =>
+        Math.hypot(c.x - p.x, c.y - p.y) < c.r
+      );
+      const reactionMs = performance.now() - s.startTime;
+      if (hit && hit.name === s.current) {
+        const points = Math.max(0, Math.round(1000 - reactionMs));
+        s.score += points;
+        s.reactions.push(reactionMs);
+        s.feedback = { text: `+${points} · ${Math.round(reactionMs)}ms`, color: C.green, time: performance.now() };
+        setHud([
+          { label: 'Runde', value: `${s.round}/10` },
+          { label: 'Score', value: s.score, className: 'good' },
+          { label: 'Hi', value: getHi('spotlight') }
+        ]);
+      } else {
+        s.feedback = { text: 'FORKERT!', color: C.red, time: performance.now() };
+        s.reactions.push(999);
+      }
+      s.phase = 'between';
+      setTimeout(() => {
+        if (s.round >= s.maxRounds) {
+          spotlight.finish();
+        } else {
+          spotlight.startRound();
+        }
+      }, 700);
+    }
+  },
+  finish() {
+    this.s.phase = 'done';
+    gameActive = false;
+    const valid = this.s.reactions.filter(r => r < 999);
+    const avg = valid.length ? Math.round(valid.reduce((a, b) => a + b, 0) / valid.length) : 0;
+    const msg = avg < 300 ? 'Lynhurtig! 🚀' : avg < 450 ? 'Ikke dårligt.' : avg < 600 ? 'Klargør fingrene.' : 'Prøv igen!';
+    setTimeout(() => {
+      showGameOver('Færdig!', msg, this.s.score, `Gennemsnit: ${avg || '—'} ms · ${valid.length}/10 korrekte`, 'spotlight');
+    }, 400);
+  },
+  update(dt) {
+    const s = this.s;
+    if (s.phase === 'wait' && performance.now() >= s.armTime) {
+      s.phase = 'armed';
+      s.current = Math.floor(Math.random() * 4);
+      s.startTime = performance.now();
+    }
+  },
+  draw() {
+    const s = this.s;
+    clear();
+
+    // Title
+    const phase = s.phase;
+    let tipText = '';
+    if (!gameActive) tipText = '';
+    else if (phase === 'wait') tipText = 'Vent...';
+    else if (phase === 'armed') tipText = 'TAP NU!';
+    else if (phase === 'between') tipText = 'Klar til næste...';
+    if (tipText) {
+      text(tipText, W/2, 40, { size: 20, color: phase === 'armed' ? C.green : C.muted, align: 'center', weight: 700 });
+    }
+
+    // Circles
+    s.circles.forEach(c => {
+      const isLit = phase === 'armed' && c.name === s.current;
+      // Outer glow when lit
+      if (isLit) {
+        const glow = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.r * 2);
+        glow.addColorStop(0, c.color);
+        glow.addColorStop(1, 'transparent');
+        ctx.globalAlpha = 0.35;
+        ctx.fillStyle = glow;
+        ctx.fillRect(c.x - c.r * 2, c.y - c.r * 2, c.r * 4, c.r * 4);
+        ctx.globalAlpha = 1;
+      }
+      // Circle
+      circle(c.x, c.y, c.r, isLit ? c.color : C.bgCard, isLit ? '#fff' : c.color);
+      // Inner
+      circle(c.x, c.y, c.r - 8, isLit ? c.color : 'transparent', null);
+    });
+
+    // Feedback
+    if (s.feedback && performance.now() - s.feedback.time < 900) {
+      const age = (performance.now() - s.feedback.time) / 900;
+      ctx.globalAlpha = 1 - age;
+      text(s.feedback.text, W/2, H/2, { size: 28, color: s.feedback.color, align: 'center', weight: 800 });
+      ctx.globalAlpha = 1;
+    }
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onTap);
+    canvas.removeEventListener('touchstart', this.onTap);
+  }
+};
+
+// ============================================================
+// GAME 2: BAR-TENDER (Serve drinks)
+// ============================================================
+const bartender = {
+  key: 'bartender',
+  init() {
+    this.s = {
+      score: 0,
+      streak: 0,
+      maxStreak: 0,
+      angry: 0,
+      maxAngry: 5,
+      time: 60,
+      customers: [],
+      spawnTimer: 1,
+      gameOver: false,
+      drinks: ['🍺', '🥃', '🍸', '💧'],
+      drinkColors: [C.amber, C.pink, C.blue, C.green],
+      flash: [0, 0, 0, 0],
+      customerEmojis: ['😀','🙂','😊','🤩','😎','🥳','🤠','😋','😃','🥸']
+    };
+    showStart('🍺', 'Bar-tender', 'Gæster vil have drinks! Tap den rigtige drink, så hurtigt du kan. Mist 5 utålmodige gæster og spillet slutter.');
+    canvas.addEventListener('mousedown', this.onTap);
+    canvas.addEventListener('touchstart', this.onTap, { passive: false });
+    setHud([
+      { label: 'Score', value: '0' },
+      { label: 'Tid', value: '60' },
+      { label: 'Sure', value: '0/5' }
+    ]);
+    document.getElementById('instructions').textContent = 'Tap 🍺 🥃 🍸 💧 for at servere den forreste gæst.';
+  },
+  onTap(e) {
+    e.preventDefault();
+    const s = bartender.s;
+
+    if (!gameActive) {
+      gameActive = true;
+      hideStart();
+      return;
+    }
+
+    if (s.gameOver) return;
+
+    const p = pointerPos(e);
+    // Drink buttons: bottom row, 4 buttons
+    const btnW = W / 4;
+    const btnY = H - 90;
+    if (p.y > btnY) {
+      const idx = Math.floor(p.x / btnW);
+      if (idx >= 0 && idx < 4) {
+        bartender.tryServe(idx);
+      }
+    }
+  },
+  tryServe(drinkIdx) {
+    const s = this.s;
+    s.flash[drinkIdx] = performance.now();
+    if (s.customers.length === 0) return;
+    const c = s.customers[0];
+    if (c.order === drinkIdx) {
+      // Correct
+      const patienceBonus = Math.round(c.patience / c.maxPatience * 20);
+      const points = 20 + patienceBonus + s.streak * 5;
+      s.score += points;
+      s.streak++;
+      if (s.streak > s.maxStreak) s.maxStreak = s.streak;
+      c.leaving = 'happy';
+      c.leaveTime = performance.now();
+      s.customers.shift();
+      // Spawn new customer placeholder, keep happy one until animation ends? simpler: just remove
+    } else {
+      // Wrong drink
+      s.streak = 0;
+      s.angry++;
+      c.leaving = 'angry';
+      c.leaveTime = performance.now();
+      s.customers.shift();
+    }
+    this.updateHud();
+    if (s.angry >= s.maxAngry) {
+      bartender.finish('Fyret!', 'For mange sure gæster.');
+    }
+  },
+  updateHud() {
+    const s = this.s;
+    setHud([
+      { label: 'Score', value: s.score, className: 'good' },
+      { label: 'Tid', value: Math.ceil(s.time), className: s.time < 10 ? 'warn' : '' },
+      { label: 'Sure', value: `${s.angry}/${s.maxAngry}`, className: s.angry >= 3 ? 'danger' : '' }
+    ]);
+  },
+  spawnCustomer() {
+    const s = this.s;
+    const emoji = s.customerEmojis[Math.floor(Math.random() * s.customerEmojis.length)];
+    const order = Math.floor(Math.random() * 4);
+    const difficulty = Math.min(1, (60 - s.time) / 50);  // 0 to 1
+    const maxPatience = 5.5 - difficulty * 2.5;  // 5.5s down to 3s
+    s.customers.push({
+      emoji,
+      order,
+      patience: maxPatience,
+      maxPatience,
+      leaving: null,
+      leaveTime: 0
+    });
+  },
+  finish(title, sub) {
+    this.s.gameOver = true;
+    gameActive = false;
+    setTimeout(() => {
+      showGameOver(title, sub, this.s.score, `Bedste serie: ${this.s.maxStreak}`, 'bartender');
+    }, 300);
+  },
+  update(dt) {
+    const s = this.s;
+    if (s.gameOver || !gameActive) return;
+
+    s.time -= dt;
+    if (s.time <= 0) {
+      s.time = 0;
+      bartender.finish('Tiden er gået!', `Du klarede ${s.score} points`);
+      return;
+    }
+
+    // Spawn logic
+    s.spawnTimer -= dt;
+    const maxCustomers = 3;
+    if (s.spawnTimer <= 0 && s.customers.length < maxCustomers) {
+      this.spawnCustomer();
+      const difficulty = Math.min(1, (60 - s.time) / 50);
+      s.spawnTimer = 2.2 - difficulty * 1.1; // 2.2 -> 1.1
+    }
+
+    // Update customer patience
+    s.customers.forEach(c => {
+      if (!c.leaving) c.patience -= dt;
+    });
+    // Remove impatient customers
+    for (let i = s.customers.length - 1; i >= 0; i--) {
+      const c = s.customers[i];
+      if (!c.leaving && c.patience <= 0) {
+        c.leaving = 'angry';
+        c.leaveTime = performance.now();
+        s.angry++;
+        s.streak = 0;
+        s.customers.splice(i, 1);
+        this.updateHud();
+        if (s.angry >= s.maxAngry) {
+          bartender.finish('Fyret!', 'For mange sure gæster.');
+          return;
+        }
+      }
+    }
+    this.updateHud();
+  },
+  draw() {
+    const s = this.s;
+    clear();
+
+    // Bar counter background
+    const barY = H - 150;
+    roundRect(10, barY, W - 20, 60, [20, 20, 0, 0], '#2a2e3d', null);
+    roundRect(10, barY + 54, W - 20, 6, 0, C.amber, null);
+
+    // Customers in queue
+    const cSize = 56;
+    const cY = barY - cSize / 2 + 10;
+    const baseX = 60;
+    s.customers.forEach((c, i) => {
+      if (c.leaving) return; // animations skipped for simplicity
+      const x = baseX + i * 130;
+      // Patience bar
+      const pw = 80;
+      const ph = 6;
+      const px = x - pw/2;
+      const py = cY - 45;
+      roundRect(px, py, pw, ph, 3, '#2a2e3d', null);
+      const ratio = Math.max(0, c.patience / c.maxPatience);
+      const barColor = ratio > 0.5 ? C.green : ratio > 0.25 ? C.amber : C.red;
+      roundRect(px, py, pw * ratio, ph, 3, barColor, null);
+      // Order bubble
+      roundRect(x - 28, cY - 32, 56, 26, 13, '#fff', null);
+      ctx.font = '20px "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(s.drinks[c.order], x, cY - 19);
+      // Little triangle under bubble
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.moveTo(x - 6, cY - 6);
+      ctx.lineTo(x + 6, cY - 6);
+      ctx.lineTo(x, cY);
+      ctx.closePath();
+      ctx.fill();
+      // Customer emoji
+      emoji(c.emoji, x, cY + 20, 48);
+      // "FRONT" indicator for first
+      if (i === 0) {
+        ctx.fillStyle = C.amber;
+        ctx.font = '700 11px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('▼ NÆSTE ▼', x, cY - 56);
+      }
+    });
+
+    if (s.customers.length === 0) {
+      text('Venter på gæster...', W/2, cY + 10, { size: 16, color: C.muted, align: 'center', weight: 600 });
+    }
+
+    // Drink buttons
+    const btnW = W / 4;
+    const btnY = H - 90;
+    for (let i = 0; i < 4; i++) {
+      const x = i * btnW;
+      const flashAge = (performance.now() - s.flash[i]) / 300;
+      const flashing = flashAge < 1;
+      const color = s.drinkColors[i];
+      // Button background
+      roundRect(x + 8, btnY + 8, btnW - 16, H - btnY - 16, 14,
+        flashing ? color : C.bgCard,
+        color);
+      // Emoji
+      emoji(s.drinks[i], x + btnW/2, btnY + (H - btnY) / 2, flashing ? 44 : 40);
+    }
+
+    // Streak badge
+    if (s.streak > 1) {
+      const bx = W - 80, by = 16;
+      roundRect(bx - 60, by, 140, 28, 14, C.amber, null);
+      text(`🔥 ${s.streak} STREAK`, bx + 10, by + 14, { size: 12, color: C.bg, align: 'center', weight: 800 });
+    }
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onTap);
+    canvas.removeEventListener('touchstart', this.onTap);
+  }
+};
+
+// ============================================================
+// GAME 3: BEATS-HOP (Flappy-style)
+// ============================================================
+const beatshop = {
+  key: 'beatshop',
+  init() {
+    this.s = {
+      coin: { x: W * 0.25, y: H / 2, vy: 0, rot: 0 },
+      pipes: [],
+      speed: 140,
+      spawnTimer: 1.5,
+      score: 0,
+      gameOver: false,
+      particles: []
+    };
+    showStart('🪙', 'Beats-Hop', 'Tap for at hoppe. Undgå højttalerne — flyv gennem gaps. Hvor langt kommer du?');
+    canvas.addEventListener('mousedown', this.onTap);
+    canvas.addEventListener('touchstart', this.onTap, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    setHud([
+      { label: 'Score', value: '0' },
+      { label: 'Bedste', value: getHi('beatshop') }
+    ]);
+    document.getElementById('instructions').textContent = 'Tap / klik / mellemrum = hop.';
+  },
+  jump() {
+    const s = beatshop.s;
+    if (s.gameOver) return;
+    if (!gameActive) {
+      gameActive = true;
+      hideStart();
+    }
+    s.coin.vy = -5.5;
+    // Particle burst
+    for (let i = 0; i < 4; i++) {
+      s.particles.push({
+        x: s.coin.x - 10, y: s.coin.y + 5,
+        vx: -2 - Math.random() * 2, vy: Math.random() * 2 - 1,
+        life: 0.5, color: C.amber
+      });
+    }
+  },
+  onTap(e) { e.preventDefault(); beatshop.jump(); },
+  onKey(e) {
+    if (e.key === ' ' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      beatshop.jump();
+    }
+  },
+  spawnPipe() {
+    const s = this.s;
+    const gapSize = 130 - Math.min(30, s.score * 2);
+    const gapY = 60 + Math.random() * (H - 120 - gapSize);
+    s.pipes.push({ x: W + 40, gapY, gapSize, scored: false });
+  },
+  finish() {
+    this.s.gameOver = true;
+    gameActive = false;
+    setTimeout(() => {
+      const msg = this.s.score >= 25 ? 'Fantastisk flyvning! 🚀' :
+                  this.s.score >= 10 ? 'Flot klaret.' :
+                  this.s.score >= 3 ? 'Prøv igen — du er tæt på.' :
+                  'Ups! Én gang til?';
+      showGameOver('Game Over', msg, this.s.score, 'Tryk "Spil igen" og slå rekorden', 'beatshop');
+    }, 300);
+  },
+  update(dt) {
+    const s = this.s;
+    if (!gameActive || s.gameOver) return;
+
+    // Coin physics
+    s.coin.vy += 0.28;
+    s.coin.y += s.coin.vy * (dt * 60);
+    s.coin.rot = Math.max(-0.4, Math.min(1.2, s.coin.vy * 0.12));
+
+    // Bounds
+    if (s.coin.y > H - 30) {
+      s.coin.y = H - 30;
+      beatshop.finish();
+      return;
+    }
+    if (s.coin.y < 20) s.coin.y = 20;
+
+    // Pipes
+    s.spawnTimer -= dt;
+    if (s.spawnTimer <= 0) {
+      this.spawnPipe();
+      s.spawnTimer = 2 - Math.min(0.8, s.score * 0.04);
+    }
+    s.pipes.forEach(p => { p.x -= s.speed * dt; });
+    s.pipes = s.pipes.filter(p => p.x > -50);
+
+    // Speed ramps slightly
+    s.speed = 140 + Math.min(80, s.score * 3);
+
+    // Collisions + scoring
+    for (const p of s.pipes) {
+      if (p.x + 50 < s.coin.x && !p.scored) {
+        p.scored = true;
+        s.score++;
+        setHud([
+          { label: 'Score', value: s.score, className: 'good' },
+          { label: 'Bedste', value: getHi('beatshop') }
+        ]);
+        // Score particles
+        for (let i = 0; i < 6; i++) {
+          s.particles.push({
+            x: s.coin.x, y: s.coin.y,
+            vx: (Math.random() - 0.5) * 3, vy: (Math.random() - 0.5) * 3,
+            life: 0.6, color: C.green
+          });
+        }
+      }
+      // Collision
+      if (s.coin.x + 14 > p.x && s.coin.x - 14 < p.x + 50) {
+        if (s.coin.y - 14 < p.gapY || s.coin.y + 14 > p.gapY + p.gapSize) {
+          beatshop.finish();
+          return;
+        }
+      }
+    }
+
+    // Particles
+    s.particles.forEach(pt => {
+      pt.x += pt.vx;
+      pt.y += pt.vy;
+      pt.vy += 0.1;
+      pt.life -= dt;
+    });
+    s.particles = s.particles.filter(pt => pt.life > 0);
+  },
+  draw() {
+    const s = this.s;
+    // Gradient background
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#1a1d2e');
+    grad.addColorStop(1, '#0F1117');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Stars
+    ctx.fillStyle = 'rgba(255,255,255,0.18)';
+    for (let i = 0; i < 20; i++) {
+      const sx = (i * 71 + 13) % W;
+      const sy = (i * 47 + 3) % (H - 30);
+      ctx.fillRect(sx, sy, 1.5, 1.5);
+    }
+
+    // Ground
+    roundRect(0, H - 30, W, 30, 0, '#222838', null);
+    ctx.fillStyle = C.greenDark || '#2c4c0f';
+    for (let i = 0; i < W; i += 20) {
+      ctx.fillRect(i, H - 32, 10, 2);
+    }
+
+    // Pipes (speakers)
+    s.pipes.forEach(p => {
+      const px = p.x, pw = 50;
+      // Top
+      roundRect(px, 0, pw, p.gapY, [0, 0, 6, 6], '#2a2e3d', null);
+      roundRect(px - 3, p.gapY - 12, pw + 6, 12, [6, 6, 0, 0], C.purple, null);
+      // Speaker cones in top pipe (last two)
+      const topSegs = Math.floor(p.gapY / 40);
+      for (let j = 0; j < topSegs; j++) {
+        const cy = 20 + j * 40;
+        circle(px + pw/2, cy, 12, C.purple, '#fff');
+        circle(px + pw/2, cy, 5, C.bgCard, null);
+      }
+      // Bottom pipe
+      const by = p.gapY + p.gapSize;
+      roundRect(px, by, pw, H - 30 - by, [6, 6, 0, 0], '#2a2e3d', null);
+      roundRect(px - 3, by, pw + 6, 12, [0, 0, 6, 6], C.purple, null);
+      const bottomSegs = Math.floor((H - 30 - by) / 40);
+      for (let j = 0; j < bottomSegs; j++) {
+        const cy = by + 30 + j * 40;
+        if (cy > H - 40) break;
+        circle(px + pw/2, cy, 12, C.purple, '#fff');
+        circle(px + pw/2, cy, 5, C.bgCard, null);
+      }
+    });
+
+    // Particles
+    s.particles.forEach(pt => {
+      ctx.globalAlpha = pt.life * 1.5;
+      circle(pt.x, pt.y, 3, pt.color);
+    });
+    ctx.globalAlpha = 1;
+
+    // Coin
+    ctx.save();
+    ctx.translate(s.coin.x, s.coin.y);
+    ctx.rotate(s.coin.rot);
+    // Glow
+    const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, 26);
+    glow.addColorStop(0, 'rgba(245, 158, 11, 0.6)');
+    glow.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow;
+    ctx.fillRect(-26, -26, 52, 52);
+    // Coin body
+    circle(0, 0, 14, C.amber, '#fff');
+    circle(0, 0, 11, '#FCD34D', null);
+    // Letter B
+    ctx.font = '800 14px Inter, sans-serif';
+    ctx.fillStyle = '#4a3a00';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('B', 0, 1);
+    ctx.restore();
+
+    // Score big and centered
+    text(String(s.score), W/2, 50, { size: 54, color: 'rgba(255,255,255,0.15)', align: 'center', weight: 900 });
+    text(String(s.score), W/2, 50, { size: 54, color: '#fff', align: 'center', weight: 900 });
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onTap);
+    canvas.removeEventListener('touchstart', this.onTap);
+    window.removeEventListener('keydown', this.onKey);
+  }
+};
+
+// ============================================================
+// GAME 4: HOP & DUK (Jump or duck incoming Beats)
+// ============================================================
+const duckhop = {
+  key: 'duckhop',
+  init() {
+    this.s = {
+      char: { x: W * 0.2, y: 0, state: 'run', jumpT: 0, duckT: 0, runT: 0 },
+      obstacles: [],
+      spawnTimer: 1.2,
+      baseSpeed: 260,
+      score: 0,
+      time: 0,
+      gameOver: false
+    };
+    showStart('🏃', 'Hop & Duk', 'Beats kommer flyvende ind! Tap øverst (eller ↑) for at hoppe over dem på jorden. Tap nederst (eller ↓) for at duke for dem i luften.');
+    canvas.addEventListener('mousedown', this.onTap);
+    canvas.addEventListener('touchstart', this.onTap, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    setHud([
+      { label: 'Score', value: '0' },
+      { label: 'Tid', value: '0.0s' },
+      { label: 'Hi', value: getHi('duckhop') }
+    ]);
+    document.getElementById('instructions').textContent = 'Tap øverst = hop · Tap nederst = duk · (eller ↑/↓ på tastatur)';
+  },
+  doJump() {
+    const c = this.s.char;
+    if (c.state === 'run') { c.state = 'jump'; c.jumpT = 0.7; }
+  },
+  doDuck() {
+    const c = this.s.char;
+    if (c.state === 'run') { c.state = 'duck'; c.duckT = 0.6; }
+  },
+  onTap(e) {
+    e.preventDefault();
+    if (!gameActive) { gameActive = true; hideStart(); return; }
+    if (duckhop.s.gameOver) return;
+    const p = pointerPos(e);
+    if (p.y < H / 2) duckhop.doJump();
+    else duckhop.doDuck();
+  },
+  onKey(e) {
+    if (!gameActive || duckhop.s.gameOver) return;
+    if (e.key === 'ArrowUp' || e.key === ' ' || e.key === 'w') { e.preventDefault(); duckhop.doJump(); }
+    if (e.key === 'ArrowDown' || e.key === 's') { e.preventDefault(); duckhop.doDuck(); }
+  },
+  spawnObstacle() {
+    const isAir = Math.random() < 0.5;
+    this.s.obstacles.push({
+      x: W + 40,
+      type: isAir ? 'air' : 'ground',
+      scored: false
+    });
+  },
+  finish(reason) {
+    this.s.gameOver = true;
+    gameActive = false;
+    setTimeout(() => {
+      const msg = this.s.score >= 20 ? 'Fantastisk refleks! 🔥' :
+                  this.s.score >= 10 ? 'Flot undvigelse.' :
+                  this.s.score >= 5 ? 'Godt forsøg.' :
+                  'Prøv igen — du har flere liv i benene!';
+      showGameOver('Ramt!', msg, this.s.score, `Du overlevede ${this.s.time.toFixed(1)} sekunder`, 'duckhop');
+    }, 300);
+  },
+  update(dt) {
+    const s = this.s;
+    if (!gameActive || s.gameOver) return;
+
+    s.time += dt;
+    s.char.runT += dt;
+    const speed = s.baseSpeed + Math.min(180, s.time * 8);
+
+    // Char state timers
+    if (s.char.state === 'jump') {
+      s.char.jumpT -= dt;
+      // parabolic y offset (peak around 0.35s into 0.7s jump)
+      const prog = 1 - s.char.jumpT / 0.7;
+      s.char.y = -Math.sin(prog * Math.PI) * 70;
+      if (s.char.jumpT <= 0) { s.char.state = 'run'; s.char.y = 0; }
+    } else if (s.char.state === 'duck') {
+      s.char.duckT -= dt;
+      if (s.char.duckT <= 0) { s.char.state = 'run'; }
+    }
+
+    // Spawn
+    s.spawnTimer -= dt;
+    if (s.spawnTimer <= 0) {
+      this.spawnObstacle();
+      s.spawnTimer = 1.3 - Math.min(0.7, s.time * 0.04) + Math.random() * 0.5;
+    }
+
+    // Move obstacles
+    s.obstacles.forEach(o => { o.x -= speed * dt; });
+
+    // Collision + scoring
+    const groundY = H - 70;
+    const charX = s.char.x;
+    const charW = 40;
+    const charH = s.char.state === 'duck' ? 34 : 60;
+    for (const o of s.obstacles) {
+      if (o.x + 28 > charX - charW/2 && o.x - 28 < charX + charW/2) {
+        if (o.type === 'air') {
+          // Hit if not ducking (char head above ~groundY - 40)
+          if (s.char.state !== 'duck' && s.char.state !== 'jump') {
+            this.finish('air');
+            return;
+          }
+          // But if you jump INTO the air obstacle, that's a hit too
+          if (s.char.state === 'jump' && s.char.y < -30) {
+            this.finish('air-jump');
+            return;
+          }
+        } else {
+          // ground — hit if not jumping high enough
+          if (s.char.state !== 'jump' || s.char.y > -20) {
+            this.finish('ground');
+            return;
+          }
+        }
+      }
+      // Scored after passing
+      if (!o.scored && o.x < charX - charW/2 - 30) {
+        o.scored = true;
+        s.score++;
+        setHud([
+          { label: 'Score', value: s.score, className: 'good' },
+          { label: 'Tid', value: s.time.toFixed(1) + 's' },
+          { label: 'Hi', value: getHi('duckhop') }
+        ]);
+      }
+    }
+    s.obstacles = s.obstacles.filter(o => o.x > -50);
+
+    // Update time HUD periodically
+    if (Math.floor(s.time * 5) !== Math.floor((s.time - dt) * 5)) {
+      setHud([
+        { label: 'Score', value: s.score, className: s.score > 0 ? 'good' : '' },
+        { label: 'Tid', value: s.time.toFixed(1) + 's' },
+        { label: 'Hi', value: getHi('duckhop') }
+      ]);
+    }
+  },
+  draw() {
+    const s = this.s;
+
+    // Gradient sky
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, '#1a1d3a');
+    sky.addColorStop(0.5, '#2c1d3a');
+    sky.addColorStop(1, '#0F1117');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    // Distant stage lights
+    for (let i = 0; i < 5; i++) {
+      const lx = (i * 150 + (s.time * 20) % 150) % W;
+      const ly = 40 + (i * 13) % 50;
+      circle(lx, ly, 2, 'rgba(255,255,200,0.5)');
+    }
+
+    // Ground
+    const groundY = H - 70;
+    roundRect(0, groundY, W, H - groundY, 0, '#2a2e3d', null);
+    // Ground pattern — festival grass-ish
+    ctx.strokeStyle = '#1a1d27';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < W; i += 30) {
+      const offset = (s.time * 260) % 30;
+      ctx.beginPath();
+      ctx.moveTo(i - offset, groundY + 20);
+      ctx.lineTo(i - offset, H);
+      ctx.stroke();
+    }
+    roundRect(0, groundY, W, 3, 0, C.pink, null);
+
+    // Character
+    const cx = s.char.x;
+    const cyBase = groundY - 5 + s.char.y;
+    const ducking = s.char.state === 'duck';
+    const chH = ducking ? 34 : 60;
+    const chW = ducking ? 48 : 40;
+    const chY = cyBase - chH;
+    // Shadow
+    ctx.globalAlpha = 0.3 * (1 - Math.max(0, -s.char.y / 70));
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.ellipse(cx, groundY - 2, 26, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    // Body
+    roundRect(cx - chW/2, chY, chW, chH, 12, C.pink, null);
+    // Head (circle on top)
+    if (!ducking) {
+      circle(cx, chY - 10, 14, C.amber, null);
+      // Eyes looking right
+      circle(cx + 3, chY - 12, 2, '#000');
+      circle(cx + 3, chY - 12, 1, '#fff');
+    } else {
+      // Ducked: head merged with body
+      circle(cx + 4, chY + 10, 12, C.amber, null);
+      circle(cx + 10, chY + 9, 2, '#000');
+      circle(cx + 10, chY + 9, 1, '#fff');
+    }
+    // Running "leg bob" when on ground
+    if (s.char.state === 'run') {
+      const bob = Math.floor(s.char.runT * 10) % 2 === 0;
+      ctx.fillStyle = C.red;
+      ctx.fillRect(cx - 10, groundY - 5, 8, bob ? 4 : 1);
+      ctx.fillRect(cx + 2, groundY - 5, 8, bob ? 1 : 4);
+    }
+
+    // Obstacles
+    s.obstacles.forEach(o => {
+      if (o.type === 'air') {
+        // Flying beats with wings
+        const ay = groundY - 80 + Math.sin(s.time * 4 + o.x * 0.02) * 3;
+        // Wings (simple triangles flapping)
+        const flap = Math.sin(s.time * 20 + o.x * 0.03) * 5;
+        ctx.fillStyle = 'rgba(244, 114, 182, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(o.x - 10, ay);
+        ctx.lineTo(o.x - 26, ay - 10 - flap);
+        ctx.lineTo(o.x - 20, ay + 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(o.x + 10, ay);
+        ctx.lineTo(o.x + 26, ay - 10 - flap);
+        ctx.lineTo(o.x + 20, ay + 2);
+        ctx.closePath();
+        ctx.fill();
+        // Coin
+        circle(o.x, ay, 16, C.amber, '#fff');
+        circle(o.x, ay, 13, '#FCD34D');
+        ctx.font = '800 16px Inter, sans-serif';
+        ctx.fillStyle = '#4a3a00';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('B', o.x, ay + 1);
+      } else {
+        // Ground rolling coin
+        const gy = groundY - 18;
+        const rot = s.time * 12 + o.x * 0.03;
+        ctx.save();
+        ctx.translate(o.x, gy);
+        ctx.rotate(rot);
+        // Elliptical look by scaling
+        const scale = Math.abs(Math.cos(rot));
+        const w = 14 * Math.max(0.2, scale);
+        roundRect(-w, -16, w * 2, 32, 4, C.amber, '#fff');
+        ctx.restore();
+      }
+    });
+
+    // Big score
+    text(String(s.score), W - 40, 40, { size: 40, color: 'rgba(255,255,255,0.12)', align: 'center', weight: 900 });
+    text(String(s.score), W - 40, 40, { size: 40, color: '#fff', align: 'center', weight: 900 });
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onTap);
+    canvas.removeEventListener('touchstart', this.onTap);
+    window.removeEventListener('keydown', this.onKey);
+  }
+};
+
+// ============================================================
+// GAME 5: BEATS-TRIS (Tetris with festival Beats)
+// ============================================================
+const beatstris = {
+  key: 'beatstris',
+  // Grid: 10 wide, 18 tall
+  COLS: 10,
+  ROWS: 18,
+  CELL: 20,
+  // Tetromino shapes
+  SHAPES: {
+    I: [[1,1,1,1]],
+    O: [[1,1],[1,1]],
+    T: [[0,1,0],[1,1,1]],
+    S: [[0,1,1],[1,1,0]],
+    Z: [[1,1,0],[0,1,1]],
+    J: [[1,0,0],[1,1,1]],
+    L: [[0,0,1],[1,1,1]]
+  },
+  COLORS: {
+    I: '#60A5FA', O: '#F59E0B', T: '#A78BFA',
+    S: '#5CB77A', Z: '#F472B6', J: '#3B82F6', L: '#FCD34D'
+  },
+  init() {
+    this.s = {
+      grid: Array.from({length: this.ROWS}, () => Array(this.COLS).fill(null)),
+      current: null,
+      next: null,
+      dropTimer: 0,
+      dropInterval: 0.8,
+      score: 0,
+      lines: 0,
+      level: 1,
+      gameOver: false,
+      clearing: null,  // {rows: [], time: 0}
+      lastMoveTime: 0
+    };
+    this.s.next = this.randomPiece();
+    this.spawn();
+
+    showStart('🟨', 'Beats-Tris', 'Stabl blokke af Beats. Ryd linjer for at score. Jo hurtigere, jo flere point.');
+    canvas.addEventListener('mousedown', this.onTap);
+    canvas.addEventListener('touchstart', this.onTap, { passive: false });
+    canvas.addEventListener('touchend', this.onTouchEnd, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    setHud([
+      { label: 'Score', value: '0' },
+      { label: 'Linjer', value: '0' },
+      { label: 'Lvl', value: '1' }
+    ]);
+    document.getElementById('instructions').textContent = '← → flyt · ↑ rotér · ↓ blød drop · Space hård drop · Mobil: tap venstre/højre for at flytte, tap midten for at rotere, swipe ned for drop';
+  },
+  randomPiece() {
+    const keys = Object.keys(this.SHAPES);
+    const type = keys[Math.floor(Math.random() * keys.length)];
+    return {
+      type,
+      shape: this.SHAPES[type].map(r => [...r]),
+      x: Math.floor(this.COLS / 2) - Math.ceil(this.SHAPES[type][0].length / 2),
+      y: 0
+    };
+  },
+  spawn() {
+    const s = this.s;
+    s.current = s.next;
+    s.next = this.randomPiece();
+    if (this.collides(s.current, 0, 0)) {
+      // Game over
+      beatstris.finish();
+    }
+  },
+  collides(piece, dx, dy, shape) {
+    shape = shape || piece.shape;
+    const nx = piece.x + dx, ny = piece.y + dy;
+    for (let r = 0; r < shape.length; r++) {
+      for (let c = 0; c < shape[r].length; c++) {
+        if (!shape[r][c]) continue;
+        const gx = nx + c, gy = ny + r;
+        if (gx < 0 || gx >= this.COLS || gy >= this.ROWS) return true;
+        if (gy >= 0 && this.s.grid[gy][gx]) return true;
+      }
+    }
+    return false;
+  },
+  rotate(piece) {
+    // Rotate 90deg clockwise
+    const rows = piece.shape.length, cols = piece.shape[0].length;
+    const rotated = Array.from({length: cols}, () => Array(rows).fill(0));
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        rotated[c][rows - 1 - r] = piece.shape[r][c];
+      }
+    }
+    return rotated;
+  },
+  move(dx, dy) {
+    const s = this.s;
+    if (!s.current || s.clearing) return false;
+    if (!this.collides(s.current, dx, dy)) {
+      s.current.x += dx;
+      s.current.y += dy;
+      return true;
+    }
+    return false;
+  },
+  doRotate() {
+    const s = this.s;
+    if (!s.current || s.clearing) return;
+    const rotated = this.rotate(s.current);
+    if (!this.collides(s.current, 0, 0, rotated)) {
+      s.current.shape = rotated;
+    } else if (!this.collides(s.current, -1, 0, rotated)) {
+      s.current.shape = rotated; s.current.x--;
+    } else if (!this.collides(s.current, 1, 0, rotated)) {
+      s.current.shape = rotated; s.current.x++;
+    }
+  },
+  hardDrop() {
+    const s = this.s;
+    if (!s.current || s.clearing) return;
+    let drops = 0;
+    while (!this.collides(s.current, 0, 1)) {
+      s.current.y++;
+      drops++;
+    }
+    s.score += drops * 2;
+    this.lock();
+  },
+  lock() {
+    const s = this.s;
+    const p = s.current;
+    for (let r = 0; r < p.shape.length; r++) {
+      for (let c = 0; c < p.shape[r].length; c++) {
+        if (p.shape[r][c]) {
+          const gx = p.x + c, gy = p.y + r;
+          if (gy >= 0) s.grid[gy][gx] = p.type;
+        }
+      }
+    }
+    // Check full rows
+    const fullRows = [];
+    for (let r = 0; r < this.ROWS; r++) {
+      if (s.grid[r].every(cell => cell)) fullRows.push(r);
+    }
+    if (fullRows.length > 0) {
+      s.clearing = { rows: fullRows, time: 0.4 };
+    } else {
+      this.spawn();
+    }
+  },
+  completeClear() {
+    const s = this.s;
+    const rows = s.clearing.rows;
+    // Remove rows
+    rows.sort((a,b) => b - a);
+    rows.forEach(r => {
+      s.grid.splice(r, 1);
+      s.grid.unshift(Array(this.COLS).fill(null));
+    });
+    const n = rows.length;
+    const linePoints = [0, 100, 300, 500, 800][n] || (n * 250);
+    s.score += linePoints * s.level;
+    s.lines += n;
+    // Level every 10 lines
+    const newLevel = Math.min(15, Math.floor(s.lines / 10) + 1);
+    if (newLevel > s.level) {
+      s.level = newLevel;
+      s.dropInterval = Math.max(0.1, 0.8 - (s.level - 1) * 0.07);
+      confetti(40);
+    }
+    if (n === 4) confetti(80); // Tetris!
+    s.clearing = null;
+    setHud([
+      { label: 'Score', value: s.score, className: 'good' },
+      { label: 'Linjer', value: s.lines },
+      { label: 'Lvl', value: s.level }
+    ]);
+    this.spawn();
+  },
+  finish() {
+    this.s.gameOver = true;
+    gameActive = false;
+    setTimeout(() => {
+      const msg = this.s.lines >= 20 ? 'Tetris-mester! 🏆' :
+                  this.s.lines >= 10 ? 'Stærkt stablet.' :
+                  this.s.lines >= 5 ? 'Godt forsøg.' :
+                  'Prøv igen — få flere linjer ind.';
+      showGameOver('Game Over', msg, this.s.score, `${this.s.lines} linjer · Lvl ${this.s.level}`, 'beatstris');
+    }, 300);
+  },
+  // Input
+  onKey(e) {
+    if (!gameActive || beatstris.s.gameOver) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); beatstris.move(-1, 0); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); beatstris.move(1, 0); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); if (beatstris.move(0, 1)) beatstris.s.score += 1; }
+    else if (e.key === 'ArrowUp' || e.key === 'x') { e.preventDefault(); beatstris.doRotate(); }
+    else if (e.key === ' ') { e.preventDefault(); beatstris.hardDrop(); }
+  },
+  touchStart: null,
+  onTap(e) {
+    e.preventDefault();
+    if (!gameActive) { gameActive = true; hideStart(); return; }
+    if (beatstris.s.gameOver) return;
+    const p = pointerPos(e);
+    beatstris.touchStart = { x: p.x, y: p.y, time: performance.now() };
+    // Simple tap zones: left 1/3 = left, right 1/3 = right, middle 1/3 = rotate
+    // But wait for touchend to detect swipe
+  },
+  onTouchEnd(e) {
+    e.preventDefault();
+    if (!beatstris.touchStart || beatstris.s.gameOver) return;
+    const t = e.changedTouches ? e.changedTouches[0] : e;
+    const rect = canvas.getBoundingClientRect();
+    const endX = (t.clientX - rect.left) * (W / rect.width);
+    const endY = (t.clientY - rect.top) * (H / rect.height);
+    const dx = endX - beatstris.touchStart.x;
+    const dy = endY - beatstris.touchStart.y;
+    const dist = Math.hypot(dx, dy);
+    if (dist > 30 && Math.abs(dy) > Math.abs(dx)) {
+      // Vertical swipe
+      if (dy > 0) beatstris.hardDrop();
+    } else if (dist < 20) {
+      // Tap
+      const x = beatstris.touchStart.x;
+      if (x < W * 0.35) beatstris.move(-1, 0);
+      else if (x > W * 0.65) beatstris.move(1, 0);
+      else beatstris.doRotate();
+    }
+    beatstris.touchStart = null;
+  },
+  update(dt) {
+    const s = this.s;
+    if (!gameActive || s.gameOver) return;
+    if (s.clearing) {
+      s.clearing.time -= dt;
+      if (s.clearing.time <= 0) this.completeClear();
+      return;
+    }
+    s.dropTimer += dt;
+    if (s.dropTimer >= s.dropInterval) {
+      s.dropTimer = 0;
+      if (!this.move(0, 1)) {
+        this.lock();
+      }
+    }
+  },
+  draw() {
+    const s = this.s;
+    clear();
+
+    const CELL = this.CELL;
+    const boardW = this.COLS * CELL;
+    const boardH = this.ROWS * CELL;
+    const ox = (W - boardW) / 2 - 40;
+    const oy = (H - boardH) / 2;
+
+    // Board background
+    roundRect(ox - 4, oy - 4, boardW + 8, boardH + 8, 8, C.bgCard, C.border || '#2a2e3d');
+
+    // Grid lines (subtle)
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+    ctx.lineWidth = 1;
+    for (let c = 1; c < this.COLS; c++) {
+      ctx.beginPath();
+      ctx.moveTo(ox + c * CELL, oy);
+      ctx.lineTo(ox + c * CELL, oy + boardH);
+      ctx.stroke();
+    }
+    for (let r = 1; r < this.ROWS; r++) {
+      ctx.beginPath();
+      ctx.moveTo(ox, oy + r * CELL);
+      ctx.lineTo(ox + boardW, oy + r * CELL);
+      ctx.stroke();
+    }
+
+    // Filled cells
+    for (let r = 0; r < this.ROWS; r++) {
+      for (let c = 0; c < this.COLS; c++) {
+        const cell = s.grid[r][c];
+        if (!cell) continue;
+        const cx = ox + c * CELL;
+        const cy = oy + r * CELL;
+        // Line clear flash
+        if (s.clearing && s.clearing.rows.includes(r)) {
+          const flash = Math.floor(s.clearing.time * 12) % 2 === 0;
+          roundRect(cx + 1, cy + 1, CELL - 2, CELL - 2, 3, flash ? '#fff' : this.COLORS[cell], null);
+          continue;
+        }
+        this.drawCell(cx, cy, this.COLORS[cell]);
+      }
+    }
+
+    // Current piece
+    if (s.current && !s.clearing) {
+      // Ghost piece
+      let ghostY = s.current.y;
+      while (!this.collides(s.current, 0, ghostY - s.current.y + 1)) ghostY++;
+      for (let r = 0; r < s.current.shape.length; r++) {
+        for (let c = 0; c < s.current.shape[r].length; c++) {
+          if (s.current.shape[r][c]) {
+            const cx = ox + (s.current.x + c) * CELL;
+            const cy = oy + (ghostY + r) * CELL;
+            ctx.strokeStyle = this.COLORS[s.current.type];
+            ctx.lineWidth = 1.5;
+            ctx.globalAlpha = 0.35;
+            ctx.strokeRect(cx + 2, cy + 2, CELL - 4, CELL - 4);
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
+      // Actual piece
+      for (let r = 0; r < s.current.shape.length; r++) {
+        for (let c = 0; c < s.current.shape[r].length; c++) {
+          if (s.current.shape[r][c]) {
+            const cx = ox + (s.current.x + c) * CELL;
+            const cy = oy + (s.current.y + r) * CELL;
+            this.drawCell(cx, cy, this.COLORS[s.current.type]);
+          }
+        }
+      }
+    }
+
+    // Side panel
+    const sx = ox + boardW + 20;
+    // Next piece box
+    text('NÆSTE', sx + 40, oy + 10, { size: 11, color: C.muted, align: 'center', weight: 700 });
+    roundRect(sx, oy + 24, 80, 60, 6, C.bgCard, '#2a2e3d');
+    if (s.next) {
+      const shape = s.next.shape;
+      const pw = shape[0].length * 14;
+      const ph = shape.length * 14;
+      const pox = sx + (80 - pw) / 2;
+      const poy = oy + 24 + (60 - ph) / 2;
+      for (let r = 0; r < shape.length; r++) {
+        for (let c = 0; c < shape[r].length; c++) {
+          if (shape[r][c]) {
+            this.drawCell(pox + c * 14, poy + r * 14, this.COLORS[s.next.type], 14);
+          }
+        }
+      }
+    }
+
+    // Mobile controls hint
+    const hintY = oy + boardH - 6;
+    ctx.globalAlpha = 0.4;
+    text('◀ tap', ox + 20, hintY, { size: 10, color: C.muted, weight: 600 });
+    text('rotér', ox + boardW/2, hintY, { size: 10, color: C.muted, align: 'center', weight: 600 });
+    text('tap ▶', ox + boardW - 20, hintY, { size: 10, color: C.muted, align: 'right', weight: 600 });
+    ctx.globalAlpha = 1;
+  },
+  drawCell(x, y, color, size) {
+    size = size || this.CELL;
+    // Base
+    roundRect(x + 1, y + 1, size - 2, size - 2, 3, color, null);
+    // Highlight
+    ctx.fillStyle = 'rgba(255,255,255,0.22)';
+    ctx.fillRect(x + 2, y + 2, size - 4, 3);
+    ctx.fillRect(x + 2, y + 2, 3, size - 4);
+    // Shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.22)';
+    ctx.fillRect(x + 2, y + size - 5, size - 4, 3);
+    ctx.fillRect(x + size - 5, y + 2, 3, size - 4);
+    // Mini "B" for Beats feel
+    if (size >= 16) {
+      ctx.font = `800 ${Math.round(size * 0.55)}px Inter, sans-serif`;
+      ctx.fillStyle = 'rgba(0,0,0,0.3)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('B', x + size/2, y + size/2 + 1);
+    }
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onTap);
+    canvas.removeEventListener('touchstart', this.onTap);
+    canvas.removeEventListener('touchend', this.onTouchEnd);
+    window.removeEventListener('keydown', this.onKey);
+  }
+};
+
+// ============================================================
+// ORCHESTRATION
+// ============================================================
+const games = {
+  spotlight, bartender, beatshop, duckhop, beatstris
+};
+const titles = {
+  spotlight: 'Spotlight',
+  bartender: 'Bar-tender',
+  beatshop: 'Beats-Hop',
+  duckhop: 'Hop & Duk',
+  beatstris: 'Beats-Tris'
+};
+
+function loadGame(key) {
+  if (currentGame) currentGame.cleanup();
+  hideGameOver();
+  gameActive = false;
+  document.getElementById('menuView').style.display = 'none';
+  document.getElementById('gameView').classList.add('active');
+  document.getElementById('gameTitle').textContent = titles[key];
+  currentGame = games[key];
+  currentGame.init();
+  lastTime = performance.now();
+  loop();
+}
+
+function restartGame() {
+  if (!currentGame) return;
+  hideGameOver();
+  currentGame.cleanup();
+  gameActive = false;
+  currentGame.init();
+  lastTime = performance.now();
+}
+
+function exitGame() {
+  if (currentGame) currentGame.cleanup();
+  if (animationId) cancelAnimationFrame(animationId);
+  currentGame = null;
+  gameActive = false;
+  hideGameOver();
+  document.getElementById('gameView').classList.remove('active');
+  document.getElementById('menuView').style.display = '';
+  refreshMenuHi();
+}
+
+function loop(now) {
+  if (!currentGame) return;
+  if (now === undefined) now = performance.now();
+  const dt = Math.min(0.05, (now - lastTime) / 1000);
+  lastTime = now;
+  currentGame.update(dt);
+  currentGame.draw();
+  animationId = requestAnimationFrame(loop);
+}
+
+document.querySelectorAll('.game-tile').forEach(tile => {
+  tile.addEventListener('click', () => loadGame(tile.dataset.game));
+});
+canvas.addEventListener('contextmenu', e => e.preventDefault());
+refreshMenuHi();
+</script>
+
+</body>
+</html>

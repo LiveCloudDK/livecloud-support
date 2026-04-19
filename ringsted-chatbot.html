@@ -864,28 +864,29 @@ function getKB() {
     // ============================================================
     ingen_smartphone: {
       title: 'Ingen smartphone',
-      reply: `Du kan sagtens være med, selvom du ikke har en smartphone. Løsningen er vores webshop og et chip-armbånd, som du får udleveret ved Service Desk, når du kommer til ${b.event.name}.`,
+      reply: `Du kan sagtens være med, selvom du ikke har en smartphone. Men <strong>gør det i god tid inden festivalen</strong> — profil, billet og armbånd skal alt sammen være på plads, før du kommer.`,
       steps: [
-        '<strong>Opret en profil i webshoppen</strong> — det kan du gøre på en almindelig computer eller en lånt enhed. Profilen bekræfter du med MitID',
-        '<strong>Tilknyt din billet i webshoppen</strong> — du indtaster billetkoden, der står på din billet, og så er den knyttet til din profil',
-        '<strong>Køb et chip-armbånd i webshoppen</strong> — armbåndet bestilles på forhånd og udleveres ved <strong>Service Desk</strong>, når du ankommer',
-        '<strong>Brug armbåndet som billet og pung</strong> — du holder det op til scanneren ved indgangen og ved baren',
+        '<strong>Opret en profil i webshoppen</strong> (på computer eller lånt enhed). Bekræft med MitID',
+        '<strong>Aktivér din billet i webshoppen</strong> ved at indtaste billetkoden, der står på din billet',
+        '<strong>Køb et chip-armbånd i webshoppen</strong> — det udleveres ved <strong>Service Desk</strong>, når du ankommer',
+        `Når du kommer til ${b.event.name}: Hent armbåndet ved Service Desk — det er allerede koblet til din profil og billet`,
+        'Brug armbåndet som både adgang og betaling — du holder det op til scanneren ved indgangen og ved baren',
         'Du kan fylde Beats på armbåndet via webshoppen eller ved baren under festivalen'
       ],
-      followUp: `Bestil armbåndet i god tid i webshoppen, så er det klar til afhentning, når du kommer. Har du særlige behov, så skriv endelig til os på <strong>${b.supportEmail}</strong>. Vi finder den bedste løsning for dig.`,
+      followUp: `Gør det i god tid, så alt er klar, når du ankommer. Har du særlige behov, så skriv endelig til os på <strong>${b.supportEmail}</strong> — også gerne i god tid inden festivalen.`,
       related: ['ældre_telefon', 'børn', 'profil', 'armbånd', 'kontakt']
     },
 
     ældre_telefon: {
       title: 'Ældre smartphone / kompatibilitet',
-      reply: `<strong>${b.appName}</strong> virker på de fleste smartphones:`,
+      reply: `<strong>${b.appName}</strong> virker på de fleste smartphones — men din skal opfylde minimumskravene:`,
       steps: [
-        '<strong>iPhone:</strong> Kræver iOS 15 eller nyere (iPhone 7 og nyere ✓)',
+        '<strong>iPhone:</strong> Kræver iOS 16 eller nyere (<strong>iPhone 8 og nyere ✓</strong>)',
         '<strong>Android:</strong> Kræver Android 8.0 eller nyere (de fleste telefoner fra 2018+)',
-        'Appen er <strong>optimeret til ældre enheder</strong> og bruger minimal strøm',
-        'Har du problemer med installation? Prøv at <strong>opdatere dit styresystem</strong> først'
+        'Har du problemer med installation? Prøv at <strong>opdatere dit styresystem</strong> først',
+        'Er din telefon for gammel (fx en iPhone 7)? Du kan stadig være med — se "Ingen smartphone"'
       ],
-      followUp: `Er din telefon for gammel? Se mulighederne under "Ingen smartphone" — eller kontakt <strong>${b.supportEmail}</strong>.`,
+      followUp: `Er du i tvivl, så skriv til os på <strong>${b.supportEmail}</strong>, så hjælper vi dig videre.`,
       related: ['ingen_smartphone', 'app', 'kontakt']
     },
 
@@ -1038,6 +1039,20 @@ function getKB() {
     // ============================================================
     // FAQ — Indgang & Praktisk
     // ============================================================
+    adgangskontrol: {
+      title: 'Hvorfor skal jeg tjekkes ind og ud?',
+      reply: 'Når du kommer til festivalen, bliver du tjekket ind ved indgangen. Og når du går hjem igen, tjekker du også ud. Begge dele er vigtige.',
+      steps: [
+        '<strong>For din sikkerhed:</strong> Vi ved præcis, hvem der er på pladsen. Sker der noget, kan vi reagere hurtigt — og det gør det også nemmere at hjælpe jer med at finde hinanden igen, hvis nogen bliver væk',
+        '<strong>For en god fest:</strong> Vi undgår overfyldte områder, så der er plads til god musik, nærvær med venner og familie, og masser af kram under trækronerne',
+        '<strong>Sådan gør du:</strong> Ved både ind- og udgang viser du din app eller dit armbånd — du bliver automatisk tjekket ind eller ud',
+        'Vil du forlade pladsen og komme tilbage? Helt fint — tjek bare ud og ind igen',
+        'Husk altid at tjekke ud, når du går hjem for natten'
+      ],
+      followUp: 'Det handler om sikkerhed og om at sikre, at alle får en god festival.',
+      related: ['billet', 'armbånd', 'indgang_problem']
+    },
+
     personligt: {
       title: 'Må jeg låne min telefon eller mit armbånd ud?',
       reply: 'Nej. Din profil, din billet og dine Beats er <strong>strengt personlige</strong>.',
@@ -1103,6 +1118,7 @@ const keywordMap = [
   { keys: ['auto', 'automatisk optankning', 'auto-optankning', 'automatisk beats', 'fyld op automatisk', 'tilknyt kort', 'auto optankning', 'autofyldning', 'auto-fyld', 'automatisk påfyldning'], topic: 'auto_optankning' },
   { keys: ['låne telefon', 'låne armbånd', 'dele armbånd', 'personligt', 'strengt personlig', 'må andre bruge', 'låne ud', 'låne min app', 'dele min billet', 'give min billet', 'låne billet'], topic: 'personligt' },
   { keys: ['pre-order', 'pre order', 'prebestilling', 'pre-bestilling', 'bordbestilling', 'bord bestilling', 'bestilling til bordet', 'bestilling til lejeren', 'levering til leje', 'slippe for kø', 'slippe for ko'], topic: 'pre_order' },
+  { keys: ['tjek ind', 'tjek ud', 'check ind', 'check ud', 'check-ind', 'check-ud', 'tjekke ind', 'tjekke ud', 'adgangskontrol', 'forlade pladsen', 'gå ud og ind', 'komme tilbage', 'gå hjem', 'ind og ud'], topic: 'adgangskontrol' },
   { keys: ['beats', 'credits', 'festival valuta', 'saldo', 'køb beats', 'festivalvaluta', 'festival-credits', 'fyld op', 'optankning', 'top op', 'topop', 'topup'], topic: 'beats' },
   { keys: ['betalingskort', 'oprette kort', 'registrere kort', 'tilføje kort', 'kort i appen'], topic: 'betalingskort' },
   { keys: ['hvilke kort', 'kort virker', 'visa', 'mastercard', 'dankort'], topic: 'kort_typer' },

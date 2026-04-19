@@ -373,6 +373,94 @@
   .share-section:not(.unlocked) .share-btn-primary,
   .share-section:not(.unlocked) .share-icon-btn { pointer-events: none; opacity: 0.5; }
 
+  /* Arcade unlock */
+  .arcade-unlock {
+    margin-top: 28px;
+    padding: 22px 18px;
+    background: #0a0f0a;
+    border: 3px solid #9bbc0f;
+    border-radius: 4px;
+    box-shadow: 0 0 24px rgba(155, 188, 15, 0.3),
+                inset 0 0 24px rgba(155, 188, 15, 0.05);
+    font-family: 'Courier New', monospace;
+    color: #9bbc0f;
+    position: relative;
+    overflow: hidden;
+  }
+  .arcade-unlock::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.15) 0px,
+      rgba(0,0,0,0.15) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+  }
+  .arcade-glow {
+    font-size: 11px;
+    color: #ffb000;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    animation: blink-arcade 1.5s step-start infinite;
+    text-shadow: 0 0 8px #ffb000;
+    font-weight: bold;
+  }
+  @keyframes blink-arcade {
+    50% { opacity: 0.3; }
+  }
+  .arcade-unlock h4 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #9bbc0f;
+    text-shadow: 0 0 8px #9bbc0f;
+    margin-bottom: 12px;
+  }
+  .arcade-unlock p {
+    color: #6b8c0f;
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 18px;
+    font-family: 'Inter', sans-serif;
+  }
+  .arcade-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #9bbc0f;
+    color: #0a0f0a;
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 3px;
+    padding: 12px 24px;
+    border-radius: 0;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+  }
+  .arcade-btn:hover {
+    background: #ffb000;
+    color: #0a0f0a;
+    box-shadow: 4px 4px 0 #2c4c0f;
+    transform: translate(-2px, -2px);
+  }
+  .arcade-btn:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+  }
+  .share-section:not(.unlocked) .arcade-unlock {
+    pointer-events: none;
+    opacity: 0.4;
+    filter: grayscale(0.6);
+  }
+
   /* Reset & secondary nav */
   .footer-actions {
     margin-top: 28px;
@@ -573,6 +661,17 @@
       <button class="share-icon-btn" onclick="shareVia('messenger')" title="Messenger">📨</button>
       <button class="share-icon-btn" onclick="shareVia('email')" title="E-mail">✉️</button>
       <button class="share-icon-btn" onclick="shareVia('copy')" title="Kopier link">🔗</button>
+    </div>
+
+    <!-- Bonus arcade unlock -->
+    <div class="arcade-unlock" id="arcadeUnlock">
+      <div class="arcade-glow">🕹️ BONUS UNLOCKED 🕹️</div>
+      <h4>Festival Arkade</h4>
+      <p>4 små retro-spil i Game Boy-stil. Kast Beats mod baren, fang faldende Beats, byg festival-logoet, eller spil rytme-noder. Slå dine venner på high-score.</p>
+      <a href="festival-arkade.html" class="arcade-btn">
+        <span>👾</span>
+        START SPIL
+      </a>
     </div>
   </div>
 

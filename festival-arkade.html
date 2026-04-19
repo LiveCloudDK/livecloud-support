@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Festival Arkade</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+  :root {
+    --bg: #0a0f0a;
+    --green: #9bbc0f;
+    --green-dim: #6b8c0f;
+    --green-dark: #2c4c0f;
+    --amber: #ffb000;
+    --amber-dim: #cc8800;
+    --pink: #ff66cc;
+    --magenta: #ff00aa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #000;
+    color: var(--green);
+    font-family: 'Press Start 2P', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: none;
+    font-smoothing: none;
+    image-rendering: pixelated;
+  }
+
+  /* CRT scanline overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 1000;
+    mix-blend-mode: overlay;
+  }
+  /* CRT vignette */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  .arcade {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: var(--green-dim);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .top-bar a {
+    color: var(--green-dim);
+    text-decoration: none;
+  }
+  .top-bar a:hover { color: var(--green); }
+
+  /* ===== HEADER ===== */
+  .arcade-header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding: 24px 16px;
+    border: 4px solid var(--green);
+    border-radius: 0;
+    background: rgba(155, 188, 15, 0.04);
+    box-shadow: 0 0 20px rgba(155, 188, 15, 0.2),
+                inset 0 0 20px rgba(155, 188, 15, 0.05);
+  }
+  .arcade-header h1 {
+    font-size: 22px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    text-shadow: 0 0 8px var(--green);
+    color: var(--green);
+  }
+  .arcade-header .sub {
+    font-size: 9px;
+    color: var(--amber);
+    margin-top: 12px;
+    letter-spacing: 1px;
+    animation: blink 1.5s step-start infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* ===== GAME MENU ===== */
+  .game-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 540px) {
+    .game-menu { grid-template-columns: 1fr; }
+  }
+
+  .game-card {
+    background: var(--bg);
+    border: 3px solid var(--green);
+    padding: 24px 18px;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-align: center;
+    color: var(--green);
+    font-family: inherit;
+    text-decoration: none;
+    display: block;
+    position: relative;
+  }
+  .game-card:hover {
+    background: var(--green);
+    color: var(--bg);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--green-dark);
+  }
+  .game-card:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+  }
+  .game-card h2 {
+    font-size: 13px;
+    margin-bottom: 8px;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+  }
+  .game-card p {
+    font-size: 8px;
+    color: var(--amber);
+    line-height: 1.6;
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+  .game-card:hover p { color: var(--green-dark); }
+  .game-card .hi-score {
+    font-size: 8px;
+    color: var(--amber-dim);
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+  .game-card:hover .hi-score { color: var(--bg); }
+
+  /* ===== GAME VIEW ===== */
+  .game-view {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .game-view.active { display: flex; }
+
+  .game-hud {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--green);
+    padding: 8px 0;
+    letter-spacing: 1px;
+  }
+  .game-hud .label { color: var(--amber); margin-right: 6px; }
+
+  .game-canvas-wrap {
+    background: var(--bg);
+    border: 4px solid var(--green);
+    padding: 8px;
+    box-shadow: 0 0 30px rgba(155, 188, 15, 0.3);
+    position: relative;
+  }
+  canvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    cursor: crosshair;
+    touch-action: none;
+  }
+
+  .game-msg {
+    position: absolute;
+    inset: 12px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 15, 10, 0.92);
+    color: var(--green);
+    text-align: center;
+    padding: 20px;
+    z-index: 5;
+  }
+  .game-msg.show { display: flex; }
+  .game-msg h3 {
+    font-size: 18px;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+    color: var(--amber);
+    text-shadow: 0 0 8px var(--amber);
+  }
+  .game-msg p {
+    font-size: 10px;
+    line-height: 1.7;
+    color: var(--green);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .game-msg .score-display {
+    font-size: 14px;
+    color: var(--green);
+    margin: 12px 0 6px;
+  }
+  .game-msg .new-record {
+    color: var(--pink);
+    font-size: 9px;
+    margin-top: 6px;
+    animation: blink 0.5s step-start infinite;
+  }
+
+  .game-controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 4px;
+  }
+  .pixel-btn {
+    background: var(--bg);
+    border: 2px solid var(--green);
+    color: var(--green);
+    font-family: inherit;
+    font-size: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.1s;
+  }
+  .pixel-btn:hover {
+    background: var(--green);
+    color: var(--bg);
+  }
+  .pixel-btn.amber { border-color: var(--amber); color: var(--amber); }
+  .pixel-btn.amber:hover { background: var(--amber); color: var(--bg); }
+  .pixel-btn.pink { border-color: var(--pink); color: var(--pink); }
+  .pixel-btn.pink:hover { background: var(--pink); color: var(--bg); }
+
+  .instructions {
+    font-size: 9px;
+    color: var(--green-dim);
+    text-align: center;
+    line-height: 1.7;
+    margin-top: 4px;
+    max-width: 500px;
+    letter-spacing: 1px;
+  }
+
+  /* Insert coin footer */
+  .footer-msg {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 2px;
+    animation: blink 1.5s step-start infinite;
+  }
+
+  /* Confetti */
+  #confetti-container {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 998;
+    overflow: hidden;
+  }
+  .confetti-piece {
+    position: absolute;
+    top: -20px;
+    width: 8px;
+    height: 12px;
+    animation: confetti-fall linear forwards;
+  }
+  @keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+
+<div id="confetti-container"></div>
+
+<div class="arcade">
+
+  <div class="top-bar">
+    <a href="index.html">&lt;&lt; SUPPORT</a>
+    <span>1986 // RINGSTED</span>
+  </div>
+
+  <!-- ===== Header / Menu ===== -->
+  <div id="menu-view">
+    <div class="arcade-header">
+      <h1>FESTIVAL<br>ARKADE</h1>
+      <div class="sub">// INSERT COIN //</div>
+    </div>
+
+    <div class="game-menu">
+      <button class="game-card" data-game="beats-toss">
+        <h2>BEATS-KAST</h2>
+        <p>SIGT &middot; HOLD &middot; SLIP<br>RAM ØLKRUS</p>
+        <div class="hi-score">HI: <span id="hi-beats-toss">0</span></div>
+      </button>
+      <button class="game-card" data-game="catch-beats">
+        <h2>FANG BEATS</h2>
+        <p>30 SEK &middot; FLYT &middot; FANG<br>UNDGÅ BOMBER</p>
+        <div class="hi-score">HI: <span id="hi-catch-beats">0</span></div>
+      </button>
+      <button class="game-card" data-game="logo-fill">
+        <h2>RF-LOGO</h2>
+        <p>STABL FYR &middot; HOLD BALANCE<br>BYG LOGOET</p>
+        <div class="hi-score">HI: <span id="hi-logo-fill">0</span></div>
+      </button>
+      <button class="game-card" data-game="rhythm">
+        <h2>RYTME</h2>
+        <p>TAP I TAKT<br>FØLG BEATEN</p>
+        <div class="hi-score">HI: <span id="hi-rhythm">0</span></div>
+      </button>
+    </div>
+
+    <div class="footer-msg">// PRESS A GAME TO START //</div>
+  </div>
+
+  <!-- ===== Game View ===== -->
+  <div class="game-view" id="gameView">
+    <div class="game-hud">
+      <div><span class="label">SCORE</span><span id="hudScore">0</span></div>
+      <div id="hudExtra"></div>
+      <div><span class="label">HI</span><span id="hudHi">0</span></div>
+    </div>
+    <div class="game-canvas-wrap">
+      <canvas id="canvas" width="480" height="320"></canvas>
+      <div class="game-msg" id="gameMsg">
+        <h3 id="msgTitle">GAME OVER</h3>
+        <p id="msgText"></p>
+        <div class="score-display" id="msgScore"></div>
+        <div class="new-record" id="newRecord" style="display:none;">! NEW RECORD !</div>
+      </div>
+    </div>
+    <div class="instructions" id="instructions"></div>
+    <div class="game-controls">
+      <button class="pixel-btn amber" onclick="restartGame()">RESTART</button>
+      <button class="pixel-btn" onclick="exitGame()">MENU</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// SHARED UTILITIES
+// ============================================================
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+
+const W = canvas.width;   // 480
+const H = canvas.height;  // 320
+
+const COLORS = {
+  bg: '#0a0f0a',
+  green: '#9bbc0f',
+  greenDim: '#6b8c0f',
+  greenDark: '#2c4c0f',
+  amber: '#ffb000',
+  amberDim: '#cc8800',
+  pink: '#ff66cc',
+  magenta: '#ff00aa',
+  white: '#e0f0e0'
+};
+
+let currentGame = null;
+let animationId = null;
+let lastTime = 0;
+
+// Hi-scores
+function getHi(game) {
+  try { return parseInt(localStorage.getItem('arcade-hi-' + game)) || 0; }
+  catch { return 0; }
+}
+function setHi(game, score) {
+  try { localStorage.setItem('arcade-hi-' + game, String(score)); } catch {}
+}
+function updateHiScoresMenu() {
+  ['beats-toss','catch-beats','logo-fill','rhythm'].forEach(g => {
+    const el = document.getElementById('hi-' + g);
+    if (el) el.textContent = getHi(g);
+  });
+}
+
+// Confetti
+function confetti(intense = false) {
+  const container = document.getElementById('confetti-container');
+  const colors = [COLORS.green, COLORS.amber, COLORS.pink, COLORS.magenta, '#ffff00'];
+  const count = intense ? 120 : 60;
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = (Math.random() * 0.6) + 's';
+    piece.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+    container.appendChild(piece);
+    setTimeout(() => piece.remove(), 5500);
+  }
+}
+
+// Pixel rendering helpers
+function rect(x, y, w, h, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(Math.round(x), Math.round(y), w, h);
+}
+function pxText(text, x, y, color = COLORS.green, size = 10) {
+  ctx.font = `${size}px "Press Start 2P", monospace`;
+  ctx.fillStyle = color;
+  ctx.textBaseline = 'top';
+  ctx.fillText(text, Math.round(x), Math.round(y));
+}
+function clear(color = COLORS.bg) {
+  ctx.fillStyle = color;
+  ctx.fillRect(0, 0, W, H);
+}
+
+// HUD
+function updateHud(score, extra = '', game) {
+  document.getElementById('hudScore').textContent = score;
+  document.getElementById('hudExtra').innerHTML = extra;
+  document.getElementById('hudHi').textContent = getHi(game);
+}
+
+// Game over overlay
+function showGameMsg(title, text, score, game) {
+  document.getElementById('msgTitle').textContent = title;
+  document.getElementById('msgText').textContent = text;
+  document.getElementById('msgScore').textContent = 'SCORE: ' + score;
+  const hi = getHi(game);
+  if (score > hi) {
+    setHi(game, score);
+    document.getElementById('newRecord').style.display = 'block';
+    confetti(true);
+  } else {
+    document.getElementById('newRecord').style.display = 'none';
+  }
+  document.getElementById('gameMsg').classList.add('show');
+}
+function hideGameMsg() {
+  document.getElementById('gameMsg').classList.remove('show');
+}
+
+// Get pointer position relative to canvas
+function pointerPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const t = e.touches ? e.touches[0] : e;
+  return {
+    x: (t.clientX - rect.left) * (W / rect.width),
+    y: (t.clientY - rect.top) * (H / rect.height)
+  };
+}
+
+// ============================================================
+// GAME 1: BEATS-KAST (Throw Beats at the bar)
+// ============================================================
+const beatsToss = {
+  name: 'beats-toss',
+  state: null,
+  init() {
+    this.state = {
+      throws: 3,
+      score: 0,
+      coin: null,        // { x, y, vx, vy, rot }
+      charging: false,
+      power: 0,
+      angle: -Math.PI / 4,  // -45 deg
+      mouseY: H/2,
+      message: 'HOLD VENSTRE FOR AT LADE  /  SLIP FOR AT KASTE',
+      messageTime: 4
+    };
+    canvas.addEventListener('mousedown', this.onDown);
+    canvas.addEventListener('touchstart', this.onDown, { passive: false });
+    window.addEventListener('mouseup', this.onUp);
+    window.addEventListener('touchend', this.onUp);
+    canvas.addEventListener('mousemove', this.onMove);
+    canvas.addEventListener('touchmove', this.onMove, { passive: false });
+    document.getElementById('instructions').textContent =
+      'HOLD KNAPPEN FOR AT LADE OP. BEVÆG MUS / FINGER OP-NED FOR AT SIGTE. SLIP FOR AT KASTE.';
+    updateHud(0, '<span class="label">KAST</span>3', 'beats-toss');
+  },
+  onDown(e) {
+    e.preventDefault();
+    const s = beatsToss.state;
+    if (!s || s.coin || s.throws <= 0) return;
+    s.charging = true;
+    s.power = 0;
+  },
+  onUp(e) {
+    const s = beatsToss.state;
+    if (!s || !s.charging) return;
+    s.charging = false;
+    if (s.throws <= 0) return;
+    // Launch coin
+    const launchSpeed = 4 + s.power * 8;  // 4 to 12
+    s.coin = {
+      x: 70,
+      y: H - 80,
+      vx: Math.cos(s.angle) * launchSpeed,
+      vy: Math.sin(s.angle) * launchSpeed,
+      rot: 0,
+      rotSpeed: 0.3
+    };
+    s.throws--;
+    s.power = 0;
+  },
+  onMove(e) {
+    const s = beatsToss.state;
+    if (!s) return;
+    const p = pointerPos(e);
+    s.mouseY = p.y;
+    // Aim angle from launch point to pointer
+    const dx = p.x - 70;
+    const dy = p.y - (H - 80);
+    s.angle = Math.atan2(dy, dx);
+    // Clamp angle: -85deg to -10deg
+    if (s.angle > -Math.PI/18) s.angle = -Math.PI/18;
+    if (s.angle < -Math.PI * 0.47) s.angle = -Math.PI * 0.47;
+  },
+  update(dt) {
+    const s = this.state;
+    if (s.charging) {
+      s.power = Math.min(1, s.power + dt * 1.2);
+    }
+    if (s.message) {
+      s.messageTime -= dt;
+      if (s.messageTime <= 0) s.message = '';
+    }
+    if (s.coin) {
+      s.coin.x += s.coin.vx;
+      s.coin.y += s.coin.vy;
+      s.coin.vy += 0.25;  // gravity
+      s.coin.rot += s.coin.rotSpeed;
+      // Check collision with glass
+      const glassX = W - 100;
+      const glassY = H - 100;
+      const glassW = 50;
+      const glassH = 60;
+      if (s.coin.x > glassX + 5 && s.coin.x < glassX + glassW - 5 &&
+          s.coin.y > glassY && s.coin.y < glassY + 20) {
+        // HIT
+        s.score += 100;
+        s.coin = null;
+        s.message = '+100 !!  KLINK!';
+        s.messageTime = 1.5;
+        confetti(false);
+        updateHud(s.score, `<span class="label">KAST</span>${s.throws}`, 'beats-toss');
+      } else if (s.coin.y > H || s.coin.x > W) {
+        s.coin = null;
+        s.message = 'MISS!';
+        s.messageTime = 1.2;
+      }
+      // Check game over
+      if (!s.coin && s.throws <= 0) {
+        setTimeout(() => {
+          showGameMsg('GAME OVER', '3 KAST FÆRDIGE', s.score, 'beats-toss');
+        }, 700);
+      }
+    }
+  },
+  draw() {
+    const s = this.state;
+    clear(COLORS.bg);
+
+    // Draw "ground" line
+    rect(0, H - 30, W, 2, COLORS.greenDim);
+    rect(0, H - 28, W, 28, COLORS.greenDark);
+
+    // Draw bar (right side)
+    const barX = W - 130;
+    rect(barX, H - 60, 110, 30, COLORS.green);
+    rect(barX + 4, H - 56, 102, 22, COLORS.greenDim);
+    pxText('BAR', barX + 38, H - 50, COLORS.bg, 10);
+
+    // Glass on top
+    const glassX = W - 100;
+    const glassY = H - 100;
+    rect(glassX, glassY, 50, 5, COLORS.green);  // rim
+    rect(glassX + 4, glassY + 5, 42, 35, COLORS.greenDark); // glass body
+    rect(glassX + 6, glassY + 7, 38, 8, COLORS.amber); // beer
+    rect(glassX + 6, glassY + 5, 38, 4, COLORS.white); // foam
+
+    // Draw thrower (player) on left
+    rect(50, H - 70, 30, 40, COLORS.green);
+    rect(50, H - 80, 30, 12, COLORS.green);  // head
+    rect(58, H - 76, 4, 4, COLORS.bg);       // eye
+    rect(68, H - 76, 4, 4, COLORS.bg);
+
+    // Draw aim line / power if charging or aiming
+    if (!s.coin && s.throws > 0) {
+      // dotted aim trajectory preview
+      const launchX = 70, launchY = H - 80;
+      const previewSpeed = 4 + s.power * 8;
+      const previewVx = Math.cos(s.angle) * previewSpeed;
+      const previewVy = Math.sin(s.angle) * previewSpeed;
+      let px = launchX, py = launchY, pvy = previewVy;
+      ctx.fillStyle = s.charging ? COLORS.amber : COLORS.greenDim;
+      for (let i = 0; i < 30; i++) {
+        px += previewVx;
+        py += pvy;
+        pvy += 0.25;
+        if (i % 3 === 0 && py < H - 30 && px < W) {
+          ctx.fillRect(Math.round(px) - 1, Math.round(py) - 1, 2, 2);
+        }
+      }
+
+      // Power meter at bottom
+      if (s.charging) {
+        const pmX = 20, pmY = 20, pmW = 200, pmH = 14;
+        rect(pmX - 2, pmY - 2, pmW + 4, pmH + 4, COLORS.green);
+        rect(pmX, pmY, pmW, pmH, COLORS.bg);
+        rect(pmX, pmY, pmW * s.power, pmH, s.power > 0.85 ? COLORS.pink : COLORS.amber);
+        pxText('POWER', pmX, pmY + pmH + 6, COLORS.amber, 8);
+      }
+    }
+
+    // Draw flying coin
+    if (s.coin) {
+      const cx = Math.round(s.coin.x);
+      const cy = Math.round(s.coin.y);
+      // diamond/coin shape (rotates visually via thickness)
+      const wide = Math.abs(Math.cos(s.coin.rot));
+      const w = Math.max(2, Math.round(10 * wide));
+      rect(cx - w/2, cy - 6, w, 12, COLORS.amber);
+      rect(cx - w/2 + 1, cy - 4, Math.max(1, w - 2), 8, COLORS.amberDim);
+    }
+
+    // Score in top right
+    pxText('SCORE: ' + s.score, W - 130, 12, COLORS.green, 10);
+    pxText('KAST: ' + s.throws, 12, 12, COLORS.amber, 10);
+
+    // Message
+    if (s.message) {
+      const tw = ctx.measureText(s.message);
+      ctx.font = '12px "Press Start 2P"';
+      const w = ctx.measureText(s.message).width;
+      const x = (W - w) / 2;
+      const y = H / 2 - 30;
+      rect(x - 8, y - 4, w + 16, 22, COLORS.bg);
+      pxText(s.message, x, y, COLORS.amber, 12);
+    }
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onDown);
+    canvas.removeEventListener('touchstart', this.onDown);
+    window.removeEventListener('mouseup', this.onUp);
+    window.removeEventListener('touchend', this.onUp);
+    canvas.removeEventListener('mousemove', this.onMove);
+    canvas.removeEventListener('touchmove', this.onMove);
+  }
+};
+
+// ============================================================
+// GAME 2: FANG BEATS (Catch Beats)
+// ============================================================
+const catchBeats = {
+  name: 'catch-beats',
+  state: null,
+  init() {
+    this.state = {
+      score: 0,
+      timeLeft: 30,
+      mug: { x: W/2 - 30, y: H - 40, w: 60, h: 28, vx: 0 },
+      drops: [],     // { x, y, vy, type: 'beats' or 'bomb' }
+      spawnTimer: 0,
+      keys: { left: false, right: false },
+      gameOver: false
+    };
+    canvas.addEventListener('mousemove', this.onMove);
+    canvas.addEventListener('touchmove', this.onMove, { passive: false });
+    canvas.addEventListener('touchstart', this.onMove, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('keyup', this.onKeyUp);
+    document.getElementById('instructions').textContent =
+      'FLYT KRUSET MED MUS / FINGER ELLER ← →  /  FANG BEATS  /  UNDGÅ BOMBER';
+    updateHud(0, '<span class="label">TID</span>30', 'catch-beats');
+  },
+  onMove(e) {
+    e.preventDefault();
+    const s = catchBeats.state;
+    if (!s || s.gameOver) return;
+    const p = pointerPos(e);
+    s.mug.x = Math.max(0, Math.min(W - s.mug.w, p.x - s.mug.w / 2));
+  },
+  onKey(e) {
+    const s = catchBeats.state;
+    if (!s) return;
+    if (e.key === 'ArrowLeft') s.keys.left = true;
+    if (e.key === 'ArrowRight') s.keys.right = true;
+  },
+  onKeyUp(e) {
+    const s = catchBeats.state;
+    if (!s) return;
+    if (e.key === 'ArrowLeft') s.keys.left = false;
+    if (e.key === 'ArrowRight') s.keys.right = false;
+  },
+  update(dt) {
+    const s = this.state;
+    if (s.gameOver) return;
+
+    // Time
+    s.timeLeft -= dt;
+    if (s.timeLeft <= 0) {
+      s.timeLeft = 0;
+      s.gameOver = true;
+      setTimeout(() => {
+        let msg = 'GODT GJORT';
+        if (s.score >= 800) msg = 'LEGENDARY';
+        else if (s.score >= 500) msg = 'IKKE DÅRLIGT';
+        else if (s.score >= 200) msg = 'PRØV IGEN';
+        else msg = 'ØV - PRØV IGEN';
+        showGameMsg('TIME UP', msg, s.score, 'catch-beats');
+      }, 400);
+      return;
+    }
+
+    // Mug movement (keyboard)
+    if (s.keys.left) s.mug.x -= 6;
+    if (s.keys.right) s.mug.x += 6;
+    s.mug.x = Math.max(0, Math.min(W - s.mug.w, s.mug.x));
+
+    // Spawn drops
+    s.spawnTimer -= dt;
+    if (s.spawnTimer <= 0) {
+      const isBomb = Math.random() < 0.18;
+      s.drops.push({
+        x: 20 + Math.random() * (W - 40),
+        y: -20,
+        vy: 80 + Math.random() * 140 + (30 - s.timeLeft) * 4,
+        type: isBomb ? 'bomb' : 'beats'
+      });
+      s.spawnTimer = 0.4 + Math.random() * 0.5 - (30 - s.timeLeft) * 0.005;
+      if (s.spawnTimer < 0.15) s.spawnTimer = 0.15;
+    }
+
+    // Update drops
+    for (let i = s.drops.length - 1; i >= 0; i--) {
+      const d = s.drops[i];
+      d.y += d.vy * dt;
+      // Catch?
+      if (d.y > s.mug.y - 5 && d.y < s.mug.y + 20 &&
+          d.x > s.mug.x && d.x < s.mug.x + s.mug.w) {
+        if (d.type === 'beats') {
+          s.score += 10;
+        } else {
+          s.score = Math.max(0, s.score - 30);
+        }
+        s.drops.splice(i, 1);
+        updateHud(s.score, `<span class="label">TID</span>${Math.ceil(s.timeLeft)}`, 'catch-beats');
+      } else if (d.y > H) {
+        s.drops.splice(i, 1);
+      }
+    }
+
+    updateHud(s.score, `<span class="label">TID</span>${Math.ceil(s.timeLeft)}`, 'catch-beats');
+  },
+  draw() {
+    const s = this.state;
+    clear(COLORS.bg);
+
+    // Stars in background
+    ctx.fillStyle = COLORS.greenDark;
+    for (let i = 0; i < 20; i++) {
+      const sx = (i * 37 + 13) % W;
+      const sy = (i * 71 + 7) % (H - 40);
+      ctx.fillRect(sx, sy, 1, 1);
+    }
+
+    // Drops
+    s.drops.forEach(d => {
+      if (d.type === 'beats') {
+        rect(d.x - 6, d.y - 6, 12, 12, COLORS.amber);
+        rect(d.x - 4, d.y - 4, 8, 8, COLORS.amberDim);
+        rect(d.x - 2, d.y - 2, 4, 4, COLORS.amber);
+      } else {
+        // bomb
+        rect(d.x - 7, d.y - 5, 14, 14, COLORS.pink);
+        rect(d.x - 5, d.y - 3, 10, 10, COLORS.magenta);
+        rect(d.x - 1, d.y - 9, 2, 4, COLORS.amber);  // fuse
+      }
+    });
+
+    // Mug
+    rect(s.mug.x, s.mug.y, s.mug.w, s.mug.h, COLORS.green);
+    rect(s.mug.x + 4, s.mug.y + 4, s.mug.w - 8, s.mug.h - 4, COLORS.greenDark);
+    rect(s.mug.x + 4, s.mug.y + 4, s.mug.w - 8, 6, COLORS.white);  // foam
+    // handle
+    rect(s.mug.x + s.mug.w, s.mug.y + 6, 6, 14, COLORS.green);
+    rect(s.mug.x + s.mug.w + 6, s.mug.y + 8, 2, 10, COLORS.greenDim);
+
+    // HUD overlay
+    pxText('SCORE: ' + s.score, 12, 12, COLORS.green, 10);
+    const t = Math.ceil(s.timeLeft);
+    pxText('TID: ' + t, W - 100, 12, t < 6 ? COLORS.pink : COLORS.amber, 10);
+  },
+  cleanup() {
+    canvas.removeEventListener('mousemove', this.onMove);
+    canvas.removeEventListener('touchmove', this.onMove);
+    canvas.removeEventListener('touchstart', this.onMove);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('keyup', this.onKeyUp);
+  }
+};
+
+// ============================================================
+// GAME 3: RF-LOGO (Stack pieces to build the festival logo)
+// ============================================================
+const logoFill = {
+  name: 'logo-fill',
+  state: null,
+  init() {
+    this.state = {
+      score: 0,
+      level: 1,
+      pieceY: H - 30,
+      pieceW: 100,
+      pieceX: 0,
+      pieceVx: 3,
+      stack: [],   // { x, y, w }
+      gameOver: false,
+      direction: 1
+    };
+    // Initial stack — base
+    this.state.stack.push({ x: W/2 - 60, y: H - 30, w: 120 });
+    this.state.pieceY = H - 50;
+    canvas.addEventListener('mousedown', this.onClick);
+    canvas.addEventListener('touchstart', this.onClick, { passive: false });
+    window.addEventListener('keydown', this.onKeyClick);
+    document.getElementById('instructions').textContent =
+      'KLIK / TAP / TRYK MELLEMRUM FOR AT DROPPE STYKKET. STABL NØJAGTIGT FOR AT BYGGE LOGOET.';
+    updateHud(0, '<span class="label">LVL</span>1', 'logo-fill');
+  },
+  onClick(e) {
+    if (e) e.preventDefault();
+    logoFill.dropPiece();
+  },
+  onKeyClick(e) {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      logoFill.dropPiece();
+    }
+  },
+  dropPiece() {
+    const s = logoFill.state;
+    if (!s || s.gameOver) return;
+    const top = s.stack[s.stack.length - 1];
+    const left = Math.max(s.pieceX, top.x);
+    const right = Math.min(s.pieceX + s.pieceW, top.x + top.w);
+    const overlap = right - left;
+
+    if (overlap <= 0) {
+      // Total miss — game over
+      s.gameOver = true;
+      setTimeout(() => {
+        let msg = 'BYGGEDE ' + s.level + ' ETAGER';
+        showGameMsg('LOGO RAS!', msg, s.score, 'logo-fill');
+      }, 400);
+      return;
+    }
+
+    // Snap piece to overlap
+    const newPiece = { x: left, y: s.pieceY, w: overlap };
+    s.stack.push(newPiece);
+    s.score += Math.round(overlap);
+    s.level++;
+
+    // Move next piece up
+    s.pieceY -= 18;
+    s.pieceW = Math.min(overlap, s.pieceW);
+    s.pieceX = 0;
+    s.pieceVx = 3 + s.level * 0.2;
+    s.direction = 1;
+
+    if (overlap >= top.w - 1) {
+      // Perfect placement bonus
+      s.score += 50;
+      confetti(false);
+    }
+
+    if (s.pieceY < 60) {
+      // Reached top — full logo!
+      s.gameOver = true;
+      setTimeout(() => {
+        showGameMsg('LOGO BYGGET!', 'PERFEKT FESTIVAL', s.score, 'logo-fill');
+      }, 300);
+      return;
+    }
+
+    updateHud(s.score, `<span class="label">LVL</span>${s.level}`, 'logo-fill');
+  },
+  update(dt) {
+    const s = this.state;
+    if (s.gameOver) return;
+    s.pieceX += s.pieceVx * s.direction;
+    if (s.pieceX + s.pieceW >= W) { s.pieceX = W - s.pieceW; s.direction = -1; }
+    if (s.pieceX <= 0) { s.pieceX = 0; s.direction = 1; }
+  },
+  draw() {
+    const s = this.state;
+    clear(COLORS.bg);
+
+    // Draw stars
+    ctx.fillStyle = COLORS.greenDark;
+    for (let i = 0; i < 30; i++) {
+      const sx = (i * 41 + 11) % W;
+      const sy = (i * 67 + 5) % (H - 40);
+      ctx.fillRect(sx, sy, 1, 1);
+    }
+
+    // Draw stack
+    s.stack.forEach((p, i) => {
+      const c = i === 0 ? COLORS.amber : COLORS.green;
+      const c2 = i === 0 ? COLORS.amberDim : COLORS.greenDim;
+      rect(p.x, p.y, p.w, 16, c);
+      rect(p.x + 2, p.y + 2, p.w - 4, 12, c2);
+    });
+
+    // Top label
+    if (s.stack.length === 1) {
+      pxText('RF', W/2 - 12, s.stack[0].y + 4, COLORS.bg, 10);
+    }
+
+    // Active moving piece
+    if (!s.gameOver) {
+      rect(s.pieceX, s.pieceY, s.pieceW, 16, COLORS.pink);
+      rect(s.pieceX + 2, s.pieceY + 2, s.pieceW - 4, 12, COLORS.magenta);
+    }
+
+    // HUD
+    pxText('SCORE: ' + s.score, 12, 12, COLORS.green, 10);
+    pxText('ETAGE: ' + s.level, W - 130, 12, COLORS.amber, 10);
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onClick);
+    canvas.removeEventListener('touchstart', this.onClick);
+    window.removeEventListener('keydown', this.onKeyClick);
+  }
+};
+
+// ============================================================
+// GAME 4: RYTME (Rhythm tap)
+// ============================================================
+const rhythm = {
+  name: 'rhythm',
+  state: null,
+  init() {
+    this.state = {
+      score: 0,
+      time: 0,
+      duration: 30,
+      lanes: 4,
+      notes: [],   // { lane, t (target time), hit }
+      next: 0,
+      bpm: 120,
+      gameOver: false,
+      lastTap: -1,
+      tapFlash: [],  // per lane: time of last tap
+      noteIdx: 0,
+      combo: 0,
+      maxCombo: 0
+    };
+    // Generate notes (one every half-beat)
+    const beatInterval = 60 / this.state.bpm;  // 0.5
+    let t = 1.5;
+    while (t < this.state.duration - 1) {
+      const lane = Math.floor(Math.random() * this.state.lanes);
+      this.state.notes.push({ lane, t, hit: false });
+      t += beatInterval * (Math.random() > 0.5 ? 1 : 0.5);
+    }
+    canvas.addEventListener('mousedown', this.onTap);
+    canvas.addEventListener('touchstart', this.onTap, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    document.getElementById('instructions').textContent =
+      'TRYK PÅ NODEN NÅR DEN RAMMER MÅL-LINJEN. TAST 1 2 3 4 ELLER A S D F.';
+    updateHud(0, '<span class="label">COMBO</span>0', 'rhythm');
+  },
+  hitLane(lane) {
+    const s = rhythm.state;
+    if (!s || s.gameOver) return;
+    s.tapFlash[lane] = s.time;
+    // Find closest unhit note in that lane within window
+    let bestIdx = -1, bestDist = 0.25;
+    s.notes.forEach((n, i) => {
+      if (n.hit || n.lane !== lane) return;
+      const dist = Math.abs(n.t - s.time);
+      if (dist < bestDist) { bestDist = dist; bestIdx = i; }
+    });
+    if (bestIdx >= 0) {
+      s.notes[bestIdx].hit = 'good';
+      const points = bestDist < 0.08 ? 100 : (bestDist < 0.15 ? 50 : 20);
+      s.score += points * (1 + Math.floor(s.combo / 5));
+      s.combo++;
+      if (s.combo > s.maxCombo) s.maxCombo = s.combo;
+    } else {
+      s.combo = 0;
+    }
+    updateHud(s.score, `<span class="label">COMBO</span>${s.combo}`, 'rhythm');
+  },
+  onTap(e) {
+    e.preventDefault();
+    const p = pointerPos(e);
+    const lane = Math.floor(p.x / (W / rhythm.state.lanes));
+    rhythm.hitLane(Math.max(0, Math.min(rhythm.state.lanes - 1, lane)));
+  },
+  onKey(e) {
+    const map = { '1': 0, '2': 1, '3': 2, '4': 3, 'a': 0, 's': 1, 'd': 2, 'f': 3 };
+    const lane = map[e.key.toLowerCase()];
+    if (lane !== undefined) {
+      e.preventDefault();
+      rhythm.hitLane(lane);
+    }
+  },
+  update(dt) {
+    const s = this.state;
+    if (s.gameOver) return;
+    s.time += dt;
+    // Mark missed notes
+    s.notes.forEach(n => {
+      if (!n.hit && n.t < s.time - 0.25) {
+        n.hit = 'miss';
+        s.combo = 0;
+      }
+    });
+    if (s.time >= s.duration) {
+      s.gameOver = true;
+      setTimeout(() => {
+        showGameMsg('SLUT', 'MAX COMBO ' + s.maxCombo, s.score, 'rhythm');
+      }, 400);
+    }
+  },
+  draw() {
+    const s = this.state;
+    clear(COLORS.bg);
+
+    const laneW = W / s.lanes;
+    const targetY = H - 60;
+    const noteSpeed = 200;  // px per second
+
+    // Draw lanes
+    for (let i = 0; i <= s.lanes; i++) {
+      rect(i * laneW - 1, 30, 2, H - 90, COLORS.greenDark);
+    }
+    // Target line
+    rect(0, targetY, W, 4, COLORS.amber);
+    rect(0, targetY - 2, W, 2, COLORS.amberDim);
+
+    // Lane keys at bottom
+    for (let i = 0; i < s.lanes; i++) {
+      const flash = s.tapFlash[i];
+      const flashAge = flash !== undefined ? s.time - flash : 1;
+      const intensity = Math.max(0, 1 - flashAge * 4);
+      const cx = i * laneW + laneW / 2;
+      rect(cx - 18, H - 30, 36, 22, intensity > 0.3 ? COLORS.amber : COLORS.greenDark);
+      rect(cx - 16, H - 28, 32, 18, intensity > 0.3 ? COLORS.amberDim : COLORS.bg);
+      pxText(String(i + 1), cx - 4, H - 24, intensity > 0.3 ? COLORS.bg : COLORS.green, 10);
+    }
+
+    // Notes
+    s.notes.forEach(n => {
+      if (n.hit === 'good' && s.time - n.t > 0.4) return;
+      if (n.hit === 'miss' && s.time - n.t > 0.4) return;
+      const y = targetY - (n.t - s.time) * noteSpeed;
+      if (y < 30 || y > H - 30) return;
+      const cx = n.lane * laneW + laneW / 2;
+      let color = COLORS.green;
+      if (n.hit === 'good') color = COLORS.amber;
+      if (n.hit === 'miss') color = COLORS.pink;
+      rect(cx - 22, y - 8, 44, 16, color);
+      rect(cx - 20, y - 6, 40, 12, n.hit === 'miss' ? COLORS.magenta : COLORS.greenDim);
+    });
+
+    // HUD
+    pxText('SCORE: ' + s.score, 12, 8, COLORS.green, 10);
+    pxText('COMBO: ' + s.combo, W - 130, 8, COLORS.amber, 10);
+    const bar = (s.duration - s.time) / s.duration;
+    rect(W/2 - 30, 24, 60, 4, COLORS.greenDark);
+    rect(W/2 - 30, 24, 60 * bar, 4, COLORS.green);
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onTap);
+    canvas.removeEventListener('touchstart', this.onTap);
+    window.removeEventListener('keydown', this.onKey);
+  }
+};
+
+// ============================================================
+// GAME LOOP
+// ============================================================
+const games = {
+  'beats-toss': beatsToss,
+  'catch-beats': catchBeats,
+  'logo-fill': logoFill,
+  'rhythm': rhythm
+};
+
+function loadGame(name) {
+  if (currentGame) currentGame.cleanup();
+  hideGameMsg();
+  document.getElementById('menu-view').style.display = 'none';
+  document.getElementById('gameView').classList.add('active');
+  currentGame = games[name];
+  currentGame.init();
+  lastTime = performance.now();
+  loop();
+}
+
+function restartGame() {
+  if (!currentGame) return;
+  hideGameMsg();
+  currentGame.cleanup();
+  currentGame.init();
+  lastTime = performance.now();
+}
+
+function exitGame() {
+  if (currentGame) currentGame.cleanup();
+  if (animationId) cancelAnimationFrame(animationId);
+  currentGame = null;
+  hideGameMsg();
+  document.getElementById('gameView').classList.remove('active');
+  document.getElementById('menu-view').style.display = '';
+  updateHiScoresMenu();
+}
+
+function loop(now) {
+  if (!currentGame) return;
+  if (now === undefined) now = performance.now();
+  const dt = Math.min(0.05, (now - lastTime) / 1000);
+  lastTime = now;
+  currentGame.update(dt);
+  currentGame.draw();
+  animationId = requestAnimationFrame(loop);
+}
+
+// Menu init
+document.querySelectorAll('.game-card').forEach(card => {
+  card.addEventListener('click', () => loadGame(card.dataset.game));
+});
+updateHiScoresMenu();
+
+// Disable context menu on canvas
+canvas.addEventListener('contextmenu', e => e.preventDefault());
+</script>
+
+</body>
+</html>

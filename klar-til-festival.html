@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Klar til festivalen — LiveCloud Support</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
   :root {
     --bg: #0F1117;
     --bg-card: #1A1D27;
     --bg-card-hover: #222632;
-    --bg-answer: #151821;
     --text: #F0F0F5;
     --text-muted: #9499AD;
     --text-dim: #6B6F80;
@@ -21,6 +20,7 @@
     --accent-green: #5CB77A;
     --accent-amber: #F59E0B;
     --accent-purple: #A78BFA;
+    --accent-pink: #F472B6;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,56 +32,128 @@
     min-height: 100vh;
     line-height: 1.5;
     padding: 0 24px;
+    overflow-x: hidden;
   }
 
-  .container {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 48px 0 80px;
-  }
+  .container { max-width: 780px; margin: 0 auto; padding: 48px 0 80px; position: relative; }
 
-  .breadcrumb {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-  }
-  .breadcrumb a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
+  .breadcrumb { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
   .breadcrumb a:hover { color: var(--accent); }
   .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
 
-  .hero { margin-bottom: 40px; }
+  /* Friend banner */
+  .friend-banner {
+    display: none;
+    background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(167, 139, 250, 0.15));
+    border: 1px solid rgba(244, 114, 182, 0.3);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .friend-banner.visible { display: block; animation: slideDown 0.4s ease; }
+  .friend-banner strong { color: var(--text); }
+
+  /* Hero */
+  .hero { margin-bottom: 32px; }
   .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(92, 183, 122, 0.1);
-    border: 1px solid rgba(92, 183, 122, 0.25);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--accent-green);
-    margin-bottom: 16px;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(92, 183, 122, 0.1); border: 1px solid rgba(92, 183, 122, 0.25);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; color: var(--accent-green); margin-bottom: 16px;
   }
-  .hero h1 {
-    font-size: 34px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-    line-height: 1.15;
+  .hero h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; line-height: 1.15; }
+  .hero p { font-size: 16px; color: var(--text-muted); max-width: 620px; line-height: 1.65; }
+
+  /* ===== Progress section ===== */
+  .progress-section {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(167, 139, 250, 0.08));
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    border-radius: 18px;
+    padding: 22px 24px;
+    margin-bottom: 32px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
   }
-  .hero p {
-    font-size: 16px;
-    color: var(--text-muted);
-    max-width: 620px;
-    line-height: 1.65;
+  .progress-section.complete {
+    background: linear-gradient(135deg, rgba(92, 183, 122, 0.15), rgba(96, 165, 250, 0.15), rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.15));
+    border-color: rgba(92, 183, 122, 0.5);
+    box-shadow: 0 0 40px rgba(92, 183, 122, 0.15);
   }
 
-  /* Step card */
+  .progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .progress-info { flex: 1; min-width: 0; }
+  .progress-level {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+    transition: all 0.3s ease;
+  }
+  .progress-section.complete .progress-level {
+    background: linear-gradient(90deg, #5CB77A, #60A5FA, #A78BFA, #F472B6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 22px;
+  }
+  .progress-stats {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .progress-percent {
+    font-size: 32px;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    min-width: 70px;
+    text-align: right;
+    transition: color 0.3s ease;
+  }
+  .progress-section.complete .progress-percent { color: var(--accent-green); }
+
+  .progress-bar {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #5CB77A, #60A5FA, #A78BFA);
+    border-radius: 5px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .progress-hint {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  /* ===== Step cards ===== */
   .steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
   .step {
     background: var(--bg-card);
@@ -90,17 +162,30 @@
     padding: 22px 24px;
     display: flex;
     gap: 18px;
-    transition: all 0.15s;
+    transition: all 0.25s ease;
     align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
   }
   .step:hover {
     background: var(--bg-card-hover);
     border-color: rgba(96, 165, 250, 0.3);
+    transform: translateY(-1px);
   }
-  .step-num {
+  .step:active { transform: translateY(0); }
+  .step.done {
+    border-color: rgba(92, 183, 122, 0.4);
+    background: linear-gradient(135deg, rgba(92, 183, 122, 0.04), var(--bg-card));
+  }
+  .step.done .step-body h3 {
+    color: var(--text-muted);
+  }
+
+  .step-check {
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     background: rgba(96, 165, 250, 0.15);
     color: var(--accent);
@@ -109,60 +194,59 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
   }
+  .step.done .step-check {
+    background: var(--accent-green);
+    color: #fff;
+    transform: scale(1.05);
+  }
+  .step-check .num { transition: opacity 0.2s; }
+  .step-check .check {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .step.done .step-check .num { opacity: 0; }
+  .step.done .step-check .check { opacity: 1; transform: scale(1); }
+
   .step-body { flex: 1; min-width: 0; }
-  .step h3 {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    letter-spacing: -0.2px;
-  }
-  .step p {
-    color: var(--text-muted);
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 8px;
-  }
+  .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.2px; transition: color 0.3s; }
+  .step p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 8px; }
   .step p:last-child { margin-bottom: 0; }
   .step strong { color: var(--text); font-weight: 600; }
   .step .inline-link {
-    color: var(--accent);
-    text-decoration: none;
+    color: var(--accent); text-decoration: none;
     border-bottom: 1px solid rgba(96, 165, 250, 0.3);
   }
   .step .inline-link:hover { border-bottom-color: var(--accent); }
 
-  .optional-tag {
+  .optional-tag, .recommend-tag {
     display: inline-block;
     font-size: 11px;
     font-weight: 600;
     padding: 2px 8px;
     border-radius: 10px;
-    background: rgba(245, 158, 11, 0.12);
-    color: var(--accent-amber);
     margin-left: 6px;
     vertical-align: middle;
   }
-  .recommend-tag {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 10px;
-    background: rgba(92, 183, 122, 0.12);
-    color: var(--accent-green);
-    margin-left: 6px;
-    vertical-align: middle;
-  }
+  .optional-tag { background: rgba(245, 158, 11, 0.12); color: var(--accent-amber); }
+  .recommend-tag { background: rgba(92, 183, 122, 0.12); color: var(--accent-green); }
 
-  /* Info card */
+  /* Info cards */
   .info-card {
     background: rgba(96, 165, 250, 0.06);
     border: 1px solid rgba(96, 165, 250, 0.2);
     border-left-width: 3px;
     border-radius: 10px;
     padding: 18px 20px;
-    margin: 28px 0;
+    margin: 20px 0;
     font-size: 15px;
     line-height: 1.65;
   }
@@ -171,60 +255,208 @@
     background: rgba(167, 139, 250, 0.06);
     border-color: rgba(167, 139, 250, 0.2);
   }
-  .info-card h4 {
-    font-size: 15px;
-    margin-bottom: 8px;
-    font-weight: 700;
+  .info-card h4 { font-size: 15px; margin-bottom: 8px; font-weight: 700; }
+  .help-link { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .help-link:hover { text-decoration: underline; }
+
+  /* ===== Share section ===== */
+  .share-section {
+    margin-top: 36px;
+    padding: 32px 28px;
+    background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(167, 139, 250, 0.1), rgba(96, 165, 250, 0.1));
+    border: 1px solid rgba(244, 114, 182, 0.25);
+    border-radius: 18px;
+    text-align: center;
+    opacity: 0.55;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .share-section.unlocked {
+    opacity: 1;
+    box-shadow: 0 8px 40px rgba(244, 114, 182, 0.15);
+    transform: scale(1.01);
+  }
+  .share-section.unlocked::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+    background-size: 200% 200%;
+    animation: gradient-flow 4s ease infinite;
+    pointer-events: none;
+  }
+  @keyframes gradient-flow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 
-  /* CTA */
-  .cta {
-    margin-top: 48px;
-    padding: 28px;
-    background: linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(167, 139, 250, 0.08));
-    border: 1px solid rgba(96, 165, 250, 0.2);
-    border-radius: 16px;
-    text-align: center;
+  .share-emoji {
+    font-size: 48px;
+    margin-bottom: 8px;
+    display: block;
+    transition: transform 0.4s ease;
   }
-  .cta h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
-  .cta p { color: var(--text-muted); font-size: 15px; margin-bottom: 18px; line-height: 1.6; }
-  .cta-btn {
+  .share-section.unlocked .share-emoji { animation: bounce 1.2s ease infinite; }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .share-section h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .share-section p { color: var(--text-muted); font-size: 15px; margin-bottom: 22px; line-height: 1.6; }
+  .share-section.unlocked p { color: var(--text); }
+
+  .share-btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--accent);
-    color: #0F1117;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 11px 22px;
-    border-radius: 10px;
-    transition: all 0.15s;
-  }
-  .cta-btn:hover {
-    background: var(--accent-dark);
+    background: linear-gradient(135deg, #F472B6, #A78BFA);
     color: #fff;
-    transform: translateY(-1px);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px 24px;
+    border-radius: 12px;
+    transition: all 0.2s;
+    margin-bottom: 18px;
+  }
+  .share-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(244, 114, 182, 0.3);
+  }
+  .share-btn-primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
   }
 
-  .help-link {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
+  .share-options {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
-  .help-link:hover { text-decoration: underline; }
+  .share-icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .share-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+  .share-icon-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+    transform: none;
+  }
+  .share-section:not(.unlocked) .share-btn-primary,
+  .share-section:not(.unlocked) .share-icon-btn { pointer-events: none; opacity: 0.5; }
+
+  /* Reset & secondary nav */
+  .footer-actions {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-size: 13px;
+  }
+  .footer-actions a, .footer-actions button {
+    color: var(--text-dim);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    transition: color 0.15s;
+  }
+  .footer-actions a:hover, .footer-actions button:hover { color: var(--text); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== Confetti ===== */
+  #confetti-container {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+  }
+  .confetti-piece {
+    position: absolute;
+    top: -20px;
+    width: 10px;
+    height: 14px;
+    border-radius: 2px;
+    animation: confetti-fall linear forwards;
+  }
+  @keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0.7; }
+  }
+
+  /* Slide animations */
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   @media (max-width: 640px) {
     body { padding: 0 16px; }
     .container { padding: 32px 0 60px; }
     .hero h1 { font-size: 26px; }
     .step { padding: 18px; gap: 14px; }
-    .step-num { width: 32px; height: 32px; font-size: 14px; }
+    .step-check { width: 32px; height: 32px; font-size: 14px; }
     .step h3 { font-size: 16px; }
+    .progress-percent { font-size: 26px; }
+    .progress-section.complete .progress-level { font-size: 18px; }
+    .share-section { padding: 24px 20px; }
+    .share-section h3 { font-size: 19px; }
   }
 </style>
 </head>
 <body>
+
+<div id="confetti-container"></div>
 
 <div class="container">
 
@@ -233,6 +465,9 @@
     <span>/</span>
     <span style="color: var(--text);">Klar til festivalen</span>
   </div>
+
+  <!-- Friend invite banner -->
+  <div class="friend-banner" id="friendBanner"></div>
 
   <div class="hero">
     <div class="hero-badge">
@@ -243,10 +478,26 @@
     <p>Brug et øjeblik hjemmefra, så er alt klart, når du ankommer. Ingen stress ved indgangen, ingen kø for at fylde Beats op — bare god musik, gode venner, og fede oplevelser fra det øjeblik du træder ind på pladsen.</p>
   </div>
 
-  <div class="steps">
+  <!-- ===== Progress card ===== -->
+  <div class="progress-section" id="progressSection">
+    <div class="progress-header">
+      <div class="progress-info">
+        <div class="progress-level" id="progressLevel">Klar til at starte? 🎟️</div>
+        <div class="progress-stats" id="progressStats">0 af 7 trin gennemført</div>
+      </div>
+      <div class="progress-percent" id="progressPercent">0%</div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-hint">Tryk på et trin for at markere det som gennemført — din fremgang gemmes automatisk</div>
+  </div>
 
-    <div class="step">
-      <div class="step-num">1</div>
+  <!-- ===== Steps ===== -->
+  <div class="steps" id="steps">
+
+    <div class="step" data-step="1">
+      <div class="step-check"><span class="num">1</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Download festival-appen</h3>
         <p>Find appen i <strong>App Store</strong> (iPhone) eller <strong>Google Play</strong> (Android). Søg efter Ringsted Festival.</p>
@@ -254,17 +505,17 @@
       </div>
     </div>
 
-    <div class="step">
-      <div class="step-num">2</div>
+    <div class="step" data-step="2">
+      <div class="step-check"><span class="num">2</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Opret din profil med MitID</h3>
         <p>Åbn appen og tryk <strong>"Opret profil"</strong>. MitID bekræfter din identitet og alder — og beskytter din konto, så ingen andre kan bruge den.</p>
-        <p style="font-size: 13px; color: var(--text-dim);">Har du ikke MitID? Se mulighederne i <a class="inline-link" href="faq.html#identity">FAQ'en</a>.</p>
+        <p style="font-size: 13px; color: var(--text-dim);">Har du ikke MitID? Se mulighederne i <a class="inline-link" href="faq.html#identity" onclick="event.stopPropagation()">FAQ'en</a>.</p>
       </div>
     </div>
 
-    <div class="step">
-      <div class="step-num">3</div>
+    <div class="step" data-step="3">
+      <div class="step-check"><span class="num">3</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Aktivér din billet</h3>
         <p>Indtast <strong>billetkoden</strong> fra din ordrebekræftelse — eller del PDF-filen direkte ind i appen fra din mail.</p>
@@ -272,8 +523,8 @@
       </div>
     </div>
 
-    <div class="step">
-      <div class="step-num">4</div>
+    <div class="step" data-step="4">
+      <div class="step-check"><span class="num">4</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Tilføj dit kort og slå automatisk optankning til <span class="recommend-tag">Anbefalet</span></h3>
         <p>Gå til <strong>"Wallet"</strong> og tilføj dit betalingskort. Slå <strong>automatisk optankning</strong> til, så fyldes dine Beats op af sig selv, når du er ved at løbe tør.</p>
@@ -281,16 +532,16 @@
       </div>
     </div>
 
-    <div class="step">
-      <div class="step-num">5</div>
+    <div class="step" data-step="5">
+      <div class="step-check"><span class="num">5</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Køb Beats hjemmefra <span class="recommend-tag">Anbefalet</span></h3>
         <p>Beats er <strong>festivalens digitale valuta</strong> — det eneste, du betaler med på pladsen. Køb et passende beløb i appen, så slipper du for at fylde op ved baren, første gang du skal have en øl.</p>
       </div>
     </div>
 
-    <div class="step">
-      <div class="step-num">6</div>
+    <div class="step" data-step="6">
+      <div class="step-check"><span class="num">6</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Uddel billetter til din flok <span class="optional-tag">Hvis relevant</span></h3>
         <p>Har du købt billetter til venner eller familie? De skal <strong>uddeles</strong>, før I kommer — hver person skal have sin egen billet på sin egen profil for at komme ind.</p>
@@ -298,12 +549,30 @@
       </div>
     </div>
 
-    <div class="step">
-      <div class="step-num">7</div>
+    <div class="step" data-step="7">
+      <div class="step-check"><span class="num">7</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Download programmet <span class="optional-tag">Anbefalet</span></h3>
-        <p>Åbn <strong>"Program"</strong> i appen, og sæt <strong>påmindelser</strong> for de kunstnere, du ikke vil gå glip af. Programmet cacher også offline, så det virker, selvom signalet er dårligt.</p>
+        <p>Åbn <strong>"Program"</strong> i appen, og sæt <strong>påmindelser</strong> for de kunstnere, du ikke vil gå glip af. Programmet caches også offline, så det virker, selvom signalet er dårligt.</p>
       </div>
+    </div>
+  </div>
+
+  <!-- ===== Share section ===== -->
+  <div class="share-section" id="shareSection">
+    <span class="share-emoji" id="shareEmoji">🎉</span>
+    <h3 id="shareTitle">Du er FESTIVAL-KLAR!</h3>
+    <p id="shareSubtitle">Fed start! Gennemfør alle 7 trin og lås op for sjov deling med vennerne.</p>
+    <button class="share-btn-primary" id="shareBtn" onclick="shareIt()">
+      <span>📤</span>
+      Del med vennerne
+    </button>
+    <div class="share-options">
+      <button class="share-icon-btn" onclick="shareVia('whatsapp')" title="WhatsApp">💬</button>
+      <button class="share-icon-btn" onclick="shareVia('sms')" title="SMS">📱</button>
+      <button class="share-icon-btn" onclick="shareVia('messenger')" title="Messenger">📨</button>
+      <button class="share-icon-btn" onclick="shareVia('email')" title="E-mail">✉️</button>
+      <button class="share-icon-btn" onclick="shareVia('copy')" title="Kopier link">🔗</button>
     </div>
   </div>
 
@@ -319,17 +588,215 @@
     Alt er klar, når du ankommer. Du slipper for kø ved indgangen, kø for at fylde Beats op, og tid spildt på at lede efter billetkoden, mens vennerne venter på dig. Du går ind, du er klar — og så er det bare musik, venner og god stemning resten af festivalen.
   </div>
 
-  <!-- CTA -->
-  <div class="cta">
-    <h3>Har du spørgsmål?</h3>
-    <p>Tjek vores Q&amp;A eller spørg chatbotten — den svarer på alt fra betaling og billetter til sikkerhed og mistet mobil.</p>
-    <a class="cta-btn" href="faq.html">
-      <span>&#128172;</span>
-      Gå til Q&amp;A
-    </a>
+  <div class="footer-actions">
+    <a href="faq.html">Til Q&amp;A</a>
+    <span>&middot;</span>
+    <a href="ringsted-chatbot.html">Chatbot</a>
+    <span>&middot;</span>
+    <button onclick="resetProgress()">Start forfra</button>
   </div>
 
 </div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'klar-til-festival-v1';
+  const TOTAL_STEPS = 7;
+
+  // ===== State =====
+  function getState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { return []; }
+  }
+  function saveState(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+  function toggleStep(n) {
+    let state = getState();
+    const wasDone = state.includes(n);
+    if (wasDone) state = state.filter(s => s !== n);
+    else state = [...state, n];
+    saveState(state);
+    updateUI();
+    if (!wasDone && state.length === TOTAL_STEPS) celebrate();
+  }
+
+  // ===== Levels =====
+  function getLevel(count) {
+    if (count === 0) return { label: 'Klar til at starte?', emoji: '🎟️' };
+    if (count === 1) return { label: 'Festival-feber begynder', emoji: '🎵' };
+    if (count <= 3) return { label: 'På vej derhen', emoji: '🚀' };
+    if (count <= 5) return { label: 'Halvvejs til pladsen', emoji: '🔥' };
+    if (count === 6) return { label: 'Kun ét trin tilbage!', emoji: '⚡' };
+    return { label: 'FESTIVAL-KLAR!', emoji: '🎉' };
+  }
+
+  // ===== UI Update =====
+  function updateUI() {
+    const state = getState();
+    const count = state.length;
+    const pct = Math.round((count / TOTAL_STEPS) * 100);
+    const level = getLevel(count);
+
+    document.getElementById('progressLevel').textContent = `${level.label} ${level.emoji}`;
+    document.getElementById('progressStats').textContent = `${count} af ${TOTAL_STEPS} trin gennemført`;
+    document.getElementById('progressPercent').textContent = pct + '%';
+    document.getElementById('progressFill').style.width = pct + '%';
+
+    document.getElementById('progressSection').classList.toggle('complete', count === TOTAL_STEPS);
+
+    document.querySelectorAll('.step').forEach(step => {
+      const n = parseInt(step.dataset.step);
+      step.classList.toggle('done', state.includes(n));
+    });
+
+    const shareSection = document.getElementById('shareSection');
+    const shareBtn = document.getElementById('shareBtn');
+    const shareTitle = document.getElementById('shareTitle');
+    const shareSubtitle = document.getElementById('shareSubtitle');
+    const shareEmoji = document.getElementById('shareEmoji');
+
+    if (count === TOTAL_STEPS) {
+      shareSection.classList.add('unlocked');
+      shareTitle.textContent = 'Du er FESTIVAL-KLAR! 🎉';
+      shareSubtitle.textContent = 'Alle 7 trin gennemført. Tag dine venner med — hvem er hurtigst klar?';
+      shareEmoji.textContent = '🎉';
+      shareBtn.disabled = false;
+    } else {
+      shareSection.classList.remove('unlocked');
+      shareTitle.textContent = 'Næsten i mål';
+      shareSubtitle.textContent = `Gennemfør alle 7 trin (${count}/${TOTAL_STEPS}) og lås op for sjov deling med vennerne.`;
+      shareEmoji.textContent = '🔒';
+      shareBtn.disabled = true;
+    }
+  }
+
+  // ===== Celebration =====
+  function celebrate() {
+    const container = document.getElementById('confetti-container');
+    const colors = ['#5CB77A', '#60A5FA', '#A78BFA', '#F59E0B', '#F472B6', '#FCD34D'];
+    for (let i = 0; i < 100; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.left = Math.random() * 100 + '%';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDelay = (Math.random() * 0.5) + 's';
+      piece.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+      piece.style.width = (6 + Math.random() * 8) + 'px';
+      piece.style.height = (10 + Math.random() * 10) + 'px';
+      container.appendChild(piece);
+      setTimeout(() => piece.remove(), 5000);
+    }
+    setTimeout(() => {
+      document.getElementById('shareSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 800);
+  }
+
+  // ===== Toast =====
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+
+  // ===== Share =====
+  function buildShareData() {
+    const url = window.location.origin + window.location.pathname + '?fra=ven';
+    const text = 'Jeg er 100% klar til Ringsted Festival! 🎉🎵 Er du? Tag den 5-minutters tjekliste — det er nemmere end du tror:';
+    return { url, text };
+  }
+
+  async function shareIt() {
+    const { url, text } = buildShareData();
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'Klar til Ringsted Festival', text, url });
+      } catch (e) { /* user cancelled */ }
+    } else {
+      shareVia('copy');
+    }
+  }
+
+  function shareVia(platform) {
+    const { url, text } = buildShareData();
+    const fullText = encodeURIComponent(`${text} ${url}`);
+    const urlOnly = encodeURIComponent(url);
+
+    let shareUrl = '';
+    switch(platform) {
+      case 'whatsapp': shareUrl = `https://wa.me/?text=${fullText}`; break;
+      case 'sms': shareUrl = `sms:?body=${fullText}`; break;
+      case 'email': shareUrl = `mailto:?subject=${encodeURIComponent('Klar til Ringsted Festival?')}&body=${fullText}`; break;
+      case 'messenger': shareUrl = `fb-messenger://share/?link=${urlOnly}`; break;
+      case 'copy':
+        const plainText = `${text} ${url}`;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(plainText).then(
+            () => showToast('Link kopieret! 📋'),
+            () => fallbackCopy(plainText)
+          );
+        } else {
+          fallbackCopy(plainText);
+        }
+        return;
+    }
+    if (shareUrl) {
+      if (platform === 'sms' || platform === 'messenger') {
+        window.location.href = shareUrl;
+      } else {
+        window.open(shareUrl, '_blank', 'noopener');
+      }
+    }
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast('Link kopieret! 📋');
+    } catch {
+      showToast('Kunne ikke kopiere — prøv at vælge teksten manuelt');
+    }
+    document.body.removeChild(ta);
+  }
+
+  // ===== Reset =====
+  function resetProgress() {
+    if (confirm('Vil du nulstille din fremgang og starte forfra?')) {
+      localStorage.removeItem(STORAGE_KEY);
+      updateUI();
+      showToast('Nulstillet — held og lykke! 🚀');
+    }
+  }
+
+  // ===== Init =====
+  // Click handler on steps
+  document.querySelectorAll('.step').forEach(step => {
+    step.addEventListener('click', (e) => {
+      // Don't toggle if clicking on a link inside the step
+      if (e.target.tagName === 'A') return;
+      const n = parseInt(step.dataset.step);
+      toggleStep(n);
+    });
+  });
+
+  // Friend invite banner from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('fra')) {
+    const banner = document.getElementById('friendBanner');
+    banner.innerHTML = `🎵 <strong>En ven har sendt dig denne tjekliste</strong> — brug 5 minutter, så er du også klar til Ringsted Festival!`;
+    banner.classList.add('visible');
+  }
+
+  updateUI();
+</script>
 
 </body>
 </html>

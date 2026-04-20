@@ -405,6 +405,14 @@
   .share-app-emoji {
     font-size: 28px;
     flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(167, 139, 250, 0.15));
+    color: var(--accent-purple);
   }
   .share-app-title {
     font-size: 15px;
@@ -1105,7 +1113,12 @@
   <!-- ===== Del appen med en ven ===== -->
   <div class="share-app-row">
     <div class="share-app-text">
-      <span class="share-app-emoji">📲</span>
+      <span class="share-app-emoji" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </span>
       <div>
         <div class="share-app-title">Har en ven brug for appen?</div>
         <div class="share-app-sub">Send download-linket direkte — App Store og Google Play i samme besked.</div>

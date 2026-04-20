@@ -101,6 +101,7 @@
   .game-tile.spotlight { --tile-color: var(--blue); --tile-gradient: linear-gradient(135deg, var(--blue), var(--purple)); }
   .game-tile.bartender { --tile-color: var(--amber); --tile-gradient: linear-gradient(135deg, var(--amber), var(--pink)); }
   .game-tile.beatshop { --tile-color: var(--green); --tile-gradient: linear-gradient(135deg, var(--green), var(--blue)); }
+  .game-tile.bardash { --tile-color: var(--pink); --tile-gradient: linear-gradient(135deg, var(--pink), var(--amber)); }
 
   .tile-emoji { font-size: 40px; margin-bottom: 12px; display: block; }
   .game-tile h2 {
@@ -440,6 +441,13 @@
         <p>Hjælp dit Beat-mønt gennem gaps i højttalerstakkene. Tap for at hoppe. Hvor langt kommer du?</p>
         <div class="tile-hi">HI-SCORE: <span id="hi-beatshop">0</span></div>
       </button>
+
+      <button class="game-tile bardash" data-game="bardash">
+        <span class="tile-emoji">🏃</span>
+        <h2>Bar-Dash</h2>
+        <p>Kæmp dig gennem folkemængden mod baren. Hop over dansere og ølkopper, duk for stage-divere. Saml Beats undervejs.</p>
+        <div class="tile-hi">HI-SCORE: <span id="hi-bardash">0</span></div>
+      </button>
     </div>
   </div>
 
@@ -512,7 +520,7 @@ const C = {
 const getHi = (g) => parseInt(localStorage.getItem('mini-hi-' + g)) || 0;
 const setHi = (g, s) => { try { localStorage.setItem('mini-hi-' + g, String(s)); } catch {} };
 function refreshMenuHi() {
-  ['spotlight', 'bartender', 'beatshop'].forEach(g => {
+  ['spotlight', 'bartender', 'beatshop', 'bardash'].forEach(g => {
     const el = document.getElementById('hi-' + g);
     if (el) el.textContent = getHi(g);
   });
@@ -1256,15 +1264,527 @@ const beatshop = {
 
 
 // ============================================================
+// GAME 4: BAR-DASH (Run-to-the-bar, Chrome-Dino style)
+// ============================================================
+const bardash = {
+  key: 'bardash',
+  init() {
+    this.s = {
+      char: {
+        x: W * 0.18, y: 0, yVel: 0,
+        state: 'run',     // run | jump | duck
+        runT: 0,
+        duckT: 0
+      },
+      groundY: H - 64,
+      obstacles: [],  // { x, type, passed }
+      coins: [],      // { x, y, collected, bob }
+      spawnTimer: 1.6,
+      coinTimer: 1.2,
+      speed: 260,
+      baseSpeed: 260,
+      maxSpeed: 480,
+      distance: 0,
+      coinsCollected: 0,
+      score: 0,
+      gameOver: false,
+      particles: [],
+      clouds: [
+        { x: W * 0.2, y: 60, w: 60, speed: 10 },
+        { x: W * 0.7, y: 90, w: 80, speed: 14 },
+        { x: W * 1.2, y: 50, w: 50, speed: 8 }
+      ],
+      // parallax far background
+      stageLights: []
+    };
+    // Pre-populate some stage lights (far background)
+    for (let i = 0; i < 12; i++) {
+      this.s.stageLights.push({
+        x: Math.random() * W * 2,
+        y: this.s.groundY - 80 - Math.random() * 30,
+        color: [C.pink, C.purple, C.amber, C.blue, C.green][i % 5]
+      });
+    }
+
+    showStart('🏃', 'Bar-Dash',
+      'Hop over folk i vejen, duk for stage-divere. Kæmp dig frem til baren! Tap øverst (eller Space/↑) for at hoppe, tap nederst (eller ↓) for at duke.');
+    canvas.addEventListener('mousedown', this.onTap);
+    canvas.addEventListener('touchstart', this.onTap, { passive: false });
+    window.addEventListener('keydown', this.onKey);
+    setHud([
+      { label: 'Afstand', value: '0 m' },
+      { label: 'Beats', value: '0' },
+      { label: 'Hi', value: getHi('bardash') }
+    ]);
+    document.getElementById('instructions').textContent =
+      'Tap øverst = hop · Tap nederst = duk · Space/↑ = hop · ↓ = duk · Saml Beats-mønter';
+  },
+  doJump() {
+    const c = bardash.s.char;
+    if (c.state === 'run') {
+      c.state = 'jump';
+      c.yVel = -9.5;
+    }
+  },
+  doDuck() {
+    const c = bardash.s.char;
+    if (c.state === 'run') {
+      c.state = 'duck';
+      c.duckT = 0.5;
+    }
+  },
+  onTap(e) {
+    e.preventDefault();
+    if (!gameActive) { gameActive = true; hideStart(); return; }
+    if (bardash.s.gameOver) return;
+    const p = pointerPos(e);
+    if (p.y < H / 2) bardash.doJump();
+    else bardash.doDuck();
+  },
+  onKey(e) {
+    if (!gameActive || !bardash.s || bardash.s.gameOver) return;
+    if (e.key === 'ArrowUp' || e.key === ' ' || e.key === 'w' || e.key === 'W') {
+      e.preventDefault();
+      bardash.doJump();
+    } else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+      e.preventDefault();
+      bardash.doDuck();
+    }
+  },
+  spawnObstacle() {
+    const s = this.s;
+    const types = ['dancer', 'cup', 'surfer'];
+    // Weight by difficulty, more air obstacles later
+    const difficulty = Math.min(1, s.distance / 800);
+    const rand = Math.random();
+    let type;
+    if (rand < 0.5) type = 'dancer';
+    else if (rand < 0.75) type = 'cup';
+    else type = 'surfer';
+    s.obstacles.push({ x: W + 40, type, passed: false });
+  },
+  spawnCoin() {
+    const s = this.s;
+    // Coin at either low (must jump), mid (easy grab), or high (big jump)
+    const patterns = [s.groundY - 30, s.groundY - 70, s.groundY - 110];
+    const y = patterns[Math.floor(Math.random() * patterns.length)];
+    // Sometimes spawn a small cluster of 3
+    const cluster = Math.random() < 0.3;
+    if (cluster) {
+      for (let i = 0; i < 3; i++) {
+        s.coins.push({ x: W + 40 + i * 28, y, collected: false, bob: i * 0.5 });
+      }
+    } else {
+      s.coins.push({ x: W + 40, y, collected: false, bob: 0 });
+    }
+  },
+  finish() {
+    const s = this.s;
+    s.gameOver = true;
+    gameActive = false;
+    setTimeout(() => {
+      const dist = Math.floor(s.distance);
+      const msg = dist >= 800 ? 'Du nåede baren! 🍺' :
+                  dist >= 400 ? 'Tæt på baren!' :
+                  dist >= 150 ? 'Godt forsøg.' :
+                  'Ups! Én til?';
+      showGameOver(
+        'Ramt!', msg, s.score,
+        `${dist} m · ${s.coinsCollected} Beats samlet`,
+        'bardash'
+      );
+    }, 400);
+  },
+  update(dt) {
+    const s = this.s;
+    if (!gameActive || s.gameOver) return;
+
+    // Speed ramps up
+    s.speed = Math.min(s.maxSpeed, s.baseSpeed + s.distance * 0.15);
+
+    // Distance (1m per 40 pixels of travel)
+    s.distance += s.speed * dt / 40;
+    s.score = Math.floor(s.distance) + s.coinsCollected * 10;
+
+    // Character state
+    s.char.runT += dt;
+    if (s.char.state === 'jump') {
+      s.char.yVel += 0.55;
+      s.char.y += s.char.yVel;
+      if (s.char.y >= 0) {
+        s.char.y = 0;
+        s.char.yVel = 0;
+        s.char.state = 'run';
+      }
+    } else if (s.char.state === 'duck') {
+      s.char.duckT -= dt;
+      if (s.char.duckT <= 0) s.char.state = 'run';
+    }
+
+    // Spawn obstacles
+    s.spawnTimer -= dt;
+    if (s.spawnTimer <= 0) {
+      this.spawnObstacle();
+      const difficulty = Math.min(1, s.distance / 800);
+      s.spawnTimer = 1.8 - difficulty * 0.9 + Math.random() * 0.4;
+      if (s.spawnTimer < 0.7) s.spawnTimer = 0.7;
+    }
+
+    // Spawn coins
+    s.coinTimer -= dt;
+    if (s.coinTimer <= 0) {
+      this.spawnCoin();
+      s.coinTimer = 1.5 + Math.random() * 1.5;
+    }
+
+    // Move obstacles
+    s.obstacles.forEach(o => { o.x -= s.speed * dt; });
+    s.obstacles = s.obstacles.filter(o => o.x > -60);
+
+    // Move coins
+    s.coins.forEach(co => { co.x -= s.speed * dt; });
+    s.coins = s.coins.filter(co => co.x > -40);
+
+    // Parallax clouds
+    s.clouds.forEach(cl => {
+      cl.x -= cl.speed * dt;
+      if (cl.x < -cl.w) cl.x = W + Math.random() * 100;
+    });
+
+    // Parallax stage lights (slow)
+    s.stageLights.forEach(sl => {
+      sl.x -= s.speed * dt * 0.3;
+      if (sl.x < -10) { sl.x = W + Math.random() * 200; }
+    });
+
+    // Character hitbox
+    const chX = s.char.x;
+    const chY = s.groundY + s.char.y;  // bottom of character
+    const ducking = s.char.state === 'duck';
+    const chW = 32;
+    const chH = ducking ? 30 : 50;
+    const chTop = chY - chH;
+
+    // Check collisions with obstacles
+    for (const o of s.obstacles) {
+      const ob = this.getObstacleBounds(o);
+      if (o.x + ob.w > chX - chW/2 && o.x - ob.w/2 < chX + chW/2) {
+        // Vertical overlap check
+        const obTop = ob.y - ob.h;
+        const obBottom = ob.y;
+        if (!(chY <= obTop || chTop >= obBottom)) {
+          this.finish();
+          return;
+        }
+      }
+      // Scoring for passing
+      if (!o.passed && o.x + 30 < chX - chW/2) {
+        o.passed = true;
+      }
+    }
+
+    // Check coin pickup
+    for (const co of s.coins) {
+      if (co.collected) continue;
+      if (Math.abs(co.x - chX) < 26 && Math.abs(co.y - (chTop + chH/2)) < 30) {
+        co.collected = true;
+        s.coinsCollected++;
+        // Particle burst
+        for (let i = 0; i < 8; i++) {
+          s.particles.push({
+            x: co.x, y: co.y,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 1) * 3,
+            life: 0.5, color: C.amber
+          });
+        }
+      }
+    }
+    s.coins = s.coins.filter(co => !co.collected || performance.now() < 0); // drop collected immediately
+
+    // Actually drop collected
+    s.coins = s.coins.filter(co => !co.collected);
+
+    // Particles
+    s.particles.forEach(pt => {
+      pt.x += pt.vx;
+      pt.y += pt.vy;
+      pt.vy += 0.15;
+      pt.life -= dt;
+    });
+    s.particles = s.particles.filter(pt => pt.life > 0);
+
+    // Update HUD (throttled by 0.2s)
+    if (Math.floor(s.distance * 4) !== Math.floor((s.distance - s.speed * dt / 40) * 4)) {
+      setHud([
+        { label: 'Afstand', value: Math.floor(s.distance) + ' m', className: 'good' },
+        { label: 'Beats', value: s.coinsCollected, className: s.coinsCollected > 0 ? 'good' : '' },
+        { label: 'Hi', value: getHi('bardash') }
+      ]);
+    }
+  },
+  getObstacleBounds(o) {
+    // Returns { y (bottom), h, w }
+    const s = this.s;
+    if (o.type === 'dancer') return { y: s.groundY, h: 50, w: 28 };
+    if (o.type === 'cup') return { y: s.groundY, h: 22, w: 24 };
+    if (o.type === 'surfer') return { y: s.groundY - 40, h: 24, w: 44 };
+    return { y: s.groundY, h: 40, w: 30 };
+  },
+  drawChar(cx, cyBottom, state, t) {
+    // Body colors
+    const skin = '#f5c396';
+    const shirt = C.pink;
+    const pants = '#3b3d4a';
+
+    if (state === 'duck') {
+      // Ducking pose — compressed
+      // Legs/pants
+      ctx.fillStyle = pants;
+      ctx.fillRect(cx - 14, cyBottom - 16, 28, 16);
+      // Body/shirt (horizontal)
+      ctx.fillStyle = shirt;
+      ctx.fillRect(cx - 16, cyBottom - 28, 34, 14);
+      // Head (lowered)
+      ctx.fillStyle = skin;
+      circle(cx + 12, cyBottom - 28, 10, skin);
+      // Eye
+      ctx.fillStyle = '#1a1d27';
+      ctx.fillRect(cx + 15, cyBottom - 30, 2.5, 2.5);
+      // Hair (pink tuft)
+      ctx.fillStyle = C.purple;
+      ctx.fillRect(cx + 6, cyBottom - 36, 16, 4);
+      return;
+    }
+
+    // Standing (run or jump)
+    const bob = state === 'run' ? Math.sin(t * 14) * 2 : 0;
+    // Head
+    ctx.fillStyle = skin;
+    circle(cx, cyBottom - 45 + bob, 10, skin);
+    // Hair
+    ctx.fillStyle = C.purple;
+    ctx.fillRect(cx - 8, cyBottom - 55 + bob, 16, 5);
+    // Eye
+    ctx.fillStyle = '#1a1d27';
+    ctx.fillRect(cx + 3, cyBottom - 46 + bob, 2.5, 2.5);
+    // Body/shirt
+    ctx.fillStyle = shirt;
+    roundRect(cx - 10, cyBottom - 36 + bob, 20, 18, 4, shirt);
+    // Arm (swinging)
+    const armSwing = state === 'run' ? Math.sin(t * 14) * 8 : 0;
+    ctx.fillStyle = shirt;
+    ctx.fillRect(cx + 8, cyBottom - 32 + bob + Math.abs(armSwing)/2, 5, 10);
+    ctx.fillRect(cx - 13, cyBottom - 32 + bob + Math.abs(-armSwing)/2, 5, 10);
+    // Drink in right hand (amber cup)
+    ctx.fillStyle = C.amber;
+    ctx.fillRect(cx + 7, cyBottom - 24 + bob + Math.abs(armSwing)/2, 8, 7);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(cx + 7, cyBottom - 24 + bob + Math.abs(armSwing)/2, 8, 2);
+    // Legs
+    ctx.fillStyle = pants;
+    if (state === 'jump') {
+      // Legs tucked
+      ctx.fillRect(cx - 9, cyBottom - 18, 8, 14);
+      ctx.fillRect(cx + 1, cyBottom - 18, 8, 14);
+    } else {
+      // Running legs
+      const leg = Math.floor(t * 10) % 2;
+      if (leg === 0) {
+        ctx.fillRect(cx - 10, cyBottom - 18, 7, 18);
+        ctx.fillRect(cx + 3, cyBottom - 22, 7, 14);
+      } else {
+        ctx.fillRect(cx - 10, cyBottom - 22, 7, 14);
+        ctx.fillRect(cx + 3, cyBottom - 18, 7, 18);
+      }
+    }
+  },
+  drawObstacle(o) {
+    const s = this.s;
+    if (o.type === 'dancer') {
+      const x = o.x;
+      const y = s.groundY;
+      const sway = Math.sin(s.distance * 0.15 + o.x * 0.01) * 3;
+      // Legs
+      ctx.fillStyle = '#2c3e50';
+      ctx.fillRect(x - 8, y - 18, 6, 18);
+      ctx.fillRect(x + 2, y - 18, 6, 18);
+      // Body
+      ctx.fillStyle = C.blue;
+      roundRect(x - 11, y - 34, 22, 18, 4, C.blue);
+      // Raised arms (dancing)
+      ctx.fillStyle = C.blue;
+      ctx.fillRect(x - 14 + sway, y - 48, 5, 14);
+      ctx.fillRect(x + 9 - sway, y - 48, 5, 14);
+      // Head
+      ctx.fillStyle = '#e8b88f';
+      circle(x, y - 42, 8, '#e8b88f');
+      // Hair
+      ctx.fillStyle = '#4a2c0a';
+      ctx.fillRect(x - 6, y - 50, 12, 4);
+    } else if (o.type === 'cup') {
+      const x = o.x;
+      const y = s.groundY - 10;
+      const roll = s.distance * 0.3 + o.x * 0.02;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(roll);
+      // Red solo cup shape (narrower at bottom)
+      ctx.fillStyle = '#dc2626';
+      ctx.beginPath();
+      ctx.moveTo(-10, -8);
+      ctx.lineTo(10, -8);
+      ctx.lineTo(8, 8);
+      ctx.lineTo(-8, 8);
+      ctx.closePath();
+      ctx.fill();
+      // Rim highlight
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(-10, -9, 20, 3);
+      ctx.restore();
+    } else if (o.type === 'surfer') {
+      const x = o.x;
+      const y = s.groundY - 40;
+      const wobble = Math.sin(s.distance * 0.2 + o.x * 0.01) * 2;
+      // Horizontal body (stage-surfing)
+      ctx.fillStyle = C.green;
+      roundRect(x - 20, y - 8 + wobble, 34, 10, 4, C.green);
+      // Head
+      ctx.fillStyle = '#f5c396';
+      circle(x + 18, y - 3 + wobble, 7, '#f5c396');
+      // Legs
+      ctx.fillStyle = '#2c3e50';
+      ctx.fillRect(x - 22, y + 2 + wobble, 6, 4);
+      ctx.fillRect(x - 16, y + 2 + wobble, 6, 4);
+      // Arms raised (cheering while surfing)
+      ctx.fillStyle = C.green;
+      ctx.fillRect(x + 8, y - 14 + wobble, 4, 8);
+      ctx.fillRect(x + 14, y - 14 + wobble, 4, 8);
+    }
+  },
+  draw() {
+    const s = this.s;
+
+    // Sky gradient
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, '#1f1a3a');
+    sky.addColorStop(0.5, '#3a2d5a');
+    sky.addColorStop(1, '#4a3b6b');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, s.groundY);
+
+    // Distant stage lights (parallax, blurry)
+    s.stageLights.forEach(sl => {
+      const grad = ctx.createRadialGradient(sl.x, sl.y, 0, sl.x, sl.y, 18);
+      grad.addColorStop(0, sl.color);
+      grad.addColorStop(1, 'transparent');
+      ctx.globalAlpha = 0.5;
+      ctx.fillStyle = grad;
+      ctx.fillRect(sl.x - 18, sl.y - 18, 36, 36);
+      ctx.globalAlpha = 1;
+    });
+
+    // Clouds (parallax)
+    s.clouds.forEach(cl => {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.beginPath();
+      ctx.arc(cl.x, cl.y, cl.w * 0.4, 0, Math.PI * 2);
+      ctx.arc(cl.x + cl.w * 0.3, cl.y - 5, cl.w * 0.35, 0, Math.PI * 2);
+      ctx.arc(cl.x + cl.w * 0.6, cl.y, cl.w * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Bar in the distance (visual goal)
+    const barDistance = Math.max(0, 800 - s.distance);
+    if (barDistance < 300) {
+      const barX = W - 20 + barDistance * 0.5;
+      ctx.fillStyle = '#2a1a0a';
+      roundRect(barX - 30, s.groundY - 50, 60, 50, [6, 6, 0, 0], '#2a1a0a');
+      ctx.fillStyle = C.amber;
+      ctx.font = '700 9px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('BAR', barX, s.groundY - 30);
+      // Glowing sign
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.3)';
+      ctx.fillRect(barX - 28, s.groundY - 48, 56, 4);
+    }
+
+    // Ground
+    ctx.fillStyle = '#1a1d27';
+    ctx.fillRect(0, s.groundY, W, H - s.groundY);
+    // Ground line
+    ctx.fillStyle = C.pink;
+    ctx.fillRect(0, s.groundY, W, 2);
+    // Running ground markings (moving dashes)
+    const dashOffset = (s.distance * 40) % 30;
+    ctx.fillStyle = 'rgba(167, 139, 250, 0.3)';
+    for (let i = -1; i < W / 30 + 1; i++) {
+      ctx.fillRect(i * 30 - dashOffset, s.groundY + 18, 14, 2);
+    }
+
+    // Coins
+    s.coins.forEach(co => {
+      if (co.collected) return;
+      const bob = Math.sin((s.distance + co.bob) * 3) * 3;
+      const cy = co.y + bob;
+      // Glow
+      ctx.globalAlpha = 0.4;
+      const glow = ctx.createRadialGradient(co.x, cy, 0, co.x, cy, 20);
+      glow.addColorStop(0, C.amber);
+      glow.addColorStop(1, 'transparent');
+      ctx.fillStyle = glow;
+      ctx.fillRect(co.x - 20, cy - 20, 40, 40);
+      ctx.globalAlpha = 1;
+      // Coin body
+      circle(co.x, cy, 10, C.amber, '#fff');
+      circle(co.x, cy, 8, '#FCD34D');
+      // Letter
+      ctx.font = '800 10px Inter, sans-serif';
+      ctx.fillStyle = '#4a3a00';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('B', co.x, cy + 1);
+    });
+
+    // Obstacles
+    s.obstacles.forEach(o => this.drawObstacle(o));
+
+    // Particles
+    s.particles.forEach(pt => {
+      ctx.globalAlpha = pt.life * 1.5;
+      circle(pt.x, pt.y, 3, pt.color);
+    });
+    ctx.globalAlpha = 1;
+
+    // Character
+    this.drawChar(s.char.x, s.groundY + s.char.y, s.char.state, s.char.runT);
+
+    // Big distance score overlay
+    text(Math.floor(s.distance) + ' m', W - 20, 24, {
+      size: 28, color: 'rgba(255,255,255,0.12)', align: 'right', weight: 900
+    });
+    text(Math.floor(s.distance) + ' m', W - 20, 24, {
+      size: 28, color: '#fff', align: 'right', weight: 900
+    });
+  },
+  cleanup() {
+    canvas.removeEventListener('mousedown', this.onTap);
+    canvas.removeEventListener('touchstart', this.onTap);
+    window.removeEventListener('keydown', this.onKey);
+  }
+};
+
+// ============================================================
 // ORCHESTRATION
 // ============================================================
 const games = {
-  spotlight, bartender, beatshop
+  spotlight, bartender, beatshop, bardash
 };
 const titles = {
   spotlight: 'Spotlight',
   bartender: 'Bar-tender',
-  beatshop: 'Beats-Hop'
+  beatshop: 'Beats-Hop',
+  bardash: 'Bar-Dash'
 };
 
 function loadGame(key) {

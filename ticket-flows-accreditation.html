@@ -2,302 +2,456 @@
 <html lang="da">
 <head>
 <meta charset="UTF-8">
-<title>Billetadministration, Akkreditering (crew, artister, presse)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akkrediterings-flows, LiveCloud Support</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; max-width: 860px; margin: 0 auto; padding: 24px; }
-  h1 { font-size: 22px; margin-bottom: 4px; }
-  .intro { color: #555; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
-  h2 { font-size: 16px; color: #333; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; margin-top: 32px; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
-  th { background: #f5f5f5; text-align: left; padding: 10px 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; border-bottom: 2px solid #ddd; }
-  td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: top; font-size: 14px; }
-  .flow-title { font-weight: 600; font-size: 15px; color: #111; margin-bottom: 2px; }
-  .flow-subtitle { font-size: 13px; color: #888; margin-bottom: 0; }
-  .flow-desc { line-height: 1.5; }
-  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; margin-right: 4px; }
-  .tag-permanent { background: #fce4ec; color: #c62828; }
-  .tag-no-app { background: #e3f2fd; color: #1565c0; }
-  .tag-needs-app { background: #fff3e0; color: #e65100; }
-  .tag-info { background: #f3e5f5; color: #6a1b9a; }
-  .tag-draft { background: #fff3e0; color: #e65100; border: 1px dashed #e65100; }
-  .video-link { color: #1976d2; text-decoration: none; font-size: 13px; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --bg-answer: #151821;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #6B6F80;
+    --border: #2A2E3D;
+    --accent: #A78BFA;
+    --accent-dark: #8B5CF6;
+    --accent-green: #5CB77A;
+    --accent-amber: #F59E0B;
+    --accent-blue: #60A5FA;
+    --accent-red: #EF4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 0 24px;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 48px 0 80px; }
+
+  .breadcrumb { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .hero { margin-bottom: 36px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(167, 139, 250, 0.1); border: 1px solid rgba(167, 139, 250, 0.25);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.15; }
+  .hero p { font-size: 16px; color: var(--text-muted); max-width: 640px; line-height: 1.65; }
+
+  .who-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 36px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .who-box strong { color: var(--text); font-weight: 600; }
+
+  /* Sections */
+  .section { margin-bottom: 40px; scroll-margin-top: 24px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-num {
+    width: 32px; height: 32px; border-radius: 10px;
+    background: rgba(167, 139, 250, 0.14); color: var(--accent);
+    font-weight: 800; font-size: 14px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .section h2 { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
+  .section-intro {
+    font-size: 15px; color: var(--text-muted); line-height: 1.65;
+    margin-bottom: 20px; padding-left: 44px;
+  }
+
+  /* Flow cards */
+  .flow-list { display: flex; flex-direction: column; gap: 12px; }
+  .flow-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    transition: all 0.15s;
+  }
+  .flow-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(167, 139, 250, 0.25);
+  }
+  .flow-title {
+    font-size: 16px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 4px;
+  }
+  .flow-subtitle {
+    font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;
+  }
+  .flow-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .flow-tag {
+    font-size: 11px; font-weight: 600;
+    padding: 3px 10px; border-radius: 10px; letter-spacing: 0.2px;
+  }
+  .flow-tag.permanent { background: rgba(239, 68, 68, 0.12); color: #fca5a5; }
+  .flow-tag.needs-app { background: rgba(245, 158, 11, 0.12); color: var(--accent-amber); }
+  .flow-tag.no-app { background: rgba(96, 165, 250, 0.12); color: var(--accent-blue); }
+  .flow-tag.info { background: rgba(167, 139, 250, 0.12); color: var(--accent); }
+  .flow-desc {
+    font-size: 14px; color: var(--text-muted); line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .flow-desc strong { color: var(--text); font-weight: 600; }
+  .flow-desc p { margin-bottom: 10px; }
+  .flow-desc p:last-child { margin-bottom: 0; }
+  .flow-note {
+    font-size: 13px; color: var(--text-dim);
+    font-style: italic; line-height: 1.6;
+    padding: 10px 14px; background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid var(--border); border-radius: 4px;
+    margin: 10px 0;
+  }
+  .flow-hint {
+    font-size: 13px; color: var(--text);
+    background: rgba(167, 139, 250, 0.08);
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px; border-radius: 4px;
+    margin: 10px 0; line-height: 1.65;
+  }
+  .flow-hint strong { color: var(--text); }
+  .video-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 500; color: var(--accent);
+    text-decoration: none; margin-top: 8px;
+  }
   .video-link:hover { text-decoration: underline; }
-  .note { font-size: 12px; color: #999; font-style: italic; }
-  .section-intro { font-size: 14px; color: #555; margin-bottom: 16px; line-height: 1.5; }
-  .hint { background: #f5f5f5; border-left: 3px solid #1976d2; padding: 10px 14px; margin: 12px 0; font-size: 13px; line-height: 1.5; color: #333; }
-  .summary-table td { padding: 8px 12px; }
-  .summary-table tr:hover { background: #fafafa; }
+
+  /* Summary table */
+  .summary-table-wrap {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+  }
+  .summary-table { width: 100%; border-collapse: collapse; }
+  .summary-table th {
+    background: rgba(255, 255, 255, 0.02); text-align: left;
+    padding: 12px 16px; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-table td {
+    padding: 12px 16px; font-size: 14px; line-height: 1.5;
+    color: var(--text-muted); border-bottom: 1px solid var(--border);
+  }
+  .summary-table td strong { color: var(--text); font-weight: 600; }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+  .after-note {
+    font-size: 14px; color: var(--text-muted); line-height: 1.65;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 22px;
+  }
+
+  /* Open questions */
+  .open-questions {
+    background: rgba(245, 158, 11, 0.06);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .open-questions h3 {
+    color: var(--accent-amber);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.4px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .open-questions ul { list-style: none; padding: 0; }
+  .open-questions ul li {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.65; padding: 6px 0 6px 20px;
+    position: relative;
+  }
+  .open-questions ul li::before {
+    content: '?'; position: absolute; left: 0; top: 6px;
+    color: var(--accent-amber); font-weight: 700;
+  }
+  .open-questions em { color: var(--text-dim); font-style: normal; font-size: 12px; }
+
+  .foot-note {
+    text-align: center; margin-top: 40px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-dim); line-height: 1.7;
+  }
+  .foot-note a { color: var(--accent); text-decoration: none; }
+  .foot-note a:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .container { padding: 32px 0 60px; }
+    .hero h1 { font-size: 26px; }
+    .section h2 { font-size: 18px; }
+    .section-intro { padding-left: 0; }
+    .flow-card { padding: 18px; }
+    .summary-table th, .summary-table td { padding: 10px 12px; font-size: 12px; }
+  }
 </style>
 </head>
 <body>
 
-<h1>Billetadministration, Akkreditering</h1>
-<p class="intro">Guide til akkrediterings-ansvarlige (ordreholdere) der administrerer adgang for crew, artister, presse, frivillige og andre akkrediterede personer.</p>
+<div class="container">
 
-<!-- ── Hvem ── -->
-<h2>Hvem er denne guide for?</h2>
-<p class="section-intro">
-  Du er <strong>ordreholder for akkreditering</strong>, f.eks. en artist manager, produktionsleder, frivillig-koordinator eller presse-ansvarlig. Festivalen har oprettet dig som ordreholder, og du har modtaget en invitation via email til at oprette din profil. Herfra administrerer du alle adgange til dit crew, dine artister eller andre akkrediterede personer via <strong>webportalen</strong>.
-</p>
+  <div class="breadcrumb">
+    <a href="index.html">Support</a>
+    <span>/</span>
+    <span style="color: var(--text);">Akkrediterings-flows</span>
+  </div>
 
-<!-- ── 1. Kom i gang ── -->
-<h2>1. Kom i gang som ordreholder</h2>
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&#127908;</span>
+      Akkreditering
+    </div>
+    <h1>Akkrediterings-flows</h1>
+    <p>Guide til akkrediterings-ansvarlige (ordreholdere) der administrerer adgang for crew, artister, presse, frivillige og andre akkrediterede personer.</p>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th style="width:30%">Trin</th>
-      <th style="width:50%">Beskrivelse</th>
-      <th style="width:20%">Video</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <div class="who-box">
+    <strong>Hvem er denne guide for?</strong><br>
+    Du er <strong>ordreholder for akkreditering</strong>, f.eks. en artist manager, produktionsleder, frivillig-koordinator eller presse-ansvarlig. Festivalen har oprettet dig som ordreholder, og du har modtaget en invitation via email til at oprette din profil. Herfra administrerer du alle adgange til dit crew, dine artister eller andre akkrediterede personer via <strong>webportalen</strong>.
+  </div>
+
+  <!-- 1. Kom i gang -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>Kom i gang som ordreholder</h2>
+    </div>
+    <div class="flow-list">
+      <div class="flow-card">
         <div class="flow-title">Modtag invitation fra festivalen</div>
         <div class="flow-subtitle">En festival-admin opretter dig som ordreholder</div>
-      </td>
-      <td class="flow-desc">
-        Festivalens administrator opretter dig som ordreholder med dit navn, email og relevante oplysninger. Du modtager en invitation på email med et link til at oprette din profil.
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <p class="flow-desc">Festivalens administrator opretter dig som ordreholder med dit navn, email og relevante oplysninger. Du modtager en invitation på email med et link til at oprette din profil.</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Opret profil og log ind</div>
         <div class="flow-subtitle">Opret din konto med email og password</div>
-      </td>
-      <td class="flow-desc">
-        Følg linket i emailen og opret din profil med email og password. Når din profil er oprettet, har du adgang til webportalen hvor dine billetter og adgange allerede er klar.
-        <br><br>
-        <span class="note">MitID-verificering er ikke et krav for akkrediterings-ordreholdere. Din profil oprettes med email og password.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <p class="flow-desc">Følg linket i emailen og opret din profil med email og password. Når din profil er oprettet, har du adgang til webportalen, hvor dine billetter og adgange allerede er klar.</p>
+        <div class="flow-note">MitID-verificering er ikke et krav for akkrediterings-ordreholdere. Din profil oprettes med email og password.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Overblik i webportalen</div>
         <div class="flow-subtitle">Se alle dine billetter, adgange og zoner</div>
-      </td>
-      <td class="flow-desc">
-        Webportalen giver dig et samlet overblik over alle billetter og adgange du har fået tildelt. Du kan se type, zone (backstage, scene, presse, VIP, camping m.m.) og status for hver enkelt.
-        <br><br>
-        <span class="note">Alle adgangstyper og zoner understøttes, det afhænger af hvad festivalen har tildelt til din ordre.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-  </tbody>
-</table>
+        <p class="flow-desc">Webportalen giver dig et samlet overblik over alle billetter og adgange du har fået tildelt. Du kan se type, zone (backstage, scene, presse, VIP, camping m.m.) og status for hver enkelt.</p>
+        <div class="flow-note">Alle adgangstyper og zoner understøttes, det afhænger af hvad festivalen har tildelt til din ordre.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+    </div>
+  </div>
 
-<!-- ── 2. Typiske scenarier ── -->
-<h2>2. Typiske scenarier</h2>
+  <!-- 2. Typiske scenarier -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>Typiske scenarier</h2>
+    </div>
+    <div class="summary-table-wrap">
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Rolle</th>
+            <th>Typisk situation</th>
+            <th>Typisk adgangsform</th>
+            <th>Kræver app?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Artist manager</strong></td>
+            <td>Fordeler 10–20 billetter til bandmedlemmer og crew</td>
+            <td>Delegation (armbånd)</td>
+            <td>Nej</td>
+          </tr>
+          <tr>
+            <td><strong>Produktionsleder</strong></td>
+            <td>Fordeler backstage/tekniker-adgange til crew</td>
+            <td>Delegation (armbånd)</td>
+            <td>Nej</td>
+          </tr>
+          <tr>
+            <td><strong>Frivillig-koordinator</strong></td>
+            <td>Fordeler adgange til 50+ frivillige</td>
+            <td>Delegation eller transfer</td>
+            <td>Valgfrit</td>
+          </tr>
+          <tr>
+            <td><strong>Presse-ansvarlig</strong></td>
+            <td>Fordeler presse-akkrediteringer til journalister/fotografer</td>
+            <td>Delegation eller transfer</td>
+            <td>Valgfrit</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th style="width:25%">Rolle</th>
-      <th style="width:35%">Typisk situation</th>
-      <th style="width:25%">Typisk adgangsform</th>
-      <th style="width:15%">Kræver app?</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Artist manager</strong></td>
-      <td>Fordeler 10–20 billetter til bandmedlemmer og crew</td>
-      <td>Delegation (armbånd)</td>
-      <td>Nej</td>
-    </tr>
-    <tr>
-      <td><strong>Produktionsleder</strong></td>
-      <td>Fordeler backstage/tekniker-adgange til crew</td>
-      <td>Delegation (armbånd)</td>
-      <td>Nej</td>
-    </tr>
-    <tr>
-      <td><strong>Frivillig-koordinator</strong></td>
-      <td>Fordeler adgange til 50+ frivillige</td>
-      <td>Delegation (armbånd) eller transfer</td>
-      <td>Valgfrit</td>
-    </tr>
-    <tr>
-      <td><strong>Presse-ansvarlig</strong></td>
-      <td>Fordeler presse-akkrediteringer til journalister/fotografer</td>
-      <td>Delegation (armbånd) eller transfer</td>
-      <td>Valgfrit</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- ── 3. Fordel adgange ── -->
-<h2>3. Fordel adgange til dit crew</h2>
-<p class="section-intro">Du har to muligheder for at give adgang: delegation (typisk) eller transfer. Begge kræver navn og email.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:30%">Adgangsform</th>
-      <th style="width:50%">Beskrivelse</th>
-      <th style="width:20%">Video</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <!-- 3. Fordel adgange -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>Fordel adgange til dit crew</h2>
+    </div>
+    <p class="section-intro">Du har to muligheder for at give adgang: delegation (typisk) eller transfer. Begge kræver navn og email.</p>
+    <div class="flow-list">
+      <div class="flow-card">
         <div class="flow-title">Tilføj person (delegation)</div>
         <div class="flow-subtitle">Den typiske metode, adgangen forbliver hos dig</div>
-        <br>
-        <span class="tag tag-no-app">Ingen app krævet</span>
-        <span class="tag tag-info">Armbånd ved check-in</span>
-      </td>
-      <td class="flow-desc">
-        Vælg en adgang i webportalen og vælg "Tilføj person". Indtast personens navn og email. Personen modtager en email med oplysninger om sin adgang. Billetten forbliver på din konto.
-        <br><br>
-        Ved ankomst møder personen op ved <strong>akkrediterings check-in</strong>, fremviser sin adgang (email-bekræftelsen), og får et chip-armbånd knyttet til din profil. Armbåndet giver adgang til de tildelte zoner og mulighed for at handle på din Beats-konto.
-        <br><br>
-        <div class="hint">
-          <strong>Bemærk:</strong> Navn anbefales altid. Email kan udelades ved delegation, men vi anbefaler det, da personen modtager praktisk information om adgangen.
+        <div class="flow-tags">
+          <span class="flow-tag no-app">Ingen app krævet</span>
+          <span class="flow-tag info">Armbånd ved check-in</span>
         </div>
-        <span class="note">Personen skal have sit armbånd på ved akkrediterings check-in før de kan komme ind.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <div class="flow-desc">
+          <p>Vælg en adgang i webportalen og vælg "Tilføj person". Indtast personens navn og email. Personen modtager en email med oplysninger om sin adgang. Billetten forbliver på din konto.</p>
+          <p>Ved ankomst møder personen op ved <strong>akkrediterings check-in</strong>, fremviser sin adgang (email-bekræftelsen), og får et chip-armbånd knyttet til din profil. Armbåndet giver adgang til de tildelte zoner og mulighed for at handle på din Beats-konto.</p>
+        </div>
+        <div class="flow-hint"><strong>Bemærk:</strong> Navn anbefales altid. Email kan udelades ved delegation, men vi anbefaler det, da personen modtager praktisk information om adgangen.</div>
+        <div class="flow-note">Personen skal have sit armbånd på ved akkrediterings check-in før de kan komme ind.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Overfør billet (transfer)</div>
         <div class="flow-subtitle">Giv billetten permanent til personen</div>
-        <br>
-        <span class="tag tag-permanent">Permanent overførsel</span>
-        <span class="tag tag-needs-app">Modtager behøver appen</span>
-      </td>
-      <td class="flow-desc">
-        Vælg en adgang i webportalen og vælg "Overfør". Indtast personens navn og email. Personen modtager en email med et link til at oprette en gæsteprofil i appen og acceptere billetten. Billetten forlader din konto og bliver modtagerens.
-        <br><br>
-        <span class="note">Velegnet til personer der ønsker deres egen profil i appen, f.eks. artister eller crew der er på festivalen i flere dage og vil bruge appen til Beats, program m.m.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-  </tbody>
-</table>
+        <div class="flow-tags">
+          <span class="flow-tag permanent">Permanent overførsel</span>
+          <span class="flow-tag needs-app">Modtager behøver appen</span>
+        </div>
+        <p class="flow-desc">Vælg en adgang i webportalen og vælg "Overfør". Indtast personens navn og email. Personen modtager en email med et link til at oprette en gæsteprofil i appen og acceptere billetten. Billetten forlader din konto og bliver modtagerens.</p>
+        <div class="flow-note">Velegnet til personer der ønsker deres egen profil i appen, f.eks. artister eller crew der er på festivalen i flere dage og vil bruge appen til Beats, program m.m.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+    </div>
+  </div>
 
-<!-- ── 4. Check-in og armbånd ── -->
-<h2>4. Akkrediterings check-in og armbånd</h2>
-<p class="section-intro">Delegerede personer (uden app) skal hente deres armbånd ved en speciel akkrediterings check-in.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:30%">Trin</th>
-      <th style="width:50%">Beskrivelse</th>
-      <th style="width:20%">Video</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <!-- 4. Check-in -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>Akkrediterings check-in og armbånd</h2>
+    </div>
+    <p class="section-intro">Delegerede personer (uden app) skal hente deres armbånd ved en speciel akkrediterings check-in.</p>
+    <div class="flow-list">
+      <div class="flow-card">
         <div class="flow-title">Akkrediterings check-in</div>
         <div class="flow-subtitle">Personen møder op og får sit armbånd</div>
-      </td>
-      <td class="flow-desc">
-        Delegerede personer uden egen profil møder op ved festivalens <strong>akkrediterings check-in</strong>. Her fremviser de deres adgang (f.eks. emailen de har modtaget), og festivalpersonalet linker et chip-armbånd til den rette billet.
-        <br><br>
-        <span class="note">Armbåndet knyttes til din profil som ordreholder. Personen kan herefter gå ind og ud samt handle på din Beats-konto. Du kan have flere armbånd tilknyttet din profil, og du kan sætte et maks-forbrug per armbånd. Armbåndet er ikke adgangsgivende i sig selv, det virker kun, når det er knyttet til en profil med en gyldig adgang.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <p class="flow-desc">Delegerede personer uden egen profil møder op ved festivalens <strong>akkrediterings check-in</strong>. Her fremviser de deres adgang (f.eks. emailen de har modtaget), og festivalpersonalet linker et chip-armbånd til den rette billet.</p>
+        <div class="flow-note">Armbåndet knyttes til din profil som ordreholder. Personen kan herefter gå ind og ud samt handle på din Beats-konto. Du kan have flere armbånd tilknyttet din profil, og du kan sætte et maks-forbrug per armbånd. Armbåndet er ikke adgangsgivende i sig selv, det virker kun, når det er knyttet til en profil med en gyldig adgang.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Vis alle adgange fra din profil</div>
         <div class="flow-subtitle">Ordreholder kan fremvise adgange for sit crew</div>
-      </td>
-      <td class="flow-desc">
-        Som ordreholder har du adgang til at se alle dine billetter og adgange via din profil. Hvis en person i dit crew har glemt sin email-bekræftelse, kan du fremvise adgangen direkte fra webportalen ved akkrediterings check-in.
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-  </tbody>
-</table>
+        <p class="flow-desc">Som ordreholder har du adgang til at se alle dine billetter og adgange via din profil. Hvis en person i dit crew har glemt sin email-bekræftelse, kan du fremvise adgangen direkte fra webportalen ved akkrediterings check-in.</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+    </div>
+  </div>
 
-<!-- ── 5. Administration ── -->
-<h2>5. Følg op og administrer</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:30%">Funktion</th>
-      <th style="width:50%">Beskrivelse</th>
-      <th style="width:20%">Video</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <!-- 5. Administration -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>Følg op og administrer</h2>
+    </div>
+    <div class="flow-list">
+      <div class="flow-card">
         <div class="flow-title">Status og check-in overblik</div>
         <div class="flow-subtitle">Se hvem der har fået armbånd og hvem der er ankommet</div>
-      </td>
-      <td class="flow-desc">
-        Webportalen viser status for alle dine adgange: tildelt, email sendt, armbånd udleveret, checked in. Følg med i realtid hvem af dit crew der er ankommet.
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <p class="flow-desc">Webportalen viser status for alle dine adgange: tildelt, email sendt, armbånd udleveret, checked in. Følg med i realtid hvem af dit crew der er ankommet.</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Gensend invitation</div>
         <div class="flow-subtitle">Send adgangsoplysninger igen</div>
-      </td>
-      <td class="flow-desc">
-        Har en person mistet sin email? Du kan gensende adgangsoplysningerne fra webportalen.
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-  </tbody>
-</table>
+        <p class="flow-desc">Har en person mistet sin email? Du kan gensende adgangsoplysningerne fra webportalen.</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+    </div>
+  </div>
 
-<!-- ── 6. Efter festivalen ── -->
-<h2>6. Efter festivalen</h2>
-<p class="section-intro">
-  Alle adgange og akkrediteringer nulstilles automatisk efter endt festival. Armbånd deaktiveres, og delegerede personers adgang ophører. Overførte billetter (transfer) følger samme nulstilling.
-</p>
+  <!-- 6. Efter festivalen -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>Efter festivalen</h2>
+    </div>
+    <div class="after-note">
+      Alle adgange og akkrediteringer nulstilles automatisk efter endt festival. Armbånd deaktiveres, og delegerede personers adgang ophører. Overførte billetter (transfer) følger samme nulstilling.
+    </div>
+  </div>
 
-<!-- ── Hurtigoversigt ── -->
-<h2>Hurtigoversigt</h2>
+  <!-- Hurtigoversigt -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num" style="background: rgba(96, 165, 250, 0.14); color: var(--accent-blue);">&#9776;</div>
+      <h2>Hurtigoversigt</h2>
+    </div>
+    <div class="summary-table-wrap">
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Metode</th>
+            <th>Billet forbliver hos dig?</th>
+            <th>Modtager kræver</th>
+            <th>Adgang via</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Delegation (typisk)</strong></td>
+            <td>Ja</td>
+            <td>Ingenting (evt. email)</td>
+            <td>Chip-armbånd ved akkreditering</td>
+          </tr>
+          <tr>
+            <td><strong>Transfer</strong></td>
+            <td>Nej (permanent)</td>
+            <td>App + gæsteprofil</td>
+            <td>Appen</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<table class="summary-table">
-  <thead>
-    <tr>
-      <th>Metode</th>
-      <th>Billet forbliver hos dig?</th>
-      <th>Modtager kræver</th>
-      <th>Adgang via</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Delegation (typisk)</strong></td>
-      <td>Ja</td>
-      <td>Ingenting (evt. email)</td>
-      <td>Chip-armbånd ved akkreditering</td>
-    </tr>
-    <tr>
-      <td><strong>Transfer</strong></td>
-      <td>Nej (permanent)</td>
-      <td>App + gæsteprofil</td>
-      <td>Appen</td>
-    </tr>
-  </tbody>
-</table>
+  <!-- Åbne spørgsmål -->
+  <div class="section">
+    <div class="open-questions">
+      <h3>Åbne spørgsmål</h3>
+      <ul>
+        <li>Skal der være forskellige roller med forskellige rettigheder? (f.eks. "artist manager" vs. "frivillig-koordinator"). <em>Kommer på sigt.</em></li>
+        <li>Kan ordreholder spærre et armbånd i realtid (f.eks. ved tab)?</li>
+        <li>Understøttes CSV-import af navne/emails til batch-delegation?</li>
+      </ul>
+    </div>
+  </div>
 
-<!-- ── Åbne spørgsmål ── -->
-<h2 style="color: #e65100;">Åbne spørgsmål</h2>
-<ul style="font-size: 14px; line-height: 1.8; color: #555;">
-  <li>Skal der være forskellige roller med forskellige rettigheder? (f.eks. "artist manager" vs. "frivillig-koordinator"), <em>kommer på sigt</em></li>
-  <li>Kan ordreholder spærre et armbånd i realtid (f.eks. ved tab)?</li>
-  <li>Understøttes CSV-import af navne/emails til batch-delegation?</li>
-</ul>
+  <div class="foot-note">
+    Denne side opdateres løbende. Har du spørgsmål? Skriv til os på <a href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a>.
+  </div>
 
-<p class="note" style="margin-top: 24px; text-align: center;">
-  Denne side opdateres løbende. Har du spørgsmål? Kontakt festivalen.
-</p>
+</div>
 
 </body>
 </html>

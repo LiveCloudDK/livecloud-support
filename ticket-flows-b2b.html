@@ -2,239 +2,348 @@
 <html lang="da">
 <head>
 <meta charset="UTF-8">
-<title>Billetadministration, Virksomheder og organisationer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webportal &amp; flows (B2B), LiveCloud Support</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; max-width: 860px; margin: 0 auto; padding: 24px; }
-  h1 { font-size: 22px; margin-bottom: 4px; }
-  .intro { color: #555; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
-  h2 { font-size: 16px; color: #333; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; margin-top: 32px; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
-  th { background: #f5f5f5; text-align: left; padding: 10px 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; border-bottom: 2px solid #ddd; }
-  td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: top; font-size: 14px; }
-  .flow-title { font-weight: 600; font-size: 15px; color: #111; margin-bottom: 2px; }
-  .flow-subtitle { font-size: 13px; color: #888; margin-bottom: 0; }
-  .flow-desc { line-height: 1.5; }
-  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; margin-right: 4px; }
-  .tag-permanent { background: #fce4ec; color: #c62828; }
-  .tag-no-app { background: #e3f2fd; color: #1565c0; }
-  .tag-needs-app { background: #fff3e0; color: #e65100; }
-  .tag-info { background: #f3e5f5; color: #6a1b9a; }
-  .tag-draft { background: #fff3e0; color: #e65100; border: 1px dashed #e65100; }
-  .video-link { color: #1976d2; text-decoration: none; font-size: 13px; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --bg-answer: #151821;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #6B6F80;
+    --border: #2A2E3D;
+    --accent: #F59E0B;
+    --accent-dark: #D97706;
+    --accent-green: #5CB77A;
+    --accent-blue: #60A5FA;
+    --accent-purple: #A78BFA;
+    --accent-red: #EF4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 0 24px;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 48px 0 80px; }
+
+  .breadcrumb { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .hero { margin-bottom: 24px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.15; }
+  .hero p { font-size: 16px; color: var(--text-muted); max-width: 640px; line-height: 1.65; }
+
+  .draft-banner {
+    background: rgba(167, 139, 250, 0.08);
+    border: 1px solid rgba(167, 139, 250, 0.25);
+    border-left-width: 3px;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    font-size: 14px; line-height: 1.6; color: var(--text);
+  }
+  .draft-banner strong { color: var(--accent-purple); }
+
+  .who-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 36px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .who-box strong { color: var(--text); font-weight: 600; }
+
+  /* Sections */
+  .section { margin-bottom: 40px; scroll-margin-top: 24px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .section-num {
+    width: 32px; height: 32px; border-radius: 10px;
+    background: rgba(245, 158, 11, 0.14); color: var(--accent);
+    font-weight: 800; font-size: 14px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .section h2 { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
+  .section-intro {
+    font-size: 15px; color: var(--text-muted); line-height: 1.65;
+    margin-bottom: 20px; padding-left: 44px;
+  }
+
+  /* Flow cards */
+  .flow-list { display: flex; flex-direction: column; gap: 12px; }
+  .flow-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    transition: all 0.15s;
+  }
+  .flow-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(245, 158, 11, 0.25);
+  }
+  .flow-title {
+    font-size: 16px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 4px;
+  }
+  .flow-subtitle {
+    font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;
+  }
+  .flow-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .flow-tag {
+    font-size: 11px; font-weight: 600;
+    padding: 3px 10px; border-radius: 10px; letter-spacing: 0.2px;
+  }
+  .flow-tag.permanent { background: rgba(239, 68, 68, 0.12); color: #fca5a5; }
+  .flow-tag.needs-app { background: rgba(245, 158, 11, 0.12); color: var(--accent); }
+  .flow-tag.no-app { background: rgba(96, 165, 250, 0.12); color: var(--accent-blue); }
+  .flow-tag.info { background: rgba(167, 139, 250, 0.12); color: var(--accent-purple); }
+  .flow-tag.draft { background: rgba(167, 139, 250, 0.1); color: var(--accent-purple); border: 1px dashed rgba(167, 139, 250, 0.4); }
+
+  .flow-desc {
+    font-size: 14px; color: var(--text-muted); line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .flow-desc strong { color: var(--text); font-weight: 600; }
+  .flow-note {
+    font-size: 13px; color: var(--text-dim);
+    font-style: italic; line-height: 1.6;
+    padding: 10px 14px; background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid var(--border); border-radius: 4px;
+    margin: 10px 0;
+  }
+  .video-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 500; color: var(--accent);
+    text-decoration: none; margin-top: 8px;
+  }
   .video-link:hover { text-decoration: underline; }
-  .note { font-size: 12px; color: #999; font-style: italic; }
-  .section-intro { font-size: 14px; color: #555; margin-bottom: 16px; line-height: 1.5; }
-  .draft-banner { background: #fff3e0; border: 2px dashed #e65100; border-radius: 8px; padding: 14px 16px; margin: 24px 0; font-size: 14px; line-height: 1.6; color: #5d4037; }
-  .summary-table td { padding: 8px 12px; }
-  .summary-table tr:hover { background: #fafafa; }
+
+  /* Open questions */
+  .open-questions {
+    background: rgba(167, 139, 250, 0.06);
+    border: 1px solid rgba(167, 139, 250, 0.25);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .open-questions h3 {
+    color: var(--accent-purple);
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.4px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .open-questions ul { list-style: none; padding: 0; }
+  .open-questions ul li {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.65; padding: 6px 0 6px 20px;
+    position: relative;
+  }
+  .open-questions ul li::before {
+    content: '?'; position: absolute; left: 0; top: 6px;
+    color: var(--accent-purple); font-weight: 700;
+  }
+
+  .foot-note {
+    text-align: center; margin-top: 40px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-dim); line-height: 1.7;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .container { padding: 32px 0 60px; }
+    .hero h1 { font-size: 26px; }
+    .section h2 { font-size: 18px; }
+    .section-intro { padding-left: 0; }
+    .flow-card { padding: 18px; }
+  }
 </style>
 </head>
 <body>
 
-<h1>Billetadministration, Virksomheder og organisationer</h1>
-<p class="intro">Guide til virksomheder, foreninger og organisationer der har købt billetter til medarbejdere, medlemmer eller gæster.</p>
+<div class="container">
 
-<div class="draft-banner">
-  <strong>Udkast:</strong> Denne side er under udarbejdelse. Use cases og flows er endnu ikke endeligt afklaret.
-</div>
+  <div class="breadcrumb">
+    <a href="index.html">Support</a>
+    <span>/</span>
+    <span style="color: var(--text);">Webportal &amp; flows (B2B)</span>
+  </div>
 
-<!-- ── Typisk use case ── -->
-<h2>Hvem er denne guide for?</h2>
-<p class="section-intro">
-  Du repræsenterer en virksomhed eller organisation der har købt et større antal billetter (f.eks. 10, 50 eller 100 stk.) som skal fordeles til medarbejdere, kunder eller gæster. Som virksomhed får du adgang til et <strong>webinterface</strong> hvor du kan administrere billetter, adgange og Beats, alt sammen fra din computer.
-</p>
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&#128187;</span>
+      Virksomheder &amp; organisationer
+    </div>
+    <h1>Webportal &amp; flows</h1>
+    <p>Guide til virksomheder, foreninger og organisationer der har købt billetter til medarbejdere, medlemmer eller gæster.</p>
+  </div>
 
-<!-- ── 1. Kom i gang ── -->
-<h2>1. Kom i gang som ordreholder</h2>
+  <div class="draft-banner">
+    <strong>Udkast:</strong> Denne side er under udarbejdelse. Use cases og flows er endnu ikke endeligt afklaret.
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th style="width:30%">Funktion</th>
-      <th style="width:50%">Beskrivelse</th>
-      <th style="width:20%">Video</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <div class="who-box">
+    <strong>Hvem er denne guide for?</strong><br>
+    Du repræsenterer en virksomhed eller organisation der har købt et større antal billetter (f.eks. 10, 50 eller 100 stk.) som skal fordeles til medarbejdere, kunder eller gæster. Som virksomhed får du adgang til et <strong>webinterface</strong> hvor du kan administrere billetter, adgange og Beats, alt sammen fra din computer.
+  </div>
+
+  <!-- 1. Kom i gang -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>Kom i gang som ordreholder</h2>
+    </div>
+    <div class="flow-list">
+      <div class="flow-card">
         <div class="flow-title">Log ind på webportalen</div>
         <div class="flow-subtitle">Administrér alt fra din computer</div>
-      </td>
-      <td class="flow-desc">
-        Du modtager et login til webportalen, hvor du kan se og administrere alle dine billetter, adgange og Beats-konti. Herfra kan du fordele billetter, følge status og håndtere Beats-opladninger.
-        <br><br>
-        <span class="note">Webportalen er designet til administration af mange billetter, du behøver ikke appen til dette.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <p class="flow-desc">Du modtager et login til webportalen, hvor du kan se og administrere alle dine billetter, adgange og Beats-konti. Herfra kan du fordele billetter, følge status og håndtere Beats-opladninger.</p>
+        <div class="flow-note">Webportalen er designet til administration af mange billetter. Du behøver ikke appen til dette.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Overblik over alle billetter</div>
         <div class="flow-subtitle">Se status, filtrér og søg på tværs af alle dine billetter</div>
-      </td>
-      <td class="flow-desc">
-        Webportalen giver dig et samlet overblik over alle billetter med status: ikke tildelt, overført, accepteret m.m. Du kan filtrere, søge og sortere for at holde styr på større antal.
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-  </tbody>
-</table>
+        <p class="flow-desc">Webportalen giver dig et samlet overblik over alle billetter med status: ikke tildelt, overført, accepteret m.m. Du kan filtrere, søge og sortere for at holde styr på større antal.</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+    </div>
+  </div>
 
-<!-- ── 2. Fordel billetter ── -->
-<h2>2. Fordel billetter til modtagere</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:30%">Funktion</th>
-      <th style="width:50%">Beskrivelse</th>
-      <th style="width:20%">Video</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <!-- 2. Fordel -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>Fordel billetter til modtagere</h2>
+    </div>
+    <div class="flow-list">
+      <div class="flow-card">
         <div class="flow-title">Overfør billet (transfer)</div>
         <div class="flow-subtitle">Billetten overdrages permanent til modtageren</div>
-        <br>
-        <span class="tag tag-permanent">Permanent overførsel</span>
-        <span class="tag tag-needs-app">Modtager behøver appen</span>
-      </td>
-      <td class="flow-desc">
-        Vælg en billet i webportalen og vælg "Overfør". Indtast modtagerens navn og email. Modtageren modtager en email med oplysninger om adgangen og et link til at acceptere i appen med en MitID-verificeret profil. Billetten forlader din konto og bliver modtagerens.
-        <br><br>
-        <span class="note">Overførslen er permanent. Hvis du har brug for billetten retur, skal modtageren overføre den tilbage til dig.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <div class="flow-tags">
+          <span class="flow-tag permanent">Permanent overførsel</span>
+          <span class="flow-tag needs-app">Modtager behøver appen</span>
+        </div>
+        <p class="flow-desc">Vælg en billet i webportalen og vælg "Overfør". Indtast modtagerens navn og email. Modtageren modtager en email med oplysninger om adgangen og et link til at acceptere i appen med en MitID-verificeret profil. Billetten forlader din konto og bliver modtagerens.</p>
+        <div class="flow-note">Overførslen er permanent. Hvis du har brug for billetten retur, skal modtageren overføre den tilbage til dig.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Tilføj person (delegation)</div>
         <div class="flow-subtitle">Billetten forbliver hos dig, personen får adgang via armbånd</div>
-        <br>
-        <span class="tag tag-no-app">Ingen app krævet</span>
-        <span class="tag tag-info">Skal følges med dig</span>
-      </td>
-      <td class="flow-desc">
-        Vælg en billet i webportalen og vælg "Tilføj person". Indtast personens navn og email. Personen modtager en email med oplysninger om adgangen. Billetten og adgangen forbliver på din konto, personen skal følges med dig og får et chip-armbånd som knyttes til din profil.
-        <br><br>
-        <span class="note">Chip-armbånd kan købes i webshoppen (afhentes ved Service Desk) eller ved indgangen. Du kan have flere armbånd tilknyttet din profil, og der kan sættes et maks-forbrug per armbånd. Armbåndet er ikke adgangsgivende i sig selv, det virker kun, når det er knyttet til en profil med en gyldig adgang. Delegerede personer handler på din Beats-konto via armbåndet.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <div class="flow-tags">
+          <span class="flow-tag no-app">Ingen app krævet</span>
+          <span class="flow-tag info">Skal følges med dig</span>
+        </div>
+        <p class="flow-desc">Vælg en billet i webportalen og vælg "Tilføj person". Indtast personens navn og email. Personen modtager en email med oplysninger om adgangen. Billetten og adgangen forbliver på din konto. Personen skal følges med dig og får et chip-armbånd som knyttes til din profil.</p>
+        <div class="flow-note">Chip-armbånd kan købes i webshoppen (afhentes ved Service Desk) eller ved indgangen. Du kan have flere armbånd tilknyttet din profil, og der kan sættes et maks-forbrug per armbånd. Armbåndet er ikke adgangsgivende i sig selv, det virker kun, når det er knyttet til en profil med en gyldig adgang. Delegerede personer handler på din Beats-konto via armbåndet.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Batch-fordeling</div>
         <div class="flow-subtitle">Fordel flere billetter på én gang, som transfer eller delegation</div>
-        <br>
-        <span class="tag tag-draft">Afventer afklaring</span>
-      </td>
-      <td class="flow-desc">
-        Når du har mange billetter at fordele, kan du tildele navn og email til flere billetter i webportalen og sende dem samlet. For hver billet vælger du om det skal være en overførsel (transfer) eller en tilføjelse (delegation).
-        <br><br>
-        <span class="note">Afventer afklaring af batch-flow.</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-  </tbody>
-</table>
+        <div class="flow-tags">
+          <span class="flow-tag draft">Afventer afklaring</span>
+        </div>
+        <p class="flow-desc">Når du har mange billetter at fordele, kan du tildele navn og email til flere billetter i webportalen og sende dem samlet. For hver billet vælger du om det skal være en overførsel (transfer) eller en tilføjelse (delegation).</p>
+        <div class="flow-note">Afventer afklaring af batch-flow.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+    </div>
+  </div>
 
-<!-- ── 3. Følg op ── -->
-<h2>3. Følg op på status</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:30%">Funktion</th>
-      <th style="width:50%">Beskrivelse</th>
-      <th style="width:20%">Video</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <!-- 3. Følg op -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>Følg op på status</h2>
+    </div>
+    <div class="flow-list">
+      <div class="flow-card">
         <div class="flow-title">Importér fra CSV</div>
         <div class="flow-subtitle">Upload en liste med navne og emails</div>
-      </td>
-      <td class="flow-desc">
-        Har du en liste med modtagere klar? Upload en CSV-fil med navne og emails, og webportalen fordeler automatisk billetter til hver person. For hver modtager vælger du om det skal være en overførsel (transfer) eller en tilføjelse (delegation).
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <p class="flow-desc">Har du en liste med modtagere klar? Upload en CSV-fil med navne og emails, og webportalen fordeler automatisk billetter til hver person. For hver modtager vælger du om det skal være en overførsel (transfer) eller en tilføjelse (delegation).</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Se status og check-in i realtid</div>
         <div class="flow-subtitle">Følg med i hvem der har accepteret og hvem der er ankommet</div>
-      </td>
-      <td class="flow-desc">
-        Webportalen viser status per billet: ikke tildelt, overført, accepteret, udløbet, og realtids check-in status, så du kan se hvem af dine gæster der er ankommet til festivalen.
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <p class="flow-desc">Webportalen viser status per billet: ikke tildelt, overført, accepteret, udløbet, og realtids check-in status, så du kan se hvem af dine gæster der er ankommet til festivalen.</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Gensend udløbede invitationer</div>
         <div class="flow-subtitle">Send en ny invitation hvis modtageren ikke har accepteret</div>
-      </td>
-      <td class="flow-desc">
-        Invitationslinks udløber efter 72 timer. Find den udløbede overførsel og tryk "Gensend" for at sende et nyt link til modtageren.
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-  </tbody>
-</table>
+        <p class="flow-desc">Invitationslinks udløber efter 72 timer. Find den udløbede overførsel og tryk "Gensend" for at sende et nyt link til modtageren.</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+    </div>
+  </div>
 
-<!-- ── 4. Beats ── -->
-<h2>4. Beats-administration</h2>
-<p class="section-intro">Webportalen giver dig også mulighed for at administrere Beats, festivalens digitale valuta, som er den eneste måde at betale på, på festivalpladsen.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:30%">Funktion</th>
-      <th style="width:50%">Beskrivelse</th>
-      <th style="width:20%">Video</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
+  <!-- 4. Beats -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>Beats-administration</h2>
+    </div>
+    <p class="section-intro">Webportalen giver dig også mulighed for at administrere Beats, festivalens digitale valuta, som er den eneste måde at betale på, på festivalpladsen.</p>
+    <div class="flow-list">
+      <div class="flow-card">
         <div class="flow-title">Oplad din Beats-konto</div>
         <div class="flow-subtitle">Køb Beats og fordel til medarbejdere og gæster</div>
-      </td>
-      <td class="flow-desc">
-        Du oplader Beats på din egen konto via webportalen og fordeler herfra til dine medarbejdere og gæster. Delegerede personer (med chip-armbånd) bruger automatisk din Beats-konto. Du kan også slå <strong>automatisk optankning</strong> til, så din Beats-konto fyldes op, når saldoen er lav, praktisk ved større arrangementer.
-        <br><br>
-        <span class="note">Overførte billetter (transfer): modtageren har sin egen Beats-konto. Delegerede personer: handler på din konto via armbåndet (med et eventuelt maks per armbånd).</span>
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-    <tr>
-      <td>
+        <p class="flow-desc">Du oplader Beats på din egen konto via webportalen og fordeler herfra til dine medarbejdere og gæster. Delegerede personer (med chip-armbånd) bruger automatisk din Beats-konto. Du kan også slå <strong>automatisk optankning</strong> til, så din Beats-konto fyldes op, når saldoen er lav, praktisk ved større arrangementer.</p>
+        <div class="flow-note">Overførte billetter (transfer): modtageren har sin egen Beats-konto. Delegerede personer: handler på din konto via armbåndet (med et eventuelt maks per armbånd).</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
         <div class="flow-title">Rapportering og eksport</div>
         <div class="flow-subtitle">Følg Beats-forbrug og eksportér til regnskab</div>
-      </td>
-      <td class="flow-desc">
-        Webportalen giver et samlet overblik over Beats-forbrug på tværs af alle dine medarbejdere og gæster. Du kan eksportere data til brug i virksomhedens regnskab.
-      </td>
-      <td><a class="video-link" href="#">Se video &rarr;</a></td>
-    </tr>
-  </tbody>
-</table>
+        <p class="flow-desc">Webportalen giver et samlet overblik over Beats-forbrug på tværs af alle dine medarbejdere og gæster. Du kan eksportere data til brug i virksomhedens regnskab.</p>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+    </div>
+  </div>
 
-<!-- ── Åbne spørgsmål ── -->
-<h2 style="color: #e65100;">Åbne spørgsmål</h2>
-<ul style="font-size: 14px; line-height: 1.8; color: #555;">
-  <li>Hvilket CSV-format skal bruges? (kolonner, separator, encoding)</li>
-  <li>Kan en virksomhed have flere administratorer med delt adgang til webportalen, og med forskellige rettigheder?</li>
-  <li>Hvilke eksportformater understøttes for Beats-rapportering? (CSV, PDF, Excel)</li>
-  <li>Skal check-in status push-notificeres til admin, eller kun vises ved opslag?</li>
-</ul>
+  <!-- Åbne spørgsmål -->
+  <div class="section">
+    <div class="open-questions">
+      <h3>Åbne spørgsmål</h3>
+      <ul>
+        <li>Hvilket CSV-format skal bruges? (kolonner, separator, encoding)</li>
+        <li>Kan en virksomhed have flere administratorer med delt adgang til webportalen, og med forskellige rettigheder?</li>
+        <li>Hvilke eksportformater understøttes for Beats-rapportering? (CSV, PDF, Excel)</li>
+        <li>Skal check-in status push-notificeres til admin, eller kun vises ved opslag?</li>
+      </ul>
+    </div>
+  </div>
 
-<p class="note" style="margin-top: 24px; text-align: center;">
-  Denne side opdateres når B2B-flows er endeligt afklaret.
-</p>
+  <div class="foot-note">
+    Denne side opdateres når B2B-flows er endeligt afklaret.
+  </div>
+
+</div>
 
 </body>
 </html>

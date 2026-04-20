@@ -382,6 +382,87 @@
   }
   .no-results.visible { display: block; }
 
+  /* Del appen row */
+  .share-app-row {
+    margin-top: 20px;
+    padding: 20px 22px;
+    background: linear-gradient(135deg, rgba(244, 114, 182, 0.07), rgba(167, 139, 250, 0.07));
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .share-app-text {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 260px;
+  }
+  .share-app-emoji {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .share-app-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .share-app-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .share-app-icons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .sch {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  .sch svg { width: 20px; height: 20px; }
+  .sch:hover {
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+  }
+  .sch.whatsapp { background: #25D366; }
+  .sch.sms { background: #34C759; }
+  .sch.messenger { background: linear-gradient(135deg, #00B2FF 0%, #006AFF 50%, #A033FF 100%); }
+  .sch.email { background: linear-gradient(135deg, #4F46E5, #7C3AED); }
+  .sch.copy { background: #475569; }
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
   @media (max-width: 640px) {
     body { padding: 0 16px; }
     .container { padding: 32px 0 60px; }
@@ -1021,6 +1102,36 @@
     </a>
   </div>
 
+  <!-- ===== Del appen med en ven ===== -->
+  <div class="share-app-row">
+    <div class="share-app-text">
+      <span class="share-app-emoji">📲</span>
+      <div>
+        <div class="share-app-title">Har en ven brug for appen?</div>
+        <div class="share-app-sub">Send download-linket direkte — App Store og Google Play i samme besked.</div>
+      </div>
+    </div>
+    <div class="share-app-icons">
+      <button class="sch whatsapp" onclick="appShareVia('whatsapp')" title="WhatsApp" aria-label="Del via WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </button>
+      <button class="sch sms" onclick="appShareVia('sms')" title="SMS" aria-label="Del via SMS">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+      <button class="sch messenger" onclick="appShareVia('messenger')" title="Messenger" aria-label="Del via Messenger">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.149 2 11.25c0 2.9 1.439 5.486 3.689 7.186V22l3.375-1.852c.9.249 1.859.386 2.859.386C17.514 20.534 22 16.385 22 11.284 22 6.183 17.514 2 12 2m1.062 14.186l-2.562-2.719-4.999 2.719L11 10.373l2.625 2.72 4.937-2.72z"/></svg>
+      </button>
+      <button class="sch email" onclick="appShareVia('email')" title="E-mail" aria-label="Del via e-mail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </button>
+      <button class="sch copy" onclick="appShareVia('copy')" title="Kopier link" aria-label="Kopier link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
 </div>
 
 <script>
@@ -1082,6 +1193,72 @@
   if (urlQuery) {
     searchInput.value = urlQuery;
     searchInput.dispatchEvent(new Event('input'));
+  }
+
+  // ── Share the app (channel buttons at bottom) ──
+  const APP_URLS = {
+    apple: 'https://apps.apple.com/dk/app/ringsted-festival/id1399615077',
+    google: 'https://play.google.com/store/apps/details?id=com.greencopper.ringstedfestival.da'
+  };
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  function buildAppShareText() {
+    return `Hej! 🎵 Tjek Ringsted Festival-appen — her er direkte links til download:\n\n📱 iPhone: ${APP_URLS.apple}\n🤖 Android: ${APP_URLS.google}`;
+  }
+
+  function appShareVia(platform) {
+    const text = buildAppShareText();
+    const encoded = encodeURIComponent(text);
+    const subject = encodeURIComponent('Ringsted Festival-appen — hent den her');
+    const messengerLink = encodeURIComponent(APP_URLS.apple);
+
+    let url = '';
+    switch (platform) {
+      case 'whatsapp': url = `https://wa.me/?text=${encoded}`; break;
+      case 'sms': url = `sms:?body=${encoded}`; break;
+      case 'email': url = `mailto:?subject=${subject}&body=${encoded}`; break;
+      case 'messenger': url = `fb-messenger://share/?link=${messengerLink}`; break;
+      case 'copy':
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(
+            () => showToast('App-links kopieret! 📲'),
+            () => fallbackCopy(text)
+          );
+        } else {
+          fallbackCopy(text);
+        }
+        return;
+    }
+    if (url) {
+      if (platform === 'sms' || platform === 'messenger') {
+        window.location.href = url;
+      } else {
+        window.open(url, '_blank', 'noopener');
+      }
+    }
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast('App-links kopieret! 📲');
+    } catch {
+      showToast('Kunne ikke kopiere');
+    }
+    document.body.removeChild(ta);
   }
 </script>
 

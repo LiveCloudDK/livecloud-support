@@ -342,36 +342,64 @@
   .share-options {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 14px;
     flex-wrap: wrap;
+    margin-top: 4px;
   }
   .share-icon-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text);
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    border: none;
     cursor: pointer;
     font-family: inherit;
-    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
+    padding: 0;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+  .share-icon-btn svg {
+    width: 30px;
+    height: 30px;
+    color: #fff;
   }
   .share-icon-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.06);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   }
+  .share-icon-btn:active {
+    transform: translateY(-1px) scale(1.02);
+  }
+  .share-icon-btn.whatsapp { background: #25D366; }
+  .share-icon-btn.sms { background: #34C759; }
+  .share-icon-btn.messenger { background: linear-gradient(135deg, #00B2FF 0%, #006AFF 50%, #A033FF 100%); }
+  .share-icon-btn.email { background: linear-gradient(135deg, #4F46E5, #7C3AED); }
+  .share-icon-btn.copy { background: #475569; }
   .share-icon-btn:disabled {
     cursor: not-allowed;
     opacity: 0.4;
     transform: none;
   }
+  .share-icon-label {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .share-options-wrap {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+  }
   .share-section:not(.unlocked) .share-btn-primary,
-  .share-section:not(.unlocked) .share-icon-btn { pointer-events: none; opacity: 0.5; }
+  .share-section:not(.unlocked) .share-icon-btn { pointer-events: none; opacity: 0.5; filter: grayscale(0.4); }
 
   /* Arcade unlock */
   .arcade-unlock {
@@ -571,7 +599,7 @@
     <div class="progress-header">
       <div class="progress-info">
         <div class="progress-level" id="progressLevel">Klar til at starte? 🎟️</div>
-        <div class="progress-stats" id="progressStats">0 af 7 trin gennemført</div>
+        <div class="progress-stats" id="progressStats">0 af 5 trin gennemført</div>
       </div>
       <div class="progress-percent" id="progressPercent">0%</div>
     </div>
@@ -587,23 +615,14 @@
     <div class="step" data-step="1">
       <div class="step-check"><span class="num">1</span><span class="check">&#10003;</span></div>
       <div class="step-body">
-        <h3>Download festival-appen</h3>
-        <p>Find appen i <strong>App Store</strong> (iPhone) eller <strong>Google Play</strong> (Android). Søg efter Ringsted Festival.</p>
-        <p style="font-size: 13px; color: var(--text-dim);">Kræver iOS 16 eller Android 8.0 og nyere.</p>
+        <h3>Download appen og opret din profil</h3>
+        <p>Find <strong>Ringsted Festival</strong>-appen i App Store eller Google Play. Åbn den, tryk <strong>"Opret profil"</strong>, og bekræft dig selv med <strong>MitID</strong>.</p>
+        <p style="font-size: 13px; color: var(--text-dim);">MitID beskytter din konto og bekræfter din alder. Har du ikke MitID? Se <a class="inline-link" href="faq.html#identity" onclick="event.stopPropagation()">mulighederne her</a>.</p>
       </div>
     </div>
 
     <div class="step" data-step="2">
       <div class="step-check"><span class="num">2</span><span class="check">&#10003;</span></div>
-      <div class="step-body">
-        <h3>Opret din profil med MitID</h3>
-        <p>Åbn appen og tryk <strong>"Opret profil"</strong>. MitID bekræfter din identitet og alder — og beskytter din konto, så ingen andre kan bruge den.</p>
-        <p style="font-size: 13px; color: var(--text-dim);">Har du ikke MitID? Se mulighederne i <a class="inline-link" href="faq.html#identity" onclick="event.stopPropagation()">FAQ'en</a>.</p>
-      </div>
-    </div>
-
-    <div class="step" data-step="3">
-      <div class="step-check"><span class="num">3</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Aktivér din billet</h3>
         <p>Indtast <strong>billetkoden</strong> fra din ordrebekræftelse — eller del PDF-filen direkte ind i appen fra din mail.</p>
@@ -611,25 +630,17 @@
       </div>
     </div>
 
+    <div class="step" data-step="3">
+      <div class="step-check"><span class="num">3</span><span class="check">&#10003;</span></div>
+      <div class="step-body">
+        <h3>Tilføj kort og slå automatisk optankning til <span class="recommend-tag">Anbefalet</span></h3>
+        <p>Gå til <strong>"Wallet"</strong> og tilføj dit betalingskort. Slå <strong>automatisk optankning</strong> til, så fyldes dine Beats op af sig selv — du slipper helt for at tjekke saldoen under festivalen.</p>
+        <p>Du handler bare løs, og resten klarer appen.</p>
+      </div>
+    </div>
+
     <div class="step" data-step="4">
       <div class="step-check"><span class="num">4</span><span class="check">&#10003;</span></div>
-      <div class="step-body">
-        <h3>Tilføj dit kort og slå automatisk optankning til <span class="recommend-tag">Anbefalet</span></h3>
-        <p>Gå til <strong>"Wallet"</strong> og tilføj dit betalingskort. Slå <strong>automatisk optankning</strong> til, så fyldes dine Beats op af sig selv, når du er ved at løbe tør.</p>
-        <p>Så slipper du for at tjekke saldo undervejs — du handler bare løs, og resten klarer appen.</p>
-      </div>
-    </div>
-
-    <div class="step" data-step="5">
-      <div class="step-check"><span class="num">5</span><span class="check">&#10003;</span></div>
-      <div class="step-body">
-        <h3>Køb Beats hjemmefra <span class="recommend-tag">Anbefalet</span></h3>
-        <p>Beats er <strong>festivalens digitale valuta</strong> — det eneste, du betaler med på pladsen. Køb et passende beløb i appen, så slipper du for at fylde op ved baren, første gang du skal have en øl.</p>
-      </div>
-    </div>
-
-    <div class="step" data-step="6">
-      <div class="step-check"><span class="num">6</span><span class="check">&#10003;</span></div>
       <div class="step-body">
         <h3>Uddel billetter til din flok <span class="optional-tag">Hvis relevant</span></h3>
         <p>Har du købt billetter til venner eller familie? De skal <strong>uddeles</strong>, før I kommer — hver person skal have sin egen billet på sin egen profil for at komme ind.</p>
@@ -637,10 +648,10 @@
       </div>
     </div>
 
-    <div class="step" data-step="7">
-      <div class="step-check"><span class="num">7</span><span class="check">&#10003;</span></div>
+    <div class="step" data-step="5">
+      <div class="step-check"><span class="num">5</span><span class="check">&#10003;</span></div>
       <div class="step-body">
-        <h3>Download programmet <span class="optional-tag">Anbefalet</span></h3>
+        <h3>Download programmet og sæt påmindelser</h3>
         <p>Åbn <strong>"Program"</strong> i appen, og sæt <strong>påmindelser</strong> for de kunstnere, du ikke vil gå glip af. Programmet caches også offline, så det virker, selvom signalet er dårligt.</p>
       </div>
     </div>
@@ -650,17 +661,50 @@
   <div class="share-section" id="shareSection">
     <span class="share-emoji" id="shareEmoji">🎉</span>
     <h3 id="shareTitle">Du er FESTIVAL-KLAR!</h3>
-    <p id="shareSubtitle">Fed start! Gennemfør alle 7 trin og lås op for sjov deling med vennerne.</p>
+    <p id="shareSubtitle">Fed start! Gennemfør alle 5 trin og lås op for sjov deling med vennerne.</p>
     <button class="share-btn-primary" id="shareBtn" onclick="shareIt()">
       <span>📤</span>
       Del med vennerne
     </button>
-    <div class="share-options">
-      <button class="share-icon-btn" onclick="shareVia('whatsapp')" title="WhatsApp">💬</button>
-      <button class="share-icon-btn" onclick="shareVia('sms')" title="SMS">📱</button>
-      <button class="share-icon-btn" onclick="shareVia('messenger')" title="Messenger">📨</button>
-      <button class="share-icon-btn" onclick="shareVia('email')" title="E-mail">✉️</button>
-      <button class="share-icon-btn" onclick="shareVia('copy')" title="Kopier link">🔗</button>
+    <div class="share-options-wrap">
+      <div class="share-options">
+        <button class="share-icon-btn whatsapp" onclick="shareVia('whatsapp')" title="WhatsApp" aria-label="Del på WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          <span class="share-icon-label">WhatsApp</span>
+        </button>
+
+        <button class="share-icon-btn sms" onclick="shareVia('sms')" title="SMS" aria-label="Del via SMS">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span class="share-icon-label">SMS</span>
+        </button>
+
+        <button class="share-icon-btn messenger" onclick="shareVia('messenger')" title="Messenger" aria-label="Del via Messenger">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.486 2 2 6.149 2 11.25c0 2.9 1.439 5.486 3.689 7.186V22l3.375-1.852c.9.249 1.859.386 2.859.386C17.514 20.534 22 16.385 22 11.284 22 6.183 17.514 2 12 2m1.062 14.186l-2.562-2.719-4.999 2.719L11 10.373l2.625 2.72 4.937-2.72z"/>
+          </svg>
+          <span class="share-icon-label">Messenger</span>
+        </button>
+
+        <button class="share-icon-btn email" onclick="shareVia('email')" title="E-mail" aria-label="Del via e-mail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <span class="share-icon-label">E-mail</span>
+        </button>
+
+        <button class="share-icon-btn copy" onclick="shareVia('copy')" title="Kopier link" aria-label="Kopier link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          <span class="share-icon-label">Kopier link</span>
+        </button>
+      </div>
     </div>
 
     <!-- Bonus arcade unlock -->
@@ -706,8 +750,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const STORAGE_KEY = 'klar-til-festival-v1';
-  const TOTAL_STEPS = 7;
+  const STORAGE_KEY = 'klar-til-festival-v2';
+  const TOTAL_STEPS = 5;
 
   // ===== State =====
   function getState() {
@@ -731,9 +775,9 @@
   function getLevel(count) {
     if (count === 0) return { label: 'Klar til at starte?', emoji: '🎟️' };
     if (count === 1) return { label: 'Festival-feber begynder', emoji: '🎵' };
-    if (count <= 3) return { label: 'På vej derhen', emoji: '🚀' };
-    if (count <= 5) return { label: 'Halvvejs til pladsen', emoji: '🔥' };
-    if (count === 6) return { label: 'Kun ét trin tilbage!', emoji: '⚡' };
+    if (count === 2) return { label: 'På vej derhen', emoji: '🚀' };
+    if (count === 3) return { label: 'Halvvejs til pladsen', emoji: '🔥' };
+    if (count === 4) return { label: 'Kun ét trin tilbage!', emoji: '⚡' };
     return { label: 'FESTIVAL-KLAR!', emoji: '🎉' };
   }
 
@@ -765,13 +809,13 @@
     if (count === TOTAL_STEPS) {
       shareSection.classList.add('unlocked');
       shareTitle.textContent = 'Du er FESTIVAL-KLAR! 🎉';
-      shareSubtitle.textContent = 'Alle 7 trin gennemført. Tag dine venner med — hvem er hurtigst klar?';
+      shareSubtitle.textContent = 'Alle 5 trin gennemført. Tag dine venner med — hvem er hurtigst klar?';
       shareEmoji.textContent = '🎉';
       shareBtn.disabled = false;
     } else {
       shareSection.classList.remove('unlocked');
       shareTitle.textContent = 'Næsten i mål';
-      shareSubtitle.textContent = `Gennemfør alle 7 trin (${count}/${TOTAL_STEPS}) og lås op for sjov deling med vennerne.`;
+      shareSubtitle.textContent = `Gennemfør alle ${TOTAL_STEPS} trin (${count}/${TOTAL_STEPS}) og lås op for sjov deling med vennerne.`;
       shareEmoji.textContent = '🔒';
       shareBtn.disabled = true;
     }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Mini-spil — LiveCloud Support</title>
+<title>Mini-spil, LiveCloud Support</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
@@ -416,14 +416,14 @@
     <div class="hero">
       <div class="hero-badge"><span>🎮</span> Casual mini-spil</div>
       <h1>Mini-spil</h1>
-      <p>Tre små spil du kan spille mens du venter på næste koncert. Ingen download, ingen login — bare tap og spil. Sæt high-score og udfordr dine venner.</p>
+      <p>Tre små spil du kan spille mens du venter på næste koncert. Ingen download, ingen login, bare tap og spil. Sæt high-score og udfordr dine venner.</p>
     </div>
 
     <div class="game-grid">
       <button class="game-tile spotlight" data-game="spotlight">
         <span class="tile-emoji">💡</span>
         <h2>Spotlight</h2>
-        <p>Reflektoren springer mellem fire scener. Tap den, der lyser — så hurtigt du kan. 10 runder.</p>
+        <p>Reflektoren springer mellem fire scener. Tap den, der lyser, så hurtigt du kan. 10 runder.</p>
         <div class="tile-hi">HI-SCORE: <span id="hi-spotlight">0</span></div>
       </button>
 
@@ -653,7 +653,7 @@ const spotlight = {
         { x: W * 0.7, y: H * 0.72, r: 55, color: C.pink, name: 3 }
       ]
     };
-    showStart('💡', 'Spotlight', 'Reflektoren lyser op én af fire scener. Tap den hurtigst muligt — men undgå at tappe forkert eller for tidligt!');
+    showStart('💡', 'Spotlight', 'Reflektoren lyser op én af fire scener. Tap den hurtigst muligt, men undgå at tappe forkert eller for tidligt!');
     canvas.addEventListener('mousedown', this.onTap);
     canvas.addEventListener('touchstart', this.onTap, { passive: false });
     setHud([
@@ -737,7 +737,7 @@ const spotlight = {
     const avg = valid.length ? Math.round(valid.reduce((a, b) => a + b, 0) / valid.length) : 0;
     const msg = avg < 300 ? 'Lynhurtig! 🚀' : avg < 450 ? 'Ikke dårligt.' : avg < 600 ? 'Klargør fingrene.' : 'Prøv igen!';
     setTimeout(() => {
-      showGameOver('Færdig!', msg, this.s.score, `Gennemsnit: ${avg || '—'} ms · ${valid.length}/10 korrekte`, 'spotlight');
+      showGameOver('Færdig!', msg, this.s.score, `Gennemsnit: ${avg || ','} ms · ${valid.length}/10 korrekte`, 'spotlight');
     }, 400);
   },
   update(dt) {
@@ -1049,7 +1049,7 @@ const beatshop = {
       gameOver: false,
       particles: []
     };
-    showStart('🪙', 'Beats-Hop', 'Tap for at hoppe. Undgå højttalerne — flyv gennem gaps. Hvor langt kommer du?');
+    showStart('🪙', 'Beats-Hop', 'Tap for at hoppe. Undgå højttalerne, flyv gennem gaps. Hvor langt kommer du?');
     canvas.addEventListener('mousedown', this.onTap);
     canvas.addEventListener('touchstart', this.onTap, { passive: false });
     window.addEventListener('keydown', this.onKey);
@@ -1095,7 +1095,7 @@ const beatshop = {
     setTimeout(() => {
       const msg = this.s.score >= 25 ? 'Fantastisk flyvning! 🚀' :
                   this.s.score >= 10 ? 'Flot klaret.' :
-                  this.s.score >= 3 ? 'Prøv igen — du er tæt på.' :
+                  this.s.score >= 3 ? 'Prøv igen, du er tæt på.' :
                   'Ups! Én gang til?';
       showGameOver('Game Over', msg, this.s.score, 'Tryk "Spil igen" og slå rekorden', 'beatshop');
     }, 300);

@@ -863,7 +863,7 @@ const logoFill = {
       gameOver: false,
       direction: 1
     };
-    // Initial stack — base
+    // Initial stack, base
     this.state.stack.push({ x: W/2 - 60, y: H - 30, w: 120 });
     this.state.pieceY = H - 50;
     canvas.addEventListener('mousedown', this.onClick);
@@ -892,7 +892,7 @@ const logoFill = {
     const overlap = right - left;
 
     if (overlap <= 0) {
-      // Total miss — game over
+      // Total miss, game over
       s.gameOver = true;
       setTimeout(() => {
         let msg = 'BYGGEDE ' + s.level + ' ETAGER';
@@ -921,7 +921,7 @@ const logoFill = {
     }
 
     if (s.pieceY < 60) {
-      // Reached top — full logo!
+      // Reached top, full logo!
       s.gameOver = true;
       setTimeout(() => {
         showGameMsg('LOGO BYGGET!', 'PERFEKT FESTIVAL', s.score, 'logo-fill');

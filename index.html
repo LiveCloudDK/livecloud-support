@@ -384,7 +384,7 @@
       LiveCloud Support
     </div>
     <h1>Support &amp; Dokumentation</h1>
-    <p>Vi fornyr os digitalt — præcis som scan-selv i supermarkedet eller loyalty-points i din yndlingsbutik. Målet er enkelt: mindre tid i kø, mere tid til god musik, gode venner og fede oplevelser under trækronerne.</p>
+    <p>Vi fornyr os digitalt, præcis som scan-selv i supermarkedet eller loyalty-points i din yndlingsbutik. Målet er enkelt: mindre tid i kø, mere tid til god musik, gode venner og fede oplevelser under trækronerne.</p>
   </div>
 
   <!-- ===== App download + share CTA ===== -->
@@ -402,9 +402,9 @@
         <circle cx="18" cy="16" r="3" fill="url(#ctaIconGrad)"/>
       </svg>
     </div>
-    <h2 class="app-cta-title">Festival-appen — det hele samlet i lommen</h2>
+    <h2 class="app-cta-title">Festival-appen, det hele samlet i lommen</h2>
     <p class="app-cta-lead">Din adgang, dine Beats og hele programmet ét sted. Én app, og så er du kørende. Mindre bøvl med kort og kontanter, mere tid til kolde øl og god stemning.</p>
-    <p class="app-cta-pitch">Vi har bygget den med én ting for øje: <strong>at gøre det nemt at være på festival</strong>. Du finder hurtigt din billet, fylder nemt op på Beats og har altid overblik over, hvad der sker. Det gør det hele lidt mere flydende, så du kan bruge tiden med vennerne, musikken og de lange sommeraftener under trækronerne — lige som det skal være.</p>
+    <p class="app-cta-pitch">Vi har bygget den med én ting for øje: <strong>at gøre det nemt at være på festival</strong>. Du finder hurtigt din billet, fylder nemt op på Beats og har altid overblik over, hvad der sker. Det gør det hele lidt mere flydende, så du kan bruge tiden med vennerne, musikken og de lange sommeraftener under trækronerne, lige som det skal være.</p>
 
     <div class="cta-stores">
       <a class="cta-store-btn" href="https://apps.apple.com/dk/app/ringsted-festival/id1399615077" target="_blank" rel="noopener">
@@ -425,7 +425,7 @@
           <line x1="22" y1="2" x2="11" y2="13"/>
           <polygon points="22 2 15 22 11 13 2 9 22 2"/>
         </svg>
-        <span><strong>Send appen til en ven</strong> — direkte links til App Store og Google Play i samme besked</span>
+        <span><strong>Send appen til en ven</strong>, direkte links til App Store og Google Play i samme besked</span>
       </div>
       <div class="share-app-channels">
         <button class="share-ch whatsapp" onclick="appShareVia('whatsapp')" title="WhatsApp" aria-label="Del via WhatsApp">
@@ -455,7 +455,7 @@
     <a href="klar-til-festival.html" class="card featured">
       <div class="card-icon green">&#10003;</div>
       <h3>Klar til festivalen på 5 minutter</h3>
-      <p>Lille tjekliste du kan gennemføre hjemmefra. Profil, billet, Beats og auto-optankning — så er alt klart, når du ankommer, og du slipper for kø og stress ved indgangen.</p>
+      <p>Lille tjekliste du kan gennemføre hjemmefra. Profil, billet, Beats og auto-optankning, så er alt klart, når du ankommer, og du slipper for kø og stress ved indgangen.</p>
       <div class="card-tags">
         <span class="tag">Før du tager afsted</span>
         <span class="tag">5 trin</span>
@@ -481,7 +481,7 @@
     <a href="ringsted-chatbot.html" class="card">
       <div class="card-icon green">&#127795;</div>
       <h3>Support-chatbot</h3>
-      <p>Stil dit spørgsmål i fri tekst — chatbotten finder det rigtige svar fra vores komplette vidensbase.</p>
+      <p>Stil dit spørgsmål i fri tekst, chatbotten finder det rigtige svar fra vores komplette vidensbase.</p>
       <div class="card-tags">
         <span class="tag">Chatbot</span>
         <span class="tag">Interaktiv</span>
@@ -491,7 +491,7 @@
 
     <a href="ticket-flows-qa.html" class="card">
       <div class="card-icon amber">&#127915;</div>
-      <h3>Billetadministration — Oversigt</h3>
+      <h3>Billetadministration, Oversigt</h3>
       <p>Komplet oversigt over billetfunktioner: indløs, overfør, videresend kode, tilknyt barn eller ledsager, gensend invitation.</p>
       <div class="card-tags">
         <span class="tag">Afsender</span>
@@ -586,7 +586,7 @@
   }
 
   function buildAppShareText() {
-    return `Hej! 🎵 Tjek Ringsted Festival-appen — her er direkte links til download:\n\n📱 iPhone: ${APP_URLS.apple}\n🤖 Android: ${APP_URLS.google}`;
+    return `Hej! 🎵 Tjek Ringsted Festival-appen, her er direkte links til download:\n\n📱 iPhone: ${APP_URLS.apple}\n🤖 Android: ${APP_URLS.google}`;
   }
 
   function appShareVia(platform) {
@@ -595,7 +595,7 @@
     // On mobile, the "primary" channels open native share if we haven't hit a specific icon
     // For icon-specific shares, go direct:
     const encoded = encodeURIComponent(text);
-    const subject = encodeURIComponent('Ringsted Festival-appen — hent den her');
+    const subject = encodeURIComponent('Ringsted Festival-appen, hent den her');
     const messengerLink = encodeURIComponent(APP_URLS.apple);
 
     let url = '';

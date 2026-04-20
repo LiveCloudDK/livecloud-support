@@ -309,8 +309,10 @@
     padding: 24px;
     text-align: center;
     transition: opacity 0.2s;
+    /* pointer-events none so taps pass through to the canvas below */
+    pointer-events: none;
   }
-  .start-overlay.hide { opacity: 0; pointer-events: none; }
+  .start-overlay.hide { opacity: 0; }
   .start-emoji {
     font-size: 48px;
     margin-bottom: 14px;
@@ -1288,23 +1290,8 @@ const bardash = {
       coinsCollected: 0,
       score: 0,
       gameOver: false,
-      particles: [],
-      clouds: [
-        { x: W * 0.2, y: 60, w: 60, speed: 10 },
-        { x: W * 0.7, y: 90, w: 80, speed: 14 },
-        { x: W * 1.2, y: 50, w: 50, speed: 8 }
-      ],
-      // parallax far background
-      stageLights: []
+      particles: []
     };
-    // Pre-populate some stage lights (far background)
-    for (let i = 0; i < 12; i++) {
-      this.s.stageLights.push({
-        x: Math.random() * W * 2,
-        y: this.s.groundY - 80 - Math.random() * 30,
-        color: [C.pink, C.purple, C.amber, C.blue, C.green][i % 5]
-      });
-    }
 
     showStart('🏃', 'Bar-Dash',
       'Hop over folk i vejen, duk for stage-divere. Kæmp dig frem til baren! Tap øverst (eller Space/↑) for at hoppe, tap nederst (eller ↓) for at duke.');
@@ -1445,18 +1432,6 @@ const bardash = {
     s.coins.forEach(co => { co.x -= s.speed * dt; });
     s.coins = s.coins.filter(co => co.x > -40);
 
-    // Parallax clouds
-    s.clouds.forEach(cl => {
-      cl.x -= cl.speed * dt;
-      if (cl.x < -cl.w) cl.x = W + Math.random() * 100;
-    });
-
-    // Parallax stage lights (slow)
-    s.stageLights.forEach(sl => {
-      sl.x -= s.speed * dt * 0.3;
-      if (sl.x < -10) { sl.x = W + Math.random() * 200; }
-    });
-
     // Character hitbox
     const chX = s.char.x;
     const chY = s.groundY + s.char.y;  // bottom of character
@@ -1532,70 +1507,45 @@ const bardash = {
     return { y: s.groundY, h: 40, w: 30 };
   },
   drawChar(cx, cyBottom, state, t) {
-    // Body colors
-    const skin = '#f5c396';
-    const shirt = C.pink;
-    const pants = '#3b3d4a';
+    // Flat silhouette in accent color — Dino-style minimalism
+    const color = C.pink;
+    ctx.fillStyle = color;
 
     if (state === 'duck') {
-      // Ducking pose — compressed
-      // Legs/pants
-      ctx.fillStyle = pants;
-      ctx.fillRect(cx - 14, cyBottom - 16, 28, 16);
-      // Body/shirt (horizontal)
-      ctx.fillStyle = shirt;
-      ctx.fillRect(cx - 16, cyBottom - 28, 34, 14);
-      // Head (lowered)
-      ctx.fillStyle = skin;
-      circle(cx + 12, cyBottom - 28, 10, skin);
-      // Eye
-      ctx.fillStyle = '#1a1d27';
-      ctx.fillRect(cx + 15, cyBottom - 30, 2.5, 2.5);
-      // Hair (pink tuft)
-      ctx.fillStyle = C.purple;
-      ctx.fillRect(cx + 6, cyBottom - 36, 16, 4);
+      // Compressed silhouette
+      // Body (horizontal)
+      ctx.fillRect(cx - 18, cyBottom - 22, 34, 18);
+      // Head
+      ctx.beginPath();
+      ctx.arc(cx + 14, cyBottom - 22, 8, 0, Math.PI * 2);
+      ctx.fill();
+      // Legs (two small squares)
+      ctx.fillRect(cx - 14, cyBottom - 4, 7, 4);
+      ctx.fillRect(cx + 2, cyBottom - 4, 7, 4);
       return;
     }
 
-    // Standing (run or jump)
-    const bob = state === 'run' ? Math.sin(t * 14) * 2 : 0;
+    // Run or jump — upright silhouette
     // Head
-    ctx.fillStyle = skin;
-    circle(cx, cyBottom - 45 + bob, 10, skin);
-    // Hair
-    ctx.fillStyle = C.purple;
-    ctx.fillRect(cx - 8, cyBottom - 55 + bob, 16, 5);
-    // Eye
-    ctx.fillStyle = '#1a1d27';
-    ctx.fillRect(cx + 3, cyBottom - 46 + bob, 2.5, 2.5);
-    // Body/shirt
-    ctx.fillStyle = shirt;
-    roundRect(cx - 10, cyBottom - 36 + bob, 20, 18, 4, shirt);
-    // Arm (swinging)
-    const armSwing = state === 'run' ? Math.sin(t * 14) * 8 : 0;
-    ctx.fillStyle = shirt;
-    ctx.fillRect(cx + 8, cyBottom - 32 + bob + Math.abs(armSwing)/2, 5, 10);
-    ctx.fillRect(cx - 13, cyBottom - 32 + bob + Math.abs(-armSwing)/2, 5, 10);
-    // Drink in right hand (amber cup)
-    ctx.fillStyle = C.amber;
-    ctx.fillRect(cx + 7, cyBottom - 24 + bob + Math.abs(armSwing)/2, 8, 7);
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(cx + 7, cyBottom - 24 + bob + Math.abs(armSwing)/2, 8, 2);
-    // Legs
-    ctx.fillStyle = pants;
+    ctx.beginPath();
+    ctx.arc(cx, cyBottom - 42, 8, 0, Math.PI * 2);
+    ctx.fill();
+    // Torso
+    ctx.fillRect(cx - 8, cyBottom - 34, 16, 20);
+
     if (state === 'jump') {
-      // Legs tucked
-      ctx.fillRect(cx - 9, cyBottom - 18, 8, 14);
-      ctx.fillRect(cx + 1, cyBottom - 18, 8, 14);
+      // Legs tucked (two short blocks)
+      ctx.fillRect(cx - 7, cyBottom - 14, 6, 10);
+      ctx.fillRect(cx + 1, cyBottom - 14, 6, 10);
     } else {
-      // Running legs
-      const leg = Math.floor(t * 10) % 2;
-      if (leg === 0) {
-        ctx.fillRect(cx - 10, cyBottom - 18, 7, 18);
-        ctx.fillRect(cx + 3, cyBottom - 22, 7, 14);
+      // Running — alternating legs
+      const step = Math.floor(t * 12) % 2;
+      if (step === 0) {
+        ctx.fillRect(cx - 8, cyBottom - 14, 6, 14);
+        ctx.fillRect(cx + 2, cyBottom - 10, 6, 10);
       } else {
-        ctx.fillRect(cx - 10, cyBottom - 22, 7, 14);
-        ctx.fillRect(cx + 3, cyBottom - 18, 7, 18);
+        ctx.fillRect(cx - 8, cyBottom - 10, 6, 10);
+        ctx.fillRect(cx + 2, cyBottom - 14, 6, 14);
       }
     }
   },
@@ -1605,142 +1555,77 @@ const bardash = {
       const x = o.x;
       const y = s.groundY;
       const sway = Math.sin(s.distance * 0.15 + o.x * 0.01) * 3;
+      ctx.fillStyle = C.blue;
       // Legs
-      ctx.fillStyle = '#2c3e50';
-      ctx.fillRect(x - 8, y - 18, 6, 18);
-      ctx.fillRect(x + 2, y - 18, 6, 18);
+      ctx.fillRect(x - 6, y - 14, 4, 14);
+      ctx.fillRect(x + 2, y - 14, 4, 14);
       // Body
-      ctx.fillStyle = C.blue;
-      roundRect(x - 11, y - 34, 22, 18, 4, C.blue);
-      // Raised arms (dancing)
-      ctx.fillStyle = C.blue;
-      ctx.fillRect(x - 14 + sway, y - 48, 5, 14);
-      ctx.fillRect(x + 9 - sway, y - 48, 5, 14);
+      ctx.fillRect(x - 8, y - 30, 16, 16);
+      // Raised arms (swaying)
+      ctx.fillRect(x - 11 + sway, y - 42, 4, 14);
+      ctx.fillRect(x + 7 - sway, y - 42, 4, 14);
       // Head
-      ctx.fillStyle = '#e8b88f';
-      circle(x, y - 42, 8, '#e8b88f');
-      // Hair
-      ctx.fillStyle = '#4a2c0a';
-      ctx.fillRect(x - 6, y - 50, 12, 4);
+      ctx.beginPath();
+      ctx.arc(x, y - 36, 6, 0, Math.PI * 2);
+      ctx.fill();
     } else if (o.type === 'cup') {
       const x = o.x;
-      const y = s.groundY - 10;
-      const roll = s.distance * 0.3 + o.x * 0.02;
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(roll);
-      // Red solo cup shape (narrower at bottom)
+      const y = s.groundY;
+      // Trapezoid cup (flat, no roll animation)
       ctx.fillStyle = '#dc2626';
       ctx.beginPath();
-      ctx.moveTo(-10, -8);
-      ctx.lineTo(10, -8);
-      ctx.lineTo(8, 8);
-      ctx.lineTo(-8, 8);
+      ctx.moveTo(x - 10, y - 18);
+      ctx.lineTo(x + 10, y - 18);
+      ctx.lineTo(x + 7, y);
+      ctx.lineTo(x - 7, y);
       ctx.closePath();
       ctx.fill();
-      // Rim highlight
-      ctx.fillStyle = '#ef4444';
-      ctx.fillRect(-10, -9, 20, 3);
-      ctx.restore();
     } else if (o.type === 'surfer') {
       const x = o.x;
-      const y = s.groundY - 40;
-      const wobble = Math.sin(s.distance * 0.2 + o.x * 0.01) * 2;
-      // Horizontal body (stage-surfing)
+      const y = s.groundY - 44;
       ctx.fillStyle = C.green;
-      roundRect(x - 20, y - 8 + wobble, 34, 10, 4, C.green);
-      // Head
-      ctx.fillStyle = '#f5c396';
-      circle(x + 18, y - 3 + wobble, 7, '#f5c396');
-      // Legs
-      ctx.fillStyle = '#2c3e50';
-      ctx.fillRect(x - 22, y + 2 + wobble, 6, 4);
-      ctx.fillRect(x - 16, y + 2 + wobble, 6, 4);
-      // Arms raised (cheering while surfing)
-      ctx.fillStyle = C.green;
-      ctx.fillRect(x + 8, y - 14 + wobble, 4, 8);
-      ctx.fillRect(x + 14, y - 14 + wobble, 4, 8);
+      // Horizontal body
+      ctx.fillRect(x - 18, y - 6, 32, 10);
+      // Head (right end)
+      ctx.beginPath();
+      ctx.arc(x + 16, y, 6, 0, Math.PI * 2);
+      ctx.fill();
+      // Legs (left end)
+      ctx.fillRect(x - 22, y + 4, 5, 4);
+      ctx.fillRect(x - 14, y + 4, 5, 4);
+      // Arms raised
+      ctx.fillRect(x + 4, y - 12, 3, 8);
+      ctx.fillRect(x + 10, y - 12, 3, 8);
     }
   },
   draw() {
     const s = this.s;
 
-    // Sky gradient
-    const sky = ctx.createLinearGradient(0, 0, 0, H);
-    sky.addColorStop(0, '#1f1a3a');
-    sky.addColorStop(0.5, '#3a2d5a');
-    sky.addColorStop(1, '#4a3b6b');
-    ctx.fillStyle = sky;
-    ctx.fillRect(0, 0, W, s.groundY);
+    // Flat dark background (no gradient)
+    clear(C.bg);
 
-    // Distant stage lights (parallax, blurry)
-    s.stageLights.forEach(sl => {
-      const grad = ctx.createRadialGradient(sl.x, sl.y, 0, sl.x, sl.y, 18);
-      grad.addColorStop(0, sl.color);
-      grad.addColorStop(1, 'transparent');
-      ctx.globalAlpha = 0.5;
-      ctx.fillStyle = grad;
-      ctx.fillRect(sl.x - 18, sl.y - 18, 36, 36);
-      ctx.globalAlpha = 1;
-    });
-
-    // Clouds (parallax)
-    s.clouds.forEach(cl => {
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-      ctx.beginPath();
-      ctx.arc(cl.x, cl.y, cl.w * 0.4, 0, Math.PI * 2);
-      ctx.arc(cl.x + cl.w * 0.3, cl.y - 5, cl.w * 0.35, 0, Math.PI * 2);
-      ctx.arc(cl.x + cl.w * 0.6, cl.y, cl.w * 0.3, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    // Bar in the distance (visual goal)
-    const barDistance = Math.max(0, 800 - s.distance);
-    if (barDistance < 300) {
-      const barX = W - 20 + barDistance * 0.5;
-      ctx.fillStyle = '#2a1a0a';
-      roundRect(barX - 30, s.groundY - 50, 60, 50, [6, 6, 0, 0], '#2a1a0a');
-      ctx.fillStyle = C.amber;
-      ctx.font = '700 9px Inter, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('BAR', barX, s.groundY - 30);
-      // Glowing sign
-      ctx.fillStyle = 'rgba(245, 158, 11, 0.3)';
-      ctx.fillRect(barX - 28, s.groundY - 48, 56, 4);
-    }
-
-    // Ground
-    ctx.fillStyle = '#1a1d27';
-    ctx.fillRect(0, s.groundY, W, H - s.groundY);
-    // Ground line
+    // Single ground line — pink accent
     ctx.fillStyle = C.pink;
     ctx.fillRect(0, s.groundY, W, 2);
-    // Running ground markings (moving dashes)
-    const dashOffset = (s.distance * 40) % 30;
-    ctx.fillStyle = 'rgba(167, 139, 250, 0.3)';
-    for (let i = -1; i < W / 30 + 1; i++) {
-      ctx.fillRect(i * 30 - dashOffset, s.groundY + 18, 14, 2);
+
+    // Subtle moving ground dots (Dino-style markers)
+    const dotOffset = (s.distance * 40) % 40;
+    ctx.fillStyle = 'rgba(244, 114, 182, 0.35)';
+    for (let i = -1; i < W / 40 + 1; i++) {
+      ctx.fillRect(i * 40 - dotOffset, s.groundY + 14, 6, 2);
     }
 
-    // Coins
+    // Coins — simple circles with B
     s.coins.forEach(co => {
       if (co.collected) return;
-      const bob = Math.sin((s.distance + co.bob) * 3) * 3;
+      const bob = Math.sin((s.distance + co.bob) * 3) * 2;
       const cy = co.y + bob;
-      // Glow
-      ctx.globalAlpha = 0.4;
-      const glow = ctx.createRadialGradient(co.x, cy, 0, co.x, cy, 20);
-      glow.addColorStop(0, C.amber);
-      glow.addColorStop(1, 'transparent');
-      ctx.fillStyle = glow;
-      ctx.fillRect(co.x - 20, cy - 20, 40, 40);
-      ctx.globalAlpha = 1;
-      // Coin body
-      circle(co.x, cy, 10, C.amber, '#fff');
-      circle(co.x, cy, 8, '#FCD34D');
-      // Letter
+      ctx.fillStyle = C.amber;
+      ctx.beginPath();
+      ctx.arc(co.x, cy, 8, 0, Math.PI * 2);
+      ctx.fill();
       ctx.font = '800 10px Inter, sans-serif';
-      ctx.fillStyle = '#4a3a00';
+      ctx.fillStyle = C.bg;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('B', co.x, cy + 1);
@@ -1749,23 +1634,23 @@ const bardash = {
     // Obstacles
     s.obstacles.forEach(o => this.drawObstacle(o));
 
-    // Particles
+    // Particles (simple dots)
     s.particles.forEach(pt => {
       ctx.globalAlpha = pt.life * 1.5;
-      circle(pt.x, pt.y, 3, pt.color);
+      ctx.fillStyle = pt.color;
+      ctx.fillRect(pt.x - 1, pt.y - 1, 3, 3);
     });
     ctx.globalAlpha = 1;
 
     // Character
     this.drawChar(s.char.x, s.groundY + s.char.y, s.char.state, s.char.runT);
 
-    // Big distance score overlay
-    text(Math.floor(s.distance) + ' m', W - 20, 24, {
-      size: 28, color: 'rgba(255,255,255,0.12)', align: 'right', weight: 900
-    });
-    text(Math.floor(s.distance) + ' m', W - 20, 24, {
-      size: 28, color: '#fff', align: 'right', weight: 900
-    });
+    // Distance counter — top right, tabular
+    ctx.font = '800 22px Inter, sans-serif';
+    ctx.fillStyle = C.text;
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'top';
+    ctx.fillText(String(Math.floor(s.distance)).padStart(4, '0') + ' M', W - 16, 12);
   },
   cleanup() {
     canvas.removeEventListener('mousedown', this.onTap);

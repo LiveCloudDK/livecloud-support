@@ -193,8 +193,10 @@
       For virksomheder &amp; organisationer
     </div>
     <h1>Spørgsmål fra virksomheder</h1>
-    <p>Svar til virksomheder, foreninger og organisationer, der har købt billetter til medarbejdere, medlemmer eller gæster. Spørgsmål om webportal, fordeling, Beats-administration og rapportering. For detaljerede flows henviser vi til <a class="help-link" href="ticket-flows-b2b.html">B2B-flowsiden</a>.</p>
+    <p>Svar til virksomheder, foreninger og organisationer, der har købt billetter til <strong>medarbejdere, medlemmer eller gæster</strong>. Spørgsmål om webportal, fordeling, Beats-administration og rapportering. For detaljerede flows henviser vi til <a class="help-link" href="ticket-flows-b2b.html">B2B-flowsiden</a>.</p>
   </div>
+
+  <div class="callout tip"><strong>Vigtigt om kategorier:</strong> Denne Q&amp;A dækker <strong>medarbejdere og virksomhedsgæster</strong>. <strong>Artister, crew/frivillige og presse</strong> håndteres i separate flows med hver deres adgangsregler, armbåndstyper og backstage-privilegier, se <a class="help-link" href="faq-crew.html">Q&amp;A for crew</a> eller skriv til <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a>, hvis I er i tvivl om den rette kategori.</div>
 
   <div class="callout draft">Denne Q&amp;A er under opbygning. Nogle funktioner er stadig ved at blive finpudset, se "Åbne spørgsmål" nederst, eller kontakt os på <a class="help-link" href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a> med konkrete behov.</div>
 
@@ -232,7 +234,7 @@
       </div>
     </details>
 
-    <details data-q="fordele billetter medarbejdere batch transfer delegation">
+    <details data-q="fordele billetter medarbejdere batch transfer delegation userless profil">
       <summary>Hvordan fordeler vi billetter til vores medarbejdere?</summary>
       <div class="answer">
         <p>I kan fordele billetter på to måder, afhængigt af hvad der passer bedst:</p>
@@ -241,7 +243,22 @@
           <li><strong>Delegation (tilføjelse):</strong> Billetten forbliver på jeres konto, og personen får et chip-armbånd ved ankomsten. Armbåndet er knyttet til jeres profil, og personens køb trækkes fra jeres Beats-konto.</li>
         </ul>
         <p>Webportalen lader jer vælge pr. billet, om det skal være transfer eller delegation. I kan også importere en CSV-fil med navne og e-mails for at fordele mange billetter på én gang.</p>
+        <div class="callout tip"><strong>Profil-krav ved delegation:</strong> Som udgangspunkt skal hver delegeret modtager have en <strong>egen profil</strong>, så der er en person knyttet til armbåndet. Vi tillader dog, at en <strong>manager</strong> kan holde en eller flere <strong>"userless"-adgange</strong> uden en individuel profil på modtageren, typisk til korte, anonyme gæsteadgange, hvor det ikke giver mening at invitere en person op. Kontakt os, hvis I har brug for denne type adgang.</div>
         <a class="flow-link" href="ticket-flows-b2b.html">Se fulde B2B-flows &rarr;</a>
+      </div>
+    </details>
+
+    <details data-q="transfer regler billet inde pladsen check in overførsel deaktiver">
+      <summary>Hvornår kan vi overføre (transfere) en billet?</summary>
+      <div class="answer">
+        <p>Transfer kan ske <strong>indtil billetten er inde på pladsen</strong>. Så snart en billet er brugt til check-in (gæsten er ankommet og scannet ind), er den <strong>låst</strong>, og den kan ikke overføres, før gæsten har tjekket ud igen.</p>
+        <p>Det betyder:</p>
+        <ul>
+          <li>Er billetten ikke brugt endnu, kan I overføre den frit.</li>
+          <li>Er gæsten på pladsen, er billetten låst til den profil, der har checket ind.</li>
+          <li>Når gæsten tjekker ud, åbnes billetten igen, men typisk til brug dagen efter eller til afslutning af festivalen.</li>
+        </ul>
+        <div class="callout secure"><strong>Hvorfor reglen?</strong> Den forhindrer, at samme billet ved et uheld (eller bevidst) bruges af to personer samme dag, eller at en billet overføres midt under festivalen, hvor der er scannet ind på den.</div>
       </div>
     </details>
 
@@ -336,7 +353,7 @@
       <h2>Webportal &amp; brugeradgang</h2>
     </div>
 
-    <details data-q="logge ind webportal firma virksomhed adgang">
+    <details data-q="logge ind webportal firma virksomhed adgang mobil laptop">
       <summary>Hvordan logger vi ind i webportalen?</summary>
       <div class="answer">
         <p>Når I har bestilt billetter som virksomhed, sender vi et link til webportalen sammen med jeres ordrebekræftelse. I logger ind med:</p>
@@ -344,7 +361,21 @@
           <li>Jeres firma-e-mail (den I bestilte med).</li>
           <li>Et password, I opretter ved første login.</li>
         </ul>
-        <p>Webportalen er et browser-interface, I behøver ikke installere noget.</p>
+        <p>Webportalen er et browser-interface, I behøver ikke installere noget. Den <strong>virker både på computer og mobil</strong>, så I kan administrere billetter, delegere adgange eller fylde Beats op direkte fra telefonen, også på vej til eller under festivalen.</p>
+        <div class="callout tip"><strong>På mobil:</strong> Layoutet tilpasser sig automatisk. Det meste, I gør på laptop, kan I gøre på mobil, men komplekse opgaver som CSV-import af store lister er hurtigere fra computer.</div>
+      </div>
+    </details>
+
+    <details data-q="virksomhedskunde account konto b2b genkendelse firma system">
+      <summary>Hvordan ved billetsystemet, at vi er en virksomhedskunde?</summary>
+      <div class="answer">
+        <p>Når I opretter jeres første bestilling som virksomhed, knytter vi en <strong>virksomheds-account</strong> til den bruger, der står for bestillingen. Denne account følger jer fremover:</p>
+        <ul>
+          <li>Fremtidige bestillinger kobles automatisk til samme account.</li>
+          <li>Access til webportalen, rapporter og fakturering hænger på accounten, ikke på den enkelte person.</li>
+          <li>Skifter den ansvarlige medarbejder job, kan accounten overdrages, kontakt os, så hjælper vi med det.</li>
+        </ul>
+        <p>I praksis betyder det, at I ikke skal identificere jer som virksomhed ved hvert køb. Det er nok, at den person, der bestiller, er logget ind på jeres virksomheds-account.</p>
       </div>
     </details>
 

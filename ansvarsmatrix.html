@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow">
-<title>[INTERNT] Ansvarsmatrix, LiveCloud &times; Ringsted Festival</title>
+<title>[INTERNT] Ansvarsmatrix, LiveCloud &times; Festival</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
@@ -298,15 +298,15 @@
   <div class="hero">
     <div class="hero-badge">
       <span>&gt;_</span>
-      Intern, for projekt-team
+      LiveCloud-ejet template
     </div>
-    <h1>Ansvarsmatrix: LiveCloud &times; Ringsted Festival</h1>
-    <p class="lede">Operationelle beslutninger om hvem der gør hvad. Brug listen til at afklare ansvarsfordelingen mellem LiveCloud og RF punkt for punkt. Forslag er angivet ved hver post, og status gemmes lokalt.</p>
+    <h1>Ansvarsmatrix: LiveCloud &times; <span contenteditable="true" id="festivalName" spellcheck="false" style="border-bottom: 2px dashed var(--accent); padding: 0 6px; outline: none; cursor: text;" title="Klik for at redigere festival-navn">Ringsted Festival</span></h1>
+    <p class="lede">Operationelle beslutninger om hvem der gør hvad. <strong>Listen er ejet og kontrolleret af LiveCloud</strong> og udfyldes i samarbejde med en ledende medarbejder fra festivallen. Forslag er angivet ved hver post og skal valideres med festival-parten, før de markeres som afklarede.</p>
   </div>
 
   <div class="internal-banner">
     <div>
-      <strong>Denne side er kun for projekt-teamet.</strong> Ikke linket fra offentlige sider og ikke indekseret. Del kun URL'en i interne kanaler.
+      <strong>LC-ejet arbejdsdokument, fælles-udfyldning.</strong> Denne matrix er en <strong>genanvendelig template</strong> for fremtidige festivaler. For hver ny festival klones dokumentet, festival-navn redigeres ovenfor, og beslutninger fyldes ud sammen med festival-ledelsen. Del kun URL'en i interne kanaler.
     </div>
   </div>
 
@@ -324,9 +324,10 @@
         <span class="pc-done" id="countDone">0</span><span class="pc-total"> / <span id="countTotal">0</span></span><span style="font-size: 13px; color: var(--text-dim); margin-left: 8px;" id="countLabel">afklaret</span>
       </div>
       <div class="progress-actions">
-        <button class="btn" onclick="exportJson()">Download status som JSON</button>
+        <button class="btn" onclick="exportJson()">Download JSON</button>
         <button class="btn" onclick="document.getElementById('importInput').click()">Importer</button>
         <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJson(event)">
+        <button class="btn" onclick="cloneForNewFestival()">Klon til ny festival</button>
         <button class="btn danger" onclick="resetAll()">Nulstil</button>
       </div>
     </div>
@@ -427,10 +428,10 @@
     <div class="items">
       <div class="item" data-id="training-bjarne">
         <div class="item-head">
-          <div class="item-title">Oplæring af Bjarne Sørensen og hans team i FMS + Commerce</div>
+          <div class="item-title">Oplæring af festivalens 1. level support team i FMS + Commerce</div>
         </div>
-        <div class="item-body">Bjarne og hans team har tidligere stået for billetter og armbånd og kan være nyttige til <strong>1. level support</strong> af brugere med app-, adgangs- eller Beats-spørgsmål.</div>
-        <div class="item-suggest"><strong>FORSLAG: LiveCloud.</strong> LC har expertisen og ejer platformen. Oplæringsplan: 2-3 sessioner (1 teori, 1 hands-on, 1 live-generalprøve) i ugerne op til festivalen. Dækker FMS, Commerce, webportal og typiske support-scenarier. LC leverer materiale; RF stiller Bjarne &amp; team til rådighed.</div>
+        <div class="item-body">Festivalens eksisterende support-team, der typisk har erfaring med billetter, armbånd og publikums-kontakt (for Ringsted Festival: <strong>Bjarne Sørensen og hans team</strong>). De kan være nyttige til <strong>1. level support</strong> af brugere med app-, adgangs- eller Beats-spørgsmål.</div>
+        <div class="item-suggest"><strong>FORSLAG: LiveCloud.</strong> LC har expertisen og ejer platformen. Oplæringsplan: 2-3 sessioner (1 teori, 1 hands-on, 1 live-generalprøve) i ugerne op til festivalen. Dækker FMS, Commerce, webportal og typiske support-scenarier. LC leverer materiale; festivalen stiller teamet til rådighed.</div>
         <div class="item-actions">
           <button class="action-btn" data-role="lc">LC</button>
           <button class="action-btn" data-role="rf">RF</button>
@@ -658,6 +659,7 @@
         </tbody>
       </table>
     </div>
+    <p style="color: var(--text-dim); font-size: 12px; font-style: italic; margin-top: -4px; margin-bottom: 14px;">Tallene ovenfor er et udgangspunkt for en festival af Ringsted Festivals størrelse (~20.000 gæster). Justeres per festival baseret på gæstetal, antal boder og kompleksitet.</p>
 
     <div class="items">
       <div class="item" data-id="staffing-approval">
@@ -678,10 +680,31 @@
     </div>
   </div>
 
+  <!-- ═══════════════ Template-brug ═══════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num" style="background: rgba(167, 139, 250, 0.12); color: var(--faelles);">T</div>
+      <h2>Brug af template til fremtidige festivaler</h2>
+    </div>
+    <div style="padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; font-size: 13.5px; color: var(--text-muted); line-height: 1.7;">
+      <p style="margin-bottom: 10px;"><strong style="color: var(--text);">Denne matrix er LiveCloud-ejet og skal bruges som en genanvendelig skabelon.</strong></p>
+      <p style="margin-bottom: 10px;">Når en ny festival onboardes:</p>
+      <ol style="padding-left: 20px; margin-bottom: 10px;">
+        <li style="margin-bottom: 4px;">Arkivér den nuværende udgave (download JSON via knappen ovenfor).</li>
+        <li style="margin-bottom: 4px;">Tryk <strong>"Klon til ny festival"</strong>, angiv det nye festival-navn.</li>
+        <li style="margin-bottom: 4px;">Gennemgå alle punkter sammen med en <strong>ledende medarbejder fra festivalen</strong>.</li>
+        <li style="margin-bottom: 4px;">Juster forslag baseret på festivalens størrelse, struktur og kompleksitet.</li>
+        <li>Marker hver post som <strong>afklaret</strong>, når begge parter er enige.</li>
+      </ol>
+      <p style="margin-bottom: 10px;"><strong style="color: var(--text);">LiveCloud driver processen.</strong> LC-projektleder indkalder til møderne, dokumenterer beslutninger i noterne, og sikrer at alle punkter er lukket før festivalen starter.</p>
+      <p><strong style="color: var(--text);">Løbende forbedring.</strong> Hvis nye spørgsmål dukker op under en festival, tilføjes de til master-templaten (denne HTML-fil) for fremtidige festivaler, så templaten bliver mere dækkende over tid.</p>
+    </div>
+  </div>
+
   <div class="toolbar">
     <div class="toolbar-title">Eksport / import</div>
     <div class="toolbar-row">
-      <span class="note">Status og noter gemmes lokalt i browseren. Brug JSON-eksport til at dele med teamet eller arkivere beslutninger.</span>
+      <span class="note">Status, noter og festival-navn gemmes lokalt i browseren. Download JSON før klon for at arkivere den aktuelle festivals beslutninger.</span>
     </div>
   </div>
 
@@ -689,11 +712,37 @@
 
 <script>
   const STORAGE_KEY = 'livecloud-ansvarsmatrix-v1';
+  const FESTIVAL_KEY = 'livecloud-ansvarsmatrix-festival-v1';
 
   function loadState() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { return {}; }
   }
   function saveState(state) { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+  // Festival-navn persistence
+  const festivalInput = document.getElementById('festivalName');
+  const savedFestival = localStorage.getItem(FESTIVAL_KEY);
+  if (savedFestival) festivalInput.textContent = savedFestival;
+  festivalInput.addEventListener('input', () => {
+    localStorage.setItem(FESTIVAL_KEY, festivalInput.textContent.trim() || 'Festival');
+  });
+  festivalInput.addEventListener('blur', () => {
+    const v = festivalInput.textContent.trim();
+    if (!v) festivalInput.textContent = 'Festival';
+  });
+  // Prevent newlines in the contenteditable
+  festivalInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); festivalInput.blur(); }
+  });
+
+  function cloneForNewFestival() {
+    const newName = prompt('Navn på den nye festival:', '');
+    if (!newName || !newName.trim()) return;
+    if (!confirm(`Klon template til "${newName.trim()}"? Nuværende beslutninger og noter bliver nulstillet, så du starter frisk. (Hent eventuelt JSON ned først som arkiv.)`)) return;
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.setItem(FESTIVAL_KEY, newName.trim());
+    location.reload();
+  }
 
   const items = document.querySelectorAll('.item');
 
@@ -793,11 +842,18 @@
 
   function exportJson() {
     const state = loadState();
-    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const festival = localStorage.getItem(FESTIVAL_KEY) || 'festival';
+    const payload = {
+      festival: festival,
+      exportedAt: new Date().toISOString(),
+      items: state
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'livecloud-ansvarsmatrix-' + new Date().toISOString().split('T')[0] + '.json';
+    const slug = festival.toLowerCase().replace(/[æå]/g, 'a').replace(/ø/g, 'o').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'festival';
+    a.download = 'ansvarsmatrix-' + slug + '-' + new Date().toISOString().split('T')[0] + '.json';
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -808,11 +864,18 @@
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
-        const newState = JSON.parse(e.target.result);
+        const parsed = JSON.parse(e.target.result);
+        // Support both old format (plain map) and new format ({festival, items})
+        const newState = parsed.items || parsed;
+        const festival = parsed.festival;
         saveState(newState);
+        if (festival) {
+          localStorage.setItem(FESTIVAL_KEY, festival);
+          festivalInput.textContent = festival;
+        }
         items.forEach(item => applyItemState(item, newState[item.dataset.id]));
         updateProgress();
-        alert('Status importeret.');
+        alert('Status importeret' + (festival ? ` for "${festival}"` : '') + '.');
       } catch (err) {
         alert('Kunne ikke læse JSON-fil.');
       }

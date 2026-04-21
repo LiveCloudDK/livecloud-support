@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billet- og adgangstyper, LiveCloud Support</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --bg-answer: #151821;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #6B6F80;
+    --border: #2A2E3D;
+    --accent: #818CF8;
+    --accent-dark: #6B76E0;
+    --accent-amber: #F59E0B;
+    --accent-green: #5CB77A;
+    --accent-blue: #60A5FA;
+    --accent-purple: #A78BFA;
+    --accent-rose: #F472B6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 0 80px;
+  }
+
+  .breadcrumb { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .hero { margin-bottom: 40px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(129, 140, 248, 0.1); border: 1px solid rgba(129, 140, 248, 0.28);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 34px; font-weight: 800; letter-spacing: -0.5px;
+    margin-bottom: 12px; line-height: 1.15;
+  }
+  .hero .lede {
+    font-size: 17px; color: var(--text-muted); max-width: 720px; line-height: 1.7;
+  }
+
+  /* ═══ TOC ═══ */
+  .toc {
+    margin: 24px 0 40px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .toc-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px;
+  }
+  .toc ul { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+  .toc ul li { padding: 3px 0 3px 18px; position: relative; font-size: 14px; }
+  .toc ul li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-weight: 700;
+  }
+  .toc ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .toc ul li a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .toc ul { grid-template-columns: 1fr; }
+  }
+
+  h2 {
+    font-size: 24px; font-weight: 700; letter-spacing: -0.3px;
+    margin: 48px 0 14px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 24px;
+  }
+  h2 .chip {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 10px;
+    vertical-align: middle; margin-right: 10px;
+  }
+  h2 .chip.blue { background: rgba(96, 165, 250, 0.15); color: var(--accent-blue); }
+  h2 .chip.purple { background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); }
+  h2 .chip.rose { background: rgba(244, 114, 182, 0.15); color: var(--accent-rose); }
+  h2 .chip.amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+  h2 .chip.green { background: rgba(92, 183, 122, 0.15); color: var(--accent-green); }
+  h2 .chip.indigo { background: rgba(129, 140, 248, 0.15); color: var(--accent); }
+
+  h3 {
+    font-size: 17px; font-weight: 700; margin: 26px 0 10px; color: var(--text);
+  }
+
+  p {
+    color: var(--text-muted); font-size: 15.5px; line-height: 1.75;
+    margin-bottom: 14px;
+  }
+  p strong, li strong { color: var(--text); font-weight: 600; }
+  p.section-lede { font-size: 16px; margin-bottom: 18px; }
+
+  ul {
+    color: var(--text-muted); font-size: 15px;
+    padding-left: 0; list-style: none; margin: 10px 0 14px;
+  }
+  ul li { padding: 4px 0 4px 22px; position: relative; line-height: 1.65; }
+  ul li::before {
+    content: ''; position: absolute; left: 6px; top: 14px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+
+  /* ═══ Type-grid (ticket type cards) ═══ */
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 18px 0;
+  }
+  @media (max-width: 640px) {
+    .type-grid { grid-template-columns: 1fr; }
+  }
+  .type-card {
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .type-card.blue { border-left-color: var(--accent-blue); }
+  .type-card.purple { border-left-color: var(--accent-purple); }
+  .type-card.rose { border-left-color: var(--accent-rose); }
+  .type-card.amber { border-left-color: var(--accent-amber); }
+  .type-card.green { border-left-color: var(--accent-green); }
+  .type-card h4 {
+    font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text);
+  }
+  .type-card p {
+    font-size: 14px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.6;
+  }
+  .type-card .tc-meta {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+  }
+  .type-card .tc-tag {
+    font-size: 11px; font-weight: 600; padding: 3px 8px;
+    background: var(--border); color: var(--text-muted); border-radius: 10px;
+    letter-spacing: 0.2px;
+  }
+  .type-card .tc-tag.yes { background: rgba(92, 183, 122, 0.14); color: var(--accent-green); }
+  .type-card .tc-tag.no { background: rgba(244, 114, 182, 0.12); color: var(--accent-rose); }
+
+  /* ═══ Callouts ═══ */
+  .callout {
+    background: rgba(129, 140, 248, 0.08); border-left: 3px solid var(--accent);
+    padding: 14px 18px; border-radius: 4px; margin: 18px 0;
+    font-size: 14.5px; color: var(--text); line-height: 1.65;
+  }
+  .callout.tip { background: rgba(96, 165, 250, 0.08); border-left-color: var(--accent-blue); }
+  .callout.tip::before { content: '💡 '; margin-right: 4px; }
+  .callout.secure { background: rgba(92, 183, 122, 0.08); border-left-color: var(--accent-green); }
+  .callout.secure::before { content: '🔒 '; margin-right: 4px; }
+  .callout.warn { background: rgba(245, 158, 11, 0.08); border-left-color: var(--accent-amber); }
+  .callout.warn::before { content: '⚠️ '; margin-right: 4px; }
+
+  /* ═══ Comparison table ═══ */
+  .table-wrap {
+    margin: 20px 0 24px;
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+  }
+  table.compare {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    min-width: 760px;
+  }
+  table.compare th, table.compare td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  table.compare thead th {
+    background: rgba(129, 140, 248, 0.08);
+    font-weight: 700;
+    color: var(--text);
+    font-size: 12.5px;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  table.compare thead th:first-child {
+    background: var(--bg-answer);
+    color: var(--text-dim);
+  }
+  table.compare tbody th {
+    background: var(--bg-answer);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 13px;
+    width: 22%;
+    min-width: 170px;
+  }
+  table.compare tbody td { color: var(--text-muted); }
+  table.compare tr:last-child th,
+  table.compare tr:last-child td { border-bottom: none; }
+  table.compare td.yes { color: var(--accent-green); font-weight: 600; }
+  table.compare td.no { color: var(--accent-rose); font-weight: 600; }
+  table.compare td.partial { color: var(--accent-amber); font-weight: 600; }
+
+  /* ═══ Overview hero-cards ═══ */
+  .overview-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 22px 0;
+  }
+  @media (max-width: 860px) {
+    .overview-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .overview-cards { grid-template-columns: 1fr; }
+  }
+  .ov-card {
+    padding: 16px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex; flex-direction: column; gap: 6px;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+    text-decoration: none;
+  }
+  .ov-card:hover { transform: translateY(-2px); }
+  .ov-card.blue { border-top: 3px solid var(--accent-blue); }
+  .ov-card.blue:hover { border-color: rgba(96, 165, 250, 0.3); }
+  .ov-card.purple { border-top: 3px solid var(--accent-purple); }
+  .ov-card.purple:hover { border-color: rgba(167, 139, 250, 0.3); }
+  .ov-card.rose { border-top: 3px solid var(--accent-rose); }
+  .ov-card.rose:hover { border-color: rgba(244, 114, 182, 0.3); }
+  .ov-card.amber { border-top: 3px solid var(--accent-amber); }
+  .ov-card.amber:hover { border-color: rgba(245, 158, 11, 0.3); }
+  .ov-card.green { border-top: 3px solid var(--accent-green); }
+  .ov-card.green:hover { border-color: rgba(92, 183, 122, 0.3); }
+
+  .ov-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-dim);
+  }
+  .ov-title { font-size: 16px; font-weight: 700; color: var(--text); }
+  .ov-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+
+  .help-link { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .help-link:hover { text-decoration: underline; }
+
+  .cta {
+    margin-top: 56px; padding: 28px;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.08), rgba(96, 165, 250, 0.08));
+    border: 1px solid rgba(129, 140, 248, 0.2); border-radius: 16px;
+    text-align: center;
+  }
+  .cta h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .cta p { color: var(--text-muted); font-size: 15px; margin-bottom: 18px; line-height: 1.6; }
+  .cta-btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #0F1117; text-decoration: none;
+    font-weight: 600; font-size: 14px; padding: 10px 18px; border-radius: 10px;
+    transition: all 0.15s;
+  }
+  .cta-btn:hover { background: var(--accent-dark); color: #fff; transform: translateY(-1px); }
+  .cta-btn.secondary {
+    background: transparent; color: var(--accent);
+    border: 1px solid rgba(129, 140, 248, 0.35);
+  }
+  .cta-btn.secondary:hover { background: rgba(129, 140, 248, 0.1); color: var(--text); transform: translateY(-1px); }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .container { padding: 32px 0 60px; }
+    .hero h1 { font-size: 26px; }
+    .hero .lede { font-size: 15px; }
+    h2 { font-size: 20px; margin: 36px 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="index.html">Support</a>
+    <span>/</span>
+    <span style="color: var(--text);">Billet- og adgangstyper</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&#127915;</span>
+      Reference
+    </div>
+    <h1>Billet- og adgangstyper på platformen</h1>
+    <p class="lede">Komplet overblik over alle de typer billetter og adgange, platformen håndterer, fra almindelige gæstebilletter til crew-akkreditering, gæstelister, virksomhedsbilletter og medarbejder-adgange. Find den rigtige type her.</p>
+  </div>
+
+  <h3 style="margin-top: 30px;">Hurtigt overblik, seks kategorier</h3>
+  <div class="overview-cards">
+    <a href="#guest" class="ov-card blue">
+      <div class="ov-label">Kategori 1</div>
+      <div class="ov-title">Gæstebilletter</div>
+      <div class="ov-desc">Endags, partout, camping, glamcamp. Købes af gæsten, knyttet til MitID-profil.</div>
+    </a>
+    <a href="#attached" class="ov-card blue">
+      <div class="ov-label">Kategori 2</div>
+      <div class="ov-title">Tilknyttede adgange</div>
+      <div class="ov-desc">Børn under 13 og ledsagere, "passagerer" på en voksens billet.</div>
+    </a>
+    <a href="#accreditation" class="ov-card purple">
+      <div class="ov-label">Kategori 3</div>
+      <div class="ov-title">Akkreditering</div>
+      <div class="ov-desc">Crew, artister, presse, frivillige. Tilknyttet ordreholder, ikke videregivelig.</div>
+    </a>
+    <a href="#guestlist" class="ov-card rose">
+      <div class="ov-label">Kategori 4</div>
+      <div class="ov-title">Gæsteliste</div>
+      <div class="ov-desc">Endags-adgange som artister/presse inviterer gæster med, ved siden af akkrediteringen.</div>
+    </a>
+    <a href="#b2b" class="ov-card amber">
+      <div class="ov-label">Kategori 5</div>
+      <div class="ov-title">Virksomhedsbilletter</div>
+      <div class="ov-desc">Bestilles i større antal og fordeles til medarbejdere/gæster som videregivelse eller tilknytning.</div>
+    </a>
+    <a href="#employee" class="ov-card green">
+      <div class="ov-label">Kategori 6</div>
+      <div class="ov-title">Medarbejder-adgange</div>
+      <div class="ov-desc">Bod-ansatte med egen profil og MitID. Strengt personlig, låst.</div>
+    </a>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">På denne side</div>
+    <ul>
+      <li><a href="#guest">1. Gæstebilletter</a></li>
+      <li><a href="#attached">2. Tilknyttede adgange</a></li>
+      <li><a href="#accreditation">3. Akkrediterings-adgange</a></li>
+      <li><a href="#guestlist">4. Gæsteliste-adgange</a></li>
+      <li><a href="#b2b">5. Virksomhedsbilletter</a></li>
+      <li><a href="#employee">6. Medarbejder-adgange</a></li>
+      <li><a href="#compare">Sammenligning på tværs</a></li>
+    </ul>
+  </div>
+
+  <!-- ═══════ 1. Gæstebilletter ═══════ -->
+  <h2 id="guest"><span class="chip blue">Kategori 1</span>Gæstebilletter</h2>
+  <p class="section-lede">Almindelige billetter, som gæster selv køber i webshoppen. Alle er knyttet til en MitID-bekræftet profil hos gæsten.</p>
+
+  <div class="type-grid">
+    <div class="type-card blue">
+      <h4>Endags-billet</h4>
+      <p>Adgang til festivalen én bestemt dag. Standard for gæster, der kun kommer en enkelt dag.</p>
+      <div class="tc-meta">
+        <span class="tc-tag yes">Kan videregives</span>
+        <span class="tc-tag">Én adgang</span>
+      </div>
+    </div>
+    <div class="type-card blue">
+      <h4>Partout-billet</h4>
+      <p>Flere dage (fx torsdag, fredag, lørdag). Hver dag er en separat <strong>adgang</strong>, der kan videregives enkeltvist.</p>
+      <div class="tc-meta">
+        <span class="tc-tag yes">Kan splittes</span>
+        <span class="tc-tag">Flerdages</span>
+      </div>
+    </div>
+    <div class="type-card blue">
+      <h4>Campingbillet (standard)</h4>
+      <p>Dækker hele festivalens periode. <strong>Kan ikke stykkes ud</strong>, men overdrages som helhed.</p>
+      <div class="tc-meta">
+        <span class="tc-tag no">Kan ikke splittes</span>
+        <span class="tc-tag">Hele festivalen</span>
+      </div>
+    </div>
+    <div class="type-card blue">
+      <h4>Glamcamp-billet</h4>
+      <p>Glamping med 2 eller 4 adgange. Hver adgang kan videregives enkeltvist, typisk til personer der deler telt/hytte.</p>
+      <div class="tc-meta">
+        <span class="tc-tag yes">Kan splittes</span>
+        <span class="tc-tag">2 eller 4 adgange</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Fælles regler for gæstebilletter</h3>
+  <ul>
+    <li>Knyttet til en <strong>MitID-bekræftet profil</strong></li>
+    <li><strong>Kan videregives permanent</strong> til en anden gæsts profil (også MitID-bekræftet)</li>
+    <li>Videregivelse er permanent, modtager bliver ny ejer</li>
+    <li>Billetten er <strong>låst</strong> når gæsten er checket ind på pladsen, indtil check-out</li>
+    <li>Kan have tilknyttede børne- og ledsager-adgange</li>
+  </ul>
+
+  <!-- ═══════ 2. Tilknyttede adgange ═══════ -->
+  <h2 id="attached"><span class="chip blue">Kategori 2</span>Tilknyttede adgange</h2>
+  <p class="section-lede">Ikke selvstændige billetter, men "passagerer" på en voksens billet. Bruges til familie og ledsagere uden MitID eller egen smartphone.</p>
+
+  <div class="type-grid">
+    <div class="type-card blue">
+      <h4>Børne-adgang (under 13)</h4>
+      <p>Børn under 13 kan ikke have MitID. De tilknyttes en voksens billet med navn + alder. Intet MitID, ingen profil, ingen app nødvendig.</p>
+      <div class="tc-meta">
+        <span class="tc-tag no">Ingen MitID</span>
+        <span class="tc-tag no">Ingen profil</span>
+        <span class="tc-tag">Følges med voksen</span>
+      </div>
+    </div>
+    <div class="type-card blue">
+      <h4>Ledsager-adgang</h4>
+      <p>Voksne uden smartphone eller profil. Tilknyttes en anden voksens billet. Følges ad ved ind- og udgang.</p>
+      <div class="tc-meta">
+        <span class="tc-tag no">Ingen MitID nødvendig</span>
+        <span class="tc-tag">Følges med voksen</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    Både børn og ledsagere kan valgfrit få et <strong>chip-armbånd</strong> tilknyttet den voksnes profil, så de kan bevæge sig selv på pladsen og handle på den voksnes Beats-konto, evt. med maks-forbrug.
+  </div>
+
+  <!-- ═══════ 3. Akkrediterings-adgange ═══════ -->
+  <h2 id="accreditation"><span class="chip purple">Kategori 3</span>Akkrediterings-adgange</h2>
+  <p class="section-lede">Ikke billetter i traditionel forstand. Uddeles af en <strong>ordreholder</strong> via webportalen til personer, der arbejder, optræder eller dækker festivalen. Modellen er altid <strong>tilknytning</strong>, aldrig videregivelse.</p>
+
+  <div class="type-grid">
+    <div class="type-card purple">
+      <h4>Crew</h4>
+      <p>Produktions- og teknisk mandskab. Typisk med adgang til arbejdszoner og backstage.</p>
+    </div>
+    <div class="type-card purple">
+      <h4>Artist</h4>
+      <p>Optrædende og band-medlemmer. Adgang til scene, backstage og dressing rooms.</p>
+    </div>
+    <div class="type-card purple">
+      <h4>Presse</h4>
+      <p>Journalister og fotografer. Specifik presse-zone-adgang + evt. camera pit.</p>
+    </div>
+    <div class="type-card purple">
+      <h4>Frivillig</h4>
+      <p>Frivilligt mandskab. Ofte med crew-camping og forskellige vagt-zoner.</p>
+    </div>
+  </div>
+
+  <h3>Zone-adgange (kombineres med roller ovenfor)</h3>
+  <ul>
+    <li><strong>Backstage</strong>, bag scenen</li>
+    <li><strong>Scene</strong>, selve scenearealet</li>
+    <li><strong>Presse</strong>, presse-zoner og pit</li>
+    <li><strong>VIP</strong>, VIP-område</li>
+    <li><strong>Camping</strong>, crew-camping</li>
+  </ul>
+
+  <h3>Fælles regler for akkreditering</h3>
+  <ul>
+    <li><strong>Tilknytning-model:</strong> adgangen bliver på ordreholderens profil</li>
+    <li><strong>Intet MitID-krav</strong> på modtageren, intet smartphone-krav</li>
+    <li>Armbånd udleveres ved <strong>check-in Service Desk</strong></li>
+    <li>Beats trækkes fra ordreholderens konto (valgfri maks per armbånd)</li>
+    <li><strong>Kan ikke videregives</strong>, kun tilknyttes</li>
+    <li>Nulstilles automatisk efter festival</li>
+  </ul>
+
+  <div class="callout">
+    Se <a class="help-link" href="akkreditering-overblik.html">Akkreditering &amp; gæsteliste, overblik</a> for den fulde forklaring af modellen.
+  </div>
+
+  <!-- ═══════ 4. Gæsteliste-adgange ═══════ -->
+  <h2 id="guestlist"><span class="chip rose">Kategori 4</span>Gæsteliste-adgange</h2>
+  <p class="section-lede">En <strong>separat liste</strong> ved siden af akkrediteringen, typisk brugt af artister, presse eller andre med ansvar, der vil invitere familie og venner til specifikke dage. Administreres af en administrator (ofte artistens manager eller ordreholderen selv).</p>
+
+  <div class="type-grid">
+    <div class="type-card rose">
+      <h4>Voksen gæstelisteadgang</h4>
+      <p>Endags-adgang, typisk den dag artisten spiller. Administrator sender personligt <strong>invite-link</strong> per email. Modtager opretter egen profil med MitID og aktiverer.</p>
+      <div class="tc-meta">
+        <span class="tc-tag yes">Egen profil</span>
+        <span class="tc-tag yes">MitID</span>
+        <span class="tc-tag">Endags</span>
+      </div>
+    </div>
+    <div class="type-card rose">
+      <h4>Børne-adgang (under 13)</h4>
+      <p>Børn under 13 kan ikke have MitID. Administrator tilføjer barnet direkte på listen, markerer som børne-adgang. <strong>Intet invite-link</strong>, adgangen ligger hos administratoren.</p>
+      <div class="tc-meta">
+        <span class="tc-tag no">Ingen MitID</span>
+        <span class="tc-tag no">Ingen profil</span>
+        <span class="tc-tag">Børne-markering på armbånd</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout secure">
+    <strong>Scanner viser børne-markeringen.</strong> Børne-armbånd fra gæstelisten bærer en markering, så vagten kan se direkte på scanneren, at det er en børne-adgang, både ved indgangen og på pladsen.
+  </div>
+
+  <!-- ═══════ 5. Virksomhedsbilletter (B2B) ═══════ -->
+  <h2 id="b2b"><span class="chip amber">Kategori 5</span>Virksomhedsbilletter (B2B)</h2>
+  <p class="section-lede">Virksomheder bestiller billetter i større antal og fordeler til medarbejdere, medlemmer eller gæster via webportalen. Kan fordeles på flere måder, afhængig af formålet.</p>
+
+  <div class="type-grid">
+    <div class="type-card amber">
+      <h4>Videregivelse</h4>
+      <p>Billetten flyttes permanent til medarbejderens egen profil. Medarbejderen har egen Beats-konto og er selv ansvarlig for sin adgang.</p>
+      <div class="tc-meta">
+        <span class="tc-tag yes">Egen profil</span>
+        <span class="tc-tag yes">Egen Beats</span>
+        <span class="tc-tag">Permanent</span>
+      </div>
+    </div>
+    <div class="type-card amber">
+      <h4>Tilknytning</h4>
+      <p>Billetten bliver på virksomhedens konto. Medarbejder får armbånd tilknyttet firmaets profil. Køb trækkes fra firmaets Beats-konto.</p>
+      <div class="tc-meta">
+        <span class="tc-tag no">Ingen MitID nødvendig</span>
+        <span class="tc-tag">Firma-Beats</span>
+      </div>
+    </div>
+    <div class="type-card amber">
+      <h4>"Userless"-adgang</h4>
+      <p>Manager holder en eller flere <strong>anonyme</strong> gæsteadgange uden individuel profil. Typisk til korte, ad hoc gæsteadgange, hvor det ikke giver mening at invitere en person op.</p>
+      <div class="tc-meta">
+        <span class="tc-tag">Ingen individuel modtager</span>
+        <span class="tc-tag">Manager-kontrolleret</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Webportal-funktioner</h3>
+  <ul>
+    <li><strong>Batch-fordeling</strong> og <strong>CSV-import</strong> af navne/e-mails</li>
+    <li><strong>Realtids check-in status</strong>, hvem er ankommet, hvornår</li>
+    <li><strong>Gensend udløbne invitationer</strong> (72-timer TTL)</li>
+    <li><strong>Beats-rapporter</strong> til bogføring, samlet overblik på tværs af armbånd og billetter</li>
+    <li><strong>Faktura-betaling</strong> (CVR) til billetter og Beats-oplad</li>
+    <li>Virksomheds-account knyttet til bruger, følger jer fra første bestilling</li>
+  </ul>
+
+  <!-- ═══════ 6. Medarbejder-adgange ═══════ -->
+  <h2 id="employee"><span class="chip green">Kategori 6</span>Medarbejder-adgange</h2>
+  <p class="section-lede">En kategori for sig. Uddeles af en <strong>bod eller arbejdsgiver</strong> via den separate <strong>medarbejder-portal</strong> til personer, der arbejder i en bod eller bar på festivalen.</p>
+
+  <div class="type-grid" style="grid-template-columns: 1fr;">
+    <div class="type-card green">
+      <h4>Medarbejder-adgang</h4>
+      <p>Medarbejder opretter egen profil med MitID via invite-link fra boden. Adgangen knyttes til medarbejderens egen profil, men kan <strong>ikke videregives</strong>, den er låst på systemniveau. Gyldighedsperioden bestemmes af boden (hele festivalen, specifikke dage, eller kun vagttimer).</p>
+      <div class="tc-meta">
+        <span class="tc-tag yes">Egen profil + MitID</span>
+        <span class="tc-tag no">Ikke videregivelig</span>
+        <span class="tc-tag">Bod-styret gyldighed</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Særlige regler</h3>
+  <ul>
+    <li><strong>Strengt personlig</strong> og låst, kan ikke videregives eller deles</li>
+    <li>Kan <strong>ikke tilknytte ledsager eller barn</strong> på sin adgang</li>
+    <li>Har desuden egen Beats-pung som en almindelig gæst</li>
+    <li>Bod kan give Beats til medarbejderen (fx til tjenesteforplejning eller bonus)</li>
+    <li>Skal skifte person have adgang, skal det gå via boden i medarbejder-portalen</li>
+  </ul>
+
+  <!-- ═══════ Sammenligning ═══════ -->
+  <h2 id="compare"><span class="chip indigo">Reference</span>Sammenligning på tværs</h2>
+  <p class="section-lede">Én tabel der opsummerer de vigtigste forskelle mellem de seks kategorier.</p>
+
+  <div class="table-wrap">
+    <table class="compare">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Videregiv?</th>
+          <th>Tilknyt?</th>
+          <th>MitID på modtager?</th>
+          <th>Egen profil?</th>
+          <th>Varighed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Gæstebillet</th>
+          <td class="yes">Ja</td>
+          <td class="partial">Børn / ledsager</td>
+          <td class="yes">Ja</td>
+          <td class="yes">Ja</td>
+          <td>Billet-defineret</td>
+        </tr>
+        <tr>
+          <th>Tilknyttet adgang<br><small>(barn/ledsager)</small></th>
+          <td class="no">Nej</td>
+          <td class="yes">Ja (hos voksen)</td>
+          <td class="no">Nej</td>
+          <td class="no">Nej</td>
+          <td>Følger voksens billet</td>
+        </tr>
+        <tr>
+          <th>Akkreditering</th>
+          <td class="no">Nej</td>
+          <td class="yes">Ja (hos ordreholder)</td>
+          <td class="no">Nej</td>
+          <td class="no">Nej</td>
+          <td>Typisk hele festivalen</td>
+        </tr>
+        <tr>
+          <th>Gæsteliste, voksen</th>
+          <td class="no">Nej (personlig)</td>
+          <td class="no">—</td>
+          <td class="yes">Ja</td>
+          <td class="yes">Ja</td>
+          <td>Endags</td>
+        </tr>
+        <tr>
+          <th>Gæsteliste, barn &lt;13</th>
+          <td class="no">—</td>
+          <td class="yes">Ja (hos administrator)</td>
+          <td class="no">Nej</td>
+          <td class="no">Nej</td>
+          <td>Endags</td>
+        </tr>
+        <tr>
+          <th>B2B videregivelse</th>
+          <td class="yes">Ja</td>
+          <td class="no">—</td>
+          <td class="yes">Ja</td>
+          <td class="yes">Ja</td>
+          <td>Billet-defineret</td>
+        </tr>
+        <tr>
+          <th>B2B tilknytning</th>
+          <td class="no">—</td>
+          <td class="yes">Ja (hos firma)</td>
+          <td class="no">Nej</td>
+          <td class="no">Nej</td>
+          <td>Billet-defineret</td>
+        </tr>
+        <tr>
+          <th>B2B "userless"</th>
+          <td class="no">—</td>
+          <td class="yes">Ja (anonymt)</td>
+          <td class="no">—</td>
+          <td class="no">Nej</td>
+          <td>Kort, ad hoc</td>
+        </tr>
+        <tr>
+          <th>Medarbejder</th>
+          <td class="no">Nej (låst)</td>
+          <td class="no">—</td>
+          <td class="yes">Ja</td>
+          <td class="yes">Ja</td>
+          <td>Bod-defineret</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout secure">
+    <strong>Én regel på tværs af alle kategorier:</strong> Profilen kan kun have én aktiv check-in-tilstand ad gangen. Samme adgang kan ikke bruges af to personer samtidig, uanset type.
+  </div>
+
+  <div class="cta">
+    <h3>Er du i tvivl om, hvilken type der passer?</h3>
+    <p>Skriv til os, vi hjælper med at finde den rette model for jeres arrangement.</p>
+    <div class="cta-btn-row">
+      <a class="cta-btn" href="mailto:kontor@ringstedfestival.dk">
+        <span>&#9993;</span>
+        Skriv til kontoret
+      </a>
+      <a class="cta-btn secondary" href="index.html">Tilbage til support</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

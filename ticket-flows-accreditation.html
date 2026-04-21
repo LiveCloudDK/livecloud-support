@@ -302,6 +302,12 @@
             <td>Delegation eller transfer</td>
             <td>Valgfrit</td>
           </tr>
+          <tr>
+            <td><strong>Gæsteliste-admin</strong></td>
+            <td>Inviterer familie, venner eller gæster til artistens koncertdag</td>
+            <td>Gæsteliste (invite-link)</td>
+            <td>Ja, modtageren opretter profil</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -344,10 +350,66 @@
     </div>
   </div>
 
-  <!-- 4. Check-in -->
+  <!-- 4. Gæsteliste -->
   <div class="section">
     <div class="section-header">
       <div class="section-num">4</div>
+      <h2>Gæsteliste (invite-links til gæster)</h2>
+    </div>
+    <p class="section-intro">Ved siden af selve akkrediteringslisten kan du have en separat <strong>gæsteliste</strong>, hvor artister, presse eller andre med ansvar kan invitere familie, venner og gæster til specifikke dage på festivalen. Typisk bruges det til endags-adgange den dag, artisten spiller.</p>
+    <div class="flow-list">
+      <div class="flow-card">
+        <div class="flow-title">Administrator uddeler invites</div>
+        <div class="flow-subtitle">Administratoren (typisk artistens manager) styrer listen</div>
+        <div class="flow-tags">
+          <span class="flow-tag info">Separat liste</span>
+          <span class="flow-tag needs-app">Modtager opretter profil</span>
+        </div>
+        <div class="flow-desc">
+          <p>I webportalen tilføjer administratoren modtagere med navn og email, vælger den dag adgangen skal gælde (typisk den dag artisten spiller), og sender et <strong>invite-link</strong> per person.</p>
+          <p>Hver invite er personlig og kan kun bruges af én modtager. Invites udløber efter 72 timer og kan gensendes fra webportalen.</p>
+        </div>
+        <div class="flow-note">Gæsteliste-adgange er typisk endags-adgange, ikke for hele festivalen. Administratoren har selv ansvaret for, hvem der kommer på listen.</div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
+        <div class="flow-title">Modtager aktiverer sin adgang</div>
+        <div class="flow-subtitle">Invite-link &rarr; profil med MitID &rarr; aktiv adgang</div>
+        <div class="flow-tags">
+          <span class="flow-tag needs-app">App + MitID-profil</span>
+        </div>
+        <div class="flow-desc">
+          <p>Modtageren klikker på invite-linket, opretter en profil med MitID (hvis ikke allerede oprettet), og aktiverer sin endags-adgang. Adgangen ligger nu på modtagerens profil og kan bruges i appen eller med et chip-armbånd på pladsen på den gyldige dag.</p>
+        </div>
+        <a class="video-link" href="#">Se video &rarr;</a>
+      </div>
+      <div class="flow-card">
+        <div class="flow-title">Børn under 13 (børne-adgange)</div>
+        <div class="flow-subtitle">Markér børn på listen, da de ikke kan have MitID</div>
+        <div class="flow-tags">
+          <span class="flow-tag no-app">Ingen MitID på barnet</span>
+          <span class="flow-tag info">Tilknyttet voksen på listen</span>
+        </div>
+        <div class="flow-desc">
+          <p>Børn under 13 kan ikke have MitID og kan derfor ikke selv oprette en profil. Som administrator skal du <strong>markere barnet på gæstelisten som en børne-adgang</strong> (under 13) og knytte det til en voksens profil på listen, typisk en forælder eller ledsager, der også er inviteret.</p>
+          <p>Barnets adgang følger automatisk med over på den voksnes profil, når den voksne aktiverer sin egen invite. Ved indgangen viser den voksne sin adgang, og barnet kommer med ind som en tilknyttet ledsager.</p>
+        </div>
+        <div class="flow-note">Er barnet 13 eller derover, kan de godt selv få en profil og en egen endags-adgang via et separat invite-link, hvis det foretrækkes.</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-title">Tilbagekald en adgang</div>
+        <div class="flow-subtitle">Fjern en adgang fra listen, hvis planen ændres</div>
+        <div class="flow-desc">
+          <p>Så længe gæsten ikke er checket ind på pladsen, kan du trække adgangen tilbage fra webportalen. Er gæsten allerede inde på pladsen, er adgangen låst, indtil de tjekker ud.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Check-in -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
       <h2>Akkrediterings check-in og armbånd</h2>
     </div>
     <p class="section-intro">Delegerede personer (uden app) skal hente deres armbånd ved en speciel akkrediterings check-in.</p>
@@ -368,10 +430,10 @@
     </div>
   </div>
 
-  <!-- 5. Administration -->
+  <!-- 6. Administration -->
   <div class="section">
     <div class="section-header">
-      <div class="section-num">5</div>
+      <div class="section-num">6</div>
       <h2>Følg op og administrer</h2>
     </div>
     <div class="flow-list">
@@ -390,10 +452,10 @@
     </div>
   </div>
 
-  <!-- 6. Efter festivalen -->
+  <!-- 7. Efter festivalen -->
   <div class="section">
     <div class="section-header">
-      <div class="section-num">6</div>
+      <div class="section-num">7</div>
       <h2>Efter festivalen</h2>
     </div>
     <div class="after-note">
@@ -429,6 +491,12 @@
             <td>Nej (permanent)</td>
             <td>App + gæsteprofil</td>
             <td>Appen</td>
+          </tr>
+          <tr>
+            <td><strong>Gæsteliste</strong></td>
+            <td>Ja (listen administreres)</td>
+            <td>App + MitID-profil<br><small>(børn under 13: via voksens profil)</small></td>
+            <td>Appen eller armbånd</td>
           </tr>
         </tbody>
       </table>

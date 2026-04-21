@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<title>[INTERNT] Dev-tjekliste, flow-dækning</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0B0D12;
+    --bg-card: #14171F;
+    --bg-card-hover: #1B1F2A;
+    --bg-done: #12211C;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #5F6478;
+    --border: #232836;
+    --border-strong: #2F3545;
+    --accent: #2DD4BF;
+    --accent-dark: #14B8A6;
+    --accent-amber: #F59E0B;
+    --accent-red: #EF4444;
+    --accent-blue: #60A5FA;
+    --accent-purple: #A78BFA;
+    --accent-green: #5CB77A;
+    --accent-rose: #F472B6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 0 80px;
+  }
+
+  .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .hero { margin-bottom: 28px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(45, 212, 191, 0.08); border: 1px solid rgba(45, 212, 191, 0.28);
+    padding: 5px 12px; border-radius: 14px;
+    font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 14px;
+    letter-spacing: 1px; text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .internal-banner {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.08), rgba(245, 158, 11, 0.08));
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: var(--text);
+  }
+  .internal-banner::before {
+    content: 'INTERNT';
+    background: var(--accent-red);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 3px 8px; border-radius: 4px; flex-shrink: 0;
+  }
+  .hero h1 {
+    font-size: 32px; font-weight: 800; letter-spacing: -0.5px;
+    margin-bottom: 10px; line-height: 1.15;
+  }
+  .hero .lede {
+    font-size: 16px; color: var(--text-muted); max-width: 720px; line-height: 1.7;
+  }
+
+  /* ═══ Progress bar ═══ */
+  .progress-bar-wrap {
+    margin: 32px 0 24px;
+    padding: 22px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .progress-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 12px; gap: 16px; flex-wrap: wrap;
+  }
+  .progress-count {
+    font-size: 22px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+  }
+  .progress-count .pc-done { color: var(--accent); }
+  .progress-count .pc-total { color: var(--text-dim); }
+  .progress-count .pc-pct { color: var(--accent); font-size: 16px; margin-left: 8px; }
+  .progress-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    font-size: 12px; font-weight: 600; padding: 7px 13px; border-radius: 8px;
+    background: transparent; color: var(--text-muted); border: 1px solid var(--border-strong);
+    cursor: pointer; transition: all 0.15s; font-family: inherit;
+  }
+  .btn:hover { color: var(--text); border-color: var(--accent); }
+  .btn.danger:hover { color: var(--accent-red); border-color: var(--accent-red); }
+
+  .progress-bar {
+    width: 100%; height: 8px; background: var(--border);
+    border-radius: 4px; overflow: hidden; position: relative;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    border-radius: 4px; width: 0%; transition: width 0.3s ease;
+  }
+
+  /* ═══ Filter chips ═══ */
+  .filters {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+  }
+  .filter-chip {
+    font-size: 12px; padding: 7px 14px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; color: var(--text-muted); cursor: pointer;
+    font-weight: 500; transition: all 0.15s;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .filter-chip:hover { color: var(--text); border-color: var(--accent); }
+  .filter-chip.active {
+    background: rgba(45, 212, 191, 0.12);
+    color: var(--accent); border-color: rgba(45, 212, 191, 0.4);
+  }
+
+  /* ═══ Sections ═══ */
+  .section { margin-bottom: 40px; scroll-margin-top: 20px; }
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+  .section-title-wrap {
+    display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0;
+  }
+  .section-num {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+    background: rgba(45, 212, 191, 0.12); color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .section h2 {
+    font-size: 17px; font-weight: 700; letter-spacing: -0.2px;
+  }
+  .section-meta {
+    font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+  .section-meta .sm-done { color: var(--accent); }
+
+  /* ═══ Checklist items ═══ */
+  .items { display: flex; flex-direction: column; gap: 4px; }
+  .item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: all 0.15s;
+    cursor: pointer;
+    align-items: start;
+  }
+  .item:hover { background: var(--bg-card-hover); border-color: var(--border-strong); }
+  .item.done {
+    background: var(--bg-done);
+    border-color: rgba(92, 183, 122, 0.25);
+  }
+  .item.done .item-title { color: var(--text-muted); text-decoration: line-through; text-decoration-color: rgba(92, 183, 122, 0.5); }
+
+  .check {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border-strong);
+    border-radius: 5px;
+    flex-shrink: 0; margin-top: 2px;
+    position: relative; transition: all 0.15s;
+  }
+  .item:hover .check { border-color: var(--accent); }
+  .item.done .check {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+  }
+  .item.done .check::after {
+    content: ''; position: absolute;
+    left: 5px; top: 1px;
+    width: 5px; height: 10px;
+    border: solid #fff; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .item-body { min-width: 0; }
+  .item-title {
+    font-size: 14.5px; font-weight: 600; color: var(--text);
+    line-height: 1.45; margin-bottom: 3px;
+  }
+  .item-desc {
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.55;
+  }
+  .item-desc code {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    padding: 1px 6px; background: var(--border); border-radius: 4px;
+    color: var(--accent);
+  }
+
+  .item-meta {
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: 4px; flex-shrink: 0;
+  }
+  .item-tag {
+    font-size: 10px; font-weight: 700; padding: 3px 8px;
+    border-radius: 10px; letter-spacing: 0.4px; text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace; white-space: nowrap;
+  }
+  .item-tag.guest { background: rgba(96, 165, 250, 0.12); color: var(--accent-blue); }
+  .item-tag.b2b { background: rgba(245, 158, 11, 0.12); color: var(--accent-amber); }
+  .item-tag.crew { background: rgba(167, 139, 250, 0.14); color: var(--accent-purple); }
+  .item-tag.employee { background: rgba(92, 183, 122, 0.14); color: var(--accent-green); }
+  .item-tag.shared { background: rgba(45, 212, 191, 0.14); color: var(--accent); }
+  .item-tag.critical { background: rgba(239, 68, 68, 0.14); color: var(--accent-red); }
+
+  .item-source {
+    font-size: 10px; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .item-source:hover { color: var(--accent); }
+
+  /* ═══ Export/Import area ═══ */
+  .toolbar {
+    margin: 48px 0 0; padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .toolbar-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .toolbar-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .toolbar-row .note { font-size: 12px; color: var(--text-dim); margin-left: auto; }
+
+  @media (max-width: 720px) {
+    .container { padding: 28px 0 60px; }
+    .hero h1 { font-size: 26px; }
+    .item { grid-template-columns: auto 1fr; }
+    .item-meta { grid-column: 2; align-items: flex-start; flex-direction: row; }
+    .progress-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <span style="color: var(--text-dim);">livecloud-support</span>
+    <span>/</span>
+    <span style="color: var(--accent);">dev-tjekliste</span>
+    <span>/</span>
+    <span style="color: var(--text-dim);">kun intern brug</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&gt;_</span>
+      Intern, for udviklingsteamet
+    </div>
+    <h1>Flow-dækning: kan systemet det, vi lover brugerne?</h1>
+    <p class="lede">En tjekliste over alle de scenarier vi beskriver i FAQ'er, chatbot og flow-sider. Gennemgå listen og markér, hvad platformen rent faktisk kan håndtere, hvad der er under udvikling, og hvad der mangler. Fremskridt gemmes lokalt i din browser.</p>
+  </div>
+
+  <div class="internal-banner">
+    <div>
+      <strong>Denne side er til udviklingsteamet.</strong> Ikke linket fra nogen offentlig side, ikke indekseret af søgemaskiner, og ikke beregnet til at blive delt eksternt. Del kun URL'en i interne kanaler.
+    </div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-header">
+      <div class="progress-count">
+        <span class="pc-done" id="countDone">0</span><span class="pc-total"> / <span id="countTotal">0</span></span><span class="pc-pct" id="countPct">0%</span>
+      </div>
+      <div class="progress-actions">
+        <button class="btn" onclick="expandAll()">Udvid alle</button>
+        <button class="btn" onclick="markSectionsShow('unchecked')">Vis kun åbne</button>
+        <button class="btn" onclick="markSectionsShow('all')">Vis alle</button>
+        <button class="btn danger" onclick="resetAll()">Nulstil</button>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-chip active" data-filter="all">Alle</button>
+    <button class="filter-chip" data-filter="guest">Gæst</button>
+    <button class="filter-chip" data-filter="b2b">Virksomhed</button>
+    <button class="filter-chip" data-filter="crew">Crew / akkreditering</button>
+    <button class="filter-chip" data-filter="employee">Medarbejder</button>
+    <button class="filter-chip" data-filter="shared">Delt infrastruktur</button>
+    <button class="filter-chip" data-filter="critical">Kritisk</button>
+  </div>
+
+  <!-- ═══════════════ 1. Profil & identitet ═══════════════ -->
+  <div class="section" data-section="1">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">01</div>
+        <h2>Profil &amp; identitet</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Oprette profil i app med MitID</div>
+          <div class="item-desc">Ny bruger kan oprette profil via festival-appen. MitID bekræfter identitet. Navn/email/telefon gemmes.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#access">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Oprette profil via webshop (computer)</div>
+          <div class="item-desc">Brugere uden smartphone kan oprette profil på en computer og aktivere billet + bestille armbånd.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#devices">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">MitID kun første gang, derefter PIN/biometri</div>
+          <div class="item-desc">Bruger bekræfter første gang med MitID. Fremover: Face ID, fingeraftryk eller PIN. MitID kun ved logud, enhedsskift eller følsomme handlinger.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Logget ind på flere enheder samtidig</div>
+          <div class="item-desc">Bruger kan være logget ind på egen telefon + lånt telefon/iPad samtidig. Billet/Beats tilknyttet profil, ikke enhed.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">MitID-fritaget bruger, alternativ verificering</div>
+          <div class="item-desc">Bruger kan identificeres manuelt ved henvendelse til festivalen. Kræver proces for oprettelse uden MitID.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Udenlandsk gæst uden MitID</div>
+          <div class="item-desc">Flow for udenlandske gæster uden dansk MitID, alternative verificeringsmetoder.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">MitID-aldersgrænse (13 år) håndhævet</div>
+          <div class="item-desc">Børn under 13 kan ikke oprette egen profil (ingen MitID). System skal understøtte at de kommer ind via voksens profil (gæst) eller administrator (gæsteliste).</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Bruger kan logge ud af enkelt enhed</div>
+          <div class="item-desc">Logud fra én enhed uden at påvirke andre indloggede enheder.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 2. Billet-håndtering ═══════════════ -->
+  <div class="section" data-section="2">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">02</div>
+        <h2>Billet-håndtering (gæst)</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Indløs billet fra e-mail (del PDF til app)</div>
+          <div class="item-desc">Share-sheet fra Mail-app til festival-app importerer billetkoder fra PDF.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Indløs billet fra billede (screenshot)</div>
+          <div class="item-desc">OCR/QR-læsning af billede fra kamerarullen.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Scan QR-kode med kamera</div>
+          <div class="item-desc">Direkte scan af udprintet billet med telefonens kamera.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Importér fra PDF-fil</div>
+          <div class="item-desc">Vælg PDF fra telefonens filsystem og find billetkoder.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Indsæt billetkode fra udklipsholder</div>
+          <div class="item-desc">Automatisk detektion af billetkode i kopieret tekst.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Se aktive billetter i app</div>
+          <div class="item-desc">Liste over alle aktive billetter med type, dato, adgange. Tryk for detaljer.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Partout med flere enkelte adgange</div>
+          <div class="item-desc">Billet med fx torsdag/fredag/lørdag som separate adgange der kan håndteres individuelt.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Campingbillet dækker hele festivalens periode</div>
+          <div class="item-desc">Standard campingbillet kan ikke stykkes ud, overdrages som helhed.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 3. Videregivelse ═══════════════ -->
+  <div class="section" data-section="3">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">03</div>
+        <h2>Videregivelse (transfer)</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Videregiv hele billet til anden person</div>
+          <div class="item-desc">Permanent overdragelse. Alle adgange flyttes samlet. Afsender mister billetten. Modtager får email-link.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Videregiv enkelt adgang fra partout</div>
+          <div class="item-desc">Én dag eller enkelt adgang fra flerdagsbillet videregives til anden person. Resten bliver på afsenderen.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Videresend uindløst billetkode via SMS/Messenger/email</div>
+          <div class="item-desc">Uindløste koder kan deles direkte via telefonens share-sheet. Modtageren indløser selv.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Invitations-link udløber efter 72 timer</div>
+          <div class="item-desc">Videregivelseslink har automatisk 72-timers TTL. Efter udløb kan afsenderen gensende.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Gensend udløbet invitation</div>
+          <div class="item-desc">Afsender kan udstede nyt 72-timers link. Gamle link deaktiveres automatisk.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Modtager skal have MitID-verificeret profil</div>
+          <div class="item-desc">Accept af videregivet billet kræver profil med MitID. Uden verificering kan billet ikke modtages.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Accept eller afvis videregivelse i app</div>
+          <div class="item-desc">Modtager kan aktivt acceptere eller afvise en indgående billet.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Videregivelse er permanent, kan ikke fortrydes</div>
+          <div class="item-desc">Efter accept er billetten modtagerens ejendom. Retur kun ved ny videregivelse fra modtager.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest b2b critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Prisbegrænsning håndhævet: ikke over købspris</div>
+          <div class="item-desc">Anti-sortbørs: system må ikke tillade videresalg over original købspris. Kræver håndhævelse + disclaimer.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="ticket-flows-qa.html#disclaimer">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="b2b critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Videregivelse låst når billet er inde på pladsen</div>
+          <div class="item-desc">Efter check-in er billetten låst til den profil, der har checket ind. Ny videregivelse først muligt efter check-out.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 4. Tilknytning ═══════════════ -->
+  <div class="section" data-section="4">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">04</div>
+        <h2>Tilknytning (børn, ledsager, crew, medarbejder)</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Tilknyt barn under 13 til voksens billet</div>
+          <div class="item-desc">Navn + alder. Intet MitID/profil på barnet. Barnet kommer ind sammen med voksen.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Tilknyt ledsager til voksens billet</div>
+          <div class="item-desc">For personer uden smartphone/profil. Følges ad ved ind- og udgang.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Tilknyt chip-armbånd til voksens profil</div>
+          <div class="item-desc">Barnet/ledsageren kan få armbånd, der debiterer voksnes Beats-konto.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Flere armbånd på samme profil</div>
+          <div class="item-desc">En profil kan have flere tilknyttede armbånd, fx ét til hvert barn.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Maks-forbrug per armbånd</div>
+          <div class="item-desc">Profilens ejer kan sætte beløbsgrænse på hvert tilknyttet armbånd. Forbrug trackes i realtid.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="crew critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Tilknyt crew til ordreholders profil (akkreditering)</div>
+          <div class="item-desc">Crew-adgang via tilknytning (ikke videregivelse). Armbånd hænger på ordreholder. Ingen MitID/profil krævet på crew-medlem.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">INGEN videregivelse på akkrediteringsliste</div>
+          <div class="item-desc">Kritisk: transfer må ikke være en mulig handling på akkrediteringsliste. Kun tilknytning tilladt.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="akkreditering-overblik.html">overblik</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Tilknyt medarbejder til firmaets profil (B2B)</div>
+          <div class="item-desc">Medarbejder hænger på virksomhedens account. Beats-forbrug trækkes fra firma-konto.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">"Userless"-adgang for manager uden individuel profil</div>
+          <div class="item-desc">Manager kan holde anonyme gæsteadgange uden at tilknytte en bestemt person. Typisk korte gæsteadgange.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="employee critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Medarbejder-adgang LÅST (kan ikke videregives)</div>
+          <div class="item-desc">Medarbejderen kan ikke selv videresende sin adgang. Skifte af person skal gå via bod/arbejdsgiver i medarbejder-portalen.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq-medarbejder.html">faq-medarbejder</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Samme person kan have flere roller/adgange</div>
+          <div class="item-desc">Fx crew + backstage kan samles på ét armbånd. Flere adgange, samme profil.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Skift armbånd mellem personer (vagtskifte)</div>
+          <div class="item-desc">Ordreholder kan fjerne armbånd fra person A og tilknytte til person B i webportalen. Ikke under aktivt brug.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 5. Check-in / Check-out ═══════════════ -->
+  <div class="section" data-section="5">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">05</div>
+        <h2>Check-in &amp; check-out</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Check-in via app (QR/billet)</div>
+          <div class="item-desc">Scan QR i app ved indgangen. Automatisk check-in.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#access">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Check-in via NFC-armbånd</div>
+          <div class="item-desc">Armbånd scannes ved indgang. Virker uden telefon, batteri og net.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Check-out når gæst forlader pladsen</div>
+          <div class="item-desc">Samme armbånd/app ved udgang. Gæst markeres som ude.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#access">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Gentagne check-ind/check-ud (fri bevægelse)</div>
+          <div class="item-desc">Gæster kan gå ind og ud flere gange på samme billet.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#access">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Realtids tilstedeværelses-liste</div>
+          <div class="item-desc">System ved altid præcis, hvem der er på pladsen. Til brug ved beredskab og sikkerhed.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="crew critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Scanner viser børne-markering ved børne-adgang</div>
+          <div class="item-desc">Vagten ser direkte på scanneren, at armbåndet er en børne-adgang (gæsteliste, under 13). Ingen ekstra dokumentation påkrævet.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="akkreditering-overblik.html#children">overblik</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Scanner viser zone-adgang</div>
+          <div class="item-desc">Hvilke zoner armbåndet giver adgang til (backstage, scene, presse, VIP, camping).</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="ticket-flows-accreditation.html">flows-akkred</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 6. NFC-armbånd ═══════════════ -->
+  <div class="section" data-section="6">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">06</div>
+        <h2>NFC-armbånd</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Bestille armbånd via webshop på forhånd</div>
+          <div class="item-desc">Gæst kan pre-ordere armbånd, afhentes ved check-in Service Desk.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Købe armbånd på festivalen (Service Desk eller bar)</div>
+          <div class="item-desc">Armbånd kan købes on-site af gæster, der ikke har bestilt på forhånd.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html#devices">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Armbånd knyttes til profil ved udlevering</div>
+          <div class="item-desc">Personale scanner armbånd + verificerer profil. Kobling oprettes. Armbånd er nu brugbart.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Armbånd ikke adgangsgivende uden kobling</div>
+          <div class="item-desc">Sikkerhed: Et løst armbånd (på lageret, i transport, tabt før kobling) må ikke kunne bruges til adgang.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Tabt armbånd: Service Desk spærrer + udsteder nyt</div>
+          <div class="item-desc">Gamle armbånd deaktiveres. Nyt armbånd knyttes til samme profil. Beats/adgang følger med.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Armbånd virker offline (ingen net/telefon)</div>
+          <div class="item-desc">Scan fungerer uden internet ved indgang og bar. Data synces ved forbindelse.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#connectivity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Beats ligger på profil, ikke på armbånd</div>
+          <div class="item-desc">Arkitektonisk: armbåndet er bare en identifier. Tabt armbånd = ingen tabte Beats.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Udlån af armbånd forbudt / håndhævet</div>
+          <div class="item-desc">Armbånd er strengt personligt. System skal kunne opdage/flagge misbrug (samme armbånd på flere steder hurtigt).</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 7. Beats ═══════════════ -->
+  <div class="section" data-section="7">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">07</div>
+        <h2>Beats (festivalens digitale valuta)</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Køb Beats med kort / Apple Pay / Google Pay / MobilePay</div>
+          <div class="item-desc">Alle 4 betalingsmetoder understøttet. Via webshop eller app.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html#payment">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Fyld Beats på ved bar under festival</div>
+          <div class="item-desc">On-site top-up ved bar med kort/MobilePay.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Automatisk optankning ved lav saldo</div>
+          <div class="item-desc">Gæst kan slå auto-top-up til. Kort trækkes når saldo er lav. Konfigurerbart beløb.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Beats er eneste betalingsmiddel på pladsen</div>
+          <div class="item-desc">Ingen kontant eller direkte kortbetaling i barer/boder. Sikrer auto-afstemning.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Se kvitteringer / transaktionshistorik</div>
+          <div class="item-desc">Under "Beats" → "Kvitteringer" i app. Tidspunkt, sted, beløb for hvert køb.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Fejlkøb i bar: bartender kan refundere til Beats</div>
+          <div class="item-desc">Bartender annullerer på stedet. Beløb retur til saldo i realtid. Synlig for gæsten i app.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html#beats">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Ubrugte Beats refunderes til kort efter festival</div>
+          <div class="item-desc">Post-festival refund flow. Gebyr ved refund. Samme kort som oprindelig betaling.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Beats kan overføres til næste år / ny billet</div>
+          <div class="item-desc">Gratis carry-over til næste års festival eller til billet-køb.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Pre-bestilling fra app</div>
+          <div class="item-desc">Bestil drikke/mad i app, hent ved bar uden kø. Beats trækkes ved bestilling.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Bordbestilling + bestilling til lejer</div>
+          <div class="item-desc">Udvalgte steder kan levere til bord eller lejr. Betales via Beats.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="guest">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Bestilling for flere: én gæst betaler for hele flokken</div>
+          <div class="item-desc">En runde kan bestilles og betales fra én gæsts saldo. Ikke direkte Beats-overførsel mellem brugere.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 8. Webportal B2B ═══════════════ -->
+  <div class="section" data-section="8">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">08</div>
+        <h2>Webportal (B2B / virksomhed)</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Firma-konto oprettes ved første bestilling</div>
+          <div class="item-desc">Virksomheds-account knyttet til bruger. Fremtidige bestillinger kobles automatisk.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Login med firma-email + password</div>
+          <div class="item-desc">Webportal login, ikke MitID. Password oprettes ved første login.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Webportal virker på mobil og laptop</div>
+          <div class="item-desc">Responsive design. Layout tilpasser sig. CSV-import praktisk fra computer.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Bestil billetter i større antal (10, 50, 100+)</div>
+          <div class="item-desc">Volumen-bestilling fra virksomhed. Samlet på én ordre.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Batch-fordeling via webportal</div>
+          <div class="item-desc">Fordel flere billetter på én gang med navn+email, som videregivelse eller tilknytning.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="ticket-flows-b2b.html">flows-b2b</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">CSV-import af modtagere</div>
+          <div class="item-desc">Upload CSV med navne/emails. System fordeler automatisk. Format afklares.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Status per billet i realtid</div>
+          <div class="item-desc">Ikke tildelt, videregivet, accepteret, udløbet, check-in status. Filter/søg.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="ticket-flows-b2b.html">flows-b2b</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Oplad Beats på firma-konto</div>
+          <div class="item-desc">Kort/MobilePay eller faktura. Auto-optankning for virksomheder.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Faktura-betaling for virksomhed</div>
+          <div class="item-desc">Betaling via CVR-baseret faktura. Gælder både billetter og Beats-oplad.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Beats-rapport til bogføring (eksport)</div>
+          <div class="item-desc">Samlet overblik over forbrug på tværs af armbånd/billetter. Eksport til regnskab.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Moms-korrekt fakturering</div>
+          <div class="item-desc">Fakturaer sendes med korrekt moms-specifikation.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+      <div class="item" data-tag="b2b">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Flere administratorer på samme virksomheds-account</div>
+          <div class="item-desc">Under afklaring: delt adgang til webportalen med evt. rolle-baserede rettigheder.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag b2b">B2B</span><a class="item-source" href="faq-business.html">faq-business</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 9. Webportal akkreditering ═══════════════ -->
+  <div class="section" data-section="9">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">09</div>
+        <h2>Webportal (akkreditering)</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Festival opretter ordreholder via email-invitation</div>
+          <div class="item-desc">Festival-admin opretter ordreholder. Email med invitations-link sendes.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="ticket-flows-accreditation.html">flows-akkred</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Ordreholder logger ind uden MitID</div>
+          <div class="item-desc">Login med email + password. MitID ikke krævet for ordreholder.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="ticket-flows-accreditation.html">flows-akkred</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Overblik over tildelte adgange + zoner</div>
+          <div class="item-desc">Ordreholder ser alle tildelte adgange med type, zone, status.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="ticket-flows-accreditation.html">flows-akkred</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Tilføj person (navn + email) per adgang</div>
+          <div class="item-desc">UI-handling "Tilknyt person". Email til personen med adgangs-info.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="ticket-flows-accreditation.html">flows-akkred</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Realtids check-in status for crew</div>
+          <div class="item-desc">Hvem har fået armbånd, hvem er checket ind/ud, hvornår.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Fremvise adgang fra ordreholders webportal</div>
+          <div class="item-desc">Ved check-in Service Desk hvis crew-medlem har glemt email-bekræftelse: ordreholder kan fremvise fra sin konto.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Gensend adgangs-email</div>
+          <div class="item-desc">Ordreholder kan re-sende email til crew-medlem, der ikke har modtaget den første.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Oplad Beats på ordreholders konto</div>
+          <div class="item-desc">Alle tilknyttede armbånd trækker fra denne konto. Auto-optankning mulig.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Maks-forbrug per armbånd (crew)</div>
+          <div class="item-desc">Grænse per individ, fx 300 kr per artist, 500 per crew. Realtids forbrug.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Sidst-øjeblik tilføjelse af crew</div>
+          <div class="item-desc">Nye adgange kan oprettes under festivalen. Armbånd udstedes ved check-in Service Desk.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Automatisk nulstilling efter festival</div>
+          <div class="item-desc">Alle crew-adgange og armbånd deaktiveres automatisk ved festivalens afslutning.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="ticket-flows-accreditation.html">flows-akkred</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 10. Gæsteliste ═══════════════ -->
+  <div class="section" data-section="10">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">10</div>
+        <h2>Gæsteliste (artist-inviterede gæster)</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="crew critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Separat gæsteliste ved siden af akkrediteringsliste</div>
+          <div class="item-desc">Gæsteliste er sin egen liste. Kan køre parallelt med akkrediteringslisten.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="akkreditering-overblik.html#guestlist">overblik</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Administrator tilføjer voksen på liste (navn + email)</div>
+          <div class="item-desc">Voksen modtager får invite-link per email.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Vælg gyldighedsdag per gæstelisteadgang</div>
+          <div class="item-desc">Endagsadgang (typisk dagen artisten spiller). Vælges per entry.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Voksen aktiverer adgang via invite-link</div>
+          <div class="item-desc">Modtager klikker link → opretter profil med MitID → aktiverer endags-adgang. Knyttet til egen profil.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="akkreditering-overblik.html#guestlist">overblik</a></div>
+      </div>
+      <div class="item" data-tag="crew critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Barn under 13 tilføjes direkte på liste (ingen invite)</div>
+          <div class="item-desc">Administrator tilføjer med navn + alder. Markeres som børne-adgang. Adgang hænger teknisk på administratoren.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="akkreditering-overblik.html#children">overblik</a></div>
+      </div>
+      <div class="item" data-tag="crew critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Børne-adgangs-armbånd udleveres af voksen ledsager</div>
+          <div class="item-desc">Ved check-in Service Desk afhenter forælder/ledsager barnets armbånd sammen med sit eget.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="akkreditering-overblik.html#children">overblik</a></div>
+      </div>
+      <div class="item" data-tag="crew critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Scanner viser børne-markering på børne-adgangs-armbånd</div>
+          <div class="item-desc">Vagten kan se på scanner, at det er en børne-adgang. Ingen ekstra dokumentation.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="akkreditering-overblik.html#children">overblik</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Invite-link udløber efter 72 timer</div>
+          <div class="item-desc">Standard TTL. Kan gensendes fra webportal.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Administrator trækker adgang tilbage (før check-in)</div>
+          <div class="item-desc">Så længe gæst ikke er checket ind, kan adgang fjernes fra listen. Efter check-in: låst indtil check-out.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+      <div class="item" data-tag="crew">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Gæstelisteadgang er personlig, kan ikke deles</div>
+          <div class="item-desc">Modtager kan ikke videregive den. Flere gæster = flere invites.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag crew">crew</span><a class="item-source" href="faq-crew.html">faq-crew</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 11. Medarbejder-portal ═══════════════ -->
+  <div class="section" data-section="11">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">11</div>
+        <h2>Medarbejder-portal (bod-ansatte)</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="employee">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Bod opretter medarbejder i medarbejder-portalen</div>
+          <div class="item-desc">Separat portal fra B2B/akkreditering. Bod udfylder navn + email. Inviterer.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag employee">medarb.</span><a class="item-source" href="faq-medarbejder.html">faq-medarb</a></div>
+      </div>
+      <div class="item" data-tag="employee">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Medarbejder modtager invitation, opretter profil med MitID</div>
+          <div class="item-desc">MitID-bekræftelse ved profil-oprettelse. Kobles til medarbejder-adgangen via invite-link.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag employee">medarb.</span><a class="item-source" href="faq-medarbejder.html">faq-medarb</a></div>
+      </div>
+      <div class="item" data-tag="employee">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Medarbejder henter armbånd (bod eller Service Desk)</div>
+          <div class="item-desc">Afhentning kan ske direkte hos bod eller centralt. Armbånd knyttes til medarbejderens profil.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag employee">medarb.</span><a class="item-source" href="faq-medarbejder.html">faq-medarb</a></div>
+      </div>
+      <div class="item" data-tag="employee critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Medarbejder-adgang er LÅST (ikke videregivelse)</div>
+          <div class="item-desc">Systemet skal nægte videregivelse. Skifte person = via bod i medarbejder-portalen.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq-medarbejder.html">faq-medarb</a></div>
+      </div>
+      <div class="item" data-tag="employee">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Medarbejder kan ikke tilknytte ledsager/barn</div>
+          <div class="item-desc">Medarbejder-adgang er strengt personlig. Intet tilknytnings-felt.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag employee">medarb.</span><a class="item-source" href="faq-medarbejder.html">faq-medarb</a></div>
+      </div>
+      <div class="item" data-tag="employee">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Gyldighedsperiode per medarbejder (dage eller timer)</div>
+          <div class="item-desc">Bod sætter adgangsperiode: hele festivalen / specifikke dage / vagttider.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag employee">medarb.</span><a class="item-source" href="faq-medarbejder.html">faq-medarb</a></div>
+      </div>
+      <div class="item" data-tag="employee">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Bod kan tildele Beats til medarbejder</div>
+          <div class="item-desc">Bod-tildelte Beats lægges på medarbejderens saldo. Kan bruges til tjenesteforplejning eller bonus.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag employee">medarb.</span><a class="item-source" href="faq-medarbejder.html">faq-medarb</a></div>
+      </div>
+      <div class="item" data-tag="employee">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Medarbejder har fuld Beats-pung (kan købe selv)</div>
+          <div class="item-desc">Udover tildelte Beats kan medarbejder købe egne Beats og bruge som gæst.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag employee">medarb.</span><a class="item-source" href="faq-medarbejder.html">faq-medarb</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 12. Service Desk ═══════════════ -->
+  <div class="section" data-section="12">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">12</div>
+        <h2>Service Desk &amp; support on-site</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Check-in Service Desk er operativt startpunkt</div>
+          <div class="item-desc">Én fysisk desk til alle kategorier: gæster med problemer, crew-udlevering, medarbejdere, gæsteliste.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="ticket-flows-accreditation.html">flows-akkred</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Personale kan slå bruger op via MitID-login (lånt enhed)</div>
+          <div class="item-desc">Bruger logger ind på lånt enhed. Profil tilgængelig for hjælp.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Personale kan slå op via billet-ID / ordre-nummer</div>
+          <div class="item-desc">Alternativ til MitID-login. Nummeret fra bekræftelsesmail.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Personale MÅ IKKE give adgang kun på navn</div>
+          <div class="item-desc">Identifikation kræves altid (MitID-login eller billet-ID). UX skal gøre det nemt at sige nej høfligt.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Udsted erstatnings-armbånd (tabt / defekt)</div>
+          <div class="item-desc">Gammelt armbånd deaktiveres, nyt udstedes og kobles.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Sælg armbånd on-site (gæst uden forudbestilling)</div>
+          <div class="item-desc">Gæst køber armbånd ved Service Desk. Kobles umiddelbart til profil.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Sælg armbånd også i bar</div>
+          <div class="item-desc">Barer kan udlevere/sælge armbånd ved behov. Samme kobling-flow.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 13. Offline / stabilitet ═══════════════ -->
+  <div class="section" data-section="13">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">13</div>
+        <h2>Offline &amp; stabilitet</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">App cacher billet + profil lokalt</div>
+          <div class="item-desc">QR-kode + Beats-saldo synlig offline. Betalinger registreres lokalt og synces senere.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html#connectivity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Program + kvitteringer cachet lokalt</div>
+          <div class="item-desc">Tilgængelig offline.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#connectivity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Armbånd virker helt uden net/strøm på gæstens enhed</div>
+          <div class="item-desc">NFC-armbånd er passivt. Scannere håndterer validering.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html#connectivity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Powerbank-udlejning på pladsen</div>
+          <div class="item-desc">Ekstern leverandør. Kommunikeres i app/FAQ.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#connectivity">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">App understøtter iOS 16+ / Android 8+</div>
+          <div class="item-desc">Kompatibilitet annonceret i FAQ. Graceful degradation ved ældre OS.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html#devices">faq.html</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 14. Sikkerhed / compliance ═══════════════ -->
+  <div class="section" data-section="14">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-num">14</div>
+        <h2>Sikkerhed &amp; compliance</h2>
+      </div>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">MitID-bekræftelse på alle profiler og videregivelser</div>
+          <div class="item-desc">Kerneantisortbørs-mekanisme. Dokumenteret i sikkerhedssektion.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Data opbevares i EU-datacenter</div>
+          <div class="item-desc">GDPR-compliance. Ingen 3. parts dataeksport uden for EU.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared critical">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">DPA + underdatabehandleraftaler klar fra start</div>
+          <div class="item-desc">Standard-DPA skabelon signeres ved onboarding med festival.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Kortdata håndteres af PCI-certificeret partner (Swedbank)</div>
+          <div class="item-desc">Vi ser aldrig selv kortdata. Al betaling via certificeret indløser.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Al dataoverførsel krypteret</div>
+          <div class="item-desc">TLS/HTTPS. Ingen data i klartekst over nettet.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Mistanke om misbrug: konto kan spærres</div>
+          <div class="item-desc">Admin-flow til at spærre konto. Gælder fx systematisk videresalg.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="ticket-flows-qa.html#disclaimer">flows-qa</a></div>
+      </div>
+      <div class="item" data-tag="shared">
+        <div class="check"></div>
+        <div class="item-body">
+          <div class="item-title">Automatisk afstemning mellem Beats og PSP</div>
+          <div class="item-desc">100% afstemning af transaktioner efter festival, så festivalen kan lukke bøgerne uden manuelt efterarbejde.</div>
+        </div>
+        <div class="item-meta"><span class="item-tag shared">delt</span><a class="item-source" href="faq.html">faq.html</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ Toolbar ═══════════════ -->
+  <div class="toolbar">
+    <div class="toolbar-title">Eksport / import</div>
+    <div class="toolbar-row">
+      <button class="btn" onclick="exportJson()">Download status som JSON</button>
+      <button class="btn" onclick="document.getElementById('importInput').click()">Importer JSON</button>
+      <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJson(event)">
+      <span class="note">Status gemmes lokalt i browseren (localStorage). Brug JSON-eksport til at dele med teamet.</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const STORAGE_KEY = 'livecloud-dev-checklist-v1';
+
+  // ═══ Init: restore state ═══
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    } catch (e) {
+      return {};
+    }
+  }
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  // ═══ Give each item a stable ID from its title ═══
+  function slugify(s) {
+    return s.trim().toLowerCase()
+      .replace(/[æå]/g, 'a').replace(/ø/g, 'o')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '').slice(0, 80);
+  }
+
+  const allItems = document.querySelectorAll('.item');
+  allItems.forEach((el) => {
+    const title = el.querySelector('.item-title').textContent;
+    el.dataset.id = slugify(title);
+  });
+
+  // ═══ Restore check state ═══
+  const state = loadState();
+  allItems.forEach((el) => {
+    if (state[el.dataset.id]) el.classList.add('done');
+  });
+
+  // ═══ Toggle on click ═══
+  allItems.forEach((el) => {
+    el.addEventListener('click', () => {
+      el.classList.toggle('done');
+      const s = loadState();
+      if (el.classList.contains('done')) s[el.dataset.id] = true;
+      else delete s[el.dataset.id];
+      saveState(s);
+      updateProgress();
+    });
+  });
+
+  // ═══ Update progress bar + counters ═══
+  function updateProgress() {
+    const items = document.querySelectorAll('.item');
+    const visibleItems = Array.from(items).filter(el => el.style.display !== 'none');
+    const done = visibleItems.filter(el => el.classList.contains('done')).length;
+    const total = visibleItems.length;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+    document.getElementById('countDone').textContent = done;
+    document.getElementById('countTotal').textContent = total;
+    document.getElementById('countPct').textContent = pct + '%';
+    document.getElementById('progressFill').style.width = pct + '%';
+
+    // Per-section counts
+    document.querySelectorAll('.section').forEach(section => {
+      const sectionItems = Array.from(section.querySelectorAll('.item')).filter(el => el.style.display !== 'none');
+      const sectionDone = sectionItems.filter(el => el.classList.contains('done')).length;
+      const sectionTotal = sectionItems.length;
+      const meta = section.querySelector('.section-meta');
+      if (meta) {
+        meta.querySelector('.sm-done').textContent = sectionDone;
+        meta.querySelector('.sm-total').textContent = sectionTotal;
+      }
+      // Hide empty sections when filtering
+      section.style.display = sectionTotal === 0 ? 'none' : '';
+    });
+  }
+
+  // ═══ Filter chips ═══
+  let currentFilter = 'all';
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentFilter = chip.dataset.filter;
+      applyFilter();
+    });
+  });
+
+  function applyFilter() {
+    allItems.forEach(el => {
+      const tags = (el.dataset.tag || '').split(/\s+/);
+      if (currentFilter === 'all' || tags.includes(currentFilter)) {
+        el.style.display = '';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+    updateProgress();
+  }
+
+  // ═══ Toolbar actions ═══
+  function resetAll() {
+    if (!confirm('Nulstil alle markeringer? Dette kan ikke fortrydes.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    allItems.forEach(el => el.classList.remove('done'));
+    updateProgress();
+  }
+  function expandAll() {
+    // No-op for now, kept in case we add collapse later
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function markSectionsShow(mode) {
+    if (mode === 'unchecked') {
+      allItems.forEach(el => {
+        if (el.classList.contains('done')) el.style.display = 'none';
+        else {
+          // Only show if also matches current filter
+          const tags = (el.dataset.tag || '').split(/\s+/);
+          if (currentFilter === 'all' || tags.includes(currentFilter)) el.style.display = '';
+          else el.style.display = 'none';
+        }
+      });
+    } else {
+      applyFilter();
+    }
+    updateProgress();
+  }
+
+  function exportJson() {
+    const state = loadState();
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'livecloud-dev-tjekliste-' + new Date().toISOString().split('T')[0] + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importJson(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const state = JSON.parse(e.target.result);
+        saveState(state);
+        allItems.forEach(el => {
+          if (state[el.dataset.id]) el.classList.add('done');
+          else el.classList.remove('done');
+        });
+        updateProgress();
+        alert('Status importeret.');
+      } catch (err) {
+        alert('Kunne ikke læse JSON-fil.');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  // ═══ Initial render ═══
+  updateProgress();
+</script>
+
+</body>
+</html>

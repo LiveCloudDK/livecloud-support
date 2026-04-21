@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akkreditering &amp; gæsteliste, overblik, LiveCloud Support</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #222632;
+    --bg-answer: #151821;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #6B6F80;
+    --border: #2A2E3D;
+    --accent: #A78BFA;
+    --accent-dark: #8B6FE0;
+    --accent-amber: #F59E0B;
+    --accent-green: #5CB77A;
+    --accent-blue: #60A5FA;
+    --accent-rose: #F472B6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 0 80px;
+  }
+
+  .breadcrumb { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .hero { margin-bottom: 40px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(167, 139, 250, 0.1); border: 1px solid rgba(167, 139, 250, 0.25);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 34px; font-weight: 800; letter-spacing: -0.5px;
+    margin-bottom: 12px; line-height: 1.15;
+  }
+  .hero .lede {
+    font-size: 17px; color: var(--text-muted); max-width: 720px; line-height: 1.7;
+  }
+
+  .toc {
+    margin: 24px 0 40px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .toc-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px;
+  }
+  .toc ul { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+  .toc ul li { padding: 3px 0 3px 18px; position: relative; font-size: 14px; }
+  .toc ul li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-weight: 700;
+  }
+  .toc ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .toc ul li a:hover { color: var(--accent); }
+  @media (max-width: 640px) {
+    .toc ul { grid-template-columns: 1fr; }
+  }
+
+  h2 {
+    font-size: 24px; font-weight: 700; letter-spacing: -0.3px;
+    margin: 48px 0 14px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 24px;
+  }
+  h2 .h2-chip {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 10px;
+    vertical-align: middle; margin-right: 10px;
+    background: rgba(167, 139, 250, 0.15); color: var(--accent);
+  }
+  h2 .h2-chip.amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+  h2 .h2-chip.green { background: rgba(92, 183, 122, 0.15); color: var(--accent-green); }
+  h2 .h2-chip.blue { background: rgba(96, 165, 250, 0.15); color: var(--accent-blue); }
+  h2 .h2-chip.rose { background: rgba(244, 114, 182, 0.15); color: var(--accent-rose); }
+
+  h3 {
+    font-size: 17px; font-weight: 700; margin: 26px 0 10px; color: var(--text);
+  }
+
+  p {
+    color: var(--text-muted); font-size: 15.5px; line-height: 1.75;
+    margin-bottom: 14px;
+  }
+  p strong, li strong { color: var(--text); font-weight: 600; }
+  p.meta {
+    font-size: 14px; color: var(--text-dim); font-weight: 500;
+    display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 8px 0 20px;
+  }
+  p.meta span { display: inline-flex; align-items: center; gap: 6px; }
+  p.meta span::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+
+  ol, ul {
+    color: var(--text-muted); font-size: 15.5px;
+    padding-left: 0; list-style: none; margin: 10px 0 18px;
+  }
+  ol li, ul li { padding: 5px 0 5px 28px; position: relative; line-height: 1.7; }
+  ul li::before {
+    content: ''; position: absolute; left: 10px; top: 14px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+  ol { counter-reset: step; }
+  ol li {
+    counter-increment: step; padding-left: 38px;
+  }
+  ol li::before {
+    content: counter(step); position: absolute; left: 0; top: 5px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(167, 139, 250, 0.15); color: var(--accent);
+    font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .callout {
+    background: rgba(167, 139, 250, 0.08); border-left: 3px solid var(--accent);
+    padding: 14px 18px; border-radius: 4px; margin: 18px 0;
+    font-size: 14.5px; color: var(--text); line-height: 1.65;
+  }
+  .callout.tip { background: rgba(96, 165, 250, 0.08); border-left-color: var(--accent-blue); }
+  .callout.tip::before { content: '💡 '; margin-right: 4px; }
+  .callout.secure { background: rgba(92, 183, 122, 0.08); border-left-color: var(--accent-green); }
+  .callout.secure::before { content: '🔒 '; margin-right: 4px; }
+  .callout.warn { background: rgba(245, 158, 11, 0.08); border-left-color: var(--accent-amber); }
+  .callout.warn::before { content: '⚠️ '; margin-right: 4px; }
+
+  .table-wrap {
+    margin: 20px 0 24px;
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+  }
+  table.compare {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    min-width: 720px;
+  }
+  table.compare th, table.compare td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  table.compare thead th {
+    background: rgba(167, 139, 250, 0.08);
+    font-weight: 700;
+    color: var(--text);
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+  table.compare thead th:first-child {
+    background: var(--bg-answer);
+    color: var(--text-dim);
+  }
+  table.compare tbody th {
+    background: var(--bg-answer);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 13.5px;
+    width: 26%;
+    min-width: 180px;
+  }
+  table.compare tbody td { color: var(--text-muted); }
+  table.compare tr:last-child th,
+  table.compare tr:last-child td { border-bottom: none; }
+
+  .quick-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0 20px;
+  }
+  @media (max-width: 640px) {
+    .quick-cards { grid-template-columns: 1fr; }
+  }
+  .quick-card {
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .quick-card .qc-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px;
+  }
+  .quick-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .quick-card p { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0; }
+  .quick-card.delegation { border-left: 3px solid var(--accent); }
+  .quick-card.transfer { border-left: 3px solid var(--accent-amber); }
+  .quick-card.invite { border-left: 3px solid var(--accent-green); }
+  .quick-card.child { border-left: 3px solid var(--accent-rose); }
+
+  .help-link { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .help-link:hover { text-decoration: underline; }
+
+  .cta {
+    margin-top: 56px; padding: 28px;
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(96, 165, 250, 0.08));
+    border: 1px solid rgba(167, 139, 250, 0.2); border-radius: 16px;
+    text-align: center;
+  }
+  .cta h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .cta p { color: var(--text-muted); font-size: 15px; margin-bottom: 18px; line-height: 1.6; }
+  .cta-btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #0F1117; text-decoration: none;
+    font-weight: 600; font-size: 14px; padding: 10px 18px; border-radius: 10px;
+    transition: all 0.15s;
+  }
+  .cta-btn:hover { background: var(--accent-dark); color: #fff; transform: translateY(-1px); }
+  .cta-btn.secondary {
+    background: transparent; color: var(--accent);
+    border: 1px solid rgba(167, 139, 250, 0.35);
+  }
+  .cta-btn.secondary:hover { background: rgba(167, 139, 250, 0.1); color: var(--text); transform: translateY(-1px); }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .container { padding: 32px 0 60px; }
+    .hero h1 { font-size: 26px; }
+    .hero .lede { font-size: 15px; }
+    h2 { font-size: 20px; margin: 36px 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="index.html">Support</a>
+    <span>/</span>
+    <span style="color: var(--text);">Akkreditering &amp; gæsteliste, overblik</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&#127908;</span>
+      Akkreditering &amp; gæsteliste
+    </div>
+    <h1>Sådan fungerer akkreditering og gæsteliste</h1>
+    <p class="lede">Den samlede forklaring af hvordan festivalen håndterer alle dem, der ikke har en almindelig gæstebillet, fra crew og artister til inviterede venner, familie og børn under 13.</p>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">På denne side</div>
+    <ul>
+      <li><a href="#overview">Overblik: to spor</a></li>
+      <li><a href="#accreditation">Akkrediteringslisten</a></li>
+      <li><a href="#guestlist">Gæstelisten</a></li>
+      <li><a href="#children">Børn under 13 på gæstelisten</a></li>
+      <li><a href="#compare">Forskellene på én gang</a></li>
+      <li><a href="#help">Spørgsmål og links</a></li>
+    </ul>
+  </div>
+
+  <!-- ═══════ Overblik ═══════ -->
+  <h2 id="overview">Overblik: to spor</h2>
+  <p>Akkrediteringssystemet giver festivalen en struktureret måde at håndtere alle de personer, der <strong>ikke</strong> har en almindelig gæstebillet. Der findes to spor, som kan køre side om side:</p>
+
+  <div class="quick-cards">
+    <div class="quick-card delegation">
+      <div class="qc-label">Spor 1</div>
+      <h4>Akkrediteringsliste</h4>
+      <p>Til dem, der arbejder, optræder eller dækker festivalen, crew, artister, presse, frivillige, backstage-personale.</p>
+    </div>
+    <div class="quick-card invite">
+      <div class="qc-label">Spor 2</div>
+      <h4>Gæsteliste</h4>
+      <p>Til dem, en artist eller anden ansvarlig vil invitere, typisk familie og venner, på specifikke dage.</p>
+    </div>
+  </div>
+
+  <p>Begge lister administreres fra webportalen. Ansvaret ligger hos en <strong>ordreholder</strong> (akkrediteringslisten) eller en <strong>administrator</strong> (gæstelisten), ofte samme person, fx en artist-manager.</p>
+
+  <!-- ═══════ Akkrediteringslisten ═══════ -->
+  <h2 id="accreditation"><span class="h2-chip">Spor 1</span>Akkrediteringslisten</h2>
+
+  <p class="meta">
+    <span>Til: crew, artister, presse, frivillige</span>
+    <span>Ansvarlig: ordreholder</span>
+    <span>Varighed: typisk hele festivalen</span>
+  </p>
+
+  <h3>Sådan uddeles adgange</h3>
+  <p>Ordreholderen vælger en af to metoder per adgang:</p>
+
+  <div class="quick-cards">
+    <div class="quick-card delegation">
+      <div class="qc-label">Metode A, typisk</div>
+      <h4>Delegation</h4>
+      <p>Adgangen bliver på ordreholderens konto. Personen får et NFC-armbånd ved check-in Service Desk, armbåndet knyttes til ordreholderens profil. Ingen app, intet MitID, ingen profil krævet. Beats-forbrug trækkes fra ordreholderens konto.</p>
+    </div>
+    <div class="quick-card transfer">
+      <div class="qc-label">Metode B</div>
+      <h4>Transfer</h4>
+      <p>Adgangen overføres permanent til personens egen profil. Personen opretter en profil med MitID og har herefter egen Beats-konto og egen adgang i appen.</p>
+    </div>
+  </div>
+
+  <p><strong>Hvorfor to modeller?</strong> Delegation passer til crew, artister og frivillige, hvor det er arrangøren, der har kontrol og betaler. Transfer passer til personer, der skal bruge appen aktivt, fx presse, der vil have eget overblik.</p>
+
+  <h3>Ved check-in Service Desk</h3>
+  <ol>
+    <li>Personen fremviser sin adgang (invitation eller billet-ID).</li>
+    <li>Personalet udleverer et NFC-armbånd.</li>
+    <li>Armbåndet knyttes til den rette profil og er klar til brug.</li>
+  </ol>
+
+  <h3>Under festivalen</h3>
+  <ul>
+    <li>Armbåndet giver adgang til de zoner, ordreholderen har tildelt (fx backstage, scene, presse, VIP, camping).</li>
+    <li>Ordreholderen kan sætte Beats-grænse per armbånd og følge forbrug i realtid.</li>
+    <li>Armbåndet er <strong>ikke adgangsgivende i sig selv</strong>, det skal være knyttet til en gyldig adgang. Tabte armbånd kan ikke misbruges.</li>
+  </ul>
+
+  <!-- ═══════ Gæstelisten ═══════ -->
+  <h2 id="guestlist"><span class="h2-chip green">Spor 2</span>Gæstelisten</h2>
+
+  <p class="meta">
+    <span>Til: inviterede gæster af artister eller presse</span>
+    <span>Ansvarlig: administratoren af listen</span>
+    <span>Varighed: typisk endags-adgang</span>
+  </p>
+
+  <p>Gæstelisten er en separat liste ved siden af akkrediteringslisten, typisk brugt til at invitere familie, venner og særlige gæster til den dag, artisten spiller. Administratoren (ofte artistens manager eller ordreholderen) har ansvaret for at dele adgange ud.</p>
+
+  <h3>For voksne, invite-link flow</h3>
+  <ol>
+    <li>Administratoren tilføjer modtageren på listen med navn og email.</li>
+    <li>Et personligt <strong>invite-link</strong> sendes til modtagerens email.</li>
+    <li>Modtageren klikker på linket, opretter sin egen profil med MitID, og aktiverer adgangen.</li>
+    <li>Adgangen ligger nu på modtagerens egen profil og kan bruges i appen eller med et NFC-armbånd.</li>
+  </ol>
+  <p>Hver invite er personlig og kan kun bruges af én person. Invites udløber efter 72 timer og kan gensendes fra webportalen.</p>
+
+  <div class="callout">
+    <strong>Kerneforskel til akkrediteringslisten:</strong> På gæstelisten har hver voksen gæst sin egen profil, adgangen tilhører modtageren, ikke administratoren. Det er en mere gæstebillet-agtig model.
+  </div>
+
+  <h3>Tilbagekald og ændringer</h3>
+  <ul>
+    <li>Administratoren kan trække en adgang tilbage, så længe gæsten ikke er checket ind.</li>
+    <li>Er gæsten allerede inde, er adgangen låst, indtil de tjekker ud.</li>
+  </ul>
+
+  <!-- ═══════ Børn under 13 ═══════ -->
+  <h2 id="children"><span class="h2-chip rose">Undtagelse</span>Børn under 13 på gæstelisten</h2>
+
+  <p>Børn under 13 kan ikke have MitID og kan derfor ikke have egen profil. Modellen er derfor <strong>anderledes</strong> end for voksne på samme liste, den ligner mere akkrediteringslistens delegation-model:</p>
+
+  <ol>
+    <li>Administratoren tilføjer barnet direkte på gæstelisten med navn og alder.</li>
+    <li>Adgangen markeres som <strong>børne-adgang</strong>.</li>
+    <li>Der sendes <strong>intet invite-link</strong>, for der er ingen profil at oprette.</li>
+    <li>Adgangen er teknisk knyttet til <strong>administratoren</strong> af listen (samme princip som adgangene på akkrediteringslisten).</li>
+    <li>Ved check-in Service Desk afhenter barnets voksne ledsager et NFC-armbånd til barnet.</li>
+    <li>Armbåndets børne-markering er synlig for vagten på scanneren ved indgang og på pladsen.</li>
+  </ol>
+
+  <div class="callout secure">
+    <strong>Vagten ser det på scanneren.</strong> Børne-markeringen sidder i systemet bag armbåndet. Når armbåndet scannes ved indgangen eller på pladsen, ser personalet direkte, at det er et barn, uden at ledsageren skal fremvise noget ekstra. Det gør det nemt at sikre, at barnet er i passende selskab, og at zone-adgang er som forventet.
+  </div>
+
+  <div class="callout tip">
+    <strong>Er barnet 13 eller derover?</strong> Så kan det godt få et almindeligt invite med egen profil og aktivere adgangen som en voksen gæst, hvis det foretrækkes. Under 13 skal det dog gå via administrator-modellen.
+  </div>
+
+  <!-- ═══════ Forskellene på én gang ═══════ -->
+  <h2 id="compare"><span class="h2-chip blue">Oversigt</span>Forskellene på én gang</h2>
+
+  <div class="table-wrap">
+    <table class="compare">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Akkrediteringsliste</th>
+          <th>Gæsteliste, voksne</th>
+          <th>Gæsteliste, børn under 13</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Til hvem?</th>
+          <td>Crew, artister, presse, frivillige</td>
+          <td>Inviterede gæster</td>
+          <td>Børn af inviterede gæster</td>
+        </tr>
+        <tr>
+          <th>Ansvarlig</th>
+          <td>Ordreholder</td>
+          <td>Administrator (ofte artist-manager)</td>
+          <td>Administrator</td>
+        </tr>
+        <tr>
+          <th>Hvordan uddeles?</th>
+          <td>Delegation eller transfer</td>
+          <td>Invite-link</td>
+          <td>Tilføjes direkte på listen</td>
+        </tr>
+        <tr>
+          <th>Egen profil?</th>
+          <td>Nej (delegation) / Ja (transfer)</td>
+          <td>Ja</td>
+          <td>Nej</td>
+        </tr>
+        <tr>
+          <th>MitID-krav?</th>
+          <td>Nej (delegation) / Ja (transfer)</td>
+          <td>Ja</td>
+          <td>Nej</td>
+        </tr>
+        <tr>
+          <th>Adgangen ligger hos</th>
+          <td>Ordreholder (delegation) eller modtager (transfer)</td>
+          <td>Modtager</td>
+          <td>Administrator</td>
+        </tr>
+        <tr>
+          <th>Varighed</th>
+          <td>Typisk hele festivalen</td>
+          <td>Typisk endags</td>
+          <td>Typisk endags</td>
+        </tr>
+        <tr>
+          <th>Armbånd udleveres</th>
+          <td>Ved check-in Service Desk</td>
+          <td>Ved check-in Service Desk (eller bruges i appen)</td>
+          <td>Ved check-in Service Desk, afhentes af voksen ledsager</td>
+        </tr>
+        <tr>
+          <th>Scanner viser</th>
+          <td>Adgang og zoner</td>
+          <td>Adgang og zoner</td>
+          <td>Børne-adgang synligt for vagten</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════ Hjælp ═══════ -->
+  <h2 id="help">Spørgsmål og links</h2>
+  <p>Skal du dybere ned i en konkret del af flowet, så kig i Q&amp;A'en eller se de detaljerede flows:</p>
+
+  <div class="quick-cards">
+    <div class="quick-card">
+      <div class="qc-label">Q&amp;A</div>
+      <h4><a class="help-link" href="faq-crew.html">Q&amp;A for crew &amp; akkreditering</a></h4>
+      <p>Svar på konkrete spørgsmål fra ordreholdere, med en egen sektion om gæstelisten og børne-adgange.</p>
+    </div>
+    <div class="quick-card">
+      <div class="qc-label">Detaljerede flows</div>
+      <h4><a class="help-link" href="ticket-flows-accreditation.html">Akkrediterings-flows</a></h4>
+      <p>Trin-for-trin guide for ordreholdere: fra kom-i-gang, fordeling af adgange, check-in Service Desk og administration undervejs.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h3>Har I stadig spørgsmål?</h3>
+    <p>Skriv direkte til os, så hjælper vi jer videre, gerne i god tid inden festivalen.</p>
+    <div class="cta-btn-row">
+      <a class="cta-btn" href="mailto:kontor@ringstedfestival.dk">
+        <span>&#9993;</span>
+        Skriv til kontoret
+      </a>
+      <a class="cta-btn secondary" href="index.html">Tilbage til support</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

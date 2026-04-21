@@ -525,30 +525,30 @@ function getKB() {
       related: ['transfer', 'billet', 'profil', 'videresend_kode']
     },
     transfer: {
-      title: 'Overfør billet til en anden',
-      reply: 'Du kan overføre billetter på flere måder:',
+      title: 'Videregiv billet til en anden',
+      reply: 'Du kan videregive billetter på flere måder:',
       steps: [
-        '<strong>Overfør hele billetten:</strong> Gå til "Dine billetter" → vælg billetten → tryk "Overfør billet" → alle adgange overføres samlet',
-        '<strong>Overfør enkelt adgang:</strong> Har du en partout? Du kan overføre udvalgte dage enkeltvis til forskellige personer',
+        '<strong>Videregiv hele billetten:</strong> Gå til "Dine billetter" → vælg billetten → tryk "Videregiv billet" → alle adgange videregives samlet',
+        '<strong>Videregiv enkelt adgang:</strong> Har du en partout? Du kan videregive udvalgte dage enkeltvis til forskellige personer',
         '<strong>Videresend billetkode:</strong> Har du uindløste koder? Del dem via SMS, Messenger eller email, modtageren indløser selv',
         'Indtast <strong>modtagerens navn og email</strong>',
         'Modtageren får en <strong>email med et link</strong>, gyldigt i <strong>72 timer</strong>',
         'Modtageren skal have en <strong>MitID-verificeret profil</strong> i appen for at acceptere'
       ],
-      followUp: '<strong>OBS:</strong> Overførsel af billetter er <strong>permanent</strong>. Ønsker du billetten retur, skal modtageren overføre den tilbage til dig. Billetprisen må ikke overstige den originale købspris.',
+      followUp: '<strong>OBS:</strong> Videregivelse af billetter er <strong>permanent</strong>. Ønsker du billetten retur, skal modtageren videregive den tilbage til dig. Billetprisen må ikke overstige den originale købspris.',
       related: ['claim', 'billet', 'modtag', 'videresend_kode', 'gensend_invitation', 'vilkår_overførsel']
     },
     modtag: {
-      title: 'Modtag en overført billet',
+      title: 'Modtag en videregivet billet',
       reply: 'Har du fået tilsendt en billet? Der er to måder:',
       steps: [
-        `<strong>Via email-link (overførsel):</strong> Du har fået en email med et link → tryk på linket → det åbner appen → vælg "Acceptér"`,
+        `<strong>Via email-link (videregivelse):</strong> Du har fået en email med et link → tryk på linket → det åbner appen → vælg "Acceptér"`,
         `<strong>Via billetkode (SMS/Messenger):</strong> Du har fået en kode → åbn appen → vælg "Indløs billetter" → indtast koden eller tryk linket`,
         `Har du ikke appen? <strong>Download ${b.appName}</strong> og opret en MitID-verificeret profil først`,
         'Linket er gyldigt i <strong>72 timer</strong>, udløber det, kan afsenderen gensende det',
         'Når du accepterer, er billetten <strong>din</strong>, du finder den under "Mine billetter"'
       ],
-      followUp: 'Du skal have en MitID-verificeret profil for at modtage en overført billet. Har du fået en billetkode, behøver du kun en profil (uden MitID).',
+      followUp: 'Du skal have en MitID-verificeret profil for at modtage en videregivet billet. Har du fået en billetkode, behøver du kun en profil (uden MitID).',
       related: ['profil', 'claim', 'mitid', 'gensend_invitation']
     },
     billet: {
@@ -632,7 +632,7 @@ function getKB() {
       steps: [
         '<strong>Aldersverificering</strong>, vi sikrer at du opfylder alderskravene',
         '<strong>Identitetsbekræftelse</strong>, din profil er beskyttet mod misbrug',
-        '<strong>Sikker billet-overførsel</strong>, kun verificerede profiler kan sende og modtage billetter'
+        '<strong>Sikker videregivelse af billet</strong>, kun verificerede profiler kan sende og modtage billetter'
       ],
       followUp: 'MitID hjælper os med at bekræfte din alder og identitet. Dine MitID-data bruges <strong>kun til verificering</strong>, vi gemmer ingen personlige oplysninger fra MitID.',
       related: ['profil', 'claim', 'transfer']
@@ -692,7 +692,7 @@ function getKB() {
       steps: [
         'Linket udløber automatisk efter <strong>72 timer</strong>',
         'Gå til <strong>"Dine billetter"</strong> i appen',
-        'Find den udløbede overførsel',
+        'Find den udløbede videregivelse',
         'Tryk <strong>"Gensend"</strong>, et nyt link sendes til modtageren',
         'Det gamle link bliver <strong>ugyldigt</strong>, og et nyt 72-timers link sendes til samme email'
       ],
@@ -701,12 +701,12 @@ function getKB() {
     },
 
     vilkår_overførsel: {
-      title: 'Vilkår for billetoverførsel',
-      reply: 'Her er de vigtigste regler for overførsel af billetter:',
+      title: 'Vilkår for videregivelse af billet',
+      reply: 'Her er de vigtigste regler for videregivelse af billetter:',
       steps: [
         '<strong>Prisbegrænsning:</strong> Billetprisen må ikke overstige den originale købspris inkl. gebyrer',
         '<strong>Identitetsverificering:</strong> Både afsender og modtager skal have en MitID-verificeret konto',
-        '<strong>Permanent overførsel:</strong> Når modtageren accepterer, er billetten deres, ønsker du den retur, skal modtageren overføre den tilbage',
+        '<strong>Permanent videregivelse:</strong> Når modtageren accepterer, er billetten deres, ønsker du den retur, skal modtageren videregive den tilbage',
         '<strong>Platformens rolle:</strong> Livecloud og arrangøren er ikke part i økonomiske aftaler mellem brugere',
         '<strong>Misbrug:</strong> Systematisk videresalg over købspris kan medføre spærring af konto og annullering af billetter'
       ],
@@ -928,7 +928,7 @@ function getKB() {
       reply: 'Har du købt flere billetter, fx til venner eller familie, skal de uddeles og aktiveres på hver enkelt modtagers egen profil. Du kan nemlig som udgangspunkt kun have én aktiv billet selv.',
       steps: [
         'Åbn appen og gå til "Mine billetter"',
-        'Vælg en billet og tryk "Overfør"',
+        'Vælg en billet og tryk "Videregiv"',
         'Indtast modtagerens e-mailadresse, de får et link',
         'Gentag for hver billet, du vil uddele',
         'Modtageren skal have en profil, bekræftet med MitID, for at acceptere'
@@ -944,9 +944,9 @@ function getKB() {
         'Det gælder fx en <strong>partout-billet</strong> (torsdag, fredag, lørdag) eller en <strong>glamcamp-billet</strong> med 2 eller 4 adgange',
         'Åbn appen og gå til "Mine billetter"',
         'Vælg den adgang, du vil give videre, fx torsdag, eller én af glamcamp-adgangene',
-        'Tryk "Overfør", og skriv modtagerens e-mailadresse',
+        'Tryk "Videregiv", og skriv modtagerens e-mailadresse',
         'Modtageren får et link og skal acceptere i sin egen app (bekræftet med MitID)',
-        '<strong>Almindelige campingbilletter</strong> dækker hele festivalens periode og kan kun overdrages som helhed, ikke stykkes ud'
+        '<strong>Almindelige campingbilletter</strong> dækker hele festivalens periode og kan kun videregives som helhed, ikke stykkes ud'
       ],
       followUp: 'De adgange, du ikke uddeler, bliver på din egen billet. Bemærk: Din profil, billet og Beats er strengt personlige, du må ikke bare låne dit eget armbånd eller din app ud.',
       related: ['transfer', 'uddel_billetter', 'armbånd', 'vilkår_overførsel']
@@ -971,7 +971,7 @@ function getKB() {
     // ============================================================
     indsæt_penge: {
       title: 'Give Beats til dine børn',
-      reply: 'Du kan ikke overføre Beats direkte til andre. Men du kan i stedet knytte deres chip-armbånd til din profil, så trækker deres køb fra dine Beats.',
+      reply: 'Du kan ikke videregive Beats direkte til andre. Men du kan i stedet knytte deres chip-armbånd til din profil, så trækker deres køb fra dine Beats.',
       steps: [
         'Du kan knytte et eller flere armbånd til din profil',
         'Når fx dit barn køber noget med sit armbånd, trækkes beløbet fra <strong>dine</strong> Beats',
@@ -984,7 +984,7 @@ function getKB() {
 
     betal_for_andre: {
       title: 'Betal for venner eller familie',
-      reply: 'Ja, det er nemt. Du kan ikke overføre Beats direkte til andre, men du kan traktere på flere andre måder:',
+      reply: 'Ja, det er nemt. Du kan ikke videregive Beats direkte til andre, men du kan traktere på flere andre måder:',
       steps: [
         '<strong>Pre-bestilling i appen:</strong> Bestil en runde til dig og dine venner direkte i appen. Beats trækkes fra din saldo',
         '<strong>Bordbestilling:</strong> Udvalgte steder kan du få bragt bestillingen ud til jer, I slipper for køen',
@@ -1060,7 +1060,7 @@ function getKB() {
         'Du må ikke lade andre bruge din telefon med din billet i',
         'Du må ikke låne dit chip-armbånd til nogen andre',
         'Din adgang og dine Beats må kun bruges af dig selv',
-        'Skal nogen andre have adgang, så overfør billetten til deres egen profil',
+        'Skal nogen andre have adgang, så videregiv billetten til deres egen profil',
         'For børn og ledsagere: Tilknyt dem i appen, eller giv dem et eget armbånd knyttet til din profil'
       ],
       followUp: 'Reglen er lavet for at beskytte dig. Profil, billet og Beats er knyttet til dig og din MitID-bekræftelse. Låner du dem ud, kan både du og den anden person risikere at miste adgangen.',
@@ -1106,7 +1106,7 @@ const keywordMap = [
 
   // Billetter
   { keys: ['claim', 'aktiver', 'indløs', 'hent billet', 'aktivér', 'claime', 'aktivere billet'], topic: 'claim' },
-  { keys: ['overfør', 'transfer', 'send billet', 'giv billet', 'del billet', 'overførsel', 'overføre', 'give billet'], topic: 'transfer' },
+  { keys: ['videregiv', 'videregivelse', 'videregive', 'overfør', 'transfer', 'send billet', 'giv billet', 'del billet', 'overførsel', 'overføre', 'give billet'], topic: 'transfer' },
   { keys: ['modtag', 'fået billet', 'nogen sendt', 'accepter', 'modtaget', 'tilsendt', 'fået tilsendt'], topic: 'modtag' },
   { keys: ['se billet', 'mine billet', 'vis billet', 'hvor er min billet', 'find billet'], topic: 'billet' },
   { keys: ['uddel', 'uddele', 'fordel billetter', 'dele billetter ud'], topic: 'uddel_billetter' },
@@ -1155,12 +1155,12 @@ const keywordMap = [
   // Billet-flows
   { keys: ['videresend kode', 'del kode', 'send kode', 'videresend billet', 'del billetkode', 'uindløst kode', 'sms billet'], topic: 'videresend_kode' },
   { keys: ['gensend', 'gensend invitation', 'link udløbet', 'udløbet link', '72 timer', 'nyt link', 'invitation udløbet', 'gendan invitation', 'linket udløbet', 'linket er udløbet', 'udløbet', 'udløb'], topic: 'gensend_invitation' },
-  { keys: ['vilkår overførsel', 'regler overførsel', 'billetvilkår', 'videresalg regler', 'må jeg sælge', 'pris overførsel', 'sælge billet', 'vilkår'], topic: 'vilkår_overførsel' },
+  { keys: ['vilkår videregivelse', 'vilkår overførsel', 'regler videregivelse', 'regler overførsel', 'billetvilkår', 'videresalg regler', 'må jeg sælge', 'pris videregivelse', 'pris overførsel', 'sælge billet', 'vilkår'], topic: 'vilkår_overførsel' },
   { keys: ['ledsager', 'tilknyt ledsager', 'følgeperson', 'medhjælper'], topic: 'børn' },
   { keys: ['chip armbånd', 'chip-armbånd', 'køb armbånd', 'ekstra armbånd', 'armbånd barn', 'armbånd til barn'], topic: 'armbånd' },
   { keys: ['indløs fra email', 'indløs fra billede', 'scan qr', 'indløs billet', 'importér billet', 'import billet', 'hent billet fra email', 'indsæt kode', 'fra udklipsholder', 'fra fil', 'indløs'], topic: 'claim' },
-  { keys: ['overfør hele', 'overfør enkelt', 'overfør dag', 'overfør adgang', 'enkelt adgang', 'partout overfør'], topic: 'transfer' },
-  { keys: ['acceptér billet', 'accepter billet', 'acceptér overførsel', 'accepter overførsel', 'modtag overførsel', 'modtaget billet', 'fået billet'], topic: 'modtag' },
+  { keys: ['videregiv hele', 'videregiv enkelt', 'videregiv dag', 'videregiv adgang', 'overfør hele', 'overfør enkelt', 'overfør dag', 'overfør adgang', 'enkelt adgang', 'partout videregiv', 'partout overfør'], topic: 'transfer' },
+  { keys: ['acceptér billet', 'accepter billet', 'acceptér videregivelse', 'accepter videregivelse', 'acceptér overførsel', 'accepter overførsel', 'modtag videregivelse', 'modtag overførsel', 'modtaget billet', 'fået billet'], topic: 'modtag' },
 ];
 
 function findTopic(text) {
@@ -1215,7 +1215,7 @@ function getRelatedLabel(topic) {
   const labels = {
     profil: 'Opret profil',
     claim: 'Claim billet',
-    transfer: 'Overfør billet',
+    transfer: 'Videregiv billet',
     modtag: 'Modtag billet',
     billet: 'Se billetter',
     beats: 'Beats credits',
@@ -1251,7 +1251,7 @@ function getRelatedLabel(topic) {
     indgang_problem: 'Indgangsproblemer',
     videresend_kode: 'Del billetkode',
     gensend_invitation: 'Gensend invitation',
-    vilkår_overførsel: 'Overførselsvilkår'
+    vilkår_overførsel: 'Vilkår for videregivelse'
   };
   return labels[topic] || topic;
 }

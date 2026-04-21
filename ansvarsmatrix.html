@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<title>[INTERNT] Ansvarsmatrix, LiveCloud &times; Ringsted Festival</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0B0D12;
+    --bg-card: #14171F;
+    --bg-card-hover: #1B1F2A;
+    --text: #F0F0F5;
+    --text-muted: #9499AD;
+    --text-dim: #5F6478;
+    --border: #232836;
+    --border-strong: #2F3545;
+    --accent: #F59E0B;
+    --accent-dark: #D97706;
+    --lc: #60A5FA;
+    --rf: #5CB77A;
+    --faelles: #A78BFA;
+    --open: #F59E0B;
+    --decided: #5CB77A;
+    --red: #EF4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 0 80px;
+  }
+
+  .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb span { margin: 0 8px; color: var(--text-dim); }
+
+  .internal-banner {
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.08), rgba(245, 158, 11, 0.08));
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: var(--text);
+  }
+  .internal-banner::before {
+    content: 'INTERNT';
+    background: var(--red);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 3px 8px; border-radius: 4px; flex-shrink: 0;
+  }
+
+  .hero { margin-bottom: 24px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.28);
+    padding: 5px 12px; border-radius: 14px;
+    font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 14px;
+    letter-spacing: 1px; text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero h1 {
+    font-size: 32px; font-weight: 800; letter-spacing: -0.5px;
+    margin-bottom: 10px; line-height: 1.15;
+  }
+  .hero .lede {
+    font-size: 16px; color: var(--text-muted); max-width: 720px; line-height: 1.7;
+  }
+
+  /* ═══ Legend ═══ */
+  .legend {
+    display: flex; gap: 14px; flex-wrap: wrap; margin: 24px 0;
+    padding: 14px 18px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); }
+  .pill {
+    font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 10px;
+    letter-spacing: 0.5px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace;
+  }
+  .pill.lc { background: rgba(96, 165, 250, 0.14); color: var(--lc); }
+  .pill.rf { background: rgba(92, 183, 122, 0.14); color: var(--rf); }
+  .pill.faelles { background: rgba(167, 139, 250, 0.14); color: var(--faelles); }
+  .pill.open { background: rgba(245, 158, 11, 0.14); color: var(--open); }
+  .pill.decided { background: rgba(92, 183, 122, 0.14); color: var(--decided); }
+
+  /* ═══ Progress ═══ */
+  .progress-bar-wrap {
+    margin: 0 0 28px;
+    padding: 18px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .progress-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 10px; gap: 16px; flex-wrap: wrap;
+  }
+  .progress-count {
+    font-size: 18px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+  }
+  .progress-count .pc-done { color: var(--decided); }
+  .progress-count .pc-total { color: var(--text-dim); }
+  .progress-bar {
+    width: 100%; height: 6px; background: var(--border);
+    border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--decided), #48a167);
+    border-radius: 3px; width: 0%; transition: width 0.3s ease;
+  }
+  .progress-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    font-size: 12px; font-weight: 600; padding: 7px 13px; border-radius: 8px;
+    background: transparent; color: var(--text-muted); border: 1px solid var(--border-strong);
+    cursor: pointer; transition: all 0.15s; font-family: inherit;
+  }
+  .btn:hover { color: var(--text); border-color: var(--accent); }
+  .btn.danger:hover { color: var(--red); border-color: var(--red); }
+
+  /* ═══ Sections ═══ */
+  .section { margin-bottom: 32px; scroll-margin-top: 20px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    margin-bottom: 14px;
+  }
+  .section-num {
+    width: 30px; height: 30px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    background: rgba(245, 158, 11, 0.12); color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .section h2 {
+    font-size: 17px; font-weight: 700; letter-spacing: -0.2px; flex: 1;
+  }
+  .section-meta {
+    font-size: 12px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ═══ Item cards ═══ */
+  .items { display: flex; flex-direction: column; gap: 10px; }
+  .item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    transition: border-color 0.15s;
+  }
+  .item.decided {
+    background: rgba(92, 183, 122, 0.04);
+    border-color: rgba(92, 183, 122, 0.25);
+  }
+  .item-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px; margin-bottom: 8px;
+  }
+  .item-title {
+    font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.4;
+    flex: 1;
+  }
+  .item-pills { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+  .item-body {
+    font-size: 13.5px; color: var(--text-muted); line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .item-body strong { color: var(--text); font-weight: 600; }
+  .item-suggest {
+    font-size: 12px; color: var(--text-dim);
+    padding: 10px 12px; background: var(--bg); border-radius: 8px;
+    margin-bottom: 10px; line-height: 1.6;
+    border-left: 2px solid var(--faelles);
+  }
+  .item-suggest strong { color: var(--text); font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.5px; }
+
+  .item-actions {
+    display: flex; gap: 6px; flex-wrap: wrap; padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .action-btn {
+    font-size: 11px; font-weight: 600; padding: 5px 10px;
+    border-radius: 6px; cursor: pointer;
+    background: transparent; border: 1px solid var(--border-strong);
+    color: var(--text-muted); transition: all 0.15s;
+    font-family: inherit;
+  }
+  .action-btn:hover { color: var(--text); }
+  .action-btn.active { color: #fff; border-color: transparent; }
+  .action-btn.active.lc { background: var(--lc); }
+  .action-btn.active.rf { background: var(--rf); }
+  .action-btn.active.faelles { background: var(--faelles); }
+  .action-btn.active.decided { background: var(--decided); color: #0B0D12; }
+  .notes {
+    margin-top: 8px; width: 100%;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 10px;
+    color: var(--text); font-family: inherit; font-size: 13px;
+    resize: vertical; min-height: 32px;
+  }
+  .notes:focus { outline: none; border-color: var(--accent); }
+  .notes::placeholder { color: var(--text-dim); font-style: italic; }
+
+  /* ═══ Staffing table ═══ */
+  .staffing-wrap { margin: 14px 0 20px; overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  table.staffing { width: 100%; border-collapse: collapse; background: var(--bg-card); min-width: 600px; }
+  table.staffing th, table.staffing td {
+    padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border);
+    font-size: 13px; vertical-align: top;
+  }
+  table.staffing thead th {
+    background: rgba(245, 158, 11, 0.08); font-weight: 700;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--accent);
+  }
+  table.staffing tbody th { background: var(--bg); color: var(--text); font-weight: 600; }
+  table.staffing tbody td { color: var(--text-muted); }
+  table.staffing tr:last-child th, table.staffing tr:last-child td { border-bottom: none; }
+  table.staffing .num { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--accent); }
+
+  /* ═══ Comm flow diagram ═══ */
+  .commflow {
+    margin: 14px 0 20px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .commrow {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 12px; align-items: center;
+  }
+  .commnode {
+    padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; font-size: 13px; color: var(--text);
+  }
+  .commnode .nt { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; font-family: 'JetBrains Mono', monospace; }
+  .commnode .nd { font-size: 12px; color: var(--text-muted); }
+  .commnode.lc { border-left: 3px solid var(--lc); }
+  .commnode.rf { border-left: 3px solid var(--rf); }
+  .commnode.faelles { border-left: 3px solid var(--faelles); }
+  .commarrow {
+    font-size: 16px; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  @media (max-width: 640px) {
+    .commrow { grid-template-columns: 1fr; }
+    .commarrow { text-align: center; transform: rotate(90deg); }
+  }
+
+  /* ═══ Toolbar ═══ */
+  .toolbar {
+    margin: 48px 0 0; padding: 18px 22px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+  }
+  .toolbar-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .toolbar-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .toolbar-row .note { font-size: 12px; color: var(--text-dim); margin-left: auto; }
+
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .container { padding: 28px 0 60px; }
+    .hero h1 { font-size: 24px; }
+    .item-head { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <span style="color: var(--text-dim);">livecloud-support</span>
+    <span>/</span>
+    <span style="color: var(--accent);">ansvarsmatrix</span>
+    <span>/</span>
+    <span style="color: var(--text-dim);">kun intern brug</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&gt;_</span>
+      Intern, for projekt-team
+    </div>
+    <h1>Ansvarsmatrix: LiveCloud &times; Ringsted Festival</h1>
+    <p class="lede">Operationelle beslutninger om hvem der gør hvad. Brug listen til at afklare ansvarsfordelingen mellem LiveCloud og RF punkt for punkt. Forslag er angivet ved hver post, og status gemmes lokalt.</p>
+  </div>
+
+  <div class="internal-banner">
+    <div>
+      <strong>Denne side er kun for projekt-teamet.</strong> Ikke linket fra offentlige sider og ikke indekseret. Del kun URL'en i interne kanaler.
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="pill lc">LC</span> LiveCloud</div>
+    <div class="legend-item"><span class="pill rf">RF</span> Ringsted Festival</div>
+    <div class="legend-item"><span class="pill faelles">Fælles</span> Begge parter</div>
+    <div class="legend-item"><span class="pill open">Åben</span> Ikke besluttet endnu</div>
+    <div class="legend-item"><span class="pill decided">Afklaret</span> Besluttet</div>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-header">
+      <div class="progress-count">
+        <span class="pc-done" id="countDone">0</span><span class="pc-total"> / <span id="countTotal">0</span></span><span style="font-size: 13px; color: var(--text-dim); margin-left: 8px;" id="countLabel">afklaret</span>
+      </div>
+      <div class="progress-actions">
+        <button class="btn" onclick="exportJson()">Download status som JSON</button>
+        <button class="btn" onclick="document.getElementById('importInput').click()">Importer</button>
+        <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJson(event)">
+        <button class="btn danger" onclick="resetAll()">Nulstil</button>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- ═══════════════ 1. Hardware & udstyr ═══════════════ -->
+  <div class="section" data-section="1">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>Hardware &amp; udstyr (bar og boder)</h2>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-id="hw-setup">
+        <div class="item-head">
+          <div class="item-title">Hvem sørger for at hardware er sat op på det udstyr som bar/boder skal bruge?</div>
+        </div>
+        <div class="item-body">POS-enheder, scannere, printere, netværk, strøm osv. til hver bar og madbod.</div>
+        <div class="item-suggest"><strong>FORSLAG: Fælles.</strong> LC leverer præ-konfigureret hardware og remote-support; RF står for fysisk udrulning på pladsen og strøm/net-infrastruktur. Alternativ: LC driver hele processen som managed service, hvis RF ikke har hardware-erfarne folk.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+
+      <div class="item" data-id="hw-deploy">
+        <div class="item-head">
+          <div class="item-title">Hvem udleverer og tager udstyr retur fra bar/madboder?</div>
+        </div>
+        <div class="item-body">Fysisk udlevering inden festival, afhentning efter festival, registrering af hvad hver bod har modtaget.</div>
+        <div class="item-suggest"><strong>FORSLAG: RF.</strong> Ringsted har allerede logistik-flow med boderne (Bjarne-teamet). LC leverer tracking-tool eller simpel checkliste; RF eksekverer.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 2. Backend & opsætning ═══════════════ -->
+  <div class="section" data-section="2">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>Backend &amp; opsætning</h2>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-id="backend-catalog">
+        <div class="item-head">
+          <div class="item-title">Hvem opsætter backend med varekatalog til bar og madboder?</div>
+        </div>
+        <div class="item-body">Varer, priser, kategorier, modifikationer, moms-satser, tilknytning per bod/bar.</div>
+        <div class="item-suggest"><strong>FORSLAG: Fælles.</strong> Hver bod/bar kender deres eget sortiment og priser. LC leverer skabelon/UI i webportal; RF koordinerer med boderne og laver konkret indtastning. LC står for validering og "go-live" tjek.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+
+      <div class="item" data-id="b2b-tilknyt">
+        <div class="item-head">
+          <div class="item-title">Hvem sørger for at forudkøbte Beats/armbånd tilknyttes B2B-konti?</div>
+        </div>
+        <div class="item-body">Når en virksomhed køber X Beats eller Y armbånd på forhånd, skal det kobles til deres virksomheds-account i webportalen.</div>
+        <div class="item-suggest"><strong>FORSLAG: Fælles.</strong> RF ejer B2B-salgsrelationen og kender virksomhederne. LC leverer tooling i webportalen, så RF selv kan koble køb til account. Ved store/komplekse ordrer: LC hjælper med onboarding første gang.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 3. Support & oplæring ═══════════════ -->
+  <div class="section" data-section="3">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>Support &amp; oplæring</h2>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-id="training-bjarne">
+        <div class="item-head">
+          <div class="item-title">Oplæring af Bjarne Sørensen og hans team i FMS + Commerce</div>
+        </div>
+        <div class="item-body">Bjarne og hans team har tidligere stået for billetter og armbånd og kan være nyttige til <strong>1. level support</strong> af brugere med app-, adgangs- eller Beats-spørgsmål.</div>
+        <div class="item-suggest"><strong>FORSLAG: LiveCloud.</strong> LC har expertisen og ejer platformen. Oplæringsplan: 2-3 sessioner (1 teori, 1 hands-on, 1 live-generalprøve) i ugerne op til festivalen. Dækker FMS, Commerce, webportal og typiske support-scenarier. LC leverer materiale; RF stiller Bjarne &amp; team til rådighed.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+
+      <div class="item" data-id="orange-team">
+        <div class="item-head">
+          <div class="item-title">Det "orange" hjælpeteam, hvem skal de høre under?</div>
+        </div>
+        <div class="item-body">Fodfolk der går rundt på pladsen, "spørg mig hvis du har brug for hjælp"-team. Første kontaktpunkt for gæster der strander med et problem undervejs.</div>
+        <div class="item-suggest"><strong>FORSLAG: RF ejer, LC oplærer.</strong> RF rekrutterer typisk festival-frivillige (de orange kender pladsen og kulturen). LC står for oplæring i app, armbånd, Beats og hvornår man eskalerer. Det orange team er <strong>1. linje</strong>, Service Desk og Bjarnes team er <strong>2. linje</strong>.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+
+      <div class="item" data-id="training-staff">
+        <div class="item-head">
+          <div class="item-title">Oplæring af hjælpeteam, barpersonale og madboder</div>
+        </div>
+        <div class="item-body">Alle der møder gæster og bruger POS-systemet, armbånd-scannere m.m.</div>
+        <div class="item-suggest"><strong>FORSLAG: LiveCloud.</strong> LC leverer oplæringspakke: korte videoer, en-siders cheat sheets, on-site træning dagen før festivalen. RF koordinerer at folkene er samlet. Oplæring sker i lag: teori → øve på testdata → live-rehearsal.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 4. Kommunikation & eskalering ═══════════════ -->
+  <div class="section" data-section="4">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>Kommunikationsvej fra gæst/personale til support</h2>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">Forslag til fire-lags eskaleringsmodel under festivalen. Hver linje håndterer det den kan, og eskalerer kun det der ikke kan løses.</p>
+    <div class="commflow">
+      <div class="commrow">
+        <div class="commnode faelles">
+          <div class="nt">Linje 0</div>
+          <div><strong>Chatbot + FAQ</strong></div>
+          <div class="nd">Gæsten prøver selv først i appen eller på supportsiden. Løser ~60% af spørgsmål.</div>
+        </div>
+        <div class="commarrow">→</div>
+        <div class="commnode rf">
+          <div class="nt">Linje 1, on-site</div>
+          <div><strong>Orange hjælpeteam</strong></div>
+          <div class="nd">Fodfolk på pladsen. Løser app-, armbånd- og simple Beats-spørgsmål. RF-staffed, LC-trænet.</div>
+        </div>
+      </div>
+      <div class="commrow">
+        <div class="commnode rf">
+          <div class="nt">Linje 2, fysisk desk</div>
+          <div><strong>Check-in Service Desk (Bjarne &amp; team)</strong></div>
+          <div class="nd">Udlevering af armbånd, identifikation, erstatning, profil-opslag. RF-staffed, 1. level support i FMS+Commerce.</div>
+        </div>
+        <div class="commarrow">→</div>
+        <div class="commnode lc">
+          <div class="nt">Linje 3, on-site LC</div>
+          <div><strong>LiveCloud-team på pladsen</strong></div>
+          <div class="nd">Tekniske problemer, system-ændringer, hardware-fejl, data-korrektioner. 2. level.</div>
+        </div>
+      </div>
+      <div class="commrow">
+        <div class="commnode lc">
+          <div class="nt">Linje 4, remote</div>
+          <div><strong>LiveCloud dev-team, remote</strong></div>
+          <div class="nd">Kritiske bugs, produktions-incidents, sikkerhedshændelser. 3. level, 24/7 under festivalen.</div>
+        </div>
+        <div class="commarrow">&nbsp;</div>
+        <div class="commnode faelles">
+          <div class="nt">Status &amp; briefing</div>
+          <div><strong>Dagligt standup, LC + RF</strong></div>
+          <div class="nd">Kort sync morgen og aften under festival. Koordinerer beslutninger.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="items">
+      <div class="item" data-id="comm-channels">
+        <div class="item-head">
+          <div class="item-title">Kanaler mellem lagene, hvad bruger vi?</div>
+        </div>
+        <div class="item-body">Hvordan eskalerer orange til Service Desk, og Service Desk til LC? Radio? Slack? Dedikeret support-telefon?</div>
+        <div class="item-suggest"><strong>FORSLAG: Dedikeret Slack-workspace + walkie-radio som backup.</strong> Slack-kanaler pr. lag (#linje-1-orange, #linje-2-desk, #linje-3-lc, #kritisk). Walkie for on-site crew. Support-telefon for gæster der ringer. Alt logges for at kunne forbedre til næste år.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 5. Økonomi & afregning ═══════════════ -->
+  <div class="section" data-section="5">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2>Økonomi &amp; afregning</h2>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <div class="items">
+      <div class="item" data-id="afregning">
+        <div class="item-head">
+          <div class="item-title">Hvem laver slutafregning på Beats og armbånd?</div>
+        </div>
+        <div class="item-body">Efter festivalen: samlet opgørelse af omsætning, afstemning mod PSP, rapportering pr. bod/bar.</div>
+        <div class="item-suggest"><strong>FORSLAG: LiveCloud (automatisk), RF godkender.</strong> Platformen leverer 100% automatisk afstemning mellem Beats, PSP (Swedbank) og kassesystem. LC præsenterer rapport til RF, der godkender før udbetaling til boderne. Standard afregningsvindue: 5-10 hverdage efter festival.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+
+      <div class="item" data-id="refund">
+        <div class="item-head">
+          <div class="item-title">Hvem tilbagefører penge (hvis det bliver en mulighed)?</div>
+        </div>
+        <div class="item-body">Refundering af ubrugte Beats efter festival, eller i særtilfælde under (fx dobbelt-træk, fejlkøb ud over bartender-annullering).</div>
+        <div class="item-suggest"><strong>FORSLAG: Fælles (LC eksekverer, RF godkender individuelle cases).</strong> Platformen har teknisk mulighed for refund til kort (via PSP). LC laver self-service ubrugt-Beats-refund efter festival. Individuelle refund-cases (klager, tekniske fejl) vurderes af RF og eksekveres teknisk af LC. Gebyr ved refund skal aftales.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ 6. LC-bemanding festival-ugen ═══════════════ -->
+  <div class="section" data-section="6">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <h2>LiveCloud-bemanding i festival-ugen</h2>
+      <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
+    </div>
+    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 14px;">Foreslået LC-tilstedeværelse på pladsen mandag til søndag. Justeres efter RF's behov og kompleksitet.</p>
+    <div class="staffing-wrap">
+      <table class="staffing">
+        <thead>
+          <tr>
+            <th>Dag</th>
+            <th>Fase</th>
+            <th>LC på pladsen</th>
+            <th>LC remote</th>
+            <th>Primær opgave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Mandag</th>
+            <td>Opsætning</td>
+            <td class="num">2</td>
+            <td class="num">1</td>
+            <td>Hardware-udrulning, netværks-test, integration med Ringsted-systemer</td>
+          </tr>
+          <tr>
+            <th>Tirsdag</th>
+            <td>Opsætning</td>
+            <td class="num">3</td>
+            <td class="num">1</td>
+            <td>Varekatalog-import, POS-test, oplæring af bjarne-team</td>
+          </tr>
+          <tr>
+            <th>Onsdag</th>
+            <td>Pre-fest</td>
+            <td class="num">4</td>
+            <td class="num">2</td>
+            <td>Generalprøve på alle flows, oplæring af orange-team, sidste justeringer</td>
+          </tr>
+          <tr>
+            <th>Torsdag</th>
+            <td>Festival åbner</td>
+            <td class="num">5</td>
+            <td class="num">2 (24/7)</td>
+            <td>Live support, beredskab, realtids-monitoring, on-site tilstedeværelse</td>
+          </tr>
+          <tr>
+            <th>Fredag</th>
+            <td>Festival</td>
+            <td class="num">5</td>
+            <td class="num">2 (24/7)</td>
+            <td>Live support, peak-trafik håndtering, Beats-top-up support</td>
+          </tr>
+          <tr>
+            <th>Lørdag</th>
+            <td>Festival (peak)</td>
+            <td class="num">5</td>
+            <td class="num">2 (24/7)</td>
+            <td>Live support, peak-dag, ekstra opmærksomhed på ydeevne</td>
+          </tr>
+          <tr>
+            <th>Søndag</th>
+            <td>Nedlukning</td>
+            <td class="num">3</td>
+            <td class="num">1</td>
+            <td>Afsluttende afregning, data-eksport, hardware-pakning, post-mortem</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="items">
+      <div class="item" data-id="staffing-approval">
+        <div class="item-head">
+          <div class="item-title">Er bemandingsplanen ovenfor passende?</div>
+        </div>
+        <div class="item-body">Samlet: ca. 27 mandskabsdage on-site + 11 mandskabsdage remote = 38 mandskabsdage. Check mod tidligere festivaler og RF's forventning.</div>
+        <div class="item-suggest"><strong>FORSLAG: Brug som udgangspunkt, juster efter behov.</strong> Kan skaleres op ved peak-dage hvis gæstetal viser det. LC-personale har forskellige roller (support, dev on-call, teknisk lead). Definér præcis rolle-matrix i sprint før festivalen.</div>
+        <div class="item-actions">
+          <button class="action-btn" data-role="lc">LC</button>
+          <button class="action-btn" data-role="rf">RF</button>
+          <button class="action-btn" data-role="faelles">Fælles</button>
+          <span style="flex:1"></span>
+          <button class="action-btn decided" data-role="decided">Afklaret</button>
+        </div>
+        <textarea class="notes" placeholder="Noter / beslutning..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-title">Eksport / import</div>
+    <div class="toolbar-row">
+      <span class="note">Status og noter gemmes lokalt i browseren. Brug JSON-eksport til at dele med teamet eller arkivere beslutninger.</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const STORAGE_KEY = 'livecloud-ansvarsmatrix-v1';
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { return {}; }
+  }
+  function saveState(state) { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+  const items = document.querySelectorAll('.item');
+
+  function applyItemState(item, itemState) {
+    if (!itemState) return;
+    item.querySelectorAll('.action-btn').forEach(btn => {
+      btn.classList.toggle('active', itemState.roles?.includes(btn.dataset.role));
+    });
+    item.classList.toggle('decided', itemState.roles?.includes('decided'));
+    const notes = item.querySelector('.notes');
+    if (notes && itemState.notes) notes.value = itemState.notes;
+  }
+
+  // Restore state
+  const state = loadState();
+  items.forEach(item => {
+    applyItemState(item, state[item.dataset.id]);
+  });
+
+  // Button handlers
+  items.forEach(item => {
+    const itemId = item.dataset.id;
+    item.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const role = btn.dataset.role;
+        const s = loadState();
+        if (!s[itemId]) s[itemId] = { roles: [], notes: '' };
+
+        if (role === 'decided') {
+          // Toggle decided
+          const idx = s[itemId].roles.indexOf('decided');
+          if (idx >= 0) s[itemId].roles.splice(idx, 1);
+          else s[itemId].roles.push('decided');
+        } else {
+          // Exclusive among LC/RF/Fælles
+          ['lc', 'rf', 'faelles'].forEach(r => {
+            const idx = s[itemId].roles.indexOf(r);
+            if (idx >= 0) s[itemId].roles.splice(idx, 1);
+          });
+          s[itemId].roles.push(role);
+        }
+        saveState(s);
+        applyItemState(item, s[itemId]);
+        updateProgress();
+      });
+    });
+    const notes = item.querySelector('.notes');
+    if (notes) {
+      notes.addEventListener('input', () => {
+        const s = loadState();
+        if (!s[itemId]) s[itemId] = { roles: [], notes: '' };
+        s[itemId].notes = notes.value;
+        saveState(s);
+      });
+    }
+  });
+
+  function updateProgress() {
+    const total = items.length;
+    let done = 0;
+    const sectionCounts = {};
+    items.forEach(item => {
+      const sec = item.closest('.section').dataset.section;
+      sectionCounts[sec] = sectionCounts[sec] || { done: 0, total: 0 };
+      sectionCounts[sec].total++;
+      if (item.classList.contains('decided')) {
+        done++;
+        sectionCounts[sec].done++;
+      }
+    });
+    document.getElementById('countDone').textContent = done;
+    document.getElementById('countTotal').textContent = total;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.querySelectorAll('.section').forEach(section => {
+      const sec = section.dataset.section;
+      const c = sectionCounts[sec] || { done: 0, total: 0 };
+      const meta = section.querySelector('.section-meta');
+      if (meta) {
+        meta.querySelector('.sm-done').textContent = c.done;
+        meta.querySelector('.sm-total').textContent = c.total;
+      }
+    });
+  }
+
+  function resetAll() {
+    if (!confirm('Nulstil alle beslutninger og noter?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    items.forEach(item => {
+      item.classList.remove('decided');
+      item.querySelectorAll('.action-btn').forEach(b => b.classList.remove('active'));
+      const notes = item.querySelector('.notes');
+      if (notes) notes.value = '';
+    });
+    updateProgress();
+  }
+
+  function exportJson() {
+    const state = loadState();
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'livecloud-ansvarsmatrix-' + new Date().toISOString().split('T')[0] + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importJson(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const newState = JSON.parse(e.target.result);
+        saveState(newState);
+        items.forEach(item => applyItemState(item, newState[item.dataset.id]));
+        updateProgress();
+        alert('Status importeret.');
+      } catch (err) {
+        alert('Kunne ikke læse JSON-fil.');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  updateProgress();
+</script>
+
+</body>
+</html>

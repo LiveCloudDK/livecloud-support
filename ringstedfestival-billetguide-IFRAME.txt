@@ -1,20 +1,47 @@
 <!--
   Ringsted Festival, billetguide som iframe (mørkt tema).
   Klistres ind i en Custom HTML-blok i WordPress.
-  Ingen CSS-konflikter, ingen problemer med temaer.
-  Iframen sender sin egen højde via postMessage så den auto-tilpasser
-  uden cross-origin problemer.
+  Wrap-divet "bryder ud" af WP/Kadence-containeren med full-bleed CSS,
+  så cream-/beige-rammen fra temaet dækkes af sort.
+  Iframen sender sin egen højde via postMessage for auto-resize.
 -->
 
-<iframe
-  id="rf-billetguide-iframe"
-  src="https://liveclouddk.github.io/livecloud-support/ringstedfestival-billetguide.html"
-  title="Ringsted Festival, billetguide"
-  loading="lazy"
-  style="width:100%; min-height:6500px; border:0; margin:0; padding:0; display:block; background:#0a0e15; overflow:hidden;"
-  allow="fullscreen"
-  scrolling="no"
-></iframe>
+<style>
+  .rf-billetguide-fullbleed {
+    position: relative;
+    background: #0a0e15;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-width: 100vw;
+  }
+  .rf-billetguide-fullbleed iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: #0a0e15;
+  }
+</style>
+
+<div class="rf-billetguide-fullbleed">
+  <iframe
+    id="rf-billetguide-iframe"
+    src="https://liveclouddk.github.io/livecloud-support/ringstedfestival-billetguide.html"
+    title="Ringsted Festival, billetguide"
+    loading="lazy"
+    style="min-height:6500px;"
+    allow="fullscreen"
+    scrolling="no"
+  ></iframe>
+</div>
 
 <script>
   (function(){

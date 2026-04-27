@@ -1,36 +1,32 @@
 <!--
-  Ringsted Festival, billetguide som iframe.
+  Ringsted Festival, billetguide som iframe (mørkt tema).
   Klistres ind i en Custom HTML-blok i WordPress.
   Ingen CSS-konflikter, ingen problemer med temaer.
-  Siden lever et eksternt sted og opdateres automatisk hvis vi opdaterer den.
+  Iframen sender sin egen højde via postMessage så den auto-tilpasser
+  uden cross-origin problemer.
 -->
 
 <iframe
+  id="rf-billetguide-iframe"
   src="https://liveclouddk.github.io/livecloud-support/ringstedfestival-billetguide.html"
   title="Ringsted Festival, billetguide"
   loading="lazy"
-  style="width:100%; min-height:4200px; border:0; display:block; background:#fdf6ee;"
+  style="width:100%; min-height:6500px; border:0; margin:0; padding:0; display:block; background:#0a0e15; overflow:hidden;"
   allow="fullscreen"
   scrolling="no"
 ></iframe>
 
 <script>
-  // Auto-tilpas iframe-højde, så indholdet ikke får dobbelt scrollbar.
   (function(){
-    var f = document.currentScript.previousElementSibling;
-    if (!f || f.tagName !== 'IFRAME') {
-      f = document.querySelector('iframe[src*="ringstedfestival-billetguide"]');
-    }
-    if (!f) return;
-    function resize(){
-      try {
-        var h = f.contentWindow.document.documentElement.scrollHeight;
-        if (h > 100) f.style.height = (h + 40) + 'px';
-      } catch(e){}
-    }
-    f.addEventListener('load', function(){
-      resize();
-      setInterval(resize, 1500);
+    window.addEventListener('message', function(e){
+      if (!e.data || e.data.type !== 'rf-billetguide-height') return;
+      var f = document.getElementById('rf-billetguide-iframe');
+      if (!f) {
+        f = document.querySelector('iframe[src*="ringstedfestival-billetguide"]');
+      }
+      if (f && typeof e.data.height === 'number' && e.data.height > 200) {
+        f.style.height = (e.data.height + 24) + 'px';
+      }
     });
   })();
 </script>

@@ -888,5 +888,28 @@
     document.querySelectorAll('.rf-billetguide-wrap .rf-tab-content').forEach(el => el.classList.remove('rf-active'));
     document.getElementById('rf-tab-' + tab).classList.add('rf-active');
     document.querySelector('.rf-billetguide-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Tabs ændrer højden, send opdatering til parent (hvis siden er embedded i iframe)
+    rfSendHeight();
   }
+
+  // Send aktuel højde til parent-vinduet (til iframe auto-resize i WordPress)
+  function rfSendHeight() {
+    if (window.parent === window) return; // ikke i iframe
+    var h = Math.max(
+      document.documentElement.scrollHeight || 0,
+      document.body ? document.body.scrollHeight : 0,
+      document.documentElement.offsetHeight || 0
+    );
+    try {
+      window.parent.postMessage({ type: 'rf-billetguide-height', height: h }, '*');
+    } catch (e) { /* ignore */ }
+  }
+
+  // Send højde flere gange under indlæsning (fonts kan ændre layout)
+  window.addEventListener('load', rfSendHeight);
+  window.addEventListener('resize', rfSendHeight);
+  setTimeout(rfSendHeight, 250);
+  setTimeout(rfSendHeight, 800);
+  setTimeout(rfSendHeight, 2000);
+  setTimeout(rfSendHeight, 4000);
 </script>

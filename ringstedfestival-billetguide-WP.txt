@@ -561,21 +561,21 @@
       <p class="rf-section-intro">Når din profil er oprettet, skal billetterne indløses i appen. Der er flere måder at gøre det på.</p>
       <div class="rf-flow-list">
         <div class="rf-flow-card">
-          <div class="rf-flow-title">Indløs billet fra e-mail</div>
-          <div class="rf-flow-subtitle">Den nemmeste og hurtigste måde, del PDF'en fra Mail-appen direkte til festival-appen</div>
+          <div class="rf-flow-title">Indløs fra billede</div>
+          <div class="rf-flow-subtitle">Den nemmeste og hurtigste måde, scan QR-koden fra et screenshot eller billede af din billet</div>
           <div class="rf-flow-tags">
             <span class="rf-flow-tag rf-recommended">Anbefalet</span>
           </div>
-          <p class="rf-flow-desc">Åbn den e-mail, du modtog, da du købte dine billetter. Tryk på PDF-vedhæftningen, og brug delingsikonet (firkant med pil opad) til at dele filen til festival-appen. Billetkoderne importeres automatisk, og du er klar.</p>
-        </div>
-        <div class="rf-flow-card">
-          <div class="rf-flow-title">Indløs fra billede</div>
-          <div class="rf-flow-subtitle">Tag et screenshot af din billet og importér</div>
-          <p class="rf-flow-desc">Du kan tage et screenshot af din billet-PDF, hvis du vil gemme den som billede først. Vælg derefter "Fra billede" i appen, og vælg billedet fra dine Fotos. Appen scanner billedet og finder automatisk billetkoderne.</p>
+          <p class="rf-flow-desc">Tag et screenshot af din billet, eller gem PDF'en som billede. Vælg "Fra billede" i appen, og vælg billedet fra dine Fotos. Appen scanner billedet og finder automatisk billetkoden.</p>
           <a class="rf-video-link" href="https://www.youtube.com/watch?v=_trzUuKu3nQ&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
             Se video
           </a>
+        </div>
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Indløs flere billetter</div>
+          <div class="rf-flow-subtitle">Importér alle billetter i samme PDF på én gang ved at dele PDF'en fra Mail-appen til festival-appen</div>
+          <p class="rf-flow-desc">Har du købt flere billetter i samme ordre? Åbn den e-mail, du modtog, tryk på PDF-vedhæftningen, og brug delingsikonet (firkant med pil opad) til at dele filen til festival-appen. Alle billetkoder i PDF'en importeres automatisk på én gang, så du slipper for at indlæse hver billet enkeltvis.</p>
         </div>
         <div class="rf-flow-card">
           <div class="rf-flow-title">Scan QR-kode</div>

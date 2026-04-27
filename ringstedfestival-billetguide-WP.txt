@@ -1,0 +1,841 @@
+<!--
+  Ringsted Festival, billetguide
+  Klistres ind i en "Custom HTML"-blok i WordPress.
+  Indeholder selv-scoped CSS (under .rf-billetguide-wrap), så den ikke
+  konflikter med festival-temaet.
+-->
+<style>
+  /* ═══ Alle styles scoped til .rf-billetguide-wrap ═══ */
+  /* Sikker at indlejre i WordPress uden at påvirke resten af siden  */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+
+  .rf-billetguide-wrap {
+    --rf-red: #de172b;
+    --rf-red-dark: #b21222;
+    --rf-orange: #f9a51b;
+    --rf-orange-deep: #f76a0c;
+    --rf-cream: #fdf6ee;
+    --rf-cream-dark: #f5ead8;
+    --rf-text: #2b1d12;
+    --rf-text-muted: #6b5a48;
+    --rf-text-dim: #9a8870;
+    --rf-border: #e8d9bf;
+    --rf-border-strong: #d8c4a3;
+    --rf-card: #ffffff;
+    --rf-card-hover: #fffbf5;
+
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--rf-text);
+    background: var(--rf-cream);
+    line-height: 1.6;
+    padding: 0 24px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .rf-billetguide-wrap *,
+  .rf-billetguide-wrap *::before,
+  .rf-billetguide-wrap *::after {
+    box-sizing: border-box;
+  }
+
+  .rf-billetguide-wrap .rf-container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 0 72px;
+  }
+
+  /* ═══ Hero med logo ═══ */
+  .rf-billetguide-wrap .rf-hero {
+    text-align: center;
+    margin-bottom: 36px;
+    padding: 28px 16px 36px;
+    background: linear-gradient(180deg, var(--rf-cream-dark) 0%, transparent 100%);
+    border-radius: 24px;
+    position: relative;
+  }
+  .rf-billetguide-wrap .rf-logo {
+    width: 64px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+  }
+  .rf-billetguide-wrap .rf-tagline {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--rf-red);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .rf-billetguide-wrap .rf-hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin: 0 0 14px 0;
+    color: var(--rf-text);
+  }
+  .rf-billetguide-wrap .rf-hero .rf-lede {
+    font-size: 17px;
+    color: var(--rf-text-muted);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ═══ Tabs ═══ */
+  .rf-billetguide-wrap .rf-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 5px;
+    background: var(--rf-card);
+    border: 1px solid var(--rf-border);
+    border-radius: 16px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 18px -8px rgba(43, 29, 18, 0.08);
+  }
+  .rf-billetguide-wrap .rf-tab {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px 18px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--rf-text-muted);
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    line-height: 1.3;
+  }
+  .rf-billetguide-wrap .rf-tab:hover {
+    color: var(--rf-text);
+    background: var(--rf-cream);
+  }
+  .rf-billetguide-wrap .rf-tab.rf-active {
+    background: var(--rf-red);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(222, 23, 43, 0.2);
+  }
+  .rf-billetguide-wrap .rf-tab-count {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 8px;
+    background: rgba(43, 29, 18, 0.06);
+    color: var(--rf-text-muted);
+    font-weight: 700;
+  }
+  .rf-billetguide-wrap .rf-tab.rf-active .rf-tab-count {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+  .rf-billetguide-wrap .rf-tab-content { display: none; }
+  .rf-billetguide-wrap .rf-tab-content.rf-active { display: block; }
+
+  /* ═══ Sections ═══ */
+  .rf-billetguide-wrap .rf-section {
+    margin-bottom: 44px;
+    scroll-margin-top: 24px;
+  }
+  .rf-billetguide-wrap .rf-section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .rf-billetguide-wrap .rf-section-num {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--rf-red);
+    color: #fff;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 800;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(222, 23, 43, 0.25);
+  }
+  .rf-billetguide-wrap .rf-section h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin: 0;
+    color: var(--rf-text);
+  }
+  .rf-billetguide-wrap .rf-section-intro {
+    font-size: 15.5px;
+    color: var(--rf-text-muted);
+    line-height: 1.7;
+    margin: 0 0 22px 52px;
+  }
+
+  /* ═══ Flow cards ═══ */
+  .rf-billetguide-wrap .rf-flow-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .rf-billetguide-wrap .rf-flow-card {
+    background: var(--rf-card);
+    border: 1px solid var(--rf-border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    transition: all 0.18s ease;
+    box-shadow: 0 1px 3px rgba(43, 29, 18, 0.04);
+  }
+  .rf-billetguide-wrap .rf-flow-card:hover {
+    background: var(--rf-card-hover);
+    border-color: var(--rf-orange);
+    box-shadow: 0 6px 20px -8px rgba(249, 165, 27, 0.25);
+    transform: translateY(-1px);
+  }
+  .rf-billetguide-wrap .rf-flow-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    margin: 0 0 4px 0;
+    color: var(--rf-text);
+  }
+  .rf-billetguide-wrap .rf-flow-subtitle {
+    font-size: 14px;
+    color: var(--rf-text-muted);
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+  }
+  .rf-billetguide-wrap .rf-flow-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .rf-billetguide-wrap .rf-flow-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 12px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .rf-billetguide-wrap .rf-flow-tag.rf-permanent {
+    background: rgba(222, 23, 43, 0.1);
+    color: var(--rf-red);
+  }
+  .rf-billetguide-wrap .rf-flow-tag.rf-needs-app {
+    background: rgba(249, 165, 27, 0.15);
+    color: var(--rf-orange-deep);
+  }
+  .rf-billetguide-wrap .rf-flow-tag.rf-no-app {
+    background: rgba(43, 29, 18, 0.07);
+    color: var(--rf-text-muted);
+  }
+  .rf-billetguide-wrap .rf-flow-tag.rf-info {
+    background: rgba(43, 29, 18, 0.07);
+    color: var(--rf-text-muted);
+  }
+  .rf-billetguide-wrap .rf-flow-tag.rf-recommended {
+    background: rgba(222, 23, 43, 0.1);
+    color: var(--rf-red);
+  }
+
+  .rf-billetguide-wrap .rf-flow-desc {
+    font-size: 14.5px;
+    color: var(--rf-text);
+    line-height: 1.7;
+    margin: 0 0 12px 0;
+  }
+  .rf-billetguide-wrap .rf-flow-desc strong {
+    color: var(--rf-text);
+    font-weight: 700;
+  }
+  .rf-billetguide-wrap .rf-flow-note {
+    font-size: 13px;
+    color: var(--rf-text-muted);
+    font-style: italic;
+    line-height: 1.65;
+    padding: 11px 16px;
+    background: var(--rf-cream);
+    border-left: 3px solid var(--rf-orange);
+    border-radius: 6px;
+    margin: 12px 0 0;
+  }
+  .rf-billetguide-wrap .rf-flow-hint {
+    font-size: 13.5px;
+    color: var(--rf-text);
+    background: rgba(249, 165, 27, 0.1);
+    border-left: 3px solid var(--rf-orange);
+    padding: 11px 16px;
+    border-radius: 6px;
+    margin: 12px 0 0;
+    line-height: 1.65;
+  }
+  .rf-billetguide-wrap .rf-flow-hint strong {
+    color: var(--rf-text);
+    font-weight: 700;
+  }
+
+  /* ═══ Video link ═══ */
+  .rf-billetguide-wrap .rf-video-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--rf-red);
+    text-decoration: none;
+    margin-top: 14px;
+    padding: 8px 14px 8px 12px;
+    background: rgba(222, 23, 43, 0.06);
+    border: 1px solid rgba(222, 23, 43, 0.2);
+    border-radius: 20px;
+    transition: all 0.15s ease;
+    line-height: 1;
+  }
+  .rf-billetguide-wrap .rf-video-link:hover {
+    background: var(--rf-red);
+    color: #fff;
+    border-color: var(--rf-red);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(222, 23, 43, 0.25);
+  }
+  .rf-billetguide-wrap .rf-video-link svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ═══ Disclaimer banner ═══ */
+  .rf-billetguide-wrap .rf-disclaimer-banner {
+    background: rgba(249, 165, 27, 0.1);
+    border: 1px solid rgba(249, 165, 27, 0.4);
+    border-left-width: 4px;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--rf-text);
+  }
+  .rf-billetguide-wrap .rf-disclaimer-banner strong {
+    color: var(--rf-orange-deep);
+    font-weight: 700;
+  }
+  .rf-billetguide-wrap .rf-disclaimer-banner a {
+    color: var(--rf-red);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  /* ═══ Summary table ═══ */
+  .rf-billetguide-wrap .rf-summary-wrap {
+    background: var(--rf-card);
+    border: 1px solid var(--rf-border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(43, 29, 18, 0.04);
+  }
+  .rf-billetguide-wrap .rf-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .rf-billetguide-wrap .rf-summary-table th {
+    background: var(--rf-cream-dark);
+    text-align: left;
+    padding: 13px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--rf-red);
+    border-bottom: 1px solid var(--rf-border);
+  }
+  .rf-billetguide-wrap .rf-summary-table td {
+    padding: 13px 18px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--rf-text-muted);
+    border-bottom: 1px solid var(--rf-border);
+  }
+  .rf-billetguide-wrap .rf-summary-table td strong {
+    color: var(--rf-text);
+    font-weight: 700;
+  }
+  .rf-billetguide-wrap .rf-summary-table tr:last-child td { border-bottom: none; }
+  .rf-billetguide-wrap .rf-summary-table tr:hover td { background: var(--rf-cream); }
+  .rf-billetguide-wrap .rf-dash { color: var(--rf-text-dim); }
+
+  /* ═══ Legal ═══ */
+  .rf-billetguide-wrap .rf-legal {
+    margin-top: 56px;
+    padding: 32px 28px;
+    background: var(--rf-card);
+    border: 1px solid var(--rf-border);
+    border-radius: 18px;
+  }
+  .rf-billetguide-wrap .rf-legal h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin: 0 0 6px 0;
+    color: var(--rf-text);
+  }
+  .rf-billetguide-wrap .rf-legal h2 + p {
+    font-size: 13px;
+    color: var(--rf-text-dim);
+    margin: 0 0 24px 0;
+  }
+  .rf-billetguide-wrap .rf-legal-p {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--rf-text-muted);
+    margin-bottom: 16px;
+  }
+  .rf-billetguide-wrap .rf-legal-p strong {
+    color: var(--rf-text);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14.5px;
+  }
+  .rf-billetguide-wrap .rf-legal-footer {
+    font-size: 12px;
+    color: var(--rf-text-dim);
+    font-style: italic;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rf-border);
+  }
+
+  /* ═══ Foot ═══ */
+  .rf-billetguide-wrap .rf-foot {
+    text-align: center;
+    margin-top: 40px;
+    padding: 28px 20px 12px;
+    border-top: 1px solid var(--rf-border);
+    font-size: 13.5px;
+    color: var(--rf-text-muted);
+    line-height: 1.7;
+  }
+  .rf-billetguide-wrap .rf-foot a {
+    color: var(--rf-red);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .rf-billetguide-wrap .rf-foot a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .rf-billetguide-wrap { padding: 0 16px; }
+    .rf-billetguide-wrap .rf-container { padding: 32px 0 56px; }
+    .rf-billetguide-wrap .rf-hero { padding: 22px 12px 28px; }
+    .rf-billetguide-wrap .rf-hero h1 { font-size: 30px; }
+    .rf-billetguide-wrap .rf-hero .rf-lede { font-size: 15px; }
+    .rf-billetguide-wrap .rf-section h2 { font-size: 20px; }
+    .rf-billetguide-wrap .rf-section-intro { margin-left: 0; }
+    .rf-billetguide-wrap .rf-flow-card { padding: 18px 20px; }
+    .rf-billetguide-wrap .rf-summary-table th,
+    .rf-billetguide-wrap .rf-summary-table td {
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+    .rf-billetguide-wrap .rf-legal { padding: 24px 20px; }
+  }
+</style>
+
+<div class="rf-billetguide-wrap">
+<div class="rf-container">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="rf-hero">
+    <svg class="rf-logo" viewBox="0 0 186.7 248.84" xmlns="http://www.w3.org/2000/svg" aria-label="Ringsted Festival">
+      <g fill="#f9a51b">
+        <path d="M118.23,55.15c2.36-1.09,4.98-2.7,7.51-5.1,7.41-7.03,6.09-15.83,10.85-21.68,4.48-5.5,10.78-6.08,10.78-6.08,0,0-7.16-1.71-13.42,3.51-6.9,5.75-5.39,9.73-13.09,16.55-3.27,2.9-7.04,4.38-10.09,5.15,2.89,2.12,5.41,4.71,7.46,7.65Z"/>
+        <path d="M78.47,32.99c.86,4.24.29,8.21-.56,11.22,3.2-1.49,6.68-2.47,10.35-2.84.2-2.53.1-5.49-.69-8.76-2.39-9.93-10.67-13.19-13.35-20.23-2.52-6.63.12-12.38.12-12.38,0,0-5.06,5.34-3.67,13.38,1.53,8.85,5.73,9.53,7.79,19.61Z"/>
+        <path d="M105.17,44.2c1.45-2.1,2.86-4.73,3.82-7.98,2.89-9.79-2.65-16.76-1.45-24.2,1.13-7,6.3-10.66,6.3-10.66,0,0-7.05,2.09-9.87,9.75-3.09,8.43.19,11.12-3.06,20.88-1.36,4.07-3.82,7.2-6.04,9.38,3.64.37,7.11,1.35,10.29,2.82Z"/>
+        <path d="M121.3,60.61c1.42,3.23,2.34,6.74,2.64,10.42,2.66.28,5.84.22,9.39-.63,9.93-2.39,13.19-10.67,20.23-13.35,6.63-2.52,12.38.12,12.38.12,0,0-5.34-5.06-13.38-3.67-8.85,1.54-9.53,5.73-19.61,7.79-4.44.91-8.59.23-11.65-.68Z"/>
+        <path d="M154.82,86.79c-8.43-3.1-11.12.19-20.88-3.06-4.5-1.5-7.86-4.35-10.05-6.74-.37,3.71-1.38,7.23-2.89,10.47,2.2,1.64,5.07,3.27,8.72,4.35,9.79,2.9,16.76-2.65,24.2-1.44,7,1.13,10.66,6.3,10.66,6.3,0,0-2.09-7.05-9.75-9.87Z"/>
+        <path d="M59.33,77.74c-2.69-.29-5.92-.25-9.53.61-9.93,2.39-13.19,10.67-20.23,13.35-6.63,2.52-12.38-.12-12.38-.12,0,0,5.34,5.06,13.38,3.67,8.85-1.54,9.53-5.73,19.61-7.79,4.81-.98,9.29-.1,12.4.92-1.66-3.27-2.78-6.85-3.25-10.64Z"/>
+        <path d="M28.3,61.96c8.43,3.09,11.12-.19,20.88,3.06,4.44,1.48,7.76,4.27,9.96,6.64.23-3.78,1.11-7.38,2.52-10.7-2.14-1.52-4.87-3.01-8.26-4.02-9.79-2.9-16.76,2.64-24.19,1.45-7-1.13-10.66-6.3-10.66-6.3,0,0,2.09,7.05,9.75,9.86Z"/>
+        <path d="M59.53,45.08c2.96,3.34,4.45,7.21,5.2,10.29,2.06-3,4.6-5.64,7.53-7.81-1.09-2.32-2.68-4.88-5.03-7.36-7.04-7.4-15.83-6.09-21.68-10.85-5.5-4.48-6.08-10.78-6.08-10.78,0,0-1.71,7.16,3.51,13.42,5.75,6.9,9.73,5.39,16.55,13.09Z"/>
+      </g>
+      <path fill="#de172b" d="M105.05,87.18c-.17-.13-.35-.25-.52-.37,3.29-3.3,5.31-7.86,5.31-12.88,0-10.09-8.18-18.27-18.27-18.27s-18.28,8.18-18.28,18.27c0,5.03,2.03,9.58,5.32,12.89-.16.12-.33.23-.49.35-9.04,2.63-33.9,11.76-33.9,29.89,0,11.12,9.6,15.52,18.67,15.7,14.06.28,16.03-7.12,15.56-10.42-.54-3.82-3.83-6.76-7.8-6.76-2.85,0-5.34,1.52-6.72,3.78-9.61.85-9.69-12.08-.96-14.46,8.96-2.44,12.45,3.06,20.15,1.9,7.86-1.18,9.78-5.19,15.62-4.95,4.29.18,6.45,2.87,5.75,5.19-2.48-1.38-6.55.29-6.17,3.32.22,1.78,2.23,3.44,5.61,2.99,14.34-1.92,19.27-2.4,34.68-4.37-8.07-9.19-20.21-17.98-33.56-21.79Z"/>
+      <path fill="#f9a51b" d="M166.4,185.33l-.12-.04-9.4-3.51c-4.24-12.1-12.66-36.8-24.97-59.38,8.78,5.4,27.05,4.05,26.35-10.73-.2-4.3-3.49-7.79-7.79-7.79s-7.79,3.49-7.79,7.79c0,1.48.42,2.86,1.14,4.04-6.39,1.15-18.51,3.01-38.78,6.16-4.73.73-5.61,2.74-5.38,4.63.34,2.73,4.55,3.65,6.39,1.81,1.22,1.91-.11,5.44-3.86,6.6-5.01,1.55-8.08-.67-15.51.68-8.65,1.57-11.68,10.2-22.44,11.87-9.85,1.53-17.8-2.41-21.72-7.76-8.11,17.39-13.09,33-16.27,42.07l-9.4,3.51-.12.04c-.25.12-.42.37-.42.66v1.81c0,.41.33.74.74.74h26.83c.25,0,.47-.12.6-.32,0,0,0,0,.01-.01,13.95-18.44,30.06-33.22,46.13-33.78.31,0,.63-.02.94-.02.34,0,.68.01,1.02.02,16.04.61,32.13,15.36,46.05,33.77,0,.01.02.02.03.04.13.18.35.3.59.3h26.83c.41,0,.74-.33.74-.74v-1.81c0-.29-.17-.54-.42-.66Z"/>
+    </svg>
+    <span class="rf-tagline">Årets kram under trækronerne</span>
+    <h1>Sådan håndterer du dine billetter</h1>
+    <p class="rf-lede">En hjælp til alle, der køber, deler eller modtager billetter til Ringsted Festival. Vælg om du vil se guiden som afsender eller modtager.</p>
+  </div>
+
+  <!-- ═══ TABS ═══ -->
+  <div class="rf-tabs">
+    <button class="rf-tab rf-active" onclick="rfSwitchTab('sender', event)">
+      <span>Jeg har billetter, jeg vil sende eller administrere</span>
+      <span class="rf-tab-count">5 trin</span>
+    </button>
+    <button class="rf-tab" onclick="rfSwitchTab('receiver', event)">
+      <span>Jeg modtager en billet</span>
+      <span class="rf-tab-count">3 trin</span>
+    </button>
+  </div>
+
+  <!-- ═══════════════ AFSENDER ═══════════════ -->
+  <div id="rf-tab-sender" class="rf-tab-content rf-active">
+
+    <!-- 0. Opret profil -->
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">1</div>
+        <h2>Opret din profil først</h2>
+      </div>
+      <p class="rf-section-intro">Inden du kan administrere dine billetter, skal du have en profil i festival-appen. Det tager kun et øjeblik og bekræftes med MitID, så du ved, at dine billetter er sikre.</p>
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Opret profil i appen</div>
+          <div class="rf-flow-subtitle">Bekræft med MitID, så er du klar til at modtage og bruge billetter</div>
+          <p class="rf-flow-desc">Download festival-appen, opret din profil og bekræft med MitID. Når profilen er klar, kan du indløse dine billetter, modtage videregivelser fra andre og købe Beats. Du bruger kun MitID første gang, derefter åbner du appen med Face ID, fingeraftryk eller PIN.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=rLiCF5IL7A0&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Indløs -->
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">2</div>
+        <h2>Indløs og importer billetter</h2>
+      </div>
+      <p class="rf-section-intro">Når din profil er oprettet, skal billetterne indløses i appen. Der er flere måder at gøre det på.</p>
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Indløs billet fra e-mail</div>
+          <div class="rf-flow-subtitle">Den nemmeste og hurtigste måde, del PDF'en fra Mail-appen direkte til festival-appen</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-recommended">Anbefalet</span>
+          </div>
+          <p class="rf-flow-desc">Åbn den e-mail, du modtog, da du købte dine billetter. Tryk på PDF-vedhæftningen, og brug delingsikonet (firkant med pil opad) til at dele filen til festival-appen. Billetkoderne importeres automatisk, og du er klar.</p>
+        </div>
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Indløs fra billede</div>
+          <div class="rf-flow-subtitle">Tag et screenshot af din billet og importér</div>
+          <p class="rf-flow-desc">Du kan tage et screenshot af din billet-PDF, hvis du vil gemme den som billede først. Vælg derefter "Fra billede" i appen, og vælg billedet fra dine Fotos. Appen scanner billedet og finder automatisk billetkoderne.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=_trzUuKu3nQ&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video
+          </a>
+        </div>
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Scan QR-kode</div>
+          <div class="rf-flow-subtitle">Brug kameraet til at scanne billetkoden</div>
+          <p class="rf-flow-desc">Har du printet din billet ud? Du kan scanne QR-koden direkte med kameraet. Vælg "Scan QR" og ret kameraet mod koden på den udprintede billet.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=2HqqOJQqeJw&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video
+          </a>
+        </div>
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Importér fra fil (PDF)</div>
+          <div class="rf-flow-subtitle">Alternativ, hvis PDF'en allerede ligger på telefonen</div>
+          <p class="rf-flow-desc">Har du billet-PDF'en gemt på telefonen? Vælg "Fra fil" i appen, find filen, og åbn den. Appen scanner PDF'en og finder alle billetkoder automatisk.</p>
+        </div>
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Indsæt fra udklipsholder</div>
+          <div class="rf-flow-subtitle">Kopiér koden, og lad appen finde den</div>
+          <p class="rf-flow-desc">Hvis du har kopieret en billetkode til udklipsholderen, kan du vælge "Indsæt fra udklipsholder". Appen finder automatisk billetkoden i den kopierede tekst.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=icj5xmh61jA&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Videregiv -->
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">3</div>
+        <h2>Videregiv billet til en anden person</h2>
+      </div>
+      <p class="rf-section-intro">Du kan videregive hele din billet, eller udvalgte adgange, permanent til en anden person. Modtageren bliver den nye ejer og skal have appen med en MitID-verificeret profil.</p>
+
+      <div class="rf-disclaimer-banner">
+        <strong>Ved salg eller overdragelse:</strong> Billetprisen må ikke overstige den originale købspris. Ringsted Festival er ikke part i økonomiske aftaler mellem brugere. Vi stiller en platform til rådighed, som sikrer, at begge parter har en gyldig, MitID-verificeret konto. <a href="#rf-disclaimer">Læs de fulde vilkår her</a>.
+      </div>
+
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Videregiv hele din billet</div>
+          <div class="rf-flow-subtitle">Videregiv permanent alle adgange til en anden person</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-permanent">Permanent videregivelse</span>
+            <span class="rf-flow-tag rf-needs-app">Modtager behøver appen</span>
+          </div>
+          <p class="rf-flow-desc">Gå til "Dine billetter", og vælg "Videregiv billet". Alle adgange på billetten (fx alle dage på en partout, eller en campingbillet, som dækker hele festivalen) videregives samlet til modtageren. Indtast modtagerens navn og e-mail. Modtageren skal have en profil bekræftet med MitID og får en e-mail med et link til at acceptere videregivelsen.</p>
+          <div class="rf-flow-note">Denne handling er permanent og kan ikke fortrydes. Hvis du ønsker billetten retur, skal modtageren videregive den tilbage til dig.</div>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=mu4cNi4uWWY&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, send billet til én ven
+          </a>
+        </div>
+
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Videregiv enkelt adgang</div>
+          <div class="rf-flow-subtitle">Videregiv én eller flere dage/adgange fra en billet med flere adgange</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-permanent">Permanent videregivelse</span>
+            <span class="rf-flow-tag rf-needs-app">Modtager behøver appen</span>
+          </div>
+          <p class="rf-flow-desc">Har du en billet med flere adgange, fx en partout (torsdag, fredag, lørdag) eller en glamcamp-billet med 2 eller 4 adgange? Du kan videregive udvalgte adgange enkeltvis til forskellige personer. Gå til "Dine billetter", vælg den specifikke adgang, og tryk "Videregiv". Indtast modtagerens navn og e-mail.</p>
+          <div class="rf-flow-note">En standard campingbillet dækker hele festivalens periode og kan ikke stykkes ud, den overdrages som helhed. Hver adgang videregives permanent. Modtageren skal have en profil bekræftet med MitID.</div>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=EshLLKeDjRE&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, glamcamp-tildeling
+          </a>
+        </div>
+
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Videresend billetkode (til flere)</div>
+          <div class="rf-flow-subtitle">Del uindløste billetkoder via SMS, Messenger, e-mail mm.</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-needs-app">Modtager behøver appen</span>
+          </div>
+          <p class="rf-flow-desc">Hvis du har importeret billetkoder, men ikke indløst dem alle, kan du videresende koderne til andre via telefonens delingsmenu. Modtagerne får et link hver og kan selv indløse billetten i deres egen app. Praktisk når du har flere billetter at dele ud til venner og familie.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=Um9FXCxKezo&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, send til flere venner
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Tilknyt -->
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">4</div>
+        <h2>Giv adgang til et barn eller en ledsager</h2>
+      </div>
+      <p class="rf-section-intro">Du kan give adgang til børn under 13 eller ledsagere uden, at de behøver egen telefon, app eller profil. Adgangen forbliver på din profil, og du er ansvarlig for personen ved ind- og udgang.</p>
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Giv adgang til et barn</div>
+          <div class="rf-flow-subtitle">Tilknyt et barn under 13 til din billet</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-no-app">Ingen app krævet</span>
+            <span class="rf-flow-tag rf-info">Barnet skal følges af dig</span>
+          </div>
+          <p class="rf-flow-desc">Gå til "Dine billetter", vælg en adgang, og tryk "Tilknyt barn". Indtast barnets navn og alder. Barnet behøver ikke egen telefon, app eller profil og skal være sammen med dig, når I skal ind og ud af festivalpladsen.</p>
+          <div class="rf-flow-hint"><strong>Tip:</strong> Du kan købe et chip-armbånd i webshoppen (afhentes ved Service Desk) eller ved indgangen, når du ankommer. Armbåndet knyttes til din profil, og barnet kan bære det som adgang og handle på din Beats-konto, praktisk hvis barnet vil rundt på egen hånd inden for festivalpladsen. Du kan have flere armbånd tilknyttet din profil og kan sætte et maks-forbrug per armbånd.</div>
+          <div class="rf-flow-note">Gælder for børn under 13 år, som ikke har egen telefon eller profil i appen. MitID kan først udstedes fra 13 år. Armbåndet er ikke adgangsgivende i sig selv, det virker kun, når det er knyttet til en profil med en gyldig adgang.</div>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=MF58g1Mb04U&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, tildel billet til barn
+          </a>
+        </div>
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Giv adgang til en ledsager</div>
+          <div class="rf-flow-subtitle">Samme flow som for et barn, blot med "Tilknyt ledsager"</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-no-app">Ingen app krævet</span>
+            <span class="rf-flow-tag rf-info">Ledsager skal følges af dig</span>
+          </div>
+          <p class="rf-flow-desc">Gå til "Dine billetter", vælg en adgang, og tryk "Tilknyt ledsager". Indtast ledsagerens navn. Ledsageren behøver hverken egen telefon, app eller profil, og I skal være sammen ved ind- og udgang af festivalpladsen. Princippet er det samme som ved tildeling af et barn, brug videoen ovenfor som reference.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Administrer -->
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">5</div>
+        <h2>Administrer dine billetter</h2>
+      </div>
+      <p class="rf-section-intro">Du kan til enhver tid se status på dine billetter og tilknyttede personer i appen.</p>
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Gensend invitation, hvis modtageren ikke når at acceptere</div>
+          <div class="rf-flow-subtitle">Invitationslinks udløber efter 72 timer, men kan gensendes</div>
+          <p class="rf-flow-desc">Gå til "Dine billetter", find den udløbede videregivelse, og tryk "Gensend". Det gamle link bliver ugyldigt, og et nyt 72-timers link sendes til samme e-mail. Du kan gensende så mange gange, det er nødvendigt.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hurtigoversigt -->
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num" style="background: var(--rf-orange);">&#9776;</div>
+        <h2>Hurtigoversigt</h2>
+      </div>
+      <div class="rf-summary-wrap">
+        <table class="rf-summary-table">
+          <thead>
+            <tr>
+              <th>Funktion</th>
+              <th>Modtager kræver</th>
+              <th>Permanent?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Indløs billet</strong></td><td>Kun dig selv</td><td><span class="rf-dash">—</span></td></tr>
+            <tr><td><strong>Videregiv hele billet</strong></td><td>App + MitID-verificeret profil</td><td>Ja, modtager skal sende retur</td></tr>
+            <tr><td><strong>Videregiv enkelt adgang</strong></td><td>App + MitID-verificeret profil</td><td>Ja, modtager skal sende retur</td></tr>
+            <tr><td><strong>Videresend billetkode</strong></td><td>App + profil</td><td>Ja, når indløst</td></tr>
+            <tr><td><strong>Tilknyt barn (under 13)</strong></td><td>Ingenting</td><td>Nej, kan ændres</td></tr>
+            <tr><td><strong>Tilknyt ledsager</strong></td><td>Ingenting</td><td>Nej, kan ændres</td></tr>
+            <tr><td><strong>Gensend invitation</strong></td><td><span class="rf-dash">—</span></td><td><span class="rf-dash">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /tab-sender -->
+
+  <!-- ═══════════════ MODTAGER ═══════════════ -->
+  <div id="rf-tab-receiver" class="rf-tab-content">
+
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">1</div>
+        <h2>Du har modtaget en billet via e-mail</h2>
+      </div>
+      <p class="rf-section-intro">Nogen har videregivet en billet eller en adgang til dig. Du skal acceptere videregivelsen i appen.</p>
+
+      <div class="rf-disclaimer-banner">
+        <strong>Ved køb fra privatperson:</strong> Sørg for, at prisen ikke overstiger den originale billetpris. Ringsted Festival er ikke part i økonomiske aftaler mellem brugere. Begge parter skal have en gyldig, MitID-verificeret konto. <a href="#rf-disclaimer">Læs de fulde vilkår her</a>.
+      </div>
+
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Acceptér en videregivet billet</div>
+          <div class="rf-flow-subtitle">Nogen har videregivet en billet eller adgang til dig</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-needs-app">Kræver appen + MitID</span>
+          </div>
+          <p class="rf-flow-desc">Du modtager en e-mail med et link til at hente din billet. Tryk på linket, det åbner festival-appen, hvor du kan se billetdetaljerne. Vælg "Acceptér" for at modtage billetten, eller "Afvis", hvis du ikke ønsker den. Når du accepterer, er billetten din.</p>
+          <div class="rf-flow-note">Linket er gyldigt i 72 timer. Hvis det udløber, kan afsenderen gensende det til dig. Du skal have en MitID-verificeret profil i appen.</div>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=X4JJTtoQxNo&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, accepter billetanmodning
+          </a>
+        </div>
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Har du fået tilsendt en billetkode?</div>
+          <div class="rf-flow-subtitle">Indløs en kode, du har modtaget via SMS, Messenger eller e-mail</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-needs-app">Kræver appen</span>
+          </div>
+          <p class="rf-flow-desc">Har du fået tilsendt en billetkode fra en ven eller kollega? Åbn festival-appen, vælg "Indløs billetter", og indtast koden manuelt. Har du modtaget et link sammen med koden, kan du trykke på linket for at indløse automatisk.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=icj5xmh61jA&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, billetkode
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">2</div>
+        <h2>Dit barn eller din ledsager har fået adgang</h2>
+      </div>
+      <p class="rf-section-intro">Hvis du er tilknyttet en billet som barn eller ledsager, behøver du ikke gøre noget i appen, du følges bare ind og ud sammen med den ansvarlige person.</p>
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Barn under 13 eller ledsager</div>
+          <div class="rf-flow-subtitle">Din adgang er allerede klar, du behøver ingen app eller profil</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-no-app">Ingen app krævet</span>
+          </div>
+          <p class="rf-flow-desc">Børn under 13 og ledsagere behøver hverken telefon, app eller profil. Du følges ind og ud af pladsen sammen med den voksne, der har tilknyttet dig, og det er den voksne, der fremviser sin app ved scanneren.</p>
+          <div class="rf-flow-hint"><strong>Tip:</strong> Du kan få et chip-armbånd til selv at gå ind og ud og handle ved barerne. Armbåndet købes i webshoppen (afhentes ved Service Desk) eller direkte ved indgangen, og det kobles til den ansvarliges profil. Den ansvarlige kan sætte et maks-forbrug på armbåndet, hvis det ønskes.</div>
+          <div class="rf-flow-note">MitID kan først udstedes fra 13 år, derfor er børn under 13 altid på en voksens billet.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num" style="background: var(--rf-orange);">&#9776;</div>
+        <h2>Hurtigoversigt</h2>
+      </div>
+      <div class="rf-summary-wrap">
+        <table class="rf-summary-table">
+          <thead>
+            <tr>
+              <th>Scenarie</th>
+              <th>Hvad kræves af dig?</th>
+              <th>Handling</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Billet videregivet (e-mail-link)</strong></td><td>App + MitID-verificeret profil</td><td>Acceptér eller afvis i appen</td></tr>
+            <tr><td><strong>Billetkode (SMS/Messenger)</strong></td><td>App + profil</td><td>Tryk link eller indtast koden</td></tr>
+            <tr><td><strong>Barn under 13 / Ledsager</strong></td><td>Ingenting</td><td>Følg med den ansvarlige person</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /tab-receiver -->
+
+  <!-- ═══ JURIDISK DISCLAIMER ═══ -->
+  <div id="rf-disclaimer" class="rf-legal">
+    <h2>Vilkår for videregivelse af billetter mellem brugere</h2>
+    <p>Gældende for alle videregivelser og overdragelser af billetter og adgange til Ringsted Festival.</p>
+
+    <p class="rf-legal-p"><strong>1. Platformens rolle</strong>
+      Livecloud ApS ("Livecloud") og Ringsted Festival ("Arrangøren") stiller en digital platform til rådighed, som gør det muligt for brugere at videregive billetter og adgange til andre brugere. Livecloud og Arrangøren er ikke part i nogen økonomisk transaktion mellem brugere og påtager sig intet ansvar for aftaler, betalinger eller tvister, der måtte opstå i forbindelse med videregivelse af billetter.
+    </p>
+    <p class="rf-legal-p"><strong>2. Prisbegrænsning ved videresalg</strong>
+      Ved salg eller overdragelse af en billet til en anden person må salgsprisen ikke overstige den originale købspris inklusive gebyrer. Overtrædelse af denne bestemmelse kan medføre annullering af billetten uden kompensation. Det er afsenderens og modtagerens ansvar at sikre, at prisen overholder denne begrænsning.
+    </p>
+    <p class="rf-legal-p"><strong>3. Identitetsverificering</strong>
+      Både afsender og modtager skal have en gyldig konto i systemet, verificeret med MitID (dansk digital identitet). Verifikationen sikrer, at begge parter kan identificeres, og at billetten knyttes til en verificeret person. Livecloud forbeholder sig retten til at afvise videregivelser, hvor en eller begge parter ikke er behørigt verificeret.
+    </p>
+    <p class="rf-legal-p"><strong>4. Permanent videregivelse</strong>
+      Videregivelse af en billet er permanent. Når modtageren har accepteret videregivelsen, er billetten modtagerens ejendom. Ønsker afsenderen billetten retur, skal modtageren selv foretage en ny videregivelse. Livecloud og Arrangøren kan ikke formidle eller gennemtvinge returnering af en videregivet billet.
+    </p>
+    <p class="rf-legal-p"><strong>5. Ansvarsfraskrivelse</strong>
+      Livecloud og Arrangøren er ikke ansvarlige for: (a) tab som følge af videregivelser mellem brugere, (b) manglende betaling mellem afsender og modtager, (c) tvister vedrørende pris, kvalitet eller vilkår aftalt mellem brugere, (d) tekniske problemer, der forhindrer rettidig accept af en videregivelse. Det er brugerens eget ansvar at sikre, at videregivelsen sker til den rette person.
+    </p>
+    <p class="rf-legal-p"><strong>6. Børn og ledsagere</strong>
+      Tilknytning af børn under 13 år og ledsagere er ikke en videregivelse, adgangen forbliver på den ansvarlige persons profil. Den ansvarlige person bærer det fulde ansvar for tilknyttede personer, herunder adgang til og adfærd på festivalområdet. Chip-armbånd kan købes i webshoppen (afhentes ved Service Desk) eller ved indgangen og knyttes til den ansvarlige persons profil. Man kan have flere armbånd tilknyttet sin profil, og der kan sættes et maks-forbrug per armbånd. Armbåndet er ikke adgangsgivende i sig selv, det virker kun, når det er knyttet til en profil med en gyldig adgang. Armbåndet er personens ansvar, og eventuelle køb foretaget med armbåndet debiteres personens Beats-konto.
+    </p>
+    <p class="rf-legal-p"><strong>7. Misbrug</strong>
+      Livecloud forbeholder sig retten til at spærre konti, annullere billetter og nægte adgang ved mistanke om misbrug, herunder men ikke begrænset til: systematisk videresalg over købspris, forsøg på videregivelse med uverificerede konti, eller anden brug, der strider mod disse vilkår eller Arrangørens betingelser.
+    </p>
+
+    <div class="rf-legal-footer">Sidst opdateret: april 2026. Disse vilkår kan ændres. Den til enhver tid gældende version er tilgængelig på Ringsted Festivals hjemmeside.</div>
+  </div>
+
+  <div class="rf-foot">
+    Spørgsmål? Skriv til <a href="mailto:kontor@ringstedfestival.dk">kontor@ringstedfestival.dk</a>.
+  </div>
+
+</div><!-- /rf-container -->
+</div><!-- /rf-billetguide-wrap -->
+
+<script>
+  function rfSwitchTab(tab, evt) {
+    document.querySelectorAll('.rf-billetguide-wrap .rf-tab').forEach(el => el.classList.remove('rf-active'));
+    (evt.currentTarget || evt.target.closest('.rf-tab')).classList.add('rf-active');
+    document.querySelectorAll('.rf-billetguide-wrap .rf-tab-content').forEach(el => el.classList.remove('rf-active'));
+    document.getElementById('rf-tab-' + tab).classList.add('rf-active');
+    document.querySelector('.rf-billetguide-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>

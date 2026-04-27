@@ -1,7 +1,5 @@
 <!--
   Ringsted Festival, billetguide (mørkt tema)
-  Sort baggrund med RF's faktiske fonts og brand-farver.
-  Klistres ind i en "Custom HTML"-blok i WordPress.
 -->
 <style>
   /* ═══ Alle styles scoped til .rf-billetguide-wrap ═══ */
@@ -898,13 +896,13 @@
   // Send aktuel højde til parent-vinduet (til iframe auto-resize i WordPress)
   function rfSendHeight() {
     if (window.parent === window) return; // ikke i iframe
-    var h = Math.max(
-      document.documentElement.scrollHeight || 0,
-      document.body ? document.body.scrollHeight : 0,
-      document.documentElement.offsetHeight || 0
-    );
+    // Mål wrapperen direkte - dokumentet er begrænset af iframe-højden
+    var wrapper = document.querySelector('.rf-billetguide-wrap');
+    if (!wrapper) return;
+    var h = wrapper.getBoundingClientRect().height;
+    if (!h || h < 200) return;
     try {
-      window.parent.postMessage({ type: 'rf-billetguide-height', height: h }, '*');
+      window.parent.postMessage({ type: 'rf-billetguide-height', height: Math.ceil(h) }, '*');
     } catch (e) { /* ignore */ }
   }
 

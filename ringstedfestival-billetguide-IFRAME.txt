@@ -28,6 +28,17 @@
     margin: 0;
     padding: 0;
     background: #0a0e15;
+    /* Realistisk start-højde for desktop. Postmessage-script
+       (i iframe-indholdet) finjusterer hvis scripts kører i WP. */
+    height: 5800px;
+  }
+  /* Tablet, indhold wrapper mere */
+  @media (max-width: 900px) {
+    .rf-billetguide-fullbleed iframe { height: 7200px; }
+  }
+  /* Mobil, indhold wrapper meget mere */
+  @media (max-width: 600px) {
+    .rf-billetguide-fullbleed iframe { height: 8400px; }
   }
 </style>
 
@@ -37,7 +48,6 @@
     src="https://liveclouddk.github.io/livecloud-support/ringstedfestival-billetguide.html"
     title="Ringsted Festival, billetguide"
     loading="lazy"
-    style="height:10000px;"
     allow="fullscreen"
     scrolling="no"
   ></iframe>

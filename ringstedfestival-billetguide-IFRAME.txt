@@ -1,0 +1,36 @@
+<!--
+  Ringsted Festival, billetguide som iframe.
+  Klistres ind i en Custom HTML-blok i WordPress.
+  Ingen CSS-konflikter, ingen problemer med temaer.
+  Siden lever et eksternt sted og opdateres automatisk hvis vi opdaterer den.
+-->
+
+<iframe
+  src="https://liveclouddk.github.io/livecloud-support/ringstedfestival-billetguide.html"
+  title="Ringsted Festival, billetguide"
+  loading="lazy"
+  style="width:100%; min-height:4200px; border:0; display:block; background:#fdf6ee;"
+  allow="fullscreen"
+  scrolling="no"
+></iframe>
+
+<script>
+  // Auto-tilpas iframe-højde, så indholdet ikke får dobbelt scrollbar.
+  (function(){
+    var f = document.currentScript.previousElementSibling;
+    if (!f || f.tagName !== 'IFRAME') {
+      f = document.querySelector('iframe[src*="ringstedfestival-billetguide"]');
+    }
+    if (!f) return;
+    function resize(){
+      try {
+        var h = f.contentWindow.document.documentElement.scrollHeight;
+        if (h > 100) f.style.height = (h + 40) + 'px';
+      } catch(e){}
+    }
+    f.addEventListener('load', function(){
+      resize();
+      setInterval(resize, 1500);
+    });
+  })();
+</script>

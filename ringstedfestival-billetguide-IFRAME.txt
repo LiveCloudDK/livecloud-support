@@ -37,7 +37,7 @@
     src="https://liveclouddk.github.io/livecloud-support/ringstedfestival-billetguide.html"
     title="Ringsted Festival, billetguide"
     loading="lazy"
-    style="min-height:6500px;"
+    style="height:10000px;"
     allow="fullscreen"
     scrolling="no"
   ></iframe>

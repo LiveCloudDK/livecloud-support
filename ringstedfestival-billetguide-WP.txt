@@ -10,6 +10,9 @@
      server) + deres faktiske brand-palette fra Kadence-temaet. */
   @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap');
 
+  /* Når siden står alene (eller i iframe), holder vi hele baggrunden sort */
+  html, body { background: #0a0e15; margin: 0; padding: 0; }
+
   @font-face {
     font-family: "RFNexaRustSans";
     font-style: normal;

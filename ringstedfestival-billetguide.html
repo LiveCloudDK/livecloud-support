@@ -8,34 +8,50 @@
 
 <style>
   /* ═══ Alle styles scoped til .rf-billetguide-wrap ═══ */
-  /* Sikker at indlejre i WordPress uden at påvirke resten af siden  */
-  /* Bruger fonts der matcher Ringsted Festivals brand-stack:
-     - Raleway (body, samme som RF)
-     - Bebas Neue (headlines, gratis substitut for NexaRustSans)
-     - Caveat (script, gratis substitut for KyotoNorthern) */
-  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Bebas+Neue&family=Caveat:wght@500;600;700&display=swap');
+  /* Sikker at indlejre i WordPress uden at påvirke resten af siden. */
+  /* Bruger Ringsted Festivals faktiske fonts (hostet på deres egen
+     server) + deres faktiske brand-palette fra Kadence-temaet. */
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap');
+
+  @font-face {
+    font-family: "RFNexaRustSans";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://ringstedfestival.dk/wp-content/uploads/NexaRustSans-Black.woff2") format("woff2"),
+         url("https://ringstedfestival.dk/wp-content/uploads/NexaRustSans-Black.woff") format("woff");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "RFKyotoNorthern";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://ringstedfestival.dk/wp-content/uploads/KyotoNorthern.woff2") format("woff2"),
+         url("https://ringstedfestival.dk/wp-content/uploads/KyotoNorthern.woff") format("woff");
+    font-display: swap;
+  }
 
   .rf-billetguide-wrap {
-    --rf-red: #de172b;
-    --rf-red-dark: #b21222;
-    --rf-orange: #f9a51b;
+    /* RF's faktiske palette fra Kadence-themen */
+    --rf-red: #ff0001;
+    --rf-red-dark: #cc0001;
+    --rf-orange: #ffad00;
     --rf-orange-deep: #f76a0c;
-    --rf-cream: #fdf6ee;
-    --rf-cream-dark: #f5ead8;
-    --rf-text: #1f1611;
-    --rf-text-muted: #6b5a48;
-    --rf-text-dim: #9a8870;
-    --rf-border: #e8d9bf;
-    --rf-border-strong: #d8c4a3;
+    --rf-bg: #ffffff;
+    --rf-bg-soft: #f7fafc;
+    --rf-text: #1a202c;
+    --rf-text-muted: #4a5568;
+    --rf-text-dim: #718096;
+    --rf-border: #e2e8f0;
+    --rf-border-strong: #cbd5e0;
     --rf-card: #ffffff;
-    --rf-card-hover: #fffbf5;
+    --rf-card-hover: #f7fafc;
     --rf-font-body: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --rf-font-display: 'Bebas Neue', 'Raleway', Impact, sans-serif;
-    --rf-font-script: 'Caveat', 'Brush Script MT', cursive;
+    --rf-font-display: 'RFNexaRustSans', 'Raleway', Impact, sans-serif;
+    --rf-font-script: 'RFKyotoNorthern', 'Brush Script MT', cursive;
 
     font-family: var(--rf-font-body);
     color: var(--rf-text);
-    background: var(--rf-cream);
+    background: var(--rf-bg);
     line-height: 1.6;
     padding: 0 24px;
     -webkit-font-smoothing: antialiased;
@@ -60,8 +76,8 @@
     margin-bottom: 40px;
     padding: 36px 20px 44px;
     background:
-      radial-gradient(circle at 50% 0%, rgba(249, 165, 27, 0.18), transparent 70%),
-      linear-gradient(180deg, var(--rf-cream-dark) 0%, var(--rf-cream) 100%);
+      radial-gradient(circle at 50% 0%, rgba(255, 173, 0, 0.18), transparent 70%),
+      linear-gradient(180deg, var(--rf-bg-soft) 0%, var(--rf-bg) 100%);
     border-radius: 24px;
     position: relative;
     border: 1px solid var(--rf-border);
@@ -144,12 +160,12 @@
   }
   .rf-billetguide-wrap .rf-tab:hover {
     color: var(--rf-text);
-    background: var(--rf-cream);
+    background: var(--rf-bg);
   }
   .rf-billetguide-wrap .rf-tab.rf-active {
     background: var(--rf-red);
     color: #fff;
-    box-shadow: 0 2px 8px rgba(222, 23, 43, 0.2);
+    box-shadow: 0 2px 8px rgba(255, 0, 1, 0.2);
   }
   .rf-billetguide-wrap .rf-tab-count {
     font-size: 11px;
@@ -191,7 +207,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(222, 23, 43, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 0, 1, 0.3);
     line-height: 1;
   }
   .rf-billetguide-wrap .rf-section h2 {
@@ -228,7 +244,7 @@
   .rf-billetguide-wrap .rf-flow-card:hover {
     background: var(--rf-card-hover);
     border-color: var(--rf-orange);
-    box-shadow: 0 6px 20px -8px rgba(249, 165, 27, 0.25);
+    box-shadow: 0 6px 20px -8px rgba(255, 173, 0, 0.25);
     transform: translateY(-1px);
   }
   .rf-billetguide-wrap .rf-flow-title {
@@ -260,11 +276,11 @@
     text-transform: uppercase;
   }
   .rf-billetguide-wrap .rf-flow-tag.rf-permanent {
-    background: rgba(222, 23, 43, 0.1);
+    background: rgba(255, 0, 1, 0.1);
     color: var(--rf-red);
   }
   .rf-billetguide-wrap .rf-flow-tag.rf-needs-app {
-    background: rgba(249, 165, 27, 0.15);
+    background: rgba(255, 173, 0, 0.15);
     color: var(--rf-orange-deep);
   }
   .rf-billetguide-wrap .rf-flow-tag.rf-no-app {
@@ -276,7 +292,7 @@
     color: var(--rf-text-muted);
   }
   .rf-billetguide-wrap .rf-flow-tag.rf-recommended {
-    background: rgba(222, 23, 43, 0.1);
+    background: rgba(255, 0, 1, 0.1);
     color: var(--rf-red);
   }
 
@@ -296,7 +312,7 @@
     font-style: italic;
     line-height: 1.65;
     padding: 11px 16px;
-    background: var(--rf-cream);
+    background: var(--rf-bg);
     border-left: 3px solid var(--rf-orange);
     border-radius: 6px;
     margin: 12px 0 0;
@@ -304,7 +320,7 @@
   .rf-billetguide-wrap .rf-flow-hint {
     font-size: 13.5px;
     color: var(--rf-text);
-    background: rgba(249, 165, 27, 0.1);
+    background: rgba(255, 173, 0, 0.1);
     border-left: 3px solid var(--rf-orange);
     padding: 11px 16px;
     border-radius: 6px;
@@ -327,8 +343,8 @@
     text-decoration: none;
     margin-top: 14px;
     padding: 8px 14px 8px 12px;
-    background: rgba(222, 23, 43, 0.06);
-    border: 1px solid rgba(222, 23, 43, 0.2);
+    background: rgba(255, 0, 1, 0.06);
+    border: 1px solid rgba(255, 0, 1, 0.2);
     border-radius: 20px;
     transition: all 0.15s ease;
     line-height: 1;
@@ -338,7 +354,7 @@
     color: #fff;
     border-color: var(--rf-red);
     transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(222, 23, 43, 0.25);
+    box-shadow: 0 3px 10px rgba(255, 0, 1, 0.25);
   }
   .rf-billetguide-wrap .rf-video-link svg {
     width: 14px;
@@ -348,8 +364,8 @@
 
   /* ═══ Disclaimer banner ═══ */
   .rf-billetguide-wrap .rf-disclaimer-banner {
-    background: rgba(249, 165, 27, 0.1);
-    border: 1px solid rgba(249, 165, 27, 0.4);
+    background: rgba(255, 173, 0, 0.1);
+    border: 1px solid rgba(255, 173, 0, 0.4);
     border-left-width: 4px;
     border-radius: 12px;
     padding: 14px 18px;
@@ -381,7 +397,7 @@
     border-collapse: collapse;
   }
   .rf-billetguide-wrap .rf-summary-table th {
-    background: var(--rf-cream-dark);
+    background: var(--rf-bg-soft);
     text-align: left;
     padding: 13px 18px;
     font-family: var(--rf-font-display);
@@ -404,7 +420,7 @@
     font-weight: 700;
   }
   .rf-billetguide-wrap .rf-summary-table tr:last-child td { border-bottom: none; }
-  .rf-billetguide-wrap .rf-summary-table tr:hover td { background: var(--rf-cream); }
+  .rf-billetguide-wrap .rf-summary-table tr:hover td { background: var(--rf-bg); }
   .rf-billetguide-wrap .rf-dash { color: var(--rf-text-dim); }
 
   /* ═══ Legal ═══ */

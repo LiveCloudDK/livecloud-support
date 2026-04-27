@@ -381,7 +381,7 @@ Gældende for alle videregivelser og overdragelser af billetter og adgange til R
 
 **1. Platformens rolle**
 ```
-Livecloud ApS ("Livecloud") og Ringsted Festival ("Arrangøren") stiller en digital platform til rådighed, som gør det muligt for brugere at videregive billetter og adgange til andre brugere. Livecloud og Arrangøren er ikke part i nogen økonomisk transaktion mellem brugere og påtager sig intet ansvar for aftaler, betalinger eller tvister, der måtte opstå i forbindelse med videregivelse af billetter.
+Livecloud ApS ("Livecloud") og Ringsted Festival ("Arrangøren") stiller en digital platform til rådighed, som gør det muligt for brugere at videregive billetter og adgange til andre brugere. Livecloud og Arrangøren er ikke part i nogen økonomisk transaktion mellem brugere og påtager sig intet ansvar for aftaler, betalinger eller tvister, der måtte opstå i forbindelse med videregivelse af billetter. Det understreges, at eventuel betaling mellem parterne ikke kan ske via app'en, det må parterne aftale særskilt.
 ```
 
 **2. Prisbegrænsning ved videresalg**
@@ -389,27 +389,32 @@ Livecloud ApS ("Livecloud") og Ringsted Festival ("Arrangøren") stiller en digi
 Ved salg eller overdragelse af en billet til en anden person må salgsprisen ikke overstige den originale købspris inklusive gebyrer. Overtrædelse af denne bestemmelse kan medføre annullering af billetten uden kompensation. Det er afsenderens og modtagerens ansvar at sikre, at prisen overholder denne begrænsning.
 ```
 
-**3. Identitetsverificering**
+**3. Køb sikkert gennem app'en**
+```
+Det frarådes at købe billetter udstedt som PDF. Billetter bør alene købes gennem overførsel via arrangørens app, der sikrer, at både afsender og modtager er MitID-verificerede, og at billetten ikke kan være solgt til flere.
+```
+
+**4. Identitetsverificering**
 ```
 Både afsender og modtager skal have en gyldig konto i systemet, verificeret med MitID (dansk digital identitet). Verifikationen sikrer, at begge parter kan identificeres, og at billetten knyttes til en verificeret person. Livecloud forbeholder sig retten til at afvise videregivelser, hvor en eller begge parter ikke er behørigt verificeret.
 ```
 
-**4. Permanent videregivelse**
+**5. Permanent videregivelse**
 ```
 Videregivelse af en billet er permanent. Når modtageren har accepteret videregivelsen, er billetten modtagerens ejendom. Ønsker afsenderen billetten retur, skal modtageren selv foretage en ny videregivelse. Livecloud og Arrangøren kan ikke formidle eller gennemtvinge returnering af en videregivet billet.
 ```
 
-**5. Ansvarsfraskrivelse**
+**6. Ansvarsfraskrivelse**
 ```
 Livecloud og Arrangøren er ikke ansvarlige for: (a) tab som følge af videregivelser mellem brugere, (b) manglende betaling mellem afsender og modtager, (c) tvister vedrørende pris, kvalitet eller vilkår aftalt mellem brugere, (d) tekniske problemer, der forhindrer rettidig accept af en videregivelse. Det er brugerens eget ansvar at sikre, at videregivelsen sker til den rette person.
 ```
 
-**6. Børn og ledsagere**
+**7. Børn og ledsagere**
 ```
 Tilknytning af børn under 13 år og ledsagere er ikke en videregivelse, adgangen forbliver på den ansvarlige persons profil. Den ansvarlige person bærer det fulde ansvar for tilknyttede personer, herunder adgang til og adfærd på festivalområdet. Chip-armbånd kan købes i webshoppen (afhentes ved Service Desk) eller ved indgangen og knyttes til den ansvarlige persons profil. Man kan have flere armbånd tilknyttet sin profil, og der kan sættes et maks-forbrug per armbånd. Armbåndet er ikke adgangsgivende i sig selv, det virker kun, når det er knyttet til en profil med en gyldig adgang. Armbåndet er personens ansvar, og eventuelle køb foretaget med armbåndet debiteres personens Beats-konto.
 ```
 
-**7. Misbrug**
+**8. Misbrug**
 ```
 Livecloud forbeholder sig retten til at spærre konti, annullere billetter og nægte adgang ved mistanke om misbrug, herunder men ikke begrænset til: systematisk videresalg over købspris, forsøg på videregivelse med uverificerede konti, eller anden brug, der strider mod disse vilkår eller Arrangørens betingelser.
 ```

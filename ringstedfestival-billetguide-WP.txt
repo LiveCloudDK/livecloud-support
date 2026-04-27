@@ -1,13 +1,18 @@
 <!--
   Ringsted Festival, billetguide
   Klistres ind i en "Custom HTML"-blok i WordPress.
-  Indeholder selv-scoped CSS (under .rf-billetguide-wrap), så den ikke
-  konflikter med festival-temaet.
+  Bruger Raleway + Bebas Neue + Caveat (matcher RF's brand-stack).
+  Selv-scoped CSS (.rf-billetguide-wrap), så den ikke konflikter med
+  Kadence-temaet eller andre WP-styles.
 -->
 <style>
   /* ═══ Alle styles scoped til .rf-billetguide-wrap ═══ */
   /* Sikker at indlejre i WordPress uden at påvirke resten af siden  */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+  /* Bruger fonts der matcher Ringsted Festivals brand-stack:
+     - Raleway (body, samme som RF)
+     - Bebas Neue (headlines, gratis substitut for NexaRustSans)
+     - Caveat (script, gratis substitut for KyotoNorthern) */
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Bebas+Neue&family=Caveat:wght@500;600;700&display=swap');
 
   .rf-billetguide-wrap {
     --rf-red: #de172b;
@@ -16,15 +21,18 @@
     --rf-orange-deep: #f76a0c;
     --rf-cream: #fdf6ee;
     --rf-cream-dark: #f5ead8;
-    --rf-text: #2b1d12;
+    --rf-text: #1f1611;
     --rf-text-muted: #6b5a48;
     --rf-text-dim: #9a8870;
     --rf-border: #e8d9bf;
     --rf-border-strong: #d8c4a3;
     --rf-card: #ffffff;
     --rf-card-hover: #fffbf5;
+    --rf-font-body: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --rf-font-display: 'Bebas Neue', 'Raleway', Impact, sans-serif;
+    --rf-font-script: 'Caveat', 'Brush Script MT', cursive;
 
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--rf-font-body);
     color: var(--rf-text);
     background: var(--rf-cream);
     line-height: 1.6;
@@ -48,34 +56,50 @@
   /* ═══ Hero med logo ═══ */
   .rf-billetguide-wrap .rf-hero {
     text-align: center;
-    margin-bottom: 36px;
-    padding: 28px 16px 36px;
-    background: linear-gradient(180deg, var(--rf-cream-dark) 0%, transparent 100%);
+    margin-bottom: 40px;
+    padding: 36px 20px 44px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(249, 165, 27, 0.18), transparent 70%),
+      linear-gradient(180deg, var(--rf-cream-dark) 0%, var(--rf-cream) 100%);
     border-radius: 24px;
     position: relative;
+    border: 1px solid var(--rf-border);
   }
   .rf-billetguide-wrap .rf-logo {
-    width: 64px;
+    width: 78px;
     height: auto;
-    margin: 0 auto 20px;
+    margin: 0 auto 16px;
     display: block;
+  }
+  .rf-billetguide-wrap .rf-eyebrow {
+    font-family: var(--rf-font-display);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--rf-red);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+    line-height: 1;
   }
   .rf-billetguide-wrap .rf-tagline {
-    font-size: 13px;
-    font-weight: 700;
+    font-family: var(--rf-font-script);
+    font-size: 32px;
+    font-weight: 600;
     color: var(--rf-red);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
+    line-height: 1;
+    margin-bottom: 22px;
     display: block;
+    transform: rotate(-2deg);
   }
   .rf-billetguide-wrap .rf-hero h1 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 40px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 1.1;
-    margin: 0 0 14px 0;
+    font-family: var(--rf-font-display);
+    font-size: 52px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    line-height: 1;
+    text-transform: uppercase;
+    margin: 0 0 18px 0;
     color: var(--rf-text);
   }
   .rf-billetguide-wrap .rf-hero .rf-lede {
@@ -102,7 +126,7 @@
     flex: 1;
     min-width: 200px;
     padding: 14px 18px;
-    font-family: inherit;
+    font-family: var(--rf-font-body);
     font-size: 14px;
     font-weight: 700;
     color: var(--rf-text-muted);
@@ -153,25 +177,29 @@
     margin-bottom: 14px;
   }
   .rf-billetguide-wrap .rf-section-num {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background: var(--rf-red);
     color: #fff;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 800;
-    font-size: 17px;
+    font-family: var(--rf-font-display);
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(222, 23, 43, 0.25);
+    box-shadow: 0 4px 12px rgba(222, 23, 43, 0.3);
+    line-height: 1;
   }
   .rf-billetguide-wrap .rf-section h2 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: -0.3px;
+    font-family: var(--rf-font-display);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.05;
     margin: 0;
     color: var(--rf-text);
   }
@@ -203,8 +231,9 @@
     transform: translateY(-1px);
   }
   .rf-billetguide-wrap .rf-flow-title {
-    font-size: 17px;
-    font-weight: 700;
+    font-family: var(--rf-font-body);
+    font-size: 18px;
+    font-weight: 800;
     letter-spacing: -0.2px;
     margin: 0 0 4px 0;
     color: var(--rf-text);
@@ -354,10 +383,11 @@
     background: var(--rf-cream-dark);
     text-align: left;
     padding: 13px 18px;
-    font-size: 11px;
-    font-weight: 700;
+    font-family: var(--rf-font-display);
+    font-size: 14px;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1.5px;
     color: var(--rf-red);
     border-bottom: 1px solid var(--rf-border);
   }
@@ -385,10 +415,12 @@
     border-radius: 18px;
   }
   .rf-billetguide-wrap .rf-legal h2 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: -0.3px;
+    font-family: var(--rf-font-display);
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1.1;
     margin: 0 0 6px 0;
     color: var(--rf-text);
   }
@@ -441,10 +473,12 @@
   @media (max-width: 640px) {
     .rf-billetguide-wrap { padding: 0 16px; }
     .rf-billetguide-wrap .rf-container { padding: 32px 0 56px; }
-    .rf-billetguide-wrap .rf-hero { padding: 22px 12px 28px; }
-    .rf-billetguide-wrap .rf-hero h1 { font-size: 30px; }
+    .rf-billetguide-wrap .rf-hero { padding: 28px 16px 32px; }
+    .rf-billetguide-wrap .rf-hero h1 { font-size: 38px; letter-spacing: 1px; }
+    .rf-billetguide-wrap .rf-hero .rf-tagline { font-size: 26px; }
+    .rf-billetguide-wrap .rf-hero .rf-eyebrow { font-size: 15px; letter-spacing: 3px; }
     .rf-billetguide-wrap .rf-hero .rf-lede { font-size: 15px; }
-    .rf-billetguide-wrap .rf-section h2 { font-size: 20px; }
+    .rf-billetguide-wrap .rf-section h2 { font-size: 24px; }
     .rf-billetguide-wrap .rf-section-intro { margin-left: 0; }
     .rf-billetguide-wrap .rf-flow-card { padding: 18px 20px; }
     .rf-billetguide-wrap .rf-summary-table th,
@@ -452,7 +486,9 @@
       padding: 10px 12px;
       font-size: 13px;
     }
+    .rf-billetguide-wrap .rf-summary-table th { font-size: 12px; letter-spacing: 1px; }
     .rf-billetguide-wrap .rf-legal { padding: 24px 20px; }
+    .rf-billetguide-wrap .rf-legal h2 { font-size: 22px; }
   }
 </style>
 
@@ -475,6 +511,7 @@
       <path fill="#de172b" d="M105.05,87.18c-.17-.13-.35-.25-.52-.37,3.29-3.3,5.31-7.86,5.31-12.88,0-10.09-8.18-18.27-18.27-18.27s-18.28,8.18-18.28,18.27c0,5.03,2.03,9.58,5.32,12.89-.16.12-.33.23-.49.35-9.04,2.63-33.9,11.76-33.9,29.89,0,11.12,9.6,15.52,18.67,15.7,14.06.28,16.03-7.12,15.56-10.42-.54-3.82-3.83-6.76-7.8-6.76-2.85,0-5.34,1.52-6.72,3.78-9.61.85-9.69-12.08-.96-14.46,8.96-2.44,12.45,3.06,20.15,1.9,7.86-1.18,9.78-5.19,15.62-4.95,4.29.18,6.45,2.87,5.75,5.19-2.48-1.38-6.55.29-6.17,3.32.22,1.78,2.23,3.44,5.61,2.99,14.34-1.92,19.27-2.4,34.68-4.37-8.07-9.19-20.21-17.98-33.56-21.79Z"/>
       <path fill="#f9a51b" d="M166.4,185.33l-.12-.04-9.4-3.51c-4.24-12.1-12.66-36.8-24.97-59.38,8.78,5.4,27.05,4.05,26.35-10.73-.2-4.3-3.49-7.79-7.79-7.79s-7.79,3.49-7.79,7.79c0,1.48.42,2.86,1.14,4.04-6.39,1.15-18.51,3.01-38.78,6.16-4.73.73-5.61,2.74-5.38,4.63.34,2.73,4.55,3.65,6.39,1.81,1.22,1.91-.11,5.44-3.86,6.6-5.01,1.55-8.08-.67-15.51.68-8.65,1.57-11.68,10.2-22.44,11.87-9.85,1.53-17.8-2.41-21.72-7.76-8.11,17.39-13.09,33-16.27,42.07l-9.4,3.51-.12.04c-.25.12-.42.37-.42.66v1.81c0,.41.33.74.74.74h26.83c.25,0,.47-.12.6-.32,0,0,0,0,.01-.01,13.95-18.44,30.06-33.22,46.13-33.78.31,0,.63-.02.94-.02.34,0,.68.01,1.02.02,16.04.61,32.13,15.36,46.05,33.77,0,.01.02.02.03.04.13.18.35.3.59.3h26.83c.41,0,.74-.33.74-.74v-1.81c0-.29-.17-.54-.42-.66Z"/>
     </svg>
+    <span class="rf-eyebrow">Ringsted Festival</span>
     <span class="rf-tagline">Årets kram under trækronerne</span>
     <h1>Sådan håndterer du dine billetter</h1>
     <p class="rf-lede">En hjælp til alle, der køber, deler eller modtager billetter til Ringsted Festival. Vælg om du vil se guiden som afsender eller modtager.</p>

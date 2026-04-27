@@ -247,6 +247,10 @@
     background: rgba(43, 29, 18, 0.07);
     color: var(--rf-text-muted);
   }
+  .rf-billetguide-wrap .rf-flow-tag.rf-recommended {
+    background: rgba(222, 23, 43, 0.1);
+    color: var(--rf-red);
+  }
 
   .rf-billetguide-wrap .rf-flow-desc {
     font-size: 14.5px;
@@ -282,6 +286,36 @@
   .rf-billetguide-wrap .rf-flow-hint strong {
     color: var(--rf-text);
     font-weight: 700;
+  }
+
+  /* ═══ Video link ═══ */
+  .rf-billetguide-wrap .rf-video-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--rf-red);
+    text-decoration: none;
+    margin-top: 14px;
+    padding: 8px 14px 8px 12px;
+    background: rgba(222, 23, 43, 0.06);
+    border: 1px solid rgba(222, 23, 43, 0.2);
+    border-radius: 20px;
+    transition: all 0.15s ease;
+    line-height: 1;
+  }
+  .rf-billetguide-wrap .rf-video-link:hover {
+    background: var(--rf-red);
+    color: #fff;
+    border-color: var(--rf-red);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(222, 23, 43, 0.25);
+  }
+  .rf-billetguide-wrap .rf-video-link svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
   }
 
   /* ═══ Disclaimer banner ═══ */
@@ -454,7 +488,7 @@
   <div class="rf-tabs">
     <button class="rf-tab rf-active" onclick="rfSwitchTab('sender', event)">
       <span>Jeg har billetter, jeg vil sende eller administrere</span>
-      <span class="rf-tab-count">9 trin</span>
+      <span class="rf-tab-count">5 trin</span>
     </button>
     <button class="rf-tab" onclick="rfSwitchTab('receiver', event)">
       <span>Jeg modtager en billet</span>
@@ -465,46 +499,81 @@
   <!-- ═══════════════ AFSENDER ═══════════════ -->
   <div id="rf-tab-sender" class="rf-tab-content rf-active">
 
-    <!-- 1. Indløs -->
+    <!-- 0. Opret profil -->
     <div class="rf-section">
       <div class="rf-section-header">
         <div class="rf-section-num">1</div>
+        <h2>Opret din profil først</h2>
+      </div>
+      <p class="rf-section-intro">Inden du kan administrere dine billetter, skal du have en profil i festival-appen. Det tager kun et øjeblik og bekræftes med MitID, så du ved, at dine billetter er sikre.</p>
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Opret profil i appen</div>
+          <div class="rf-flow-subtitle">Bekræft med MitID, så er du klar til at modtage og bruge billetter</div>
+          <p class="rf-flow-desc">Download festival-appen, opret din profil og bekræft med MitID. Når profilen er klar, kan du indløse dine billetter, modtage videregivelser fra andre og købe Beats. Du bruger kun MitID første gang, derefter åbner du appen med Face ID, fingeraftryk eller PIN.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=rLiCF5IL7A0&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Indløs -->
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">2</div>
         <h2>Indløs og importer billetter</h2>
       </div>
-      <p class="rf-section-intro">Før du kan administrere dine billetter, skal de indløses i appen. Der er flere måder at gøre det på.</p>
+      <p class="rf-section-intro">Når din profil er oprettet, skal billetterne indløses i appen. Der er flere måder at gøre det på.</p>
       <div class="rf-flow-list">
         <div class="rf-flow-card">
           <div class="rf-flow-title">Indløs billet fra e-mail</div>
-          <div class="rf-flow-subtitle">Del PDF'en fra Mail-appen direkte til festival-appen</div>
-          <p class="rf-flow-desc">Åbn den e-mail, du modtog, da du købte dine billetter. Tryk på PDF-vedhæftningen, og brug delingsikonet (firkant med pil) til at dele filen til festival-appen. Billetkoderne importeres automatisk.</p>
+          <div class="rf-flow-subtitle">Den nemmeste og hurtigste måde, del PDF'en fra Mail-appen direkte til festival-appen</div>
+          <div class="rf-flow-tags">
+            <span class="rf-flow-tag rf-recommended">Anbefalet</span>
+          </div>
+          <p class="rf-flow-desc">Åbn den e-mail, du modtog, da du købte dine billetter. Tryk på PDF-vedhæftningen, og brug delingsikonet (firkant med pil opad) til at dele filen til festival-appen. Billetkoderne importeres automatisk, og du er klar.</p>
         </div>
         <div class="rf-flow-card">
           <div class="rf-flow-title">Indløs fra billede</div>
           <div class="rf-flow-subtitle">Tag et screenshot af din billet og importér</div>
           <p class="rf-flow-desc">Du kan tage et screenshot af din billet-PDF, hvis du vil gemme den som billede først. Vælg derefter "Fra billede" i appen, og vælg billedet fra dine Fotos. Appen scanner billedet og finder automatisk billetkoderne.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=_trzUuKu3nQ&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video
+          </a>
         </div>
         <div class="rf-flow-card">
           <div class="rf-flow-title">Scan QR-kode</div>
           <div class="rf-flow-subtitle">Brug kameraet til at scanne billetkoden</div>
           <p class="rf-flow-desc">Har du printet din billet ud? Du kan scanne QR-koden direkte med kameraet. Vælg "Scan QR" og ret kameraet mod koden på den udprintede billet.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=2HqqOJQqeJw&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video
+          </a>
         </div>
         <div class="rf-flow-card">
           <div class="rf-flow-title">Importér fra fil (PDF)</div>
-          <div class="rf-flow-subtitle">Vælg en PDF-fil fra din telefon</div>
-          <p class="rf-flow-desc">Har du billet-PDF'en gemt på telefonen? Vælg "Fra fil", og find filen. Appen scanner PDF'en og finder alle billetkoder automatisk.</p>
+          <div class="rf-flow-subtitle">Alternativ, hvis PDF'en allerede ligger på telefonen</div>
+          <p class="rf-flow-desc">Har du billet-PDF'en gemt på telefonen? Vælg "Fra fil" i appen, find filen, og åbn den. Appen scanner PDF'en og finder alle billetkoder automatisk.</p>
         </div>
         <div class="rf-flow-card">
           <div class="rf-flow-title">Indsæt fra udklipsholder</div>
           <div class="rf-flow-subtitle">Kopiér koden, og lad appen finde den</div>
           <p class="rf-flow-desc">Hvis du har kopieret en billetkode til udklipsholderen, kan du vælge "Indsæt fra udklipsholder". Appen finder automatisk billetkoden i den kopierede tekst.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=icj5xmh61jA&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- 2. Videregiv -->
+    <!-- 3. Videregiv -->
     <div class="rf-section">
       <div class="rf-section-header">
-        <div class="rf-section-num">2</div>
+        <div class="rf-section-num">3</div>
         <h2>Videregiv billet til en anden person</h2>
       </div>
       <p class="rf-section-intro">Du kan videregive hele din billet, eller udvalgte adgange, permanent til en anden person. Modtageren bliver den nye ejer og skal have appen med en MitID-verificeret profil.</p>
@@ -523,6 +592,10 @@
           </div>
           <p class="rf-flow-desc">Gå til "Dine billetter", og vælg "Videregiv billet". Alle adgange på billetten (fx alle dage på en partout, eller en campingbillet, som dækker hele festivalen) videregives samlet til modtageren. Indtast modtagerens navn og e-mail. Modtageren skal have en profil bekræftet med MitID og får en e-mail med et link til at acceptere videregivelsen.</p>
           <div class="rf-flow-note">Denne handling er permanent og kan ikke fortrydes. Hvis du ønsker billetten retur, skal modtageren videregive den tilbage til dig.</div>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=mu4cNi4uWWY&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, send billet til én ven
+          </a>
         </div>
 
         <div class="rf-flow-card">
@@ -534,23 +607,31 @@
           </div>
           <p class="rf-flow-desc">Har du en billet med flere adgange, fx en partout (torsdag, fredag, lørdag) eller en glamcamp-billet med 2 eller 4 adgange? Du kan videregive udvalgte adgange enkeltvis til forskellige personer. Gå til "Dine billetter", vælg den specifikke adgang, og tryk "Videregiv". Indtast modtagerens navn og e-mail.</p>
           <div class="rf-flow-note">En standard campingbillet dækker hele festivalens periode og kan ikke stykkes ud, den overdrages som helhed. Hver adgang videregives permanent. Modtageren skal have en profil bekræftet med MitID.</div>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=EshLLKeDjRE&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, glamcamp-tildeling
+          </a>
         </div>
 
         <div class="rf-flow-card">
-          <div class="rf-flow-title">Videresend billetkode</div>
-          <div class="rf-flow-subtitle">Del en uindløst billetkode via SMS, Messenger, e-mail mm.</div>
+          <div class="rf-flow-title">Videresend billetkode (til flere)</div>
+          <div class="rf-flow-subtitle">Del uindløste billetkoder via SMS, Messenger, e-mail mm.</div>
           <div class="rf-flow-tags">
             <span class="rf-flow-tag rf-needs-app">Modtager behøver appen</span>
           </div>
-          <p class="rf-flow-desc">Hvis du har importeret billetkoder, men ikke indløst dem alle, kan du videresende koden til en anden via telefonens delingsmenu. Modtageren får et link og kan selv indløse billetten i appen.</p>
+          <p class="rf-flow-desc">Hvis du har importeret billetkoder, men ikke indløst dem alle, kan du videresende koderne til andre via telefonens delingsmenu. Modtagerne får et link hver og kan selv indløse billetten i deres egen app. Praktisk når du har flere billetter at dele ud til venner og familie.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=Um9FXCxKezo&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, send til flere venner
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- 3. Tilknyt -->
+    <!-- 4. Tilknyt -->
     <div class="rf-section">
       <div class="rf-section-header">
-        <div class="rf-section-num">3</div>
+        <div class="rf-section-num">4</div>
         <h2>Giv adgang til et barn eller en ledsager</h2>
       </div>
       <p class="rf-section-intro">Du kan give adgang til børn under 13 eller ledsagere uden, at de behøver egen telefon, app eller profil. Adgangen forbliver på din profil, og du er ansvarlig for personen ved ind- og udgang.</p>
@@ -565,33 +646,35 @@
           <p class="rf-flow-desc">Gå til "Dine billetter", vælg en adgang, og tryk "Tilknyt barn". Indtast barnets navn og alder. Barnet behøver ikke egen telefon, app eller profil og skal være sammen med dig, når I skal ind og ud af festivalpladsen.</p>
           <div class="rf-flow-hint"><strong>Tip:</strong> Du kan købe et chip-armbånd i webshoppen (afhentes ved Service Desk) eller ved indgangen, når du ankommer. Armbåndet knyttes til din profil, og barnet kan bære det som adgang og handle på din Beats-konto, praktisk hvis barnet vil rundt på egen hånd inden for festivalpladsen. Du kan have flere armbånd tilknyttet din profil og kan sætte et maks-forbrug per armbånd.</div>
           <div class="rf-flow-note">Gælder for børn under 13 år, som ikke har egen telefon eller profil i appen. MitID kan først udstedes fra 13 år. Armbåndet er ikke adgangsgivende i sig selv, det virker kun, når det er knyttet til en profil med en gyldig adgang.</div>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=MF58g1Mb04U&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, tildel billet til barn
+          </a>
         </div>
         <div class="rf-flow-card">
           <div class="rf-flow-title">Giv adgang til en ledsager</div>
-          <div class="rf-flow-subtitle">Tilknyt en ledsager til din billet</div>
+          <div class="rf-flow-subtitle">Samme flow som for et barn, blot med "Tilknyt ledsager"</div>
           <div class="rf-flow-tags">
             <span class="rf-flow-tag rf-no-app">Ingen app krævet</span>
             <span class="rf-flow-tag rf-info">Ledsager skal følges af dig</span>
           </div>
-          <p class="rf-flow-desc">Gå til "Dine billetter", vælg en adgang, og tryk "Tilknyt ledsager". Indtast ledsagerens navn og eventuelt relation. Ledsageren behøver ikke egen telefon, app eller profil, og I skal være sammen ved ind- og udgang af festivalpladsen.</p>
-          <div class="rf-flow-note">Velegnet til personer, der ikke har egen telefon, eller som har brug for at følges med dig. Ved både check-in og check-out fremviser du din app, og I følges ad ind og ud af festivalpladsen.</div>
+          <p class="rf-flow-desc">Gå til "Dine billetter", vælg en adgang, og tryk "Tilknyt ledsager". Indtast ledsagerens navn. Ledsageren behøver hverken egen telefon, app eller profil, og I skal være sammen ved ind- og udgang af festivalpladsen. Princippet er det samme som ved tildeling af et barn, brug videoen ovenfor som reference.</p>
         </div>
       </div>
     </div>
 
-    <!-- 4. Administrer -->
+    <!-- 5. Administrer -->
     <div class="rf-section">
       <div class="rf-section-header">
-        <div class="rf-section-num">4</div>
+        <div class="rf-section-num">5</div>
         <h2>Administrer dine billetter</h2>
       </div>
-      <p class="rf-section-intro">Du kan til enhver tid se status på dine billetter og tilknyttede personer.</p>
+      <p class="rf-section-intro">Du kan til enhver tid se status på dine billetter og tilknyttede personer i appen.</p>
       <div class="rf-flow-list">
         <div class="rf-flow-card">
-          <div class="rf-flow-title">Gensend invitation</div>
-          <div class="rf-flow-subtitle">Send invitationen igen, hvis modtageren ikke har accepteret</div>
-          <p class="rf-flow-desc">Har modtageren ikke accepteret inden for 72 timer? Invitationslinket udløber automatisk. Gå til "Dine billetter", find den udløbede videregivelse, og tryk "Gensend". En ny invitation sendes til modtageren med et nyt link.</p>
-          <div class="rf-flow-note">Det gamle link bliver ugyldigt, og et nyt 72-timers link sendes til samme e-mail.</div>
+          <div class="rf-flow-title">Gensend invitation, hvis modtageren ikke når at acceptere</div>
+          <div class="rf-flow-subtitle">Invitationslinks udløber efter 72 timer, men kan gensendes</div>
+          <p class="rf-flow-desc">Gå til "Dine billetter", find den udløbede videregivelse, og tryk "Gensend". Det gamle link bliver ugyldigt, og et nyt 72-timers link sendes til samme e-mail. Du kan gensende så mange gange, det er nødvendigt.</p>
         </div>
       </div>
     </div>
@@ -649,6 +732,10 @@
           </div>
           <p class="rf-flow-desc">Du modtager en e-mail med et link til at hente din billet. Tryk på linket, det åbner festival-appen, hvor du kan se billetdetaljerne. Vælg "Acceptér" for at modtage billetten, eller "Afvis", hvis du ikke ønsker den. Når du accepterer, er billetten din.</p>
           <div class="rf-flow-note">Linket er gyldigt i 72 timer. Hvis det udløber, kan afsenderen gensende det til dig. Du skal have en MitID-verificeret profil i appen.</div>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=X4JJTtoQxNo&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, accepter billetanmodning
+          </a>
         </div>
         <div class="rf-flow-card">
           <div class="rf-flow-title">Har du fået tilsendt en billetkode?</div>
@@ -657,6 +744,10 @@
             <span class="rf-flow-tag rf-needs-app">Kræver appen</span>
           </div>
           <p class="rf-flow-desc">Har du fået tilsendt en billetkode fra en ven eller kollega? Åbn festival-appen, vælg "Indløs billetter", og indtast koden manuelt. Har du modtaget et link sammen med koden, kan du trykke på linket for at indløse automatisk.</p>
+          <a class="rf-video-link" href="https://www.youtube.com/watch?v=icj5xmh61jA&list=PLe3LoO_gw0GPT6XJkMgEanKI0P8sL1PpD" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            Se video, billetkode
+          </a>
         </div>
       </div>
     </div>
@@ -666,17 +757,17 @@
         <div class="rf-section-num">2</div>
         <h2>Dit barn eller din ledsager har fået adgang</h2>
       </div>
-      <p class="rf-section-intro">Hvis du er tilknyttet en billet som barn eller ledsager, behøver du ikke gøre noget i appen.</p>
+      <p class="rf-section-intro">Hvis du er tilknyttet en billet som barn eller ledsager, behøver du ikke gøre noget i appen, du følges bare ind og ud sammen med den ansvarlige person.</p>
       <div class="rf-flow-list">
         <div class="rf-flow-card">
-          <div class="rf-flow-title">Barn under 13 / Ledsager</div>
-          <div class="rf-flow-subtitle">Adgangen er klar, ingen app eller profil krævet</div>
+          <div class="rf-flow-title">Barn under 13 eller ledsager</div>
+          <div class="rf-flow-subtitle">Din adgang er allerede klar, du behøver ingen app eller profil</div>
           <div class="rf-flow-tags">
             <span class="rf-flow-tag rf-no-app">Ingen app krævet</span>
           </div>
-          <p class="rf-flow-desc">Hvis du er tilknyttet en billet som barn eller ledsager, behøver du ingenting. Du kommer ind og ud af festivalpladsen sammen med den person, der har tilknyttet dig. Ved både check-in og check-out fremviser personen sin app, og I følges ad ind og ud.</p>
-          <div class="rf-flow-hint"><strong>Tip:</strong> Du kan få et chip-armbånd, der købes i webshoppen (afhentes ved Service Desk) eller ved indgangen. Med armbåndet kan du gå ind og ud på egen hånd og handle på den ansvarlige persons Beats-konto. Den ansvarlige kan sætte et maks-forbrug per armbånd.</div>
-          <div class="rf-flow-note">Børn under 13 og ledsagere behøver hverken telefon, app eller profil. MitID kan først udstedes fra 13 år.</div>
+          <p class="rf-flow-desc">Børn under 13 og ledsagere behøver hverken telefon, app eller profil. Du følges ind og ud af pladsen sammen med den voksne, der har tilknyttet dig, og det er den voksne, der fremviser sin app ved scanneren.</p>
+          <div class="rf-flow-hint"><strong>Tip:</strong> Du kan få et chip-armbånd til selv at gå ind og ud og handle ved barerne. Armbåndet købes i webshoppen (afhentes ved Service Desk) eller direkte ved indgangen, og det kobles til den ansvarliges profil. Den ansvarlige kan sætte et maks-forbrug på armbåndet, hvis det ønskes.</div>
+          <div class="rf-flow-note">MitID kan først udstedes fra 13 år, derfor er børn under 13 altid på en voksens billet.</div>
         </div>
       </div>
     </div>

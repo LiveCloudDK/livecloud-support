@@ -219,6 +219,8 @@ Den første adgang aktiveres automatisk på din profil, når du aktiverer billet
 De øvrige 1 eller 3 adgange skal du derefter videregive enkeltvis til de personer, der skal være med i din lejr eller glamcamp-enhed.
 
 Hver modtager skal have egen profil med MitID for at kunne acceptere adgangen. Brug "Videregiv enkelt adgang" i appen, samme flow som for partout-adgange (se sektion 3 ovenfor).
+
+Hver adgang er personlig. Man kommer ikke ind på glamcamp-området uden at hver enkelt gæst har en aktiveret adgang på sin egen profil.
 ```
 
 #### 4b. Almindelig campingbillet

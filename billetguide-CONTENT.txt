@@ -162,7 +162,8 @@
   <p style="margin: 0 0 0.75rem 0;">En glamcamp-billet er én billet med <strong>2 eller 4 adgange</strong>, der dækker både teltet/hytten og personerne i den.</p>
   <p style="margin: 0 0 0.75rem 0;"><strong>Den første adgang aktiveres automatisk</strong> på din profil, når du aktiverer billetten (du er ordreholder).</p>
   <p style="margin: 0 0 0.75rem 0;">De <strong>øvrige 1 eller 3 adgange</strong> skal du derefter <strong>videregive enkeltvis</strong> til de personer, der skal være med i din lejr eller glamcamp-enhed.</p>
-  <p style="margin: 0;">Hver modtager skal have egen profil med MitID for at kunne acceptere adgangen. Brug "Videregiv enkelt adgang" i appen, samme flow som for partout-adgange (se sektion 3 ovenfor, hvor der også er en video).</p>
+  <p style="margin: 0 0 0.75rem 0;">Hver modtager skal have egen profil med MitID for at kunne acceptere adgangen. Brug "Videregiv enkelt adgang" i appen, samme flow som for partout-adgange (se sektion 3 ovenfor, hvor der også er en video).</p>
+  <p style="margin: 0;"><strong>Hver adgang er personlig.</strong> Man kommer ikke ind på glamcamp-området uden at hver enkelt gæst har en aktiveret adgang på sin egen profil.</p>
 </div>
 
 <div style="background: var(--global-palette8); padding: 1.5rem 1.75rem; margin: 1rem 0; border-radius: 5px;">

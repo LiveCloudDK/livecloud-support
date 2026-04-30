@@ -536,7 +536,7 @@
   <div class="rf-tabs">
     <button class="rf-tab rf-active" onclick="rfSwitchTab('sender', event)">
       <span>Jeg har billetter, jeg vil sende eller administrere</span>
-      <span class="rf-tab-count">5 trin</span>
+      <span class="rf-tab-count">6 trin</span>
     </button>
     <button class="rf-tab" onclick="rfSwitchTab('receiver', event)">
       <span>Jeg modtager en billet</span>
@@ -676,10 +676,33 @@
       </div>
     </div>
 
-    <!-- 4. Tilknyt -->
+    <!-- 4. Camping-billetter -->
     <div class="rf-section">
       <div class="rf-section-header">
         <div class="rf-section-num">4</div>
+        <h2>Camping-billetter, sådan virker de</h2>
+      </div>
+      <p class="rf-section-intro">Der er to typer campingbilletter med forskellige flows. Det er vigtigt at kende forskellen, så I alle kommer ind, hvor I skal.</p>
+      <div class="rf-flow-list">
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Glamcamp (2 eller 4 adgange på én billet)</div>
+          <div class="rf-flow-subtitle">Den første adgang aktiveres automatisk på ordreholderen, øvrige skal videregives</div>
+          <p class="rf-flow-desc">En glamcamp-billet er én billet med <strong>2 eller 4 adgange</strong>, der dækker både teltet/hytten og personerne i den. <strong>Den første adgang aktiveres automatisk</strong> på din profil, når du aktiverer billetten (du er ordreholder). De <strong>øvrige 1 eller 3 adgange</strong> skal du derefter <strong>videregive enkeltvis</strong> til de personer, der skal være med i din lejr eller glamcamp-enhed.</p>
+          <div class="rf-flow-note">Hver modtager skal have egen profil med MitID for at kunne acceptere adgangen. Brug "Videregiv enkelt adgang" i appen, samme flow som for partout-adgange (se sektion 3 ovenfor).</div>
+        </div>
+        <div class="rf-flow-card">
+          <div class="rf-flow-title">Almindelig campingbillet</div>
+          <div class="rf-flow-subtitle">Plads-billet til de øvrige campingområder, kræver gyldig festivalbillet</div>
+          <p class="rf-flow-desc">En almindelig campingbillet er <strong>kun en plads-billet</strong>, den giver dig ret til at sætte din campingvogn, telt eller anden enhed op på området. <strong>Campingbilletten giver ikke i sig selv adgang til selve festivalen.</strong> Hver person, der skal opholde sig på campingområdet eller komme ind på festivalen, skal have en gyldig festivalbillet ud over campingbilletten.</p>
+          <div class="rf-flow-note">Standard campingbilletter dækker hele festivalens periode og kan ikke stykkes ud, de overdrages som helhed.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Tilknyt -->
+    <div class="rf-section">
+      <div class="rf-section-header">
+        <div class="rf-section-num">5</div>
         <h2>Giv adgang til et barn eller en ledsager</h2>
       </div>
       <p class="rf-section-intro">Du kan give adgang til børn under 13 eller ledsagere uden, at de behøver egen telefon, app eller profil. Adgangen forbliver på din profil, og du er ansvarlig for personen ved ind- og udgang.</p>
@@ -711,10 +734,10 @@
       </div>
     </div>
 
-    <!-- 5. Administrer -->
+    <!-- 6. Administrer -->
     <div class="rf-section">
       <div class="rf-section-header">
-        <div class="rf-section-num">5</div>
+        <div class="rf-section-num">6</div>
         <h2>Administrer dine billetter</h2>
       </div>
       <p class="rf-section-intro">Du kan til enhver tid se status på dine billetter og tilknyttede personer i appen.</p>

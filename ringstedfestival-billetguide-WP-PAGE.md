@@ -196,10 +196,52 @@ Hvis du har importeret billetkoder, men ikke indløst dem alle, kan du videresen
 
 ---
 
-### 4. Giv adgang til et barn eller en ledsager
+### 4. Camping-billetter, sådan virker de
 
 **Block:** Kadence Advanced Heading (H3)
-- Tekst: `4. Giv adgang til et barn eller en ledsager`
+- Tekst: `4. Camping-billetter, sådan virker de`
+
+**Block:** Paragraph
+```
+Der er to typer campingbilletter med forskellige flows. Det er vigtigt at kende forskellen, så I alle kommer ind, hvor I skal.
+```
+
+#### 4a. Glamcamp (2 eller 4 adgange på én billet)
+
+**Block:** Kadence Info Box (med orange accent)
+- Titel: `Glamcamp (2 eller 4 adgange på én billet)`
+- Beskrivelse:
+```
+En glamcamp-billet er én billet med 2 eller 4 adgange, der dækker både teltet/hytten og personerne i den.
+
+Den første adgang aktiveres automatisk på din profil, når du aktiverer billetten (du er ordreholder).
+
+De øvrige 1 eller 3 adgange skal du derefter videregive enkeltvis til de personer, der skal være med i din lejr eller glamcamp-enhed.
+
+Hver modtager skal have egen profil med MitID for at kunne acceptere adgangen. Brug "Videregiv enkelt adgang" i appen, samme flow som for partout-adgange (se sektion 3 ovenfor).
+```
+
+#### 4b. Almindelig campingbillet
+
+**Block:** Kadence Info Box
+- Titel: `Almindelig campingbillet`
+- Beskrivelse:
+```
+En almindelig campingbillet (til de øvrige campingområder) er kun en plads-billet, den giver dig ret til at sætte din campingvogn, telt eller anden enhed op på området.
+
+Campingbilletten giver ikke i sig selv adgang til selve festivalen. Hver person, der skal opholde sig på campingområdet eller komme ind på festivalen, skal have en gyldig festivalbillet ud over campingbilletten.
+
+Standard campingbilletter dækker hele festivalens periode og kan ikke stykkes ud, de overdrages som helhed.
+```
+
+**Block:** Spacer (40px)
+
+---
+
+### 5. Giv adgang til et barn eller en ledsager
+
+**Block:** Kadence Advanced Heading (H3)
+- Tekst: `5. Giv adgang til et barn eller en ledsager`
 
 **Block:** Paragraph
 ```
@@ -238,10 +280,10 @@ Brug videoen ovenfor som reference, princippet er det samme.
 
 ---
 
-### 5. Administrer dine billetter
+### 6. Administrer dine billetter
 
 **Block:** Kadence Advanced Heading (H3)
-- Tekst: `5. Administrer dine billetter`
+- Tekst: `6. Administrer dine billetter`
 
 **Block:** Kadence Info Box
 - Titel: `Gensend invitation, hvis modtageren ikke når at acceptere`

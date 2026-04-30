@@ -153,8 +153,27 @@
   </div>
 </div>
 
-<!-- 4. Tilknyt -->
-<h3 style="color: var(--global-palette3); margin-top: 2.5rem;">4. Giv adgang til et barn eller en ledsager</h3>
+<!-- 4. Camping-billetter -->
+<h3 style="color: var(--global-palette3); margin-top: 2.5rem;">4. Camping-billetter, sådan virker de</h3>
+<p>Der er to typer campingbilletter med forskellige flows. Det er vigtigt at kende forskellen, så I alle kommer ind, hvor I skal.</p>
+
+<div style="background: var(--global-palette8); padding: 1.5rem 1.75rem; margin: 1rem 0; border-radius: 5px; border-left: 4px solid var(--global-palette2);">
+  <h4 style="color: var(--global-palette3); margin: 0 0 0.5rem 0;">Glamcamp (2 eller 4 adgange på én billet)</h4>
+  <p style="margin: 0 0 0.75rem 0;">En glamcamp-billet er én billet med <strong>2 eller 4 adgange</strong>, der dækker både teltet/hytten og personerne i den.</p>
+  <p style="margin: 0 0 0.75rem 0;"><strong>Den første adgang aktiveres automatisk</strong> på din profil, når du aktiverer billetten (du er ordreholder).</p>
+  <p style="margin: 0 0 0.75rem 0;">De <strong>øvrige 1 eller 3 adgange</strong> skal du derefter <strong>videregive enkeltvis</strong> til de personer, der skal være med i din lejr eller glamcamp-enhed.</p>
+  <p style="margin: 0;">Hver modtager skal have egen profil med MitID for at kunne acceptere adgangen. Brug "Videregiv enkelt adgang" i appen, samme flow som for partout-adgange (se sektion 3 ovenfor, hvor der også er en video).</p>
+</div>
+
+<div style="background: var(--global-palette8); padding: 1.5rem 1.75rem; margin: 1rem 0; border-radius: 5px;">
+  <h4 style="color: var(--global-palette3); margin: 0 0 0.5rem 0;">Almindelig campingbillet</h4>
+  <p style="margin: 0 0 0.75rem 0;">En almindelig campingbillet (til de øvrige campingområder) er <strong>kun en plads-billet</strong>, den giver dig ret til at sætte din campingvogn, telt eller anden enhed op på området.</p>
+  <p style="margin: 0 0 0.75rem 0;"><strong>Campingbilletten giver ikke i sig selv adgang til selve festivalen.</strong> Hver person, der skal opholde sig på campingområdet eller komme ind på festivalen, skal have en gyldig festivalbillet ud over campingbilletten.</p>
+  <p style="margin: 0; font-style: italic; color: var(--global-palette6);">Standard campingbilletter dækker hele festivalens periode og kan ikke stykkes ud, de overdrages som helhed.</p>
+</div>
+
+<!-- 5. Tilknyt -->
+<h3 style="color: var(--global-palette3); margin-top: 2.5rem;">5. Giv adgang til et barn eller en ledsager</h3>
 <p>Du kan give adgang til børn under 13 eller ledsagere uden, at de behøver egen telefon, app eller profil. Adgangen forbliver på din profil, og du er ansvarlig for personen ved ind- og udgang.</p>
 
 <div style="background: var(--global-palette8); padding: 1.5rem 1.75rem; margin: 1rem 0; border-radius: 5px;">
@@ -172,8 +191,8 @@
   <p style="margin: 0;">Samme flow som for et barn, blot med "Tilknyt ledsager". Gå til "Dine billetter", vælg en adgang og tryk "Tilknyt ledsager". Indtast ledsagerens navn. Ledsageren behøver hverken egen telefon, app eller profil, og I skal være sammen ved ind- og udgang af festivalpladsen. Princippet er det samme som ved tildeling af et barn, brug videoen ovenfor som reference.</p>
 </div>
 
-<!-- 5. Administrer -->
-<h3 style="color: var(--global-palette3); margin-top: 2.5rem;">5. Administrer dine billetter</h3>
+<!-- 6. Administrer -->
+<h3 style="color: var(--global-palette3); margin-top: 2.5rem;">6. Administrer dine billetter</h3>
 
 <div style="background: var(--global-palette8); padding: 1.5rem 1.75rem; margin: 1rem 0; border-radius: 5px;">
   <h4 style="color: var(--global-palette3); margin: 0 0 0.5rem 0;">Gensend invitation</h4>

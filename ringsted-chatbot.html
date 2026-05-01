@@ -397,6 +397,57 @@
   }
 
   .event-card-detail strong { color: var(--text); font-weight: 600; }
+
+  /* ======= FEEDBACK WIDGET ======= */
+  .feedback-widget {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0 6px 40px;
+    margin-top: -4px;
+    animation: fadeIn 0.4s ease;
+  }
+  .feedback-label, .feedback-thanks {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .feedback-btn {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .feedback-btn:hover {
+    border-color: var(--primary);
+    background: var(--hover-bg);
+    transform: translateY(-1px);
+  }
+  .feedback-btn:active { transform: scale(0.92); }
+  .feedback-btn[data-rated="true"] {
+    border-color: var(--primary);
+    background: var(--primary);
+    cursor: default;
+  }
+
+  /* ======= PRIVACY-NOTE ======= */
+  .privacy-note {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 4px 12px 6px;
+    opacity: 0.7;
+    line-height: 1.4;
+  }
+  .privacy-note a { color: var(--text-muted); text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -421,6 +472,9 @@
   <button class="send-btn" id="sendBtn" onclick="handleSend()">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
   </button>
+</div>
+<div class="privacy-note">
+  Vi gemmer dine spørgsmål anonymt for at forbedre svarene. Skriv ikke navn, e-mail eller telefonnummer.
 </div>
 <div class="powered-by" id="poweredBy"></div>
 
@@ -487,6 +541,87 @@ const BRANDS = {
 let activeBrand = null;
 const chatArea = document.getElementById('chatArea');
 const userInput = document.getElementById('userInput');
+
+// ================================================================
+// ANALYTICS / TRACKING
+// ================================================================
+// Set TRACKING.endpoint to a URL that accepts JSON POST (Cloudflare Worker,
+// Vercel function, anything). Empty string -> events only logged to
+// localStorage (handy for dev / preview).
+// Set TRACKING.plausibleDomain if you also want Plausible custom events.
+const TRACKING = {
+  endpoint: '',           // e.g. 'https://chatbot-events.livecloud.workers.dev/event'
+  plausibleDomain: '',    // e.g. 'liveclouddk.github.io'
+};
+
+// Anonymous per-tab session id, lets us correlate "this user asked X then Y"
+// without storing anything personal.
+const SESSION_ID = (() => {
+  const KEY = 'rfb_sid';
+  try {
+    let id = sessionStorage.getItem(KEY);
+    if (!id) {
+      id = 'sid_' + Math.random().toString(36).slice(2, 10) + '_' + Date.now().toString(36);
+      sessionStorage.setItem(KEY, id);
+    }
+    return id;
+  } catch (e) {
+    return 'sid_nostorage';
+  }
+})();
+
+// Strip likely PII before logging or sending. Belt-and-braces, ud over
+// privacy-note der beder brugeren lade være.
+function redactPII(text) {
+  return text
+    .replace(/\S+@\S+\.\S+/g, '[email]')
+    .replace(/\+?\d[\d\s\-]{6,}/g, '[number]')
+    .replace(/\d{6}-?\d{4}/g, '[cpr]');
+}
+
+// Fire-and-forget event. Reliable via sendBeacon (works even on page-unload),
+// fetch+keepalive as fallback, plus localStorage so dev kan se hvad der sker.
+function track(event, data = {}) {
+  const payload = {
+    event,
+    sessionId: SESSION_ID,
+    timestamp: Date.now(),
+    page: location.pathname,
+    brand: activeBrand || 'ringsted',
+    userAgent: navigator.userAgent.slice(0, 150),
+    ...data,
+  };
+
+  // Local log for dev/debug (kig i DevTools > Application > Local Storage)
+  try {
+    const log = JSON.parse(localStorage.getItem('rfb_events') || '[]');
+    log.push(payload);
+    if (log.length > 200) log.splice(0, log.length - 200);
+    localStorage.setItem('rfb_events', JSON.stringify(log));
+  } catch (e) { /* quota / disabled storage, ignore */ }
+
+  // Remote endpoint
+  if (TRACKING.endpoint) {
+    const body = JSON.stringify(payload);
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(TRACKING.endpoint, new Blob([body], { type: 'application/json' }));
+      } else {
+        fetch(TRACKING.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body,
+          keepalive: true,
+        }).catch(() => {});
+      }
+    } catch (e) { /* offline, swallow */ }
+  }
+
+  // Plausible custom event
+  if (TRACKING.plausibleDomain && typeof window.plausible === 'function') {
+    try { window.plausible(event, { props: data }); } catch (e) { /* ignore */ }
+  }
+}
 
 // ================================================================
 // KNOWLEDGE BASE (shared across brands, uses brand().appName etc.)
@@ -1427,6 +1562,7 @@ function handleTopic(topic) {
       setTimeout(() => {
         addInfoCard(data.followUp);
         setTimeout(() => {
+          addFeedbackWidget(topic);
           const related = (data.related || []).filter(t => t !== topic);
           if (related.length > 0) {
             addMessage('bot', brand().helpMore);
@@ -1436,6 +1572,30 @@ function handleTopic(topic) {
       }, 400);
     }, 400);
   }, 600);
+}
+
+function addFeedbackWidget(topic) {
+  const widget = document.createElement('div');
+  widget.className = 'feedback-widget';
+  widget.innerHTML = `
+    <span class="feedback-label">Var dette nyttigt?</span>
+    <button class="feedback-btn" data-rating="up" type="button" aria-label="Ja, det hjalp">👍</button>
+    <button class="feedback-btn" data-rating="down" type="button" aria-label="Nej, det hjalp ikke">👎</button>
+  `;
+  widget.addEventListener('click', (e) => {
+    const btn = e.target.closest('.feedback-btn');
+    if (!btn || btn.disabled) return;
+    const rating = btn.dataset.rating;
+    track('feedback', { topic, rating });
+    widget.querySelectorAll('.feedback-btn').forEach((b) => {
+      b.disabled = true;
+      if (b === btn) b.dataset.rated = 'true';
+    });
+    const label = widget.querySelector('.feedback-label');
+    if (label) label.textContent = 'Tak for tilbagemeldingen 🙏';
+  });
+  chatArea.appendChild(widget);
+  scrollToBottom();
 }
 
 function showFallback() {
@@ -1453,8 +1613,16 @@ function handleSend() {
   addMessage('user', text);
   userInput.value = '';
   document.querySelectorAll('.quick-replies').forEach(el => el.remove());
+  document.querySelectorAll('.feedback-widget').forEach(el => el.remove());
   const topic = findTopic(text);
-  if (topic) { handleTopic(topic); } else { showFallback(); }
+  const safe = redactPII(text);
+  track('message_sent', { query: safe, matched: !!topic, topic: topic || null });
+  if (topic) {
+    handleTopic(topic);
+  } else {
+    track('no_match', { query: safe });
+    showFallback();
+  }
 }
 
 userInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });

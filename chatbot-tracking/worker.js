@@ -1,28 +1,27 @@
-// Cloudflare Worker — to formål:
+// Cloudflare Worker — tre formål:
 //
 //   1. POST /event           (offentligt, write-only)
-//      Modtager events fra ringsted-chatbot.html, skriver til KV,
-//      poster no_match + thumbs-down live til Slack.
+//      Modtager events fra ringsted-chatbot.html, skriver til KV
+//      (90-dages retention).
 //
 //   2. GET/PUT /state/:docId (auth via Bearer token)
 //      Delt tilstand for interne dokumenter (fx go-live-18maj.html).
 //      Holdet logger ind med en delt team-token og henter/gemmer
 //      samme JSON-blob, så ændringer er synlige på tværs af maskiner.
 //
+//   3. GET /events           (auth via Bearer token)
+//      Returnerer de seneste chatbot-events til dashboard-siden
+//      (chatbot-dashboard.html). Bruges til at se hvilke spørgsmål
+//      chatten ikke kunne svare på, hvilke svar fik 👎 osv.
+//
 // Deployment:
 //   - Opret Cloudflare Worker (cloudflare.com → Workers & Pages → Create)
 //   - Tilføj en KV-namespace bound under navnet EVENTS
 //   - Secrets:
-//       wrangler secret put SLACK_WEBHOOK_URL
 //       wrangler secret put TEAM_TOKEN
 //   - I ringsted-chatbot.html: sæt TRACKING.endpoint til <URL>/event
-//   - I go-live-18maj.html: sæt SYNC.endpoint til <URL>
-//
-// Auth-model for state:
-//   - TEAM_TOKEN er en delt hemmelighed (én pr. team, deles i Slack).
-//   - Brugeren indtaster token første gang, den gemmes i localStorage.
-//   - Worker tjekker Authorization: Bearer <token>.
-//   - Hvis flere docs skal bruges: brug forskellige docIds, samme token.
+//   - I go-live-18maj.html og chatbot-dashboard.html: sæt SYNC.endpoint
+//     / DASHBOARD.endpoint til <URL>
 
 export default {
   async fetch(request, env) {
@@ -45,22 +44,25 @@ export default {
     }
 
     // ─────────────────────────────────────────────────────────
-    // AUTH GATE for resten (state-endpoints)
+    // AUTH-GATED ruter
     // ─────────────────────────────────────────────────────────
-    if (path.startsWith("/state/")) {
-      const auth = request.headers.get("Authorization") || "";
-      const token = auth.replace(/^Bearer\s+/i, "").trim();
-      if (!env.TEAM_TOKEN || !token || !constantTimeEqual(token, env.TEAM_TOKEN)) {
-        return new Response("Unauthorized", { status: 401, headers: corsHeaders() });
+    if (path === "/events" || path.startsWith("/state/")) {
+      const unauth = requireAuth(request, env);
+      if (unauth) return unauth;
+
+      if (path === "/events" && request.method === "GET") {
+        return listEvents(url, env);
       }
 
-      const docId = path.slice("/state/".length).replace(/[^a-zA-Z0-9_-]/g, "");
-      if (!docId) {
-        return new Response("Bad docId", { status: 400, headers: corsHeaders() });
+      if (path.startsWith("/state/")) {
+        const docId = path.slice("/state/".length).replace(/[^a-zA-Z0-9_-]/g, "");
+        if (!docId) {
+          return new Response("Bad docId", { status: 400, headers: corsHeaders() });
+        }
+        if (request.method === "GET") return getState(docId, env);
+        if (request.method === "PUT") return putState(docId, request, env);
       }
 
-      if (request.method === "GET") return getState(docId, env);
-      if (request.method === "PUT") return putState(docId, request, env);
       return new Response("Method not allowed", { status: 405, headers: corsHeaders() });
     }
 
@@ -68,8 +70,17 @@ export default {
   },
 };
 
+function requireAuth(request, env) {
+  const auth = request.headers.get("Authorization") || "";
+  const token = auth.replace(/^Bearer\s+/i, "").trim();
+  if (!env.TEAM_TOKEN || !token || !constantTimeEqual(token, env.TEAM_TOKEN)) {
+    return new Response("Unauthorized", { status: 401, headers: corsHeaders() });
+  }
+  return null;
+}
+
 // ═════════════════════════════════════════════════════════════
-// CHATBOT EVENTS
+// CHATBOT EVENTS — write
 // ═════════════════════════════════════════════════════════════
 async function handleChatbotEvent(request, env) {
   let payload;
@@ -89,28 +100,44 @@ async function handleChatbotEvent(request, env) {
     });
   }
 
-  if (env.SLACK_WEBHOOK_URL) {
-    let slackText = null;
-    if (payload.event === "no_match" && payload.query) {
-      const streak = payload.consecutiveCount ? ` (no-match #${payload.consecutiveCount})` : "";
-      slackText = `:question: *Chatbot kunne ikke svare*${streak} — \`${escape(payload.query)}\`\n_session: ${payload.sessionId} · brand: ${payload.brand}_`;
-    } else if (payload.event === "feedback" && payload.rating === "down") {
-      slackText = `:-1: *Bruger ratede et svar negativt*\nTopic: \`${payload.topic}\` · session: ${payload.sessionId}`;
-    } else if (payload.event === "human_escalation_shown") {
-      slackText = `:wave: *Chatbot eskalerede til menneskelig kontakt* (bruger fik vist support-email)\n_session: ${payload.sessionId} · brand: ${payload.brand}_`;
-    }
-    if (slackText) {
-      try {
-        await fetch(env.SLACK_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text: slackText }),
-        });
-      } catch (e) { /* swallow */ }
-    }
-  }
-
   return jsonResponse({ ok: true });
+}
+
+// ═════════════════════════════════════════════════════════════
+// CHATBOT EVENTS — read (for dashboard)
+// ═════════════════════════════════════════════════════════════
+async function listEvents(url, env) {
+  if (!env.EVENTS) return jsonResponse({ events: [] });
+
+  // Limit: hvor mange events vi henter (cap 1000, default 500)
+  const limit = Math.min(parseInt(url.searchParams.get("limit") || "500", 10), 1000);
+
+  // KV list returnerer keys i lex-orden. Da vi præfikser med tidsstempel,
+  // er senest sidst. Vi henter alt op til limit og sorterer i client.
+  const list = await env.EVENTS.list({ prefix: "event:", limit });
+
+  // Hent values parallelt
+  const events = await Promise.all(
+    list.keys.map(async (k) => {
+      try {
+        const raw = await env.EVENTS.get(k.name);
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    })
+  );
+
+  // Filtrér null-værdier og sortér nyeste først
+  const cleaned = events
+    .filter(Boolean)
+    .sort((a, b) => (b.serverTimestamp || 0) - (a.serverTimestamp || 0));
+
+  return jsonResponse({
+    events: cleaned,
+    count: cleaned.length,
+    listComplete: list.list_complete,
+  });
 }
 
 // ═════════════════════════════════════════════════════════════
@@ -132,7 +159,6 @@ async function getState(docId, env) {
       lastModifiedBy: null,
     });
   }
-  // Returnér med passende cache-headers
   return new Response(raw, {
     status: 200,
     headers: {
@@ -162,9 +188,6 @@ async function putState(docId, request, env) {
   const existingRaw = await env.EVENTS.get(key);
   const existing = existingRaw ? JSON.parse(existingRaw) : { version: 0 };
 
-  // Optimistic concurrency: hvis client angiver baseVersion, skal den matche
-  // den nuværende version. Ellers fortæller vi clienten at der er nyere data
-  // og lader den merge/genovervej.
   if (typeof body.baseVersion === "number" && body.baseVersion !== existing.version) {
     return new Response(
       JSON.stringify({
@@ -184,8 +207,6 @@ async function putState(docId, request, env) {
     lastModifiedBy: typeof body.actor === "string" ? body.actor.slice(0, 60) : "anon",
   };
 
-  // Ingen TTL — vi vil have state'en til at leve, indtil vi eksplicit
-  // sletter eller overskriver den.
   await env.EVENTS.put(key, JSON.stringify(next));
 
   return jsonResponse(next);
@@ -210,11 +231,6 @@ function jsonResponse(obj, status = 200) {
   });
 }
 
-function escape(s) {
-  return String(s).replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
-}
-
-// Constant-time string compare, så vi ikke lækker token-længde via timing.
 function constantTimeEqual(a, b) {
   if (typeof a !== "string" || typeof b !== "string") return false;
   if (a.length !== b.length) return false;

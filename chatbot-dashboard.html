@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>[INTERNT] Chatbot dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0B0D12;
+    --bg-card: #14171F;
+    --bg-card-hover: #1A1E28;
+    --border: #232834;
+    --border-strong: #2E3544;
+    --text: #E4E7EC;
+    --text-muted: #9AA3B2;
+    --text-dim: #6B7384;
+    --accent: #2DD4BF;
+    --accent-blue: #60A5FA;
+    --accent-amber: #F59E0B;
+    --accent-purple: #A78BFA;
+    --accent-green: #5CB77A;
+    --accent-red: #EF4444;
+    --accent-pink: #F472B6;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text); font-size: 15px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px 28px 80px; }
+
+  .breadcrumb {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--text-dim); margin-bottom: 28px; display: flex; gap: 8px; flex-wrap: wrap;
+  }
+
+  .hero { margin-bottom: 28px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(45, 212, 191, 0.1);
+    color: var(--accent); border: 1px solid rgba(45, 212, 191, 0.25);
+    padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: 30px; font-weight: 800; color: var(--text);
+    margin: 0 0 12px; letter-spacing: -0.5px; line-height: 1.2;
+  }
+  .hero .lede { font-size: 15.5px; color: var(--text-muted); max-width: 760px; margin: 0; }
+
+  /* Sync bar */
+  .sync-bar {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    padding: 10px 14px; margin-bottom: 24px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; font-size: 12.5px;
+  }
+  .sync-status { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); }
+  .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-dim); }
+  .sync-dot.is-online { background: var(--accent-green); }
+  .sync-dot.is-syncing { background: var(--accent-amber); animation: pulse 1.2s ease-in-out infinite; }
+  .sync-dot.is-error { background: var(--accent-red); }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.4); }
+    50%      { box-shadow: 0 0 0 6px rgba(245,158,11,0); }
+  }
+  .sync-meta { color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 11.5px; }
+  .sync-bar .btn { padding: 5px 10px; font-size: 11.5px; }
+  .sync-bar select {
+    background: var(--bg); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 5px 9px; border-radius: 8px;
+    font-size: 12px; font-family: inherit; cursor: pointer;
+    margin-left: auto;
+  }
+
+  /* Stats grid */
+  .stats {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 12px; margin-bottom: 28px;
+  }
+  @media (max-width: 900px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 540px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px;
+  }
+  .stat-card .label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;
+  }
+  .stat-card .value {
+    font-size: 28px; font-weight: 800; color: var(--text);
+    line-height: 1; font-variant-numeric: tabular-nums;
+  }
+  .stat-card.danger { border-color: rgba(239,68,68,0.35); }
+  .stat-card.danger .value { color: var(--accent-red); }
+  .stat-card.warn { border-color: rgba(245,158,11,0.35); }
+  .stat-card.warn .value { color: var(--accent-amber); }
+  .stat-card.ok { border-color: rgba(92,183,122,0.35); }
+  .stat-card.ok .value { color: var(--accent-green); }
+
+  /* Sections */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    margin-bottom: 14px; gap: 12px;
+  }
+  .section h2 { font-size: 17px; font-weight: 700; color: var(--text); margin: 0; }
+  .section-count {
+    font-size: 12px; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td {
+    padding: 10px 12px; text-align: left;
+    font-size: 13px; vertical-align: top;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  td { color: var(--text-muted); }
+  td.query, td.topic { color: var(--text); }
+  td.query { font-style: italic; }
+  td.count {
+    font-family: 'JetBrains Mono', monospace; font-weight: 700;
+    color: var(--accent); font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  td.time {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--text-dim); white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: 0; }
+
+  .empty {
+    background: var(--bg-card); border: 1px dashed var(--border-strong);
+    border-radius: 10px; padding: 24px; text-align: center;
+    color: var(--text-dim); font-size: 13.5px;
+  }
+
+  /* Topic distribution bar */
+  .topic-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid var(--border);
+  }
+  .topic-bar:last-child { border-bottom: 0; }
+  .topic-bar .name {
+    flex: 0 0 180px; font-size: 13px; color: var(--text);
+  }
+  .topic-bar .bar {
+    flex: 1; height: 8px; background: var(--bg-card);
+    border-radius: 4px; overflow: hidden;
+  }
+  .topic-bar .bar-fill {
+    height: 100%; background: var(--accent);
+    border-radius: 4px;
+  }
+  .topic-bar .num {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--accent); font-weight: 700; min-width: 32px; text-align: right;
+  }
+
+  /* Modal (login) */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    display: none; align-items: center; justify-content: center;
+    z-index: 1000; padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--bg-card); border: 1px solid var(--border-strong);
+    border-radius: 14px; padding: 28px; max-width: 440px; width: 100%;
+  }
+  .modal h2 { margin: 0 0 6px; font-size: 19px; color: var(--text); }
+  .modal p { margin: 0 0 16px; font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
+  .modal label {
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; margin: 14px 0 6px;
+  }
+  .modal input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 9px 11px; border-radius: 8px;
+    font-size: 13.5px; font-family: inherit; box-sizing: border-box;
+  }
+  .modal .modal-actions {
+    display: flex; gap: 8px; margin-top: 18px; justify-content: flex-end;
+  }
+  .modal button {
+    background: var(--accent); color: #062322; border: 0;
+    padding: 9px 18px; border-radius: 8px; font-size: 13px;
+    font-weight: 600; cursor: pointer; font-family: inherit;
+  }
+  .modal button.secondary {
+    background: transparent; color: var(--text-muted);
+    border: 1px solid var(--border-strong);
+  }
+  .modal .modal-error {
+    background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+    color: #FCA5A5; padding: 8px 12px; border-radius: 8px;
+    font-size: 12.5px; margin-top: 12px; display: none;
+  }
+  .modal .modal-error.visible { display: block; }
+
+  /* Generic button */
+  .btn {
+    background: var(--bg); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 6px 12px; border-radius: 8px;
+    font-size: 12.5px; cursor: pointer; font-family: inherit;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Internal banner */
+  .internal-banner {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #FCA5A5; padding: 12px 16px; border-radius: 10px;
+    font-size: 13px; margin-bottom: 24px;
+  }
+  .internal-banner strong { color: #FECACA; }
+
+  @media (max-width: 720px) {
+    .container { padding: 28px 16px 60px; }
+    .hero h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <span>livecloud-support</span>
+    <span>/</span>
+    <span style="color: var(--accent);">chatbot-dashboard</span>
+    <span>/</span>
+    <span>kun intern brug</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge"><span>&gt;_</span> Intern, til kerneholdet</div>
+    <h1>Chatbot dashboard</h1>
+    <p class="lede">Hvad spørger brugerne om — og hvor svarer chatten ikke godt nok? Data trækkes fra Cloudflare KV (90 dages retention). Log ind med team-token for at se.</p>
+  </div>
+
+  <div class="internal-banner">
+    <strong>Intern arbejdsside.</strong> Ikke offentligt linket, ikke indekseret. Del kun URL'en og team-token i interne kanaler.
+  </div>
+
+  <!-- Sync bar -->
+  <div class="sync-bar">
+    <div class="sync-status">
+      <span class="sync-dot" id="syncDot"></span>
+      <span id="syncLabel">Ikke logget ind</span>
+    </div>
+    <span class="sync-meta" id="syncMeta"></span>
+    <select id="periodSelect">
+      <option value="1">Sidste 24 timer</option>
+      <option value="7" selected>Sidste 7 dage</option>
+      <option value="30">Sidste 30 dage</option>
+      <option value="0">Alt (max 1000)</option>
+    </select>
+    <button class="btn" id="refreshBtn" onclick="loadData()">Opdater</button>
+    <button class="btn" id="loginBtn" onclick="openLoginModal()">Log ind</button>
+  </div>
+
+  <!-- Stats top-strip -->
+  <div class="stats" id="statsRow">
+    <div class="stat-card"><div class="label">Beskeder</div><div class="value" id="statTotal">—</div></div>
+    <div class="stat-card" id="statMatchCard"><div class="label">Matchet</div><div class="value" id="statMatched">—</div></div>
+    <div class="stat-card" id="statNoMatchCard"><div class="label">No-match</div><div class="value" id="statNoMatch">—</div></div>
+    <div class="stat-card" id="statThumbsDownCard"><div class="label">Tommel ned</div><div class="value" id="statThumbsDown">—</div></div>
+    <div class="stat-card" id="statEscalationsCard"><div class="label">Eskaleringer</div><div class="value" id="statEscalations">—</div></div>
+  </div>
+
+  <!-- Top no-match -->
+  <div class="section">
+    <div class="section-header">
+      <h2>🔍 Top spørgsmål uden svar</h2>
+      <span class="section-count" id="noMatchCount"></span>
+    </div>
+    <div class="table-wrap" id="noMatchTable">
+      <div class="empty">Log ind for at se data</div>
+    </div>
+  </div>
+
+  <!-- Negative feedback -->
+  <div class="section">
+    <div class="section-header">
+      <h2>👎 Negative feedback</h2>
+      <span class="section-count" id="feedbackCount"></span>
+    </div>
+    <div class="table-wrap" id="feedbackTable">
+      <div class="empty">Log ind for at se data</div>
+    </div>
+  </div>
+
+  <!-- Escalations -->
+  <div class="section">
+    <div class="section-header">
+      <h2>🚪 Brugere der gav op (2+ misser)</h2>
+      <span class="section-count" id="escalationCount"></span>
+    </div>
+    <div class="table-wrap" id="escalationTable">
+      <div class="empty">Log ind for at se data</div>
+    </div>
+  </div>
+
+  <!-- Topic distribution -->
+  <div class="section">
+    <div class="section-header">
+      <h2>📊 Hvad spørger folk om?</h2>
+      <span class="section-count" id="topicCount"></span>
+    </div>
+    <div id="topicTable">
+      <div class="empty">Log ind for at se data</div>
+    </div>
+  </div>
+
+  <!-- Recent activity -->
+  <div class="section">
+    <div class="section-header">
+      <h2>🕐 Seneste 50 beskeder</h2>
+      <span class="section-count" id="recentCount"></span>
+    </div>
+    <div class="table-wrap" id="recentTable">
+      <div class="empty">Log ind for at se data</div>
+    </div>
+  </div>
+
+  <!-- Login modal -->
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal">
+      <h2>Log ind på chatbot-dashboard</h2>
+      <p>Indtast team-token. Det er samme token som I bruger til go-live-tavlen. Gemmes lokalt i browseren.</p>
+      <label for="loginToken">Team-token</label>
+      <input id="loginToken" type="password" placeholder="paste token her" autocomplete="off">
+      <div class="modal-error" id="loginError"></div>
+      <div class="modal-actions">
+        <button class="secondary" onclick="closeLoginModal()">Annullér</button>
+        <button id="loginSubmit" onclick="submitLogin()">Log ind</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const ENDPOINT = 'https://chatbot-tracking.jakob-b1c.workers.dev';
+const CRED_KEY = 'chatbot-dashboard-cred-v1';
+const AUTO_REFRESH_MS = 60_000;
+
+let cred = (() => {
+  try { return JSON.parse(localStorage.getItem(CRED_KEY) || 'null'); }
+  catch (e) { return null; }
+})();
+let lastLoadedAt = null;
+let allEvents = [];
+let periodDays = 7;
+let autoTimer = null;
+
+function setSyncStatus(state, label, meta) {
+  const dot = document.getElementById('syncDot');
+  const lbl = document.getElementById('syncLabel');
+  const mta = document.getElementById('syncMeta');
+  const btn = document.getElementById('loginBtn');
+  dot.classList.remove('is-online', 'is-syncing', 'is-error');
+  if (state) dot.classList.add(state);
+  lbl.textContent = label;
+  mta.textContent = meta || '';
+  btn.textContent = cred ? 'Log ud' : 'Log ind';
+}
+
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+function formatRelative(ts) {
+  const diff = Math.round((Date.now() - ts) / 1000);
+  if (diff < 5) return 'lige nu';
+  if (diff < 60) return diff + ' sek siden';
+  if (diff < 3600) return Math.floor(diff / 60) + ' min siden';
+  if (diff < 86400) return Math.floor(diff / 3600) + ' t siden';
+  return Math.floor(diff / 86400) + ' d siden';
+}
+
+function formatDateTime(ts) {
+  if (!ts) return '—';
+  const d = new Date(ts);
+  return d.toLocaleString('da-DK', {
+    day: 'numeric', month: 'short',
+    hour: '2-digit', minute: '2-digit',
+  });
+}
+
+// LOGIN
+function openLoginModal() {
+  if (cred) {
+    if (confirm('Log ud?')) {
+      localStorage.removeItem(CRED_KEY);
+      cred = null;
+      setSyncStatus('', 'Ikke logget ind', '');
+      clearAllTables();
+      if (autoTimer) clearInterval(autoTimer);
+    }
+    return;
+  }
+  document.getElementById('loginModal').classList.add('open');
+  document.getElementById('loginToken').focus();
+}
+
+function closeLoginModal() {
+  document.getElementById('loginModal').classList.remove('open');
+  document.getElementById('loginError').classList.remove('visible');
+  document.getElementById('loginToken').value = '';
+}
+
+async function submitLogin() {
+  const token = document.getElementById('loginToken').value.trim();
+  const errEl = document.getElementById('loginError');
+  errEl.classList.remove('visible');
+  if (!token) {
+    errEl.textContent = 'Indtast token først.';
+    errEl.classList.add('visible');
+    return;
+  }
+  document.getElementById('loginSubmit').disabled = true;
+  try {
+    const res = await fetch(`${ENDPOINT}/events?limit=1`, {
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (res.status === 401) {
+      errEl.textContent = 'Token afvist. Tjek at den er korrekt.';
+      errEl.classList.add('visible');
+      return;
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    cred = { token };
+    localStorage.setItem(CRED_KEY, JSON.stringify(cred));
+    closeLoginModal();
+    setSyncStatus('is-online', 'Logget ind', '');
+    loadData();
+    if (autoTimer) clearInterval(autoTimer);
+    autoTimer = setInterval(loadData, AUTO_REFRESH_MS);
+  } catch (e) {
+    errEl.textContent = 'Forbindelse fejlede: ' + e.message;
+    errEl.classList.add('visible');
+  } finally {
+    document.getElementById('loginSubmit').disabled = false;
+  }
+}
+
+// DATA LOAD
+async function loadData() {
+  if (!cred) return;
+  setSyncStatus('is-syncing', 'Henter…', '');
+  try {
+    const res = await fetch(`${ENDPOINT}/events?limit=1000`, {
+      headers: { 'Authorization': `Bearer ${cred.token}` },
+    });
+    if (res.status === 401) {
+      localStorage.removeItem(CRED_KEY);
+      cred = null;
+      setSyncStatus('is-error', 'Token afvist — log ind igen', '');
+      clearAllTables();
+      return;
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const body = await res.json();
+    allEvents = body.events || [];
+    lastLoadedAt = Date.now();
+    render();
+    setSyncStatus('is-online', 'Logget ind', `Opdateret ${formatRelative(lastLoadedAt)}`);
+  } catch (e) {
+    setSyncStatus('is-error', 'Henter-fejl', e.message);
+  }
+}
+
+// RENDER
+function render() {
+  // Period filter
+  const cutoff = periodDays > 0 ? Date.now() - periodDays * 86400_000 : 0;
+  const events = allEvents.filter(e => (e.serverTimestamp || e.timestamp || 0) >= cutoff);
+
+  renderStats(events);
+  renderNoMatch(events);
+  renderFeedback(events);
+  renderEscalations(events);
+  renderTopics(events);
+  renderRecent(events);
+}
+
+function renderStats(events) {
+  const msgs = events.filter(e => e.event === 'message_sent');
+  const matched = msgs.filter(e => e.matched).length;
+  const noMatch = msgs.filter(e => !e.matched).length;
+  const thumbsDown = events.filter(e => e.event === 'feedback' && e.rating === 'down').length;
+  const escalations = events.filter(e => e.event === 'human_escalation_shown').length;
+
+  document.getElementById('statTotal').textContent = msgs.length;
+  document.getElementById('statMatched').textContent = matched;
+  document.getElementById('statNoMatch').textContent = noMatch;
+  document.getElementById('statThumbsDown').textContent = thumbsDown;
+  document.getElementById('statEscalations').textContent = escalations;
+
+  // Color cards
+  const matchPct = msgs.length > 0 ? matched / msgs.length : 1;
+  document.getElementById('statMatchCard').classList.toggle('ok', matchPct >= 0.8 && msgs.length > 0);
+  document.getElementById('statMatchCard').classList.toggle('warn', matchPct < 0.8 && matchPct >= 0.5 && msgs.length > 0);
+  document.getElementById('statMatchCard').classList.toggle('danger', matchPct < 0.5 && msgs.length > 0);
+  document.getElementById('statNoMatchCard').classList.toggle('danger', noMatch > 0);
+  document.getElementById('statThumbsDownCard').classList.toggle('warn', thumbsDown > 0);
+  document.getElementById('statEscalationsCard').classList.toggle('danger', escalations > 0);
+}
+
+function renderNoMatch(events) {
+  const noMatch = events.filter(e => (e.event === 'no_match' || (e.event === 'message_sent' && e.matched === false)) && e.query);
+  // Group by normalized query (lowercase, trimmed)
+  const groups = new Map();
+  noMatch.forEach(e => {
+    const key = e.query.toLowerCase().trim();
+    if (!groups.has(key)) groups.set(key, { query: e.query, count: 0, lastSeen: 0, sessions: new Set() });
+    const g = groups.get(key);
+    g.count++;
+    g.lastSeen = Math.max(g.lastSeen, e.serverTimestamp || e.timestamp || 0);
+    if (e.sessionId) g.sessions.add(e.sessionId);
+  });
+  const rows = [...groups.values()].sort((a, b) => b.count - a.count);
+
+  document.getElementById('noMatchCount').textContent = rows.length + ' unikke';
+  const wrap = document.getElementById('noMatchTable');
+  if (rows.length === 0) {
+    wrap.innerHTML = '<div class="empty">Ingen no-match events i perioden 🎉</div>';
+    return;
+  }
+  wrap.innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Spørgsmål</th>
+        <th style="text-align:right">Antal</th>
+        <th style="text-align:right">Brugere</th>
+        <th>Senest</th>
+      </tr></thead>
+      <tbody>
+        ${rows.slice(0, 50).map(g => `
+          <tr>
+            <td class="query">${escapeHtml(g.query)}</td>
+            <td class="count" style="text-align:right">${g.count}</td>
+            <td class="count" style="text-align:right; color: var(--text-muted)">${g.sessions.size}</td>
+            <td class="time">${formatRelative(g.lastSeen)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderFeedback(events) {
+  const downs = events.filter(e => e.event === 'feedback' && e.rating === 'down');
+  document.getElementById('feedbackCount').textContent = downs.length;
+  const wrap = document.getElementById('feedbackTable');
+  if (downs.length === 0) {
+    wrap.innerHTML = '<div class="empty">Ingen negative feedback i perioden 👍</div>';
+    return;
+  }
+  wrap.innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Emne</th>
+        <th>Session</th>
+        <th>Tidspunkt</th>
+      </tr></thead>
+      <tbody>
+        ${downs.slice(0, 50).map(e => `
+          <tr>
+            <td class="topic">${escapeHtml(e.topic || '—')}</td>
+            <td><code style="font-size:11px;color:var(--text-dim)">${escapeHtml((e.sessionId || '').slice(0, 16))}</code></td>
+            <td class="time">${formatDateTime(e.serverTimestamp || e.timestamp)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderEscalations(events) {
+  const esc = events.filter(e => e.event === 'human_escalation_shown');
+  document.getElementById('escalationCount').textContent = esc.length;
+  const wrap = document.getElementById('escalationTable');
+  if (esc.length === 0) {
+    wrap.innerHTML = '<div class="empty">Ingen eskaleringer i perioden 👍</div>';
+    return;
+  }
+  // For each escalation, look up the 2 preceding queries from same session
+  wrap.innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Session</th>
+        <th>Forudgående spørgsmål</th>
+        <th>Tidspunkt</th>
+      </tr></thead>
+      <tbody>
+        ${esc.slice(0, 50).map(e => {
+          const sid = e.sessionId;
+          const ts = e.serverTimestamp || e.timestamp || 0;
+          const prev = events
+            .filter(x => x.sessionId === sid && (x.event === 'message_sent' || x.event === 'no_match') && (x.serverTimestamp || x.timestamp) < ts)
+            .sort((a, b) => (b.serverTimestamp || b.timestamp) - (a.serverTimestamp || a.timestamp))
+            .slice(0, 3);
+          const queries = prev.map(p => p.query).filter(Boolean);
+          return `
+            <tr>
+              <td><code style="font-size:11px;color:var(--text-dim)">${escapeHtml((sid || '').slice(0, 16))}</code></td>
+              <td class="query">${queries.length ? queries.map(escapeHtml).join('<br>') : '<span style="color:var(--text-dim)">—</span>'}</td>
+              <td class="time">${formatDateTime(ts)}</td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderTopics(events) {
+  const msgs = events.filter(e => e.event === 'message_sent' && e.matched && e.topic);
+  const counts = new Map();
+  msgs.forEach(e => counts.set(e.topic, (counts.get(e.topic) || 0) + 1));
+  const sorted = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  const max = sorted.length ? sorted[0][1] : 1;
+
+  document.getElementById('topicCount').textContent = sorted.length + ' emner';
+  const wrap = document.getElementById('topicTable');
+  if (sorted.length === 0) {
+    wrap.innerHTML = '<div class="empty">Ingen matchede beskeder i perioden</div>';
+    return;
+  }
+  wrap.innerHTML = `
+    <div>
+      ${sorted.slice(0, 25).map(([topic, n]) => `
+        <div class="topic-bar">
+          <div class="name">${escapeHtml(topic)}</div>
+          <div class="bar"><div class="bar-fill" style="width: ${(n / max * 100).toFixed(1)}%"></div></div>
+          <div class="num">${n}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderRecent(events) {
+  const recent = events.slice(0, 50);
+  document.getElementById('recentCount').textContent = recent.length;
+  const wrap = document.getElementById('recentTable');
+  if (recent.length === 0) {
+    wrap.innerHTML = '<div class="empty">Ingen events i perioden</div>';
+    return;
+  }
+  wrap.innerHTML = `
+    <table>
+      <thead><tr>
+        <th>Tid</th>
+        <th>Type</th>
+        <th>Tekst</th>
+        <th>Emne</th>
+        <th>Session</th>
+      </tr></thead>
+      <tbody>
+        ${recent.map(e => {
+          const ts = e.serverTimestamp || e.timestamp || 0;
+          let eventLabel = e.event;
+          let eventColor = 'var(--text-muted)';
+          if (e.event === 'message_sent') { eventLabel = e.matched ? 'match' : 'no-match'; eventColor = e.matched ? 'var(--accent-green)' : 'var(--accent-red)'; }
+          else if (e.event === 'feedback') { eventLabel = '👎'; eventColor = 'var(--accent-amber)'; if (e.rating === 'up') eventLabel = '👍'; }
+          else if (e.event === 'human_escalation_shown') { eventLabel = 'eskaleret'; eventColor = 'var(--accent-pink)'; }
+          else if (e.event === 'no_match') { eventLabel = 'no-match'; eventColor = 'var(--accent-red)'; }
+          return `
+            <tr>
+              <td class="time">${formatDateTime(ts)}</td>
+              <td style="color:${eventColor}; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.3px;">${escapeHtml(eventLabel)}</td>
+              <td class="query">${escapeHtml(e.query || '')}</td>
+              <td class="topic">${escapeHtml(e.topic || '')}</td>
+              <td><code style="font-size:11px;color:var(--text-dim)">${escapeHtml((e.sessionId || '').slice(0, 12))}</code></td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function clearAllTables() {
+  ['noMatchTable','feedbackTable','escalationTable','topicTable','recentTable'].forEach(id => {
+    document.getElementById(id).innerHTML = '<div class="empty">Log ind for at se data</div>';
+  });
+  ['statTotal','statMatched','statNoMatch','statThumbsDown','statEscalations'].forEach(id => {
+    document.getElementById(id).textContent = '—';
+  });
+}
+
+// Event handlers
+document.getElementById('periodSelect').addEventListener('change', (e) => {
+  periodDays = parseInt(e.target.value, 10);
+  render();
+});
+document.getElementById('loginToken').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') submitLogin();
+  if (e.key === 'Escape') closeLoginModal();
+});
+
+// INIT
+if (cred) {
+  setSyncStatus('is-online', 'Logget ind', '');
+  loadData();
+  autoTimer = setInterval(loadData, AUTO_REFRESH_MS);
+} else {
+  setSyncStatus('', 'Ikke logget ind', '');
+}
+</script>
+
+</body>
+</html>

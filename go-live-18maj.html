@@ -393,9 +393,17 @@
   .deadline-badge.beslutning { background: rgba(244,114,182,0.14); color: var(--accent-pink); }
   .deadline-badge.nice { background: rgba(154,163,178,0.14); color: var(--text-muted); }
 
-  /* Top row inside item: title + status */
+  /* Top row inside item: title + status + deadline-badge */
   .item-head { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
-  .item-head .status-pill { flex-shrink: 0; margin-top: 1px; }
+  .item-head-meta {
+    display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .item-head-meta .status-pill { flex-shrink: 0; }
+  @media (max-width: 540px) {
+    .item-head { flex-direction: column; align-items: flex-start; }
+    .item-head-meta { order: -1; }
+  }
 
   /* ═══ Add-item form ═══ */
   .add-row {
@@ -1234,15 +1242,17 @@ function itemHtml(item, sectionId, isCustom = false) {
             <div class="item-title">${escapeHtml(item.title)}</div>
             <div class="item-desc">${escapeHtml(item.desc || '')}</div>
           </div>
-          <button class="status-pill" data-status="${s.status}"
-                  onclick="openStatusMenu('${escapeHtml(item.id)}', event)"
-                  aria-haspopup="menu" title="Klik for at vælge status">
-            <span class="status-label">${STATUS[s.status].label}</span>
-          </button>
+          <div class="item-head-meta">
+            <span class="deadline-badge ${escapeHtml(deadlineKey)}">${escapeHtml(deadlineLabel)}</span>
+            <button class="status-pill" data-status="${s.status}"
+                    onclick="openStatusMenu('${escapeHtml(item.id)}', event)"
+                    aria-haspopup="menu" title="Klik for at vælge status">
+              <span class="status-label">${STATUS[s.status].label}</span>
+            </button>
+          </div>
         </div>
         <div class="role-row">${rolesHtml}</div>
         <div class="item-controls">
-          <span class="deadline-badge ${escapeHtml(deadlineKey)}">${escapeHtml(deadlineLabel)}</span>
           <input type="text" placeholder="Noter…" value="${escapeHtml(s.notes || '')}"
                  oninput="setNotes('${escapeHtml(item.id)}', this.value)">
           ${sourceLink}

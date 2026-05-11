@@ -8,7 +8,7 @@ compatibility_date = "2025-01-01"
 # og indsæt id'et nedenfor.
 [[kv_namespaces]]
 binding = "EVENTS"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "e7ad2f1cdc1c4a8f8d27fc3b710b2f62"
 
 # Secrets sættes via:
 #   wrangler secret put SLACK_WEBHOOK_URL

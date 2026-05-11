@@ -10,8 +10,9 @@
 | Event | Hvornår | Felter |
 |---|---|---|
 | `message_sent` | Brugeren sender en besked | `query` (PII-redacted), `matched` (bool), `topic` (string\|null) |
-| `no_match` | Brugeren sendte en besked vi ikke kunne matche | `query` (PII-redacted) |
+| `no_match` | Brugeren sendte en besked vi ikke kunne matche | `query` (PII-redacted), `consecutiveCount` |
 | `feedback` | Brugeren trykker 👍 / 👎 under et svar | `topic`, `rating: "up" \| "down"` |
+| `human_escalation_shown` | Brugeren har 2+ no-match i træk og fik vist support-email | — |
 
 Alle events har desuden: `sessionId` (anonymt per fane), `timestamp`, `page`, `brand`, `userAgent` (trunkeret).
 

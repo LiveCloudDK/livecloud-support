@@ -542,6 +542,10 @@ let activeBrand = null;
 const chatArea = document.getElementById('chatArea');
 const userInput = document.getElementById('userInput');
 
+// Tæller hvor mange beskeder i træk vi ikke har kunnet matche.
+// Efter 2 i træk eskalerer vi til en menneskelig kontakt.
+let consecutiveNoMatch = 0;
+
 // ================================================================
 // ANALYTICS / TRACKING
 // ================================================================
@@ -1545,6 +1549,7 @@ function scrollToBottom() {
 // Map topics to screen mockups and captions
 
 function handleTopic(topic) {
+  consecutiveNoMatch = 0;
   const kb = getKB();
   const data = kb[topic];
   if (!data) { showFallback(); return; }
@@ -1602,9 +1607,46 @@ function showFallback() {
   showTyping();
   setTimeout(() => {
     hideTyping();
+    // Efter 2 misser i træk: spring den generiske fallback over og
+    // tilbyd en menneskelig kontakt direkte.
+    if (consecutiveNoMatch >= 2) {
+      showHumanEscalation();
+      return;
+    }
     addMessage('bot', brand().fallback);
     addQuickReplies(['profil', 'claim', 'transfer', 'beats', 'billet', 'event', 'kontakt']);
   }, 500);
+}
+
+function showHumanEscalation() {
+  const b = brand();
+  const email = b.supportEmail || 'kontor@ringstedfestival.dk';
+  addMessage('bot',
+    'Jeg har svært ved at finde det rette svar 🙏 Lad os tage det fra en menneskelig vinkel.'
+  );
+  // Brug eksisterende info-card til at fremhæve kontakt-info tydeligt
+  const msg = document.createElement('div');
+  msg.className = 'message bot';
+  msg.style.maxWidth = '92%';
+  const avatar = document.createElement('div');
+  avatar.className = 'message-avatar';
+  avatar.textContent = b.icon;
+  msg.appendChild(avatar);
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  const card = document.createElement('div');
+  card.className = 'info-card';
+  card.innerHTML = `
+    <div class="info-card-title">✉️ Skriv direkte til support</div>
+    <p>Du kan skrive til <a href="mailto:${email}" style="color: var(--primary, #ff0001); font-weight: 700;">${email}</a> — beskriv kort hvad du har brug for, så vender vi tilbage så hurtigt vi kan.</p>
+  `;
+  bubble.appendChild(card);
+  msg.appendChild(bubble);
+  chatArea.appendChild(msg);
+  scrollToBottom();
+  // Tilbyd stadig at prøve hovedemnerne, hvis brugeren vil
+  addQuickReplies(['profil', 'claim', 'transfer', 'beats', 'billet', 'event']);
+  track('human_escalation_shown', {});
 }
 
 function handleSend() {
@@ -1618,9 +1660,11 @@ function handleSend() {
   const safe = redactPII(text);
   track('message_sent', { query: safe, matched: !!topic, topic: topic || null });
   if (topic) {
+    consecutiveNoMatch = 0; // succes nulstiller eskalerings-tælleren
     handleTopic(topic);
   } else {
-    track('no_match', { query: safe });
+    consecutiveNoMatch++;
+    track('no_match', { query: safe, consecutiveCount: consecutiveNoMatch });
     showFallback();
   }
 }

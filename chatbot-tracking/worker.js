@@ -92,9 +92,12 @@ async function handleChatbotEvent(request, env) {
   if (env.SLACK_WEBHOOK_URL) {
     let slackText = null;
     if (payload.event === "no_match" && payload.query) {
-      slackText = `:question: *Chatbot kunne ikke svare* — \`${escape(payload.query)}\`\n_session: ${payload.sessionId} · brand: ${payload.brand}_`;
+      const streak = payload.consecutiveCount ? ` (no-match #${payload.consecutiveCount})` : "";
+      slackText = `:question: *Chatbot kunne ikke svare*${streak} — \`${escape(payload.query)}\`\n_session: ${payload.sessionId} · brand: ${payload.brand}_`;
     } else if (payload.event === "feedback" && payload.rating === "down") {
       slackText = `:-1: *Bruger ratede et svar negativt*\nTopic: \`${payload.topic}\` · session: ${payload.sessionId}`;
+    } else if (payload.event === "human_escalation_shown") {
+      slackText = `:wave: *Chatbot eskalerede til menneskelig kontakt* (bruger fik vist support-email)\n_session: ${payload.sessionId} · brand: ${payload.brand}_`;
     }
     if (slackText) {
       try {

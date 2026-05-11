@@ -169,6 +169,28 @@
   .item.is-done { opacity: 0.6; }
   .item.is-done .item-title { text-decoration: line-through; text-decoration-color: var(--text-dim); }
 
+  /* Klik-til-edit på titel, beskrivelse og underpunkter */
+  [contenteditable="true"].editable {
+    cursor: text; outline: none;
+    border-radius: 6px;
+    padding: 2px 6px; margin: -2px -6px;
+    transition: background 0.12s, box-shadow 0.12s;
+    word-break: break-word;
+  }
+  [contenteditable="true"].editable:hover {
+    background: rgba(255,255,255,0.03);
+  }
+  [contenteditable="true"].editable:focus {
+    background: var(--bg);
+    box-shadow: 0 0 0 1.5px var(--accent);
+  }
+  [contenteditable="true"].editable:empty::before {
+    content: attr(data-placeholder);
+    color: var(--text-dim);
+    font-style: italic;
+    pointer-events: none;
+  }
+
   .item-main { min-width: 0; }
   .item-title {
     font-size: 14.5px; font-weight: 600; color: var(--text);
@@ -178,7 +200,7 @@
     font-size: 13px; color: var(--text-muted);
     line-height: 1.55; margin-bottom: 8px;
   }
-  .item-desc:empty { display: none; }
+  /* item-desc bliver altid vist nu, så placeholder kan ses i edit-mode */
   .item-desc code {
     font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
     padding: 1px 6px; background: var(--border); border-radius: 4px;
@@ -1089,6 +1111,19 @@ function emptyRoles() {
   return r;
 }
 
+// Returnerer den visningsklare titel for et item — overrider seed/custom-værdi
+// hvis brugeren har redigeret den. Bruges også af promoteSubItem og resumé.
+function displayTitleFor(item) {
+  const s = state.items[item.id];
+  if (s && typeof s.title === 'string' && s.title.length > 0) return s.title;
+  return item.title || '';
+}
+function displayDescFor(item) {
+  const s = state.items[item.id];
+  if (s && typeof s.desc === 'string') return s.desc;
+  return item.desc || '';
+}
+
 function itemState(id) {
   const raw = state.items[id];
   if (!raw) return { status: 'todo', roles: emptyRoles(), notes: '', subItems: [] };
@@ -1163,7 +1198,7 @@ function subItemsHtml(itemId) {
     let trailing;
     if (sub.promotedTo) {
       const meta = findItemMeta(sub.promotedTo);
-      const promotedTitle = meta ? meta.item.title : 'opgave';
+      const promotedTitle = meta ? displayTitleFor(meta.item) : 'opgave';
       trailing = `<span class="sub-item-promoted" title="${escapeHtml(promotedTitle)}"><a href="#" onclick="scrollToItem('${escapeHtml(sub.promotedTo)}'); return false;">↗ flyttet til opgave</a></span>`;
     } else {
       trailing = `<button class="sub-item-promote" onclick="promoteSubItem('${escapeHtml(itemId)}', '${escapeHtml(sub.id)}')" title="Konvertér til ny opgave i denne sektion">↗ til opgave</button>`;
@@ -1173,7 +1208,12 @@ function subItemsHtml(itemId) {
         <button class="sub-item-check" type="button"
                 onclick="toggleSubItem('${escapeHtml(itemId)}', '${escapeHtml(sub.id)}')"
                 aria-label="${sub.done ? 'Fjern markering' : 'Markér som klaret'}"></button>
-        <span class="sub-item-text">${escapeHtml(sub.text)}</span>
+        <span class="sub-item-text editable" contenteditable="true" spellcheck="false"
+              data-placeholder="(beskriv underpunkt)"
+              onblur="setEditableSubText('${escapeHtml(itemId)}', '${escapeHtml(sub.id)}', this.innerText)"
+              onkeydown="handleEditableKey(event, true)"
+              onpaste="handleEditablePaste(event)"
+        >${escapeHtml(sub.text)}</span>
         ${trailing}
         <button class="sub-item-delete" type="button"
                 onclick="deleteSubItem('${escapeHtml(itemId)}', '${escapeHtml(sub.id)}')"
@@ -1239,8 +1279,18 @@ function itemHtml(item, sectionId, isCustom = false) {
       <div class="item-main">
         <div class="item-head">
           <div>
-            <div class="item-title">${escapeHtml(item.title)}</div>
-            <div class="item-desc">${escapeHtml(item.desc || '')}</div>
+            <div class="item-title editable" contenteditable="true" spellcheck="false"
+                 data-placeholder="(uden titel)"
+                 onblur="setEditableTitle('${escapeHtml(item.id)}', this.innerText)"
+                 onkeydown="handleEditableKey(event, true)"
+                 onpaste="handleEditablePaste(event)"
+            >${escapeHtml(displayTitleFor(item))}</div>
+            <div class="item-desc editable" contenteditable="true" spellcheck="false"
+                 data-placeholder="(tilføj beskrivelse)"
+                 onblur="setEditableDesc('${escapeHtml(item.id)}', this.innerText)"
+                 onkeydown="handleEditableKey(event, false)"
+                 onpaste="handleEditablePaste(event)"
+            >${escapeHtml(displayDescFor(item))}</div>
           </div>
           <div class="item-head-meta">
             <span class="deadline-badge ${escapeHtml(deadlineKey)}">${escapeHtml(deadlineLabel)}</span>
@@ -1464,6 +1514,88 @@ function setNotes(id, notes) {
   saveState();
 }
 
+// ─────────── Klik-til-edit på titel/beskrivelse/sub-item ───────────
+// Vi gemmer altid en override i state.items[id] (titel/desc). Custom items'
+// originale state.custom-værdi bevares, men override vinder ved render.
+function setEditableTitle(id, text) {
+  const cleaned = (text || '').replace(/\r?\n+/g, ' ').trim();
+  const cur = itemState(id);
+  if (cleaned === '') {
+    // Tom = nulstil til seed/original
+    const next = { ...cur };
+    delete next.title;
+    state.items[id] = next;
+  } else {
+    // Hvis titlen matcher originalen, ingen grund til at gemme override
+    const meta = findItemMeta(id);
+    if (meta && meta.item.title === cleaned) {
+      const next = { ...cur };
+      delete next.title;
+      state.items[id] = next;
+    } else {
+      state.items[id] = { ...cur, title: cleaned };
+    }
+  }
+  saveState();
+}
+
+function setEditableDesc(id, text) {
+  const cleaned = (text || '').trim();
+  const cur = itemState(id);
+  const meta = findItemMeta(id);
+  const original = meta ? (meta.item.desc || '') : '';
+  if (cleaned === original) {
+    const next = { ...cur };
+    delete next.desc;
+    state.items[id] = next;
+  } else {
+    state.items[id] = { ...cur, desc: cleaned };
+  }
+  saveState();
+}
+
+function setEditableSubText(itemId, subId, text) {
+  const cleaned = (text || '').replace(/\r?\n+/g, ' ').trim();
+  if (!cleaned) return; // tom = behold gammel tekst
+  const cur = itemState(itemId);
+  const subItems = (cur.subItems || []).map(s =>
+    s.id === subId ? { ...s, text: cleaned } : s
+  );
+  state.items[itemId] = { ...cur, subItems };
+  saveState();
+}
+
+// Enter = blur (gem). Escape = blur uden gem (men contenteditable mister
+// allerede ændringer ved escape pga. browser-default. Vi accepterer det.)
+// onlyOneLine: hvis true (titel/sub-item), block Enter helt.
+function handleEditableKey(event, onlyOneLine) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    event.target.blur();
+  }
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    event.target.blur();
+  }
+}
+
+// Plain-text paste — ingen rich text fra Word/Notion
+function handleEditablePaste(event) {
+  event.preventDefault();
+  const text = (event.clipboardData || window.clipboardData).getData('text/plain');
+  // Erstat den valgte tekst med ren tekst
+  if (document.execCommand) {
+    document.execCommand('insertText', false, text);
+  } else {
+    // Fallback for browsers uden execCommand
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    sel.deleteFromDocument();
+    sel.getRangeAt(0).insertNode(document.createTextNode(text));
+    sel.collapseToEnd();
+  }
+}
+
 // ─────────── Sub-items (underpunkter) ───────────
 function addSubItem(ev, itemId) {
   const form = ev.target;
@@ -1532,7 +1664,7 @@ function promoteSubItem(itemId, subId) {
 
   // Hvis det er custom item, find dets sektion via state.custom
   const sectionId = meta.sectionId;
-  const parentTitle = meta.item.title || '';
+  const parentTitle = displayTitleFor(meta.item);
   const parentDeadline = meta.item.deadline || 'golive-18maj';
 
   const newId = 'custom-' + sectionId + '-' + Date.now().toString(36);
@@ -1716,7 +1848,7 @@ function copyShareableSummary() {
         })
         .filter(Boolean);
       const roleTxt = roleParts.length ? ` — ${roleParts.join(' · ')}` : '';
-      lines.push(`${mark} ${it.title}${roleTxt}`);
+      lines.push(`${mark} ${displayTitleFor(it)}${roleTxt}`);
       if (s.notes) lines.push(`     ↳ ${s.notes}`);
     });
   });

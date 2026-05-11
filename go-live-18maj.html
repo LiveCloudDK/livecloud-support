@@ -661,6 +661,16 @@ const SECTIONS = [
       ] },
       { id: 'b-festhallen-line',     title: 'Beslut Festhallen-app produkt-line ved Ringsted go-live',    desc: 'Kommende arrangementers billetter. Afgrøderes parallelt så Festhallen-appen er konsistent med Ringsted-launch.', deadline: 'beslutning', defaultOwner: 'Jakob' },
       { id: 'b-refund-policy',       title: 'Beslut refund-politik (hvem, hvornår, hvordan)',             desc: 'Hvem kan udløse refund? Kun support, eller også brugeren selv inden for X dage? Hvilke produkter er refunderbare?', deadline: 'beslutning', defaultOwner: 'Jakob' },
+      { id: 'b-foer-fest-flow',      title: 'Beslut flow for før-festen — invitation, batches, accept',   desc: 'Forslag: efter uge 1 (~25/5) sendes invitations-mail til alle med profil + aktiveret festivalbillet. Mailen indeholder et deep-link der åbner appen, hvor brugeren bekræfter deltagelse. Hvis batch 1 ikke giver nok svar, sender vi næste batch efter uge 2 (~1/6).', deadline: 'beslutning', defaultOwner: 'Jakob', defaultSubItems: [
+        'Bekræft strategi: post-go-live batch-invitation via mail + accept i app',
+        'Målgruppe-kriterier låst fast (profil oprettet + festivalbillet aktiveret)',
+        'Batch-størrelse pr. udsendelse — hvor mange ad gangen?',
+        'Tidsplan: batch 1 (uge efter go-live, ~25/5), batch 2 (~1/6)',
+        'Tærskel for "tilfredsstillende antal svar" — hvornår triggeres batch 2?',
+        'App: deep-link der åbner accept-skærm (afledt opgave i App-sektionen)',
+        'Backend: målgruppe-filter + batch-udsendelse + accept-tracking (afledt opgave i FMS)',
+        'Mail-tekst og afsenderprofil — hvem skriver, hvilken signatur?',
+      ] },
     ],
   },
 

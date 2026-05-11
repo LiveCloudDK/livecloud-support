@@ -1,8 +1,9 @@
-# Chatbot tracking
+# Chatbot tracking + team-state
 
-Modtager events fra `ringsted-chatbot.html` og:
-1. Skriver alle events til Cloudflare KV (90 dages retention).
-2. Poster `no_match` og negative `feedback`-events live til en Slack-kanal.
+Én Cloudflare Worker, to formål:
+
+1. **Chatbot events** (offentligt, write-only) — modtager events fra `ringsted-chatbot.html`, skriver til Cloudflare KV (90 dages retention), poster `no_match` og negative `feedback` live til Slack.
+2. **Team-state** (auth via Bearer token) — delt JSON-tilstand for interne dokumenter som `go-live-18maj.html`. Holdet logger ind med en delt token og henter/gemmer samme blob, så ændringer er synlige på tværs af maskiner.
 
 ## Hvad logger vi?
 
@@ -29,9 +30,15 @@ wrangler login
 wrangler kv:namespace create CHATBOT_EVENTS
 # kopier id'et ind i wrangler.toml under [[kv_namespaces]]
 
-# tilføj Slack webhook som secret
+# tilføj Slack webhook som secret (til chatbot no_match-alerts)
 wrangler secret put SLACK_WEBHOOK_URL
 # (paste webhook URL'en når den spørger)
+
+# tilføj team-token som secret (til go-live-tavlen og andre delte docs)
+wrangler secret put TEAM_TOKEN
+# generér en stærk tilfældig værdi, fx via `openssl rand -hex 24`.
+# Del den i jeres interne Slack — alle der skal kunne redigere
+# go-live-tavlen skal have token.
 
 # deploy
 wrangler deploy
@@ -39,6 +46,34 @@ wrangler deploy
 
 Worker'en udstiller sig nu på fx
 `https://chatbot-tracking.<account>.workers.dev`.
+
+## Endpoints
+
+| Rute | Metode | Auth | Formål |
+|---|---|---|---|
+| `/event` | POST | nej | Chatbot-event ind |
+| `/state/:docId` | GET | Bearer | Hent delt tilstand for et dokument |
+| `/state/:docId` | PUT | Bearer | Gem delt tilstand (med optimistic locking) |
+
+`:docId` må kun indeholde `[a-zA-Z0-9_-]`. Eksempel: `go-live-18maj`.
+
+State-payload (GET response):
+```json
+{ "docId": "go-live-18maj",
+  "version": 12,
+  "state": { /* free-form JSON */ },
+  "lastModifiedAt": 1747555555000,
+  "lastModifiedBy": "Tony" }
+```
+
+PUT body:
+```json
+{ "state": { /* free-form JSON */ },
+  "baseVersion": 11,
+  "actor": "Tony" }
+```
+
+Hvis `baseVersion` ikke matcher serverens nuværende version returneres `409` med den nuværende state, så klienten kan merge og prøve igen.
 
 ### 2. Slack-webhook
 
@@ -68,7 +103,41 @@ const TRACKING = {
 };
 ```
 
-(Stien er ligegyldig, Worker'en accepterer alle paths — `/event` er bare for læsbarhed.)
+### 4. Sæt endpoint i go-live-tavlen
+
+I `go-live-18maj.html`, find blokken:
+
+```js
+const SYNC = {
+  endpoint: '',
+  docId: 'go-live-18maj',
+  pollIntervalMs: 20000,
+  debounceMs: 1200,
+};
+```
+
+Sæt `endpoint` til Worker-URL'en (uden sti):
+
+```js
+const SYNC = {
+  endpoint: 'https://chatbot-tracking.<account>.workers.dev',
+  docId: 'go-live-18maj',
+  pollIntervalMs: 20000,
+  debounceMs: 1200,
+};
+```
+
+Når siden er deployet med endpoint sat, kan holdet logge ind via "Log ind på holdet"-knappen øverst på siden. De indtaster:
+- **Deres navn** (Tony, Edwin, etc.) — bruges til "sidst opdateret af X"
+- **Team-token** — den værdi du satte under `wrangler secret put TEAM_TOKEN`
+
+Begge dele gemmes lokalt i browseren, så det er en engangs-handling pr. enhed.
+
+**Hvordan sync fungerer:**
+- Når du ændrer noget, gemmes det først lokalt og pushes til serveren ~1.2 sek efter sidste edit (debounced).
+- Hver klient poll'er hver 20. sek og henter ind, hvis nogen andre har skrevet.
+- Når en fane bliver synlig igen efter at have været i baggrunden, henter den straks.
+- Ved samtidig redigering vinder "sidste skriv". Hvis to mennesker ændrer det samme item indenfor samme sekund kan det ene tabes — det er sjældent og acceptabelt for dette dokument.
 
 ## Hvordan ser vi data?
 

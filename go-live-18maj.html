@@ -307,6 +307,77 @@
     .section-header { flex-direction: column; align-items: flex-start; gap: 6px; }
     .filters select { margin-left: 0; }
   }
+
+  /* ═══ SYNC BAR ═══ */
+  .sync-bar {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    padding: 10px 14px; margin-bottom: 24px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; font-size: 12.5px;
+  }
+  .sync-status {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--text-muted);
+  }
+  .sync-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--text-dim);
+    box-shadow: 0 0 0 0 currentColor;
+  }
+  .sync-dot.is-online { background: var(--accent-green); }
+  .sync-dot.is-syncing {
+    background: var(--accent-amber);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .sync-dot.is-error { background: var(--accent-red); }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.4); }
+    50%      { box-shadow: 0 0 0 6px rgba(245,158,11,0); }
+  }
+  .sync-meta { color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 11.5px; }
+  .sync-bar .btn { margin-left: auto; padding: 5px 10px; font-size: 11.5px; }
+
+  /* ═══ LOGIN MODAL ═══ */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    display: none; align-items: center; justify-content: center;
+    z-index: 1000; padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--bg-card); border: 1px solid var(--border-strong);
+    border-radius: 14px; padding: 28px; max-width: 440px; width: 100%;
+  }
+  .modal h2 { margin: 0 0 6px; font-size: 19px; color: var(--text); }
+  .modal p { margin: 0 0 16px; font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
+  .modal label {
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; margin: 14px 0 6px;
+  }
+  .modal input, .modal select {
+    width: 100%; background: var(--bg); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 9px 11px; border-radius: 8px;
+    font-size: 13.5px; font-family: inherit; box-sizing: border-box;
+  }
+  .modal .modal-actions {
+    display: flex; gap: 8px; margin-top: 18px; justify-content: flex-end;
+  }
+  .modal button {
+    background: var(--accent); color: #062322; border: 0;
+    padding: 9px 18px; border-radius: 8px; font-size: 13px;
+    font-weight: 600; cursor: pointer; font-family: inherit;
+  }
+  .modal button.secondary {
+    background: transparent; color: var(--text-muted);
+    border: 1px solid var(--border-strong);
+  }
+  .modal .modal-error {
+    background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+    color: #FCA5A5; padding: 8px 12px; border-radius: 6px;
+    font-size: 12.5px; margin-top: 12px; display: none;
+  }
+  .modal .modal-error.visible { display: block; }
 </style>
 </head>
 <body>
@@ -327,12 +398,39 @@
       Intern, til kerneholdet
     </div>
     <h1>Klar til Go-Live <span class="live-date">mandag 18. maj</span></h1>
-    <p class="lede">Tjekliste over alt vi skal nå inden første live-brug. Hver linje har én ejer, én status og en deadline-kategori. Klik på status-pillen for at flytte den frem. Tilføj selv punkter nederst i hver sektion. Fremskridt gemmes lokalt i din browser.</p>
+    <p class="lede">Tjekliste over alt vi skal nå inden første live-brug. Hver linje har én ejer, én status og en deadline-kategori. Klik på status-pillen for at flytte den frem. Tilføj selv punkter nederst i hver sektion. Når I er logget ind med team-token synces ændringer mellem alle på holdet.</p>
   </div>
 
   <div class="internal-banner">
     <div>
-      <strong>Intern arbejdsside.</strong> Ikke offentligt linket, ikke indekseret. Del kun URL'en i interne kanaler. Items kan tilføjes løbende, og fremdriften gemmes pr. browser, så husk at eksportere før du skifter maskine.
+      <strong>Intern arbejdsside.</strong> Ikke offentligt linket, ikke indekseret. Del kun URL'en og team-token i interne kanaler.
+    </div>
+  </div>
+
+  <!-- Sync status bar -->
+  <div class="sync-bar">
+    <div class="sync-status">
+      <span class="sync-dot" id="syncDot"></span>
+      <span id="syncLabel">Ikke logget ind — kun lokalt</span>
+    </div>
+    <span class="sync-meta" id="syncMeta"></span>
+    <button class="btn" id="syncBtn" onclick="openLoginModal()">Log ind på holdet</button>
+  </div>
+
+  <!-- Login modal -->
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal">
+      <h2>Log ind på go-live-tavlen</h2>
+      <p>Indtast team-token og dit navn. Token deles i Slack af Jakob — den giver adgang til at læse og skrive den delte tilstand. Begge dele gemmes lokalt i din browser.</p>
+      <label for="loginName">Dit navn</label>
+      <input id="loginName" type="text" placeholder="Fx Tony" autocomplete="off">
+      <label for="loginToken">Team-token</label>
+      <input id="loginToken" type="password" placeholder="paste token her" autocomplete="off">
+      <div class="modal-error" id="loginError"></div>
+      <div class="modal-actions">
+        <button class="secondary" onclick="closeLoginModal()">Annullér</button>
+        <button id="loginSubmit" onclick="submitLogin()">Log ind</button>
+      </div>
     </div>
   </div>
 
@@ -395,6 +493,19 @@
 const GO_LIVE_DATE = '2026-05-18';
 const HOERKAM_DATE = '2026-06-06';
 const STORAGE_KEY = 'go-live-18maj-state-v1';
+
+// ═══════════════════════════════════════════════════════════════
+// SYNC CONFIG — sæt endpoint til Cloudflare Worker'en når den er deployet.
+// docId må bestå af [a-zA-Z0-9_-]. Hvis endpoint er tom kører siden
+// kun mod localStorage (offline-fallback).
+// ═══════════════════════════════════════════════════════════════
+const SYNC = {
+  endpoint: '',                       // fx 'https://chatbot-tracking.<account>.workers.dev'
+  docId: 'go-live-18maj',
+  pollIntervalMs: 20000,              // poll for andres ændringer
+  debounceMs: 1200,                   // vent denne tid efter sidste edit før vi gemmer
+};
+const SYNC_CRED_KEY = 'go-live-18maj-cred-v1'; // { token, actor }
 
 const OWNERS = ['—', 'Jakob', 'Tony', 'Edwin', 'Michael', 'Mikkel', 'Simon', 'Britt', 'Andreas', 'Ekstern'];
 
@@ -500,7 +611,7 @@ const SECTIONS = [
 // ═══════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════
-function loadState() {
+function loadLocalState() {
   try {
     const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
     return {
@@ -511,12 +622,272 @@ function loadState() {
     return { items: {}, custom: [] };
   }
 }
-function saveState() {
+function persistLocal() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
-let state = loadState();
+// saveState: persistLocal + (if logged in) schedule a sync push
+function saveState() {
+  persistLocal();
+  scheduleSyncPush();
+}
+let state = loadLocalState();
 let activeFilter = 'all';
 let activeOwnerFilter = 'all';
+
+// ═══════════════════════════════════════════════════════════════
+// SYNC ENGINE
+// ═══════════════════════════════════════════════════════════════
+// loadCred: { token, actor } from localStorage, eller null
+function loadCred() {
+  try {
+    const c = JSON.parse(localStorage.getItem(SYNC_CRED_KEY) || 'null');
+    if (c && c.token && c.actor) return c;
+  } catch (e) { /* ignore */ }
+  return null;
+}
+function saveCred(c) {
+  localStorage.setItem(SYNC_CRED_KEY, JSON.stringify(c));
+}
+function clearCred() {
+  localStorage.removeItem(SYNC_CRED_KEY);
+}
+
+let cred = loadCred();
+let syncVersion = 0;           // serverens nuværende version, kendt af denne klient
+let syncLastModifiedAt = null; // tidspunkt for sidste serverændring
+let syncLastModifiedBy = null; // hvem skrev sidst
+let syncPushTimer = null;
+let syncPollTimer = null;
+let syncBusy = false;          // forhindrer overlappende PUTs
+let syncDirty = false;         // localState er nyere end serverens
+
+function syncEnabled() {
+  return !!(SYNC.endpoint && cred);
+}
+
+function setSyncStatus(state, label, meta) {
+  const dot = document.getElementById('syncDot');
+  const lbl = document.getElementById('syncLabel');
+  const mta = document.getElementById('syncMeta');
+  const btn = document.getElementById('syncBtn');
+  dot.classList.remove('is-online', 'is-syncing', 'is-error');
+  if (state) dot.classList.add(state);
+  lbl.textContent = label;
+  mta.textContent = meta || '';
+  if (cred) btn.textContent = 'Log ud';
+  else btn.textContent = 'Log ind på holdet';
+}
+
+function formatRelative(ts) {
+  if (!ts) return '';
+  const diff = Math.round((Date.now() - ts) / 1000);
+  if (diff < 5) return 'lige nu';
+  if (diff < 60) return diff + ' sek siden';
+  if (diff < 3600) return Math.floor(diff / 60) + ' min siden';
+  if (diff < 86400) return Math.floor(diff / 3600) + ' t siden';
+  return Math.floor(diff / 86400) + ' d siden';
+}
+
+function refreshSyncMeta() {
+  if (!syncEnabled()) return;
+  const who = syncLastModifiedBy && syncLastModifiedBy !== cred.actor
+    ? syncLastModifiedBy
+    : (syncLastModifiedBy === cred.actor ? 'dig' : null);
+  if (syncLastModifiedAt && who) {
+    setSyncStatus('is-online', `Synced som ${cred.actor}`, `Sidst opdateret af ${who} ${formatRelative(syncLastModifiedAt)}`);
+  } else {
+    setSyncStatus('is-online', `Synced som ${cred.actor}`, '');
+  }
+}
+
+// PULL: hent state fra server og merge ind i local state
+async function syncPull() {
+  if (!syncEnabled() || syncBusy) return;
+  try {
+    setSyncStatus('is-syncing', `Henter…`, '');
+    const res = await fetch(`${SYNC.endpoint}/state/${SYNC.docId}`, {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${cred.token}` },
+    });
+    if (res.status === 401) {
+      clearCred(); cred = null;
+      setSyncStatus('is-error', 'Token afvist — log ind igen', '');
+      return;
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const body = await res.json();
+    if (body.version > syncVersion && body.state) {
+      // Server har nyere data, merge ind i local state
+      state.items = { ...state.items, ...(body.state.items || {}) };
+      // For custom items, server-listen er sandheden hvis nyere
+      state.custom = body.state.custom || state.custom;
+      persistLocal();
+      render();
+    }
+    syncVersion = body.version || 0;
+    syncLastModifiedAt = body.lastModifiedAt;
+    syncLastModifiedBy = body.lastModifiedBy;
+    refreshSyncMeta();
+  } catch (e) {
+    setSyncStatus('is-error', 'Sync-fejl', e.message);
+  }
+}
+
+// PUSH (debounced): gem local state til server
+function scheduleSyncPush() {
+  if (!syncEnabled()) return;
+  syncDirty = true;
+  setSyncStatus('is-syncing', 'Gemmer…', '');
+  if (syncPushTimer) clearTimeout(syncPushTimer);
+  syncPushTimer = setTimeout(syncPushNow, SYNC.debounceMs);
+}
+
+async function syncPushNow() {
+  if (!syncEnabled() || syncBusy || !syncDirty) return;
+  syncBusy = true;
+  syncDirty = false;
+  try {
+    const res = await fetch(`${SYNC.endpoint}/state/${SYNC.docId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${cred.token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        state: { items: state.items, custom: state.custom },
+        baseVersion: syncVersion,
+        actor: cred.actor,
+      }),
+    });
+    if (res.status === 401) {
+      clearCred(); cred = null;
+      setSyncStatus('is-error', 'Token afvist — log ind igen', '');
+      return;
+    }
+    if (res.status === 409) {
+      // Versions-konflikt: nogen har skrevet mens vi var i gang.
+      // Hent deres data, merge ind, og prøv igen.
+      const body = await res.json();
+      if (body.current && body.current.state) {
+        state.items = { ...(body.current.state.items || {}), ...state.items };
+        // For custom: merger på id
+        const serverCustom = body.current.state.custom || [];
+        const seen = new Set(serverCustom.map(x => x.id));
+        state.custom = [...serverCustom, ...state.custom.filter(x => !seen.has(x.id))];
+        persistLocal();
+        syncVersion = body.currentVersion;
+        render();
+        syncDirty = true;
+        scheduleSyncPush();
+      }
+      return;
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const body = await res.json();
+    syncVersion = body.version;
+    syncLastModifiedAt = body.lastModifiedAt;
+    syncLastModifiedBy = body.lastModifiedBy;
+    refreshSyncMeta();
+  } catch (e) {
+    setSyncStatus('is-error', 'Sync-fejl', e.message);
+    syncDirty = true;  // prøv igen næste push
+  } finally {
+    syncBusy = false;
+  }
+}
+
+function startSync() {
+  if (!syncEnabled()) return;
+  setSyncStatus('is-syncing', 'Forbinder…', '');
+  syncPull();
+  if (syncPollTimer) clearInterval(syncPollTimer);
+  syncPollTimer = setInterval(syncPull, SYNC.pollIntervalMs);
+  // Når vinduet bliver synligt igen, refresh straks
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') syncPull();
+  });
+  // Flush ved navigation
+  window.addEventListener('pagehide', () => {
+    if (syncDirty && syncEnabled()) {
+      try {
+        navigator.sendBeacon &&
+          navigator.sendBeacon(
+            `${SYNC.endpoint}/state/${SYNC.docId}?via=beacon`,
+            new Blob([JSON.stringify({
+              state: { items: state.items, custom: state.custom },
+              baseVersion: syncVersion,
+              actor: cred.actor,
+              _token: cred.token,
+            })], { type: 'application/json' }),
+          );
+      } catch (e) { /* swallow */ }
+    }
+  });
+}
+
+function stopSync() {
+  if (syncPollTimer) clearInterval(syncPollTimer);
+  syncPollTimer = null;
+}
+
+// LOGIN MODAL
+function openLoginModal() {
+  if (cred) {
+    if (confirm('Log ud? Lokale data bliver liggende, men der synces ikke længere.')) {
+      clearCred(); cred = null; stopSync();
+      setSyncStatus('', 'Ikke logget ind — kun lokalt', '');
+    }
+    return;
+  }
+  const modal = document.getElementById('loginModal');
+  modal.classList.add('open');
+  document.getElementById('loginName').focus();
+}
+function closeLoginModal() {
+  document.getElementById('loginModal').classList.remove('open');
+  document.getElementById('loginError').classList.remove('visible');
+  document.getElementById('loginName').value = '';
+  document.getElementById('loginToken').value = '';
+}
+async function submitLogin() {
+  const name = document.getElementById('loginName').value.trim();
+  const token = document.getElementById('loginToken').value.trim();
+  const errEl = document.getElementById('loginError');
+  errEl.classList.remove('visible');
+  if (!name || !token) {
+    errEl.textContent = 'Udfyld både navn og token.';
+    errEl.classList.add('visible');
+    return;
+  }
+  if (!SYNC.endpoint) {
+    errEl.textContent = 'SYNC.endpoint er ikke konfigureret. Bed Jakob om at sætte URL\'en i HTML-filen.';
+    errEl.classList.add('visible');
+    return;
+  }
+  // Validér token ved at hente state
+  try {
+    document.getElementById('loginSubmit').disabled = true;
+    const res = await fetch(`${SYNC.endpoint}/state/${SYNC.docId}`, {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (res.status === 401) {
+      errEl.textContent = 'Token afvist. Tjek at den er kopieret korrekt.';
+      errEl.classList.add('visible');
+      return;
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    cred = { token, actor: name };
+    saveCred(cred);
+    closeLoginModal();
+    startSync();
+  } catch (e) {
+    errEl.textContent = 'Forbindelse fejlede: ' + e.message;
+    errEl.classList.add('visible');
+  } finally {
+    document.getElementById('loginSubmit').disabled = false;
+  }
+}
 
 // ═══════════════════════════════════════════════════════════════
 // RENDER
@@ -869,6 +1240,26 @@ function copyShareableSummary() {
 // INIT
 // ═══════════════════════════════════════════════════════════════
 render();
+
+// Initial sync state
+if (!SYNC.endpoint) {
+  setSyncStatus('', 'Sync er ikke konfigureret', 'Kører kun lokalt');
+  document.getElementById('syncBtn').style.display = 'none';
+} else if (cred) {
+  setSyncStatus('is-syncing', 'Forbinder…', '');
+  startSync();
+} else {
+  setSyncStatus('', 'Ikke logget ind — kun lokalt', '');
+}
+
+// Refresh "X min siden"-tekst hvert 30. sek
+setInterval(() => { if (syncEnabled()) refreshSyncMeta(); }, 30000);
+
+// Allow ESC + Enter on login modal
+document.getElementById('loginModal').addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLoginModal();
+  if (e.key === 'Enter') submitLogin();
+});
 </script>
 
 </body>

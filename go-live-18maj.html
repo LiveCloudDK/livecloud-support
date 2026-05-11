@@ -186,8 +186,8 @@
   }
 
   .item-controls {
-    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
-    font-size: 11.5px;
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    font-size: 11.5px; margin-top: 8px;
   }
   .item-controls select, .item-controls input {
     background: var(--bg); border: 1px solid var(--border-strong);
@@ -195,7 +195,14 @@
     font-size: 11.5px; font-family: inherit; cursor: pointer;
   }
   .item-controls input[type="text"] {
-    cursor: text; min-width: 180px; flex: 1 1 200px;
+    cursor: text; min-width: 200px; flex: 1 1 220px;
+    padding: 8px 12px; font-size: 12.5px; border-radius: 7px;
+    line-height: 1.4;
+  }
+  .item-controls input[type="text"]::placeholder { color: var(--text-dim); }
+  .item-controls input[type="text"]:focus {
+    outline: none; border-color: var(--accent);
+    background: rgba(45, 212, 191, 0.04);
   }
   .item-controls .item-source {
     color: var(--text-dim); text-decoration: none;
@@ -343,9 +350,10 @@
 
   /* Deadline badge */
   .deadline-badge {
-    font-size: 10px; font-weight: 700; padding: 3px 8px;
-    border-radius: 10px; letter-spacing: 0.4px; text-transform: uppercase;
+    font-size: 10.5px; font-weight: 700; padding: 6px 13px;
+    border-radius: 14px; letter-spacing: 0.5px; text-transform: uppercase;
     font-family: 'JetBrains Mono', monospace; white-space: nowrap;
+    line-height: 1;
   }
   .deadline-badge.golive-18maj { background: rgba(239,68,68,0.14); color: #FCA5A5; }
   .deadline-badge.hoerkam-6jun { background: rgba(167,139,250,0.14); color: var(--accent-purple); }

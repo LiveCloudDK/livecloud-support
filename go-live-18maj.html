@@ -52,7 +52,7 @@
     display: inline-flex; align-items: center; gap: 8px;
     background: rgba(45, 212, 191, 0.1);
     color: var(--accent); border: 1px solid rgba(45, 212, 191, 0.25);
-    padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700;
+    padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700;
     letter-spacing: 0.5px; text-transform: uppercase;
     font-family: 'JetBrains Mono', monospace; margin-bottom: 18px;
   }
@@ -117,7 +117,7 @@
   }
   .filter-chip {
     background: transparent; border: 1px solid var(--border-strong);
-    color: var(--text-muted); padding: 6px 12px; border-radius: 16px;
+    color: var(--text-muted); padding: 6px 12px; border-radius: 8px;
     font-size: 12.5px; cursor: pointer; transition: all 0.15s;
     font-family: inherit;
   }
@@ -128,7 +128,7 @@
   }
   .filters select {
     background: var(--bg); border: 1px solid var(--border-strong);
-    color: var(--text); padding: 6px 10px; border-radius: 6px;
+    color: var(--text); padding: 6px 10px; border-radius: 8px;
     font-size: 12.5px; font-family: inherit; cursor: pointer;
     margin-left: auto;
   }
@@ -191,12 +191,12 @@
   }
   .item-controls select, .item-controls input {
     background: var(--bg); border: 1px solid var(--border-strong);
-    color: var(--text); padding: 4px 8px; border-radius: 6px;
+    color: var(--text); padding: 4px 8px; border-radius: 8px;
     font-size: 11.5px; font-family: inherit; cursor: pointer;
   }
   .item-controls input[type="text"] {
     cursor: text; min-width: 200px; flex: 1 1 220px;
-    padding: 8px 12px; font-size: 12.5px; border-radius: 7px;
+    padding: 8px 12px; font-size: 12.5px; border-radius: 8px;
     line-height: 1.4;
   }
   .item-controls input[type="text"]::placeholder { color: var(--text-dim); }
@@ -212,14 +212,14 @@
   .item-controls .item-source:hover { color: var(--accent); }
   .item-controls .btn-delete {
     background: transparent; border: 1px solid transparent; color: var(--text-dim);
-    cursor: pointer; padding: 2px 6px; border-radius: 6px; font-size: 11px;
+    cursor: pointer; padding: 2px 6px; border-radius: 8px; font-size: 11px;
   }
   .item-controls .btn-delete:hover { color: var(--accent-red); border-color: rgba(239,68,68,0.35); }
 
   /* Status pill (clickable) */
   .status-pill {
     display: inline-flex; align-items: center; gap: 6px;
-    padding: 4px 10px; border-radius: 14px; cursor: pointer;
+    padding: 4px 10px; border-radius: 8px; cursor: pointer;
     font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
     font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
     border: 1px solid var(--border-strong); background: transparent;
@@ -249,7 +249,7 @@
     display: flex; align-items: center; gap: 10px; width: 100%;
     padding: 8px 12px; background: transparent; border: 0;
     color: var(--text-muted); font-family: inherit; font-size: 12.5px;
-    cursor: pointer; border-radius: 6px; text-align: left;
+    cursor: pointer; border-radius: 8px; text-align: left;
     transition: background 0.12s, color 0.12s;
   }
   .status-menu-item:hover { background: var(--bg); color: var(--text); }
@@ -306,7 +306,7 @@
   .sub-item-promote, .sub-item-delete {
     background: transparent; border: 0; color: var(--text-dim);
     cursor: pointer; font-size: 11px; padding: 3px 8px;
-    border-radius: 5px; font-family: inherit; white-space: nowrap;
+    border-radius: 8px; font-family: inherit; white-space: nowrap;
   }
   .sub-item-promote { font-family: 'JetBrains Mono', monospace; }
   .sub-item-promote:hover {
@@ -332,12 +332,12 @@
   .sub-item-add-form.open { display: flex; }
   .sub-item-add-form input {
     flex: 1; background: var(--bg); border: 1px solid var(--border-strong);
-    color: var(--text); padding: 6px 10px; border-radius: 6px;
+    color: var(--text); padding: 6px 10px; border-radius: 8px;
     font-size: 12.5px; font-family: inherit;
   }
   .sub-item-add-form button {
     background: var(--accent); color: #062322; border: 0;
-    padding: 6px 14px; border-radius: 6px; font-size: 12px;
+    padding: 6px 14px; border-radius: 8px; font-size: 12px;
     font-weight: 600; cursor: pointer; font-family: inherit;
   }
   .item-just-promoted { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -349,7 +349,7 @@
   .role-slot {
     display: inline-flex; align-items: center; gap: 6px;
     background: var(--bg); border: 1px solid var(--border-strong);
-    border-radius: 14px; padding: 2px 4px 2px 10px;
+    border-radius: 8px; padding: 2px 4px 2px 10px;
     font-size: 11.5px;
   }
   .role-slot-label {
@@ -384,7 +384,7 @@
   /* Deadline badge */
   .deadline-badge {
     font-size: 10.5px; font-weight: 700; padding: 6px 13px;
-    border-radius: 14px; letter-spacing: 0.5px; text-transform: uppercase;
+    border-radius: 8px; letter-spacing: 0.5px; text-transform: uppercase;
     font-family: 'JetBrains Mono', monospace; white-space: nowrap;
     line-height: 1;
   }
@@ -413,14 +413,14 @@
   .add-row form.open { display: flex; }
   .add-row form input, .add-row form select {
     background: var(--bg-card); border: 1px solid var(--border-strong);
-    color: var(--text); padding: 6px 10px; border-radius: 6px;
+    color: var(--text); padding: 6px 10px; border-radius: 8px;
     font-size: 12.5px; font-family: inherit;
   }
   .add-row form input[name="title"] { flex: 1 1 220px; }
   .add-row form input[name="desc"] { flex: 2 1 300px; }
   .add-row form button {
     background: var(--accent); color: #062322; border: 0;
-    padding: 6px 14px; border-radius: 6px; font-size: 12.5px;
+    padding: 6px 14px; border-radius: 8px; font-size: 12.5px;
     font-weight: 600; cursor: pointer; font-family: inherit;
   }
 
@@ -440,7 +440,7 @@
   .toolbar-row .note { font-size: 12px; color: var(--text-dim); margin-left: auto; }
   .btn {
     background: var(--bg); border: 1px solid var(--border-strong);
-    color: var(--text); padding: 6px 12px; border-radius: 6px;
+    color: var(--text); padding: 6px 12px; border-radius: 8px;
     font-size: 12.5px; cursor: pointer; font-family: inherit;
   }
   .btn:hover { border-color: var(--accent); color: var(--accent); }
@@ -527,7 +527,7 @@
   }
   .modal .modal-error {
     background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
-    color: #FCA5A5; padding: 8px 12px; border-radius: 6px;
+    color: #FCA5A5; padding: 8px 12px; border-radius: 8px;
     font-size: 12.5px; margin-top: 12px; display: none;
   }
   .modal .modal-error.visible { display: block; }

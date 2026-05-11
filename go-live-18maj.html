@@ -78,8 +78,11 @@
 
   /* ═══ Readiness summary ═══ */
   .readiness {
-    display: grid; grid-template-columns: repeat(4, 1fr);
+    display: grid; grid-template-columns: repeat(5, 1fr);
     gap: 12px; margin-bottom: 28px;
+  }
+  @media (max-width: 900px) {
+    .readiness { grid-template-columns: repeat(3, 1fr); }
   }
   .readiness-card {
     background: var(--bg-card); border: 1px solid var(--border);
@@ -403,6 +406,55 @@
   .role-slot.signed .signoff::after { content: '✓'; opacity: 1; color: #062322; }
   .role-slot.signed .role-slot-label { color: var(--accent-green); }
 
+  /* Due-date chip — valgfri dato pr. task */
+  .due-date-wrap {
+    display: inline-flex; align-items: center; gap: 2px;
+  }
+  .due-date-trigger {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 11px;
+    background: transparent;
+    border: 1px dashed var(--border-strong);
+    border-radius: 8px;
+    color: var(--text-dim);
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .due-date-trigger:hover { border-color: var(--accent); color: var(--accent); }
+  .due-date-trigger input[type="date"] {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    opacity: 0; cursor: pointer; padding: 0; margin: 0;
+    border: 0; background: transparent;
+    color-scheme: dark;  /* åbner native picker i dark mode */
+  }
+  .due-date-trigger.has-date {
+    border-style: solid; border-color: var(--border-strong);
+    color: var(--text); background: var(--bg);
+  }
+  .due-date-trigger.overdue {
+    color: #FCA5A5; border-color: rgba(239,68,68,0.5);
+    background: rgba(239,68,68,0.08);
+  }
+  .due-date-trigger.soon {
+    color: var(--accent-amber); border-color: rgba(245,158,11,0.45);
+    background: rgba(245,158,11,0.06);
+  }
+  .due-date-clear {
+    background: transparent; border: 0; color: var(--text-dim);
+    cursor: pointer; padding: 2px 6px; border-radius: 6px;
+    font-size: 11px; font-family: inherit; line-height: 1;
+  }
+  .due-date-clear:hover { color: var(--accent-red); background: rgba(239,68,68,0.08); }
+
+  .item.is-overdue { border-left: 3px solid var(--accent-red); }
+
   /* Deadline badge */
   .deadline-badge {
     font-size: 10.5px; font-weight: 700; padding: 6px 13px;
@@ -635,6 +687,10 @@
       <div class="label">Blokkere</div>
       <div class="value" id="blockersCount">0</div>
     </div>
+    <div class="readiness-card" id="card-overdue">
+      <div class="label">Overskredet</div>
+      <div class="value" id="overdueCount">0</div>
+    </div>
   </div>
 
   <!-- Filters -->
@@ -645,6 +701,7 @@
     <button class="filter-chip" data-filter="hoerkam-6jun">Hørkam 6/6</button>
     <button class="filter-chip" data-filter="beslutning">Beslutninger</button>
     <button class="filter-chip" data-filter="blocked">Kun blokkere</button>
+    <button class="filter-chip" data-filter="overdue">Overskredet</button>
     <button class="filter-chip" data-filter="open">Skjul afsluttede</button>
     <select id="ownerFilter">
       <option value="all">Alle ejere</option>
@@ -1124,6 +1181,92 @@ function displayDescFor(item) {
   return item.desc || '';
 }
 
+// ─────────── Due-date helpers ───────────
+function formatDueDate(iso) {
+  if (!iso) return '';
+  // ISO YYYY-MM-DD → "15. maj"
+  const d = new Date(iso + 'T12:00:00');
+  if (isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString('da-DK', { day: 'numeric', month: 'short' }).replace('.', '');
+}
+
+function todayISO() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${m}-${day}`;
+}
+
+function dueState(iso, status) {
+  if (!iso || status === 'done') return 'normal';
+  const today = todayISO();
+  if (iso < today) return 'overdue';
+  // 3 dage frem = "soon"
+  const t = new Date(today + 'T12:00:00');
+  const d = new Date(iso + 'T12:00:00');
+  const diffDays = Math.round((d - t) / 86400000);
+  if (diffDays <= 3) return 'soon';
+  return 'normal';
+}
+
+function isItemOverdue(id) {
+  const s = state.items[id];
+  if (!s || !s.dueDate) return false;
+  return dueState(s.dueDate, s.status) === 'overdue';
+}
+
+function dueDateHtml(itemId) {
+  const s = state.items[itemId] || {};
+  const due = s.dueDate || '';
+  const variant = dueState(due, s.status); // overdue | soon | normal
+  const cls = due ? `has-date ${variant !== 'normal' ? variant : ''}` : '';
+  const labelText = due ? formatDueDate(due) : '+ dato';
+  const clearBtn = due
+    ? `<button class="due-date-clear" type="button" onclick="clearDueDate('${escapeHtml(itemId)}')" title="Fjern dato">✕</button>`
+    : '';
+  return `
+    <span class="due-date-wrap" data-due-wrap-for="${escapeHtml(itemId)}">
+      <label class="due-date-trigger ${cls}" title="${due ? 'Klik for at ændre dato' : 'Klik for at sætte due-date'}">
+        <input type="date" value="${escapeHtml(due)}" onchange="setDueDate('${escapeHtml(itemId)}', this.value)" tabindex="0">
+        <span>${escapeHtml(labelText)}</span>
+      </label>
+      ${clearBtn}
+    </span>
+  `;
+}
+
+function setDueDate(id, iso) {
+  const cur = itemState(id);
+  if (!iso) {
+    const next = { ...cur };
+    delete next.dueDate;
+    state.items[id] = next;
+  } else {
+    state.items[id] = { ...cur, dueDate: iso };
+  }
+  saveState();
+  refreshDueDate(id);
+  renderReadiness();
+}
+
+function clearDueDate(id) {
+  setDueDate(id, '');
+}
+
+function refreshDueDate(id) {
+  // Erstat due-date chip
+  const old = document.querySelector(`[data-due-wrap-for="${CSS.escape(id)}"]`);
+  if (old) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = dueDateHtml(id).trim();
+    old.replaceWith(tmp.firstElementChild);
+  }
+  // Opdatér overdue-stribe på item-kortet
+  const item = document.querySelector(`[data-item-id="${CSS.escape(id)}"]`);
+  if (item) item.classList.toggle('is-overdue', isItemOverdue(id));
+}
+
 function itemState(id) {
   const raw = state.items[id];
   if (!raw) return { status: 'todo', roles: emptyRoles(), notes: '', subItems: [] };
@@ -1131,9 +1274,15 @@ function itemState(id) {
   if (!raw.roles) {
     const roles = emptyRoles();
     if (raw.owner && raw.owner !== '—') roles.driver.who = raw.owner;
-    return { status: raw.status || 'todo', roles, notes: raw.notes || '', subItems: raw.subItems || [] };
+    return {
+      ...raw,
+      status: raw.status || 'todo',
+      roles,
+      notes: raw.notes || '',
+      subItems: raw.subItems || [],
+    };
   }
-  // Sørg for at alle role-keys er til stede
+  // Sørg for at alle role-keys er til stede; bevar alle øvrige felter
   return {
     ...raw,
     roles: { ...emptyRoles(), ...raw.roles },
@@ -1165,6 +1314,7 @@ function refreshItemDom(id) {
   const s = itemState(id);
   el.classList.toggle('is-blocker', s.status === 'blocked');
   el.classList.toggle('is-done', s.status === 'done');
+  el.classList.toggle('is-overdue', isItemOverdue(id));
   const pill = el.querySelector('.status-pill');
   pill.dataset.status = s.status;
   pill.querySelector('.status-label').textContent = STATUS[s.status].label;
@@ -1270,12 +1420,14 @@ function itemHtml(item, sectionId, isCustom = false) {
     ? `<button class="btn-delete" onclick="deleteCustomItem('${escapeHtml(item.id)}')" title="Slet">✕</button>`
     : '';
   const rolesHtml = ROLES.map(role => roleSlotHtml(item, role, s)).join('');
+  const overdue = isItemOverdue(item.id);
   return `
-    <div class="item ${s.status === 'blocked' ? 'is-blocker' : ''} ${s.status === 'done' ? 'is-done' : ''}"
+    <div class="item ${s.status === 'blocked' ? 'is-blocker' : ''} ${s.status === 'done' ? 'is-done' : ''} ${overdue ? 'is-overdue' : ''}"
          data-item-id="${escapeHtml(item.id)}"
          data-deadline="${escapeHtml(deadlineKey)}"
          data-people="${escapeHtml(peopleListFor(s).join(','))}"
-         data-status="${escapeHtml(s.status)}">
+         data-status="${escapeHtml(s.status)}"
+         data-due="${escapeHtml(s.dueDate || '')}">
       <div class="item-main">
         <div class="item-head">
           <div>
@@ -1294,6 +1446,7 @@ function itemHtml(item, sectionId, isCustom = false) {
           </div>
           <div class="item-head-meta">
             <span class="deadline-badge ${escapeHtml(deadlineKey)}">${escapeHtml(deadlineLabel)}</span>
+            ${dueDateHtml(item.id)}
             <button class="status-pill" data-status="${s.status}"
                     onclick="openStatusMenu('${escapeHtml(item.id)}', event)"
                     aria-haspopup="menu" title="Klik for at vælge status">
@@ -1397,7 +1550,7 @@ function renderReadiness() {
   else if (days < 14) document.getElementById('card-days').classList.add('warn');
 
   // tally
-  let total = 0, totalDone = 0, criticalTotal = 0, criticalDone = 0, blockers = 0;
+  let total = 0, totalDone = 0, criticalTotal = 0, criticalDone = 0, blockers = 0, overdue = 0;
   const allItems = [
     ...SECTIONS.flatMap(s => s.items),
     ...state.custom,
@@ -1407,6 +1560,7 @@ function renderReadiness() {
     const st = itemState(it.id);
     if (st.status === 'done') totalDone++;
     if (st.status === 'blocked') blockers++;
+    if (isItemOverdue(it.id)) overdue++;
     if (it.deadline === 'golive-18maj') {
       criticalTotal++;
       if (st.status === 'done') criticalDone++;
@@ -1417,6 +1571,10 @@ function renderReadiness() {
   document.getElementById('criticalDone').textContent = criticalDone;
   document.getElementById('criticalTotal').textContent = criticalTotal;
   document.getElementById('blockersCount').textContent = blockers;
+  const overdueEl = document.getElementById('overdueCount');
+  if (overdueEl) overdueEl.textContent = overdue;
+  const overdueCard = document.getElementById('card-overdue');
+  if (overdueCard) overdueCard.classList.toggle('danger', overdue > 0);
   document.getElementById('card-blockers').classList.toggle('danger', blockers > 0);
   document.getElementById('card-critical').classList.toggle('ok', criticalTotal > 0 && criticalDone === criticalTotal);
   document.getElementById('card-critical').classList.toggle('warn', criticalDone > 0 && criticalDone < criticalTotal);
@@ -1748,6 +1906,7 @@ function applyFilters() {
     if (f === 'hoerkam-6jun' && el.dataset.deadline !== 'hoerkam-6jun') show = false;
     if (f === 'beslutning' && el.dataset.deadline !== 'beslutning') show = false;
     if (f === 'blocked' && el.dataset.status !== 'blocked') show = false;
+    if (f === 'overdue' && !el.classList.contains('is-overdue')) show = false;
     if (f === 'open' && el.dataset.status === 'done') show = false;
     if (ownerF !== 'all') {
       const people = (el.dataset.people || '').split(',').filter(Boolean);
@@ -1847,8 +2006,11 @@ function copyShareableSummary() {
           return `${r.short}:${v.who}${v.signedOff ? '✓' : ''}`;
         })
         .filter(Boolean);
+      const dueTxt = s.dueDate
+        ? ` 📅 ${formatDueDate(s.dueDate)}${isItemOverdue(it.id) ? ' (overskredet)' : ''}`
+        : '';
       const roleTxt = roleParts.length ? ` — ${roleParts.join(' · ')}` : '';
-      lines.push(`${mark} ${displayTitleFor(it)}${roleTxt}`);
+      lines.push(`${mark} ${displayTitleFor(it)}${dueTxt}${roleTxt}`);
       if (s.notes) lines.push(`     ↳ ${s.notes}`);
     });
   });

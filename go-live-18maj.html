@@ -229,6 +229,45 @@
   .status-pill[data-status="done"] { color: var(--accent-green); border-color: rgba(92,183,122,0.4); background: rgba(92,183,122,0.08); }
   .status-pill[data-status="blocked"] { color: var(--accent-red); border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
 
+  /* Roles row */
+  .role-row {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+  }
+  .role-slot {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--bg); border: 1px solid var(--border-strong);
+    border-radius: 14px; padding: 2px 4px 2px 10px;
+    font-size: 11.5px;
+  }
+  .role-slot-label {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; padding-right: 2px;
+  }
+  .role-slot select {
+    background: transparent; border: 0; color: var(--text);
+    padding: 3px 4px; font-size: 11.5px; font-family: inherit;
+    cursor: pointer; max-width: 110px;
+  }
+  .role-slot .signoff {
+    width: 18px; height: 18px; border-radius: 50%; border: 0;
+    background: transparent; border: 1.5px solid var(--border-strong);
+    cursor: pointer; padding: 0; display: inline-flex;
+    align-items: center; justify-content: center;
+    transition: all 0.15s; font-family: inherit;
+  }
+  .role-slot .signoff:hover { border-color: var(--accent-green); }
+  .role-slot .signoff::after {
+    content: ''; opacity: 0; transition: opacity 0.15s;
+    font-size: 11px; font-weight: 800; line-height: 1;
+  }
+  .role-slot.signed { border-color: rgba(92,183,122,0.5); background: rgba(92,183,122,0.06); }
+  .role-slot.signed .signoff {
+    background: var(--accent-green); border-color: var(--accent-green);
+  }
+  .role-slot.signed .signoff::after { content: '✓'; opacity: 1; color: #062322; }
+  .role-slot.signed .role-slot-label { color: var(--accent-green); }
+
   /* Deadline badge */
   .deadline-badge {
     font-size: 10px; font-weight: 700; padding: 3px 8px;
@@ -507,7 +546,14 @@ const SYNC = {
 };
 const SYNC_CRED_KEY = 'go-live-18maj-cred-v1'; // { token, actor }
 
-const OWNERS = ['—', 'Jakob', 'Tony', 'Edwin', 'Michael', 'Mikkel', 'Simon', 'Britt', 'Andreas', 'Ekstern'];
+const OWNERS = ['—', 'Jakob', 'Tony', 'Edwin', 'Michael', 'Mikkel', 'Simon', 'Britt', 'Ekstern'];
+
+// Roller pr. punkt: hvem driver, hvem QA-tester, hvem giver final godkendelse
+const ROLES = [
+  { key: 'driver',   label: 'Ejer',     short: 'Ejer',     hint: 'Driver opgaven' },
+  { key: 'tester',   label: 'Test',     short: 'Test',     hint: 'Verificerer at tests dækker' },
+  { key: 'approver', label: 'Godkend',  short: 'Godkend',  hint: 'Final sign-off' },
+];
 
 const STATUS = {
   todo:    { label: 'Ikke startet', next: 'wip' },
@@ -898,9 +944,26 @@ function escapeHtml(s) {
   }[c]));
 }
 
-function itemState(id) {
-  return state.items[id] || { status: 'todo', owner: '—', notes: '' };
+function emptyRoles() {
+  const r = {};
+  ROLES.forEach(role => { r[role.key] = { who: '—', signedOff: false }; });
+  return r;
 }
+
+function itemState(id) {
+  const raw = state.items[id];
+  if (!raw) return { status: 'todo', roles: emptyRoles(), notes: '' };
+  // Back-compat: hvis state stadig har gammel `owner`-felt, migrér
+  if (!raw.roles) {
+    const roles = emptyRoles();
+    if (raw.owner && raw.owner !== '—') roles.driver.who = raw.owner;
+    return { status: raw.status || 'todo', roles, notes: raw.notes || '' };
+  }
+  // Sørg for at alle role-keys er til stede
+  const merged = { ...raw, roles: { ...emptyRoles(), ...raw.roles } };
+  return merged;
+}
+
 function setItemState(id, patch) {
   state.items[id] = { ...itemState(id), ...patch };
   saveState();
@@ -917,14 +980,48 @@ function refreshItemDom(id) {
   const pill = el.querySelector('.status-pill');
   pill.dataset.status = s.status;
   pill.querySelector('.status-label').textContent = STATUS[s.status].label;
+  el.dataset.status = s.status;
+  el.dataset.people = peopleListFor(s).join(',');
+  // refresh role-slot visuals
+  ROLES.forEach(role => {
+    const slot = el.querySelector(`.role-slot[data-role="${role.key}"]`);
+    if (!slot) return;
+    const r = s.roles[role.key];
+    slot.classList.toggle('signed', !!r.signedOff);
+    const sel = slot.querySelector('select');
+    if (sel && sel.value !== r.who) sel.value = r.who;
+  });
   applyFilters();
+}
+
+function peopleListFor(s) {
+  const list = [];
+  ROLES.forEach(role => {
+    const w = s.roles[role.key]?.who;
+    if (w && w !== '—' && !list.includes(w)) list.push(w);
+  });
+  return list;
+}
+
+function roleSlotHtml(item, role, current) {
+  const r = current.roles[role.key] || { who: '—', signedOff: false };
+  const options = OWNERS.map(o =>
+    `<option value="${escapeHtml(o)}" ${r.who === o ? 'selected' : ''}>${escapeHtml(o)}</option>`
+  ).join('');
+  return `
+    <span class="role-slot ${r.signedOff ? 'signed' : ''}" data-role="${role.key}" title="${escapeHtml(role.hint)}">
+      <span class="role-slot-label">${escapeHtml(role.short)}</span>
+      <select onchange="setRoleWho('${escapeHtml(item.id)}', '${role.key}', this.value)">${options}</select>
+      <button type="button" class="signoff"
+              onclick="toggleSignoff('${escapeHtml(item.id)}', '${role.key}')"
+              aria-label="${r.signedOff ? 'Fjern godkendelse' : 'Sign-off ' + role.label}"
+              title="${r.signedOff ? 'Klik for at fjerne godkendelse' : 'Klik for at give ' + role.label.toLowerCase() + '-godkendelse'}"></button>
+    </span>
+  `;
 }
 
 function itemHtml(item, sectionId, isCustom = false) {
   const s = itemState(item.id);
-  const ownerOptions = OWNERS.map(o =>
-    `<option value="${escapeHtml(o)}" ${s.owner === o ? 'selected' : ''}>${escapeHtml(o)}</option>`
-  ).join('');
   const deadlineKey = item.deadline || 'nice';
   const deadlineLabel = (DEADLINES[deadlineKey] || DEADLINES.nice).label;
   const sourceLink = item.source
@@ -933,11 +1030,12 @@ function itemHtml(item, sectionId, isCustom = false) {
   const deleteBtn = isCustom
     ? `<button class="btn-delete" onclick="deleteCustomItem('${escapeHtml(item.id)}')" title="Slet">✕</button>`
     : '';
+  const rolesHtml = ROLES.map(role => roleSlotHtml(item, role, s)).join('');
   return `
     <div class="item ${s.status === 'blocked' ? 'is-blocker' : ''} ${s.status === 'done' ? 'is-done' : ''}"
          data-item-id="${escapeHtml(item.id)}"
          data-deadline="${escapeHtml(deadlineKey)}"
-         data-owner="${escapeHtml(s.owner)}"
+         data-people="${escapeHtml(peopleListFor(s).join(','))}"
          data-status="${escapeHtml(s.status)}">
       <div class="item-main">
         <div class="item-head">
@@ -949,11 +1047,9 @@ function itemHtml(item, sectionId, isCustom = false) {
             <span class="status-label">${STATUS[s.status].label}</span>
           </button>
         </div>
+        <div class="role-row">${rolesHtml}</div>
         <div class="item-controls">
           <span class="deadline-badge ${escapeHtml(deadlineKey)}">${escapeHtml(deadlineLabel)}</span>
-          <select onchange="setOwner('${escapeHtml(item.id)}', this.value)">
-            ${ownerOptions}
-          </select>
           <input type="text" placeholder="Noter…" value="${escapeHtml(s.notes || '')}"
                  oninput="setNotes('${escapeHtml(item.id)}', this.value)">
           ${sourceLink}
@@ -969,12 +1065,17 @@ function sectionHtml(section, index) {
     ...section.items.map(i => ({ ...i, _custom: false })),
     ...state.custom.filter(c => c.sectionId === section.id).map(i => ({ ...i, _custom: true })),
   ];
-  // initialize default owners + statuses
+  // initialize default driver + statuses
   allItems.forEach(it => {
     if (!state.items[it.id]) {
+      const roles = emptyRoles();
+      const driverDefault = it.defaultDriver || it.defaultOwner || it.owner || '—';
+      if (driverDefault && driverDefault !== '—') roles.driver.who = driverDefault;
+      if (it.defaultTester) roles.tester.who = it.defaultTester;
+      if (it.defaultApprover) roles.approver.who = it.defaultApprover;
       state.items[it.id] = {
         status: it.status || 'todo',
-        owner: it.defaultOwner || it.owner || '—',
+        roles,
         notes: it.notes || '',
       };
     }
@@ -1079,8 +1180,26 @@ function advanceStatus(id) {
   const next = STATUS[cur].next;
   setItemState(id, { status: next });
 }
-function setOwner(id, owner) {
-  setItemState(id, { owner });
+function setRoleWho(id, roleKey, who) {
+  const cur = itemState(id);
+  const roles = { ...cur.roles, [roleKey]: { ...cur.roles[roleKey], who } };
+  setItemState(id, { roles });
+}
+function toggleSignoff(id, roleKey) {
+  const cur = itemState(id);
+  const prev = cur.roles[roleKey] || { who: '—', signedOff: false };
+  const roles = { ...cur.roles, [roleKey]: { ...prev, signedOff: !prev.signedOff } };
+  // Hvis alle tre roller har signed-off → auto-advance til "done"
+  // (kun hvis status ikke allerede er done eller blocked)
+  let nextStatus = cur.status;
+  const allSigned = ROLES.every(r => roles[r.key]?.signedOff);
+  if (allSigned && cur.status !== 'done' && cur.status !== 'blocked') {
+    nextStatus = 'done';
+  } else if (!allSigned && cur.status === 'done') {
+    // Hvis nogen fjerner en sign-off på en done-opgave, ryk tilbage til review
+    nextStatus = 'review';
+  }
+  setItemState(id, { roles, status: nextStatus });
 }
 function setNotes(id, notes) {
   state.items[id] = { ...itemState(id), notes };
@@ -1132,7 +1251,10 @@ function applyFilters() {
     if (f === 'beslutning' && el.dataset.deadline !== 'beslutning') show = false;
     if (f === 'blocked' && el.dataset.status !== 'blocked') show = false;
     if (f === 'open' && el.dataset.status === 'done') show = false;
-    if (ownerF !== 'all' && el.dataset.owner !== ownerF) show = false;
+    if (ownerF !== 'all') {
+      const people = (el.dataset.people || '').split(',').filter(Boolean);
+      if (!people.includes(ownerF)) show = false;
+    }
     el.classList.toggle('is-filtered-out', !show);
   });
   // hide whole section if all items filtered
@@ -1156,11 +1278,13 @@ document.getElementById('ownerFilter').addEventListener('change', (e) => {
   applyFilters();
 });
 
-// keep dataset.owner up to date when user changes select
+// keep dataset.people up to date when user changes a role select
 document.addEventListener('change', (e) => {
-  if (e.target.matches('.item-controls select')) {
+  if (e.target.matches('.role-slot select')) {
     const item = e.target.closest('.item');
-    if (item) item.dataset.owner = e.target.value;
+    if (!item) return;
+    const id = item.dataset.itemId;
+    if (id) item.dataset.people = peopleListFor(itemState(id)).join(',');
     applyFilters();
   }
 });
@@ -1218,8 +1342,15 @@ function copyShareableSummary() {
       const s = itemState(it.id);
       if (s.status === 'blocked') blockers++;
       const mark = { todo: '[ ]', wip: '[~]', review: '[r]', done: '[x]', blocked: '[!]' }[s.status];
-      const owner = s.owner && s.owner !== '—' ? ` — ${s.owner}` : '';
-      lines.push(`${mark} ${it.title}${owner}`);
+      const roleParts = ROLES
+        .map(r => {
+          const v = s.roles[r.key];
+          if (!v || v.who === '—') return null;
+          return `${r.short}:${v.who}${v.signedOff ? '✓' : ''}`;
+        })
+        .filter(Boolean);
+      const roleTxt = roleParts.length ? ` — ${roleParts.join(' · ')}` : '';
+      lines.push(`${mark} ${it.title}${roleTxt}`);
       if (s.notes) lines.push(`     ↳ ${s.notes}`);
     });
   });

@@ -229,6 +229,79 @@
   .status-pill[data-status="done"] { color: var(--accent-green); border-color: rgba(92,183,122,0.4); background: rgba(92,183,122,0.08); }
   .status-pill[data-status="blocked"] { color: var(--accent-red); border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
 
+  /* Sub-items (underpunkter — kan promoveres til opgaver) */
+  .sub-items {
+    margin-top: 10px; padding: 10px 0 0 0;
+    border-top: 1px dashed var(--border);
+  }
+  .sub-items-label {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 6px;
+  }
+  .sub-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 3px 0; font-size: 13px;
+  }
+  .sub-item-check {
+    width: 16px; height: 16px; border-radius: 4px;
+    border: 1.5px solid var(--border-strong); background: transparent;
+    cursor: pointer; flex-shrink: 0; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.15s; font-family: inherit;
+  }
+  .sub-item-check:hover { border-color: var(--accent-green); }
+  .sub-item.done .sub-item-check {
+    background: var(--accent-green); border-color: var(--accent-green);
+  }
+  .sub-item.done .sub-item-check::after {
+    content: '✓'; color: #062322; font-size: 11px; font-weight: 800; line-height: 1;
+  }
+  .sub-item-text {
+    flex: 1; color: var(--text); font-size: 13px; line-height: 1.4;
+  }
+  .sub-item.done .sub-item-text {
+    color: var(--text-dim); text-decoration: line-through;
+  }
+  .sub-item-promote, .sub-item-delete {
+    background: transparent; border: 0; color: var(--text-dim);
+    cursor: pointer; font-size: 11px; padding: 3px 8px;
+    border-radius: 5px; font-family: inherit; white-space: nowrap;
+  }
+  .sub-item-promote { font-family: 'JetBrains Mono', monospace; }
+  .sub-item-promote:hover {
+    color: var(--accent); background: rgba(45,212,191,0.08);
+  }
+  .sub-item-delete:hover {
+    color: var(--accent-red); background: rgba(239,68,68,0.08);
+  }
+  .sub-item-promoted {
+    font-size: 11px; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace; white-space: nowrap;
+    padding: 3px 8px;
+  }
+  .sub-item-promoted a { color: inherit; text-decoration: none; }
+  .sub-item-promoted a:hover { text-decoration: underline; }
+  .sub-item-add-toggle {
+    background: transparent; border: 0; color: var(--accent);
+    cursor: pointer; font-size: 12px; font-weight: 600;
+    font-family: inherit; padding: 6px 0 2px; text-align: left;
+  }
+  .sub-item-add-toggle:hover { text-decoration: underline; }
+  .sub-item-add-form { display: none; gap: 6px; margin-top: 6px; }
+  .sub-item-add-form.open { display: flex; }
+  .sub-item-add-form input {
+    flex: 1; background: var(--bg); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 6px 10px; border-radius: 6px;
+    font-size: 12.5px; font-family: inherit;
+  }
+  .sub-item-add-form button {
+    background: var(--accent); color: #062322; border: 0;
+    padding: 6px 14px; border-radius: 6px; font-size: 12px;
+    font-weight: 600; cursor: pointer; font-family: inherit;
+  }
+  .item-just-promoted { outline: 2px solid var(--accent); outline-offset: 2px; }
+
   /* Roles row */
   .role-row {
     display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
@@ -581,7 +654,11 @@ const SECTIONS = [
     description: 'Forretnings- og produktbeslutninger der skal landes inden vi sætter scope for go-live.',
     items: [
       { id: 'b-beats-fra-start',     title: 'Beslut med Britt: Beats fra første go-live?',                desc: 'Skal Beats være tændt fra 18/5, eller starter vi uden? Påvirker alt nedenfor om Beats-køb, refund, vendors.', deadline: 'beslutning', defaultOwner: 'Jakob' },
-      { id: 'b-product-line',        title: 'Beslut hvilke produkter sælges fra første go-live',          desc: 'Mulige: Beats, Grill-fest billet, Armbånd. Vælg minimum-scope så vi ikke bruger tid på resten endnu.', deadline: 'beslutning', defaultOwner: 'Jakob' },
+      { id: 'b-product-line',        title: 'Beslut hvilke produkter sælges fra første go-live',          desc: 'Mulige: Beats, Grill-fest billet, Armbånd. Vælg minimum-scope så vi ikke bruger tid på resten endnu.', deadline: 'beslutning', defaultOwner: 'Jakob', defaultSubItems: [
+        'Beats fra første go-live: ja/nej?',
+        'Grill-fest billet fra første go-live: ja/nej?',
+        'Armbånd fra første go-live: ja/nej?',
+      ] },
       { id: 'b-festhallen-line',     title: 'Beslut Festhallen-app produkt-line ved Ringsted go-live',    desc: 'Kommende arrangementers billetter. Afgrøderes parallelt så Festhallen-appen er konsistent med Ringsted-launch.', deadline: 'beslutning', defaultOwner: 'Jakob' },
       { id: 'b-refund-policy',       title: 'Beslut refund-politik (hvem, hvornår, hvordan)',             desc: 'Hvem kan udløse refund? Kun support, eller også brugeren selv inden for X dage? Hvilke produkter er refunderbare?', deadline: 'beslutning', defaultOwner: 'Jakob' },
     ],
@@ -952,16 +1029,30 @@ function emptyRoles() {
 
 function itemState(id) {
   const raw = state.items[id];
-  if (!raw) return { status: 'todo', roles: emptyRoles(), notes: '' };
+  if (!raw) return { status: 'todo', roles: emptyRoles(), notes: '', subItems: [] };
   // Back-compat: hvis state stadig har gammel `owner`-felt, migrér
   if (!raw.roles) {
     const roles = emptyRoles();
     if (raw.owner && raw.owner !== '—') roles.driver.who = raw.owner;
-    return { status: raw.status || 'todo', roles, notes: raw.notes || '' };
+    return { status: raw.status || 'todo', roles, notes: raw.notes || '', subItems: raw.subItems || [] };
   }
   // Sørg for at alle role-keys er til stede
-  const merged = { ...raw, roles: { ...emptyRoles(), ...raw.roles } };
-  return merged;
+  return {
+    ...raw,
+    roles: { ...emptyRoles(), ...raw.roles },
+    subItems: raw.subItems || [],
+  };
+}
+
+// Find item-metadata (titel, sektion, deadline) for et id, både i seed og custom
+function findItemMeta(id) {
+  for (const sec of SECTIONS) {
+    const it = sec.items.find(i => i.id === id);
+    if (it) return { item: it, sectionId: sec.id, isCustom: false };
+  }
+  const c = state.custom.find(c => c.id === id);
+  if (c) return { item: c, sectionId: c.sectionId, isCustom: true };
+  return null;
 }
 
 function setItemState(id, patch) {
@@ -1001,6 +1092,52 @@ function peopleListFor(s) {
     if (w && w !== '—' && !list.includes(w)) list.push(w);
   });
   return list;
+}
+
+function subItemsHtml(itemId) {
+  const s = itemState(itemId);
+  const subs = s.subItems || [];
+  const rows = subs.map((sub) => {
+    let trailing;
+    if (sub.promotedTo) {
+      const meta = findItemMeta(sub.promotedTo);
+      const promotedTitle = meta ? meta.item.title : 'opgave';
+      trailing = `<span class="sub-item-promoted" title="${escapeHtml(promotedTitle)}"><a href="#" onclick="scrollToItem('${escapeHtml(sub.promotedTo)}'); return false;">↗ flyttet til opgave</a></span>`;
+    } else {
+      trailing = `<button class="sub-item-promote" onclick="promoteSubItem('${escapeHtml(itemId)}', '${escapeHtml(sub.id)}')" title="Konvertér til ny opgave i denne sektion">↗ til opgave</button>`;
+    }
+    return `
+      <div class="sub-item ${sub.done ? 'done' : ''}" data-sub-id="${escapeHtml(sub.id)}">
+        <button class="sub-item-check" type="button"
+                onclick="toggleSubItem('${escapeHtml(itemId)}', '${escapeHtml(sub.id)}')"
+                aria-label="${sub.done ? 'Fjern markering' : 'Markér som klaret'}"></button>
+        <span class="sub-item-text">${escapeHtml(sub.text)}</span>
+        ${trailing}
+        <button class="sub-item-delete" type="button"
+                onclick="deleteSubItem('${escapeHtml(itemId)}', '${escapeHtml(sub.id)}')"
+                title="Slet underpunkt">✕</button>
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="sub-items" data-sub-items-for="${escapeHtml(itemId)}">
+      ${subs.length ? `<div class="sub-items-label">Underpunkter (${subs.length})</div>${rows}` : ''}
+      <button class="sub-item-add-toggle" type="button" onclick="toggleAddSubItemForm('${escapeHtml(itemId)}')">+ Tilføj underpunkt</button>
+      <form class="sub-item-add-form" data-add-sub-for="${escapeHtml(itemId)}"
+            onsubmit="addSubItem(event, '${escapeHtml(itemId)}'); return false;">
+        <input name="text" type="text" placeholder="Beskriv underpunkt (fx 'Beats: ja/nej')…" required autocomplete="off">
+        <button type="submit">Tilføj</button>
+      </form>
+    </div>
+  `;
+}
+
+function refreshSubItemsDom(itemId) {
+  const old = document.querySelector(`[data-sub-items-for="${CSS.escape(itemId)}"]`);
+  if (!old) return;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = subItemsHtml(itemId).trim();
+  old.replaceWith(tmp.firstElementChild);
 }
 
 function roleSlotHtml(item, role, current) {
@@ -1055,6 +1192,7 @@ function itemHtml(item, sectionId, isCustom = false) {
           ${sourceLink}
           ${deleteBtn}
         </div>
+        ${subItemsHtml(item.id)}
       </div>
     </div>
   `;
@@ -1073,10 +1211,17 @@ function sectionHtml(section, index) {
       if (driverDefault && driverDefault !== '—') roles.driver.who = driverDefault;
       if (it.defaultTester) roles.tester.who = it.defaultTester;
       if (it.defaultApprover) roles.approver.who = it.defaultApprover;
+      const subItems = (it.defaultSubItems || []).map((text, i) => ({
+        id: `seed-${it.id}-${i}`,
+        text,
+        done: false,
+        promotedTo: null,
+      }));
       state.items[it.id] = {
         status: it.status || 'todo',
         roles,
         notes: it.notes || '',
+        subItems,
       };
     }
   });
@@ -1205,6 +1350,114 @@ function setNotes(id, notes) {
   state.items[id] = { ...itemState(id), notes };
   saveState();
 }
+
+// ─────────── Sub-items (underpunkter) ───────────
+function addSubItem(ev, itemId) {
+  const form = ev.target;
+  const text = (form.elements.text.value || '').trim();
+  if (!text) return;
+  const cur = itemState(itemId);
+  const sub = {
+    id: 'sub-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 5),
+    text,
+    done: false,
+    promotedTo: null,
+  };
+  state.items[itemId] = { ...cur, subItems: [...(cur.subItems || []), sub] };
+  saveState();
+  refreshSubItemsDom(itemId);
+  // genåbn formen så man kan tilføje flere
+  const f = document.querySelector(`form[data-add-sub-for="${CSS.escape(itemId)}"]`);
+  if (f) {
+    f.classList.add('open');
+    f.elements.text.value = '';
+    f.elements.text.focus();
+  }
+}
+
+function toggleSubItem(itemId, subId) {
+  const cur = itemState(itemId);
+  const subItems = (cur.subItems || []).map(s =>
+    s.id === subId ? { ...s, done: !s.done } : s
+  );
+  state.items[itemId] = { ...cur, subItems };
+  saveState();
+  // Targeted DOM update — bevarer fokus/scroll
+  const el = document.querySelector(`[data-item-id="${CSS.escape(itemId)}"] [data-sub-id="${CSS.escape(subId)}"]`);
+  if (el) {
+    const s = subItems.find(x => x.id === subId);
+    el.classList.toggle('done', !!s.done);
+  }
+}
+
+function deleteSubItem(itemId, subId) {
+  if (!confirm('Slet underpunkt?')) return;
+  const cur = itemState(itemId);
+  state.items[itemId] = {
+    ...cur,
+    subItems: (cur.subItems || []).filter(s => s.id !== subId),
+  };
+  saveState();
+  refreshSubItemsDom(itemId);
+}
+
+function toggleAddSubItemForm(itemId) {
+  const f = document.querySelector(`form[data-add-sub-for="${CSS.escape(itemId)}"]`);
+  if (!f) return;
+  const opened = f.classList.toggle('open');
+  if (opened) f.elements.text.focus();
+}
+
+// Promovér et underpunkt til en selvstændig opgave i samme sektion.
+// Skaber et nyt custom item, markerer sub-item som "flyttet".
+function promoteSubItem(itemId, subId) {
+  const cur = itemState(itemId);
+  const sub = (cur.subItems || []).find(s => s.id === subId);
+  if (!sub || sub.promotedTo) return;
+  const meta = findItemMeta(itemId);
+  if (!meta) return;
+
+  // Hvis det er custom item, find dets sektion via state.custom
+  const sectionId = meta.sectionId;
+  const parentTitle = meta.item.title || '';
+  const parentDeadline = meta.item.deadline || 'golive-18maj';
+
+  const newId = 'custom-' + sectionId + '-' + Date.now().toString(36);
+  const newItem = {
+    id: newId,
+    sectionId,
+    title: sub.text,
+    desc: 'Afledt af: ' + parentTitle,
+    deadline: parentDeadline === 'beslutning' ? 'golive-18maj' : parentDeadline,
+    owner: '—',
+    status: 'todo',
+    notes: '',
+  };
+  state.custom.push(newItem);
+  state.items[newId] = { status: 'todo', roles: emptyRoles(), notes: '', subItems: [] };
+
+  // Markér sub-item som flyttet
+  const subItems = (cur.subItems || []).map(s =>
+    s.id === subId ? { ...s, promotedTo: newId } : s
+  );
+  state.items[itemId] = { ...cur, subItems };
+  saveState();
+  render();
+
+  // Lille visuel feedback: scroll til + highlight
+  scrollToItem(newId, true);
+}
+
+function scrollToItem(id, highlight) {
+  const el = document.querySelector(`[data-item-id="${CSS.escape(id)}"]`);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (highlight) {
+    el.classList.add('item-just-promoted');
+    setTimeout(() => el.classList.remove('item-just-promoted'), 2200);
+  }
+}
+
 function toggleAddForm(sectionId) {
   const f = document.querySelector(`form[data-add-for="${CSS.escape(sectionId)}"]`);
   if (f) f.classList.toggle('open');

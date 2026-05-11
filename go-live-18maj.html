@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<title>[INTERNT] Go-Live tjekliste, 18. maj 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0B0D12;
+    --bg-card: #14171F;
+    --bg-card-hover: #1A1E28;
+    --border: #232834;
+    --border-strong: #2E3544;
+    --text: #E4E7EC;
+    --text-muted: #9AA3B2;
+    --text-dim: #6B7384;
+    --accent: #2DD4BF;
+    --accent-blue: #60A5FA;
+    --accent-amber: #F59E0B;
+    --accent-purple: #A78BFA;
+    --accent-green: #5CB77A;
+    --accent-red: #EF4444;
+    --accent-pink: #F472B6;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 28px 80px; }
+
+  .breadcrumb {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--text-dim); margin-bottom: 28px; display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--text-dim); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+
+  .hero { margin-bottom: 32px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(45, 212, 191, 0.1);
+    color: var(--accent); border: 1px solid rgba(45, 212, 191, 0.25);
+    padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: 30px; font-weight: 800; color: var(--text);
+    margin: 0 0 12px; letter-spacing: -0.5px; line-height: 1.2;
+  }
+  .hero h1 .live-date {
+    background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .lede { font-size: 15.5px; color: var(--text-muted); max-width: 760px; margin: 0; }
+
+  .internal-banner {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #FCA5A5; padding: 14px 18px; border-radius: 10px;
+    font-size: 13.5px; margin-bottom: 28px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .internal-banner strong { color: #FECACA; }
+
+  /* ═══ Readiness summary ═══ */
+  .readiness {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin-bottom: 28px;
+  }
+  .readiness-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px;
+  }
+  .readiness-card .label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;
+  }
+  .readiness-card .value {
+    font-size: 28px; font-weight: 800; color: var(--text);
+    line-height: 1; font-variant-numeric: tabular-nums;
+  }
+  .readiness-card .value-sub {
+    font-size: 14px; color: var(--text-muted); margin-left: 4px; font-weight: 500;
+  }
+  .readiness-card.danger { border-color: rgba(239,68,68,0.35); }
+  .readiness-card.danger .value { color: var(--accent-red); }
+  .readiness-card.ok { border-color: rgba(92,183,122,0.35); }
+  .readiness-card.ok .value { color: var(--accent-green); }
+  .readiness-card.warn { border-color: rgba(245,158,11,0.35); }
+  .readiness-card.warn .value { color: var(--accent-amber); }
+
+  /* ═══ Filters ═══ */
+  .filters {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+    padding: 14px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; align-items: center;
+  }
+  .filters-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace; padding-right: 4px;
+  }
+  .filter-chip {
+    background: transparent; border: 1px solid var(--border-strong);
+    color: var(--text-muted); padding: 6px 12px; border-radius: 16px;
+    font-size: 12.5px; cursor: pointer; transition: all 0.15s;
+    font-family: inherit;
+  }
+  .filter-chip:hover { color: var(--text); border-color: var(--accent); }
+  .filter-chip.active {
+    background: var(--accent); color: #062322; border-color: var(--accent);
+    font-weight: 600;
+  }
+  .filters select {
+    background: var(--bg); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 6px 10px; border-radius: 6px;
+    font-size: 12.5px; font-family: inherit; cursor: pointer;
+    margin-left: auto;
+  }
+
+  /* ═══ Section ═══ */
+  .section { margin-bottom: 32px; }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding-bottom: 14px; border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .section-title-wrap { display: flex; align-items: baseline; gap: 14px; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    font-weight: 700; color: var(--text-dim); letter-spacing: 1px;
+  }
+  .section h2 {
+    font-size: 19px; font-weight: 700; color: var(--text); margin: 0;
+  }
+  .section-meta {
+    font-size: 12.5px; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .section-meta b { color: var(--accent); font-weight: 700; }
+
+  .items { display: flex; flex-direction: column; gap: 8px; }
+
+  /* ═══ Item ═══ */
+  .item {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 14px 16px; padding: 14px 18px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; transition: all 0.18s;
+    align-items: start;
+  }
+  .item:hover { border-color: var(--border-strong); background: var(--bg-card-hover); }
+  .item.is-blocker { border-left: 3px solid var(--accent-red); }
+  .item.is-done { opacity: 0.6; }
+  .item.is-done .item-title { text-decoration: line-through; text-decoration-color: var(--text-dim); }
+
+  .item-main { min-width: 0; }
+  .item-title {
+    font-size: 14.5px; font-weight: 600; color: var(--text);
+    line-height: 1.45; margin-bottom: 4px;
+  }
+  .item-desc {
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.55; margin-bottom: 8px;
+  }
+  .item-desc:empty { display: none; }
+  .item-desc code {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    padding: 1px 6px; background: var(--border); border-radius: 4px;
+    color: var(--accent);
+  }
+
+  .item-controls {
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    font-size: 11.5px;
+  }
+  .item-controls select, .item-controls input {
+    background: var(--bg); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 4px 8px; border-radius: 6px;
+    font-size: 11.5px; font-family: inherit; cursor: pointer;
+  }
+  .item-controls input[type="text"] {
+    cursor: text; min-width: 180px; flex: 1 1 200px;
+  }
+  .item-controls .item-source {
+    color: var(--text-dim); text-decoration: none;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    margin-left: auto; padding: 4px 6px;
+  }
+  .item-controls .item-source:hover { color: var(--accent); }
+  .item-controls .btn-delete {
+    background: transparent; border: 1px solid transparent; color: var(--text-dim);
+    cursor: pointer; padding: 2px 6px; border-radius: 6px; font-size: 11px;
+  }
+  .item-controls .btn-delete:hover { color: var(--accent-red); border-color: rgba(239,68,68,0.35); }
+
+  /* Status pill (clickable) */
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 14px; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    border: 1px solid var(--border-strong); background: transparent;
+    color: var(--text-muted); transition: all 0.15s; white-space: nowrap;
+  }
+  .status-pill:hover { background: var(--border); }
+  .status-pill::before {
+    content: ''; display: inline-block; width: 7px; height: 7px;
+    border-radius: 50%; background: currentColor;
+  }
+  .status-pill[data-status="todo"] { color: var(--text-dim); }
+  .status-pill[data-status="wip"] { color: var(--accent-amber); border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.08); }
+  .status-pill[data-status="review"] { color: var(--accent-blue); border-color: rgba(96,165,250,0.4); background: rgba(96,165,250,0.08); }
+  .status-pill[data-status="done"] { color: var(--accent-green); border-color: rgba(92,183,122,0.4); background: rgba(92,183,122,0.08); }
+  .status-pill[data-status="blocked"] { color: var(--accent-red); border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.08); }
+
+  /* Deadline badge */
+  .deadline-badge {
+    font-size: 10px; font-weight: 700; padding: 3px 8px;
+    border-radius: 10px; letter-spacing: 0.4px; text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace; white-space: nowrap;
+  }
+  .deadline-badge.golive-18maj { background: rgba(239,68,68,0.14); color: #FCA5A5; }
+  .deadline-badge.hoerkam-6jun { background: rgba(167,139,250,0.14); color: var(--accent-purple); }
+  .deadline-badge.beslutning { background: rgba(244,114,182,0.14); color: var(--accent-pink); }
+  .deadline-badge.nice { background: rgba(154,163,178,0.14); color: var(--text-muted); }
+
+  /* Top row inside item: title + status */
+  .item-head { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
+  .item-head .status-pill { flex-shrink: 0; margin-top: 1px; }
+
+  /* ═══ Add-item form ═══ */
+  .add-row {
+    margin-top: 10px; padding: 12px 14px;
+    background: var(--bg); border: 1px dashed var(--border-strong);
+    border-radius: 10px;
+  }
+  .add-row .add-toggle {
+    background: transparent; border: 0; color: var(--accent);
+    cursor: pointer; font-size: 12.5px; font-weight: 600;
+    font-family: inherit; padding: 0;
+  }
+  .add-row .add-toggle:hover { text-decoration: underline; }
+  .add-row form { display: none; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .add-row form.open { display: flex; }
+  .add-row form input, .add-row form select {
+    background: var(--bg-card); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 6px 10px; border-radius: 6px;
+    font-size: 12.5px; font-family: inherit;
+  }
+  .add-row form input[name="title"] { flex: 1 1 220px; }
+  .add-row form input[name="desc"] { flex: 2 1 300px; }
+  .add-row form button {
+    background: var(--accent); color: #062322; border: 0;
+    padding: 6px 14px; border-radius: 6px; font-size: 12.5px;
+    font-weight: 600; cursor: pointer; font-family: inherit;
+  }
+
+  /* ═══ Toolbar (export/import/reset) ═══ */
+  .toolbar {
+    margin: 48px 0 0; padding: 18px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .toolbar-title {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .toolbar-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .toolbar-row .note { font-size: 12px; color: var(--text-dim); margin-left: auto; }
+  .btn {
+    background: var(--bg); border: 1px solid var(--border-strong);
+    color: var(--text); padding: 6px 12px; border-radius: 6px;
+    font-size: 12.5px; cursor: pointer; font-family: inherit;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.danger:hover { border-color: var(--accent-red); color: var(--accent-red); }
+
+  /* Hidden filter state */
+  .item.is-filtered-out { display: none; }
+  .section.is-filtered-out { display: none; }
+
+  @media (max-width: 720px) {
+    .container { padding: 28px 16px 60px; }
+    .hero h1 { font-size: 23px; }
+    .readiness { grid-template-columns: repeat(2, 1fr); }
+    .item { grid-template-columns: 1fr; }
+    .item-controls { flex-direction: row; flex-wrap: wrap; }
+    .item-controls .item-source { margin-left: 0; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .filters select { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <span>livecloud-support</span>
+    <span>/</span>
+    <span style="color: var(--accent);">go-live-18maj</span>
+    <span>/</span>
+    <span>kun intern brug</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span>&gt;_</span>
+      Intern, til kerneholdet
+    </div>
+    <h1>Klar til Go-Live <span class="live-date">mandag 18. maj</span></h1>
+    <p class="lede">Tjekliste over alt vi skal nå inden første live-brug. Hver linje har én ejer, én status og en deadline-kategori. Klik på status-pillen for at flytte den frem. Tilføj selv punkter nederst i hver sektion. Fremskridt gemmes lokalt i din browser.</p>
+  </div>
+
+  <div class="internal-banner">
+    <div>
+      <strong>Intern arbejdsside.</strong> Ikke offentligt linket, ikke indekseret. Del kun URL'en i interne kanaler. Items kan tilføjes løbende, og fremdriften gemmes pr. browser, så husk at eksportere før du skifter maskine.
+    </div>
+  </div>
+
+  <!-- Readiness top-strip -->
+  <div class="readiness" id="readiness">
+    <div class="readiness-card" id="card-days">
+      <div class="label">Dage til go-live</div>
+      <div class="value" id="daysLeft">—</div>
+    </div>
+    <div class="readiness-card" id="card-critical">
+      <div class="label">Kritisk 18/5</div>
+      <div class="value"><span id="criticalDone">0</span><span class="value-sub">/ <span id="criticalTotal">0</span></span></div>
+    </div>
+    <div class="readiness-card" id="card-total">
+      <div class="label">Total fremdrift</div>
+      <div class="value"><span id="totalDone">0</span><span class="value-sub">/ <span id="totalTotal">0</span></span></div>
+    </div>
+    <div class="readiness-card" id="card-blockers">
+      <div class="label">Blokkere</div>
+      <div class="value" id="blockersCount">0</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <span class="filters-label">Vis</span>
+    <button class="filter-chip active" data-filter="all">Alle</button>
+    <button class="filter-chip" data-filter="golive-18maj">Kritisk 18/5</button>
+    <button class="filter-chip" data-filter="hoerkam-6jun">Hørkam 6/6</button>
+    <button class="filter-chip" data-filter="beslutning">Beslutninger</button>
+    <button class="filter-chip" data-filter="blocked">Kun blokkere</button>
+    <button class="filter-chip" data-filter="open">Skjul afsluttede</button>
+    <select id="ownerFilter">
+      <option value="all">Alle ejere</option>
+    </select>
+  </div>
+
+  <!-- Sections rendered by JS -->
+  <div id="sections"></div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-title">Eksport / Import / Nulstil</div>
+    <div class="toolbar-row">
+      <button class="btn" onclick="exportData()">Eksportér JSON</button>
+      <button class="btn" onclick="document.getElementById('importFile').click()">Importér JSON</button>
+      <input type="file" id="importFile" style="display:none" accept="application/json" onchange="importData(event)">
+      <button class="btn" onclick="copyShareableSummary()">Kopiér resumé</button>
+      <button class="btn danger" onclick="resetAll()">Nulstil alt</button>
+      <span class="note">Data gemmes i localStorage pr. browser/maskine</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════════
+const GO_LIVE_DATE = '2026-05-18';
+const HOERKAM_DATE = '2026-06-06';
+const STORAGE_KEY = 'go-live-18maj-state-v1';
+
+const OWNERS = ['—', 'Jakob', 'Tony', 'Edwin', 'Michael', 'Mikkel', 'Simon', 'Britt', 'Andreas', 'Ekstern'];
+
+const STATUS = {
+  todo:    { label: 'Ikke startet', next: 'wip' },
+  wip:     { label: 'I gang',        next: 'review' },
+  review:  { label: 'Klar til test', next: 'done' },
+  done:    { label: 'Testet / live', next: 'blocked' },
+  blocked: { label: 'Blokeret',      next: 'todo' },
+};
+
+const DEADLINES = {
+  'golive-18maj':  { label: 'Go-live 18/5' },
+  'hoerkam-6jun':  { label: 'Hørkam 6/6' },
+  'beslutning':    { label: 'Beslutning' },
+  'nice':          { label: 'Senere' },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// SEED DATA — combines user's checklist + critical items from
+// dev-tjekliste.html. Ids are stable so localStorage survives edits.
+// ═══════════════════════════════════════════════════════════════
+const SECTIONS = [
+  {
+    id: 'beslutninger',
+    title: 'Beslutninger',
+    description: 'Forretnings- og produktbeslutninger der skal landes inden vi sætter scope for go-live.',
+    items: [
+      { id: 'b-beats-fra-start',     title: 'Beslut med Britt: Beats fra første go-live?',                desc: 'Skal Beats være tændt fra 18/5, eller starter vi uden? Påvirker alt nedenfor om Beats-køb, refund, vendors.', deadline: 'beslutning', defaultOwner: 'Jakob' },
+      { id: 'b-product-line',        title: 'Beslut hvilke produkter sælges fra første go-live',          desc: 'Mulige: Beats, Grill-fest billet, Armbånd. Vælg minimum-scope så vi ikke bruger tid på resten endnu.', deadline: 'beslutning', defaultOwner: 'Jakob' },
+      { id: 'b-festhallen-line',     title: 'Beslut Festhallen-app produkt-line ved Ringsted go-live',    desc: 'Kommende arrangementers billetter. Afgrøderes parallelt så Festhallen-appen er konsistent med Ringsted-launch.', deadline: 'beslutning', defaultOwner: 'Jakob' },
+      { id: 'b-refund-policy',       title: 'Beslut refund-politik (hvem, hvornår, hvordan)',             desc: 'Hvem kan udløse refund? Kun support, eller også brugeren selv inden for X dage? Hvilke produkter er refunderbare?', deadline: 'beslutning', defaultOwner: 'Jakob' },
+    ],
+  },
+
+  {
+    id: 'brugerflows-app',
+    title: 'Brugerflows i appen',
+    description: 'Gæste-app: profil, billet, betaling, køb. Alle skal være end-to-end testet på prod.',
+    items: [
+      { id: 'app-profile-concepts',  title: 'Brugerprofiler — koncepter fra fredags-mødet',               desc: 'Implementér de besluttede koncepter: én aktiv profil pr. enhed, MitID kun ved logud/følsomme handlinger.', deadline: 'golive-18maj', defaultOwner: 'Mikkel', source: 'dev-tjekliste.html' },
+      { id: 'app-opret-profil',      title: 'Opret profil med MitID',                                     desc: 'Ny bruger downloader app, opretter profil, bekræfter med MitID. PIN/biometri herefter.', deadline: 'golive-18maj', defaultOwner: 'Mikkel', source: 'faq.html#access' },
+      { id: 'app-claim-billet',      title: 'Claim billet / billetter',                                   desc: 'Indløs via share-sheet (PDF), billede, scan QR, fil, udklipsholder, billetkode. Alle 5 indløsningsmetoder live.', deadline: 'golive-18maj', defaultOwner: 'Edwin', source: 'billetguide.html' },
+      { id: 'app-haandter-billet',   title: 'Håndtering af billetter (overblik, videregiv, tilknyt)',     desc: 'Bruger kan se sine billetter, videregive hele/enkelt adgang, tilknytte barn/ledsager, gensende invitation.', deadline: 'golive-18maj', defaultOwner: 'Edwin', source: 'billetguide.html' },
+      { id: 'app-betalingskort',     title: 'Opsætning af betalingskort i appen',                         desc: 'Bruger kan tilføje, vælge default og fjerne betalingskort. Token via Stripe/Reepay (afhænger af valg).', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+      { id: 'app-koebsflow',         title: 'Opsætning af købsflow i appen',                              desc: 'Generisk købsflow: vælg produkt → bekræft → betal → kvittering. Skal virke for Beats, Armbånd og Billetter.', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+      { id: 'app-vendors-products',  title: 'Opsætning af vendors og products i appen',                   desc: 'Vendor (festival, bod, bar) + product-katalog synkroniseret fra FMS. Hvilke produkter vises hvor.', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+      { id: 'app-koeb-beats',        title: 'Køb Beats i app',                                            desc: 'Aktiveres hvis "Beats fra første go-live" = ja. Top-up med valgt kort, balance synlig, kvittering.', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+      { id: 'app-koeb-armbaand',     title: 'Køb armbånd i app',                                          desc: 'Chip-armbånd via webshop/appen, knyttes til profil. Afhentes ved Service Desk eller indgang.', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+      { id: 'app-koeb-grillfest',    title: 'Køb Grill-fest billet i app',                                desc: 'Køb af enkelt-billet til Grill-fest direkte i appen.', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+      { id: 'app-refund',            title: 'Refund-flow i appen',                                        desc: 'Refund initieres via support eller af bruger (afhænger af beslutning). Penge retur til original betalingsmetode.', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+      { id: 'app-festhallen-bil',    title: 'Festhallen-app: køb af diverse billetter',                   desc: 'Afledt effekt: når købsflowet står, fungerer Festhallen-appen til kommende arrangementer.', deadline: 'golive-18maj', defaultOwner: 'Mikkel' },
+    ],
+  },
+
+  {
+    id: 'b2b-web',
+    title: 'B2B web',
+    description: 'Virksomheds-portalen til billet- og Beats-tildeling.',
+    items: [
+      { id: 'b2b-billethaandtering', title: 'B2B billet-håndtering på web',                               desc: 'Virksomhed kan se ordre, fordele adgange til medarbejdere, sende invites. Ordreholder-rolle.', deadline: 'golive-18maj', defaultOwner: 'Michael', source: 'faq-business.html' },
+      { id: 'b2b-beatshaandtering',  title: 'B2B Beats-håndtering på web',                                desc: 'Virksomhed kan tildele Beats-saldo pr. medarbejder. Saml-billing pr. medarbejder eller pr. virksomhed.', deadline: 'golive-18maj', defaultOwner: 'Michael' },
+    ],
+  },
+
+  {
+    id: 'fms-backend',
+    title: 'FMS / Backend (Festival Management System)',
+    description: 'Backend-klargøring inden produktion åbnes.',
+    items: [
+      { id: 'fms-staging-main',      title: 'Staging → Main / Prod deploy',                               desc: 'Verificeret deploy-pipeline. Rollback testet. Ingen merges direkte til prod.', deadline: 'golive-18maj', defaultOwner: 'Edwin' },
+      { id: 'fms-billettyper-prod',  title: 'Oprettelse af alle billet-typer på prod',                    desc: 'Partout, dagsbilletter, campingvarianter, ungdomsbillet, B2B, akkreditering. Verificer hver type i app.', deadline: 'golive-18maj', defaultOwner: 'Edwin', source: 'billet-og-adgangstyper.html' },
+      { id: 'fms-produkter-prod',    title: 'Oprettelse af produkter (Beats + øvrige + billetter) på prod', desc: 'Alt der kan sælges skal være i prod-katalog: Beats, armbånd, grill-fest, billetter.', deadline: 'golive-18maj', defaultOwner: 'Edwin' },
+      { id: 'fms-content-review',    title: 'Gennemgang af content og indhold',                           desc: 'Alle tekster, billeder og videoer på prod gennemgået for stavefejl, gammelt indhold og brand-konsistens.', deadline: 'golive-18maj', defaultOwner: 'Jakob' },
+    ],
+  },
+
+  {
+    id: 'status-tjek',
+    title: 'Status-tjek (skal afklares)',
+    description: 'Områder hvor vi har brug for en klar status-melding for at vide om de er en risiko for 18/5.',
+    items: [
+      { id: 'status-akkreditering',  title: 'Akkreditering — status?',                                    desc: 'Hvor langt er flowet for akkrediterings-ansøgning, godkendelse og billet-udstedelse? Hvem driver?', deadline: 'golive-18maj', defaultOwner: 'Michael', source: 'akkreditering-overblik.html' },
+      { id: 'status-lager',          title: 'Lagerstyring — status?',                                     desc: 'Kan vi følge lagertal pr. produkt pr. lokation? Kritisk for Hørkam 6/6 og festivalen.', deadline: 'golive-18maj', defaultOwner: 'Edwin' },
+      { id: 'status-scanner',        title: 'Scanner — status?',                                          desc: 'Scanner-app/-enhed funktionel? Check-in og check-out flow? Offline-modus?', deadline: 'golive-18maj', defaultOwner: 'Edwin' },
+      { id: 'status-pos',            title: 'POS — status?',                                              desc: 'POS-terminal kan modtage Beats, kontant, kort? Integration mod produktkatalog?', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+    ],
+  },
+
+  {
+    id: 'hoerkam-6jun',
+    title: 'Klargøring til Hørkam-arrangement 6/6',
+    description: 'Hørkam er første rigtige driftstest. Skal være sat op før 6/6, men nogle dele kan vente til efter 18/5.',
+    items: [
+      { id: 'h-b2b-web-nfc',         title: 'B2B web-håndtering med NFC-armbånd',                         desc: 'Virksomhed kan tildele NFC-armbånd til medarbejdere via web. Armbånd skal være knyttet til profil/saldo.', deadline: 'hoerkam-6jun', defaultOwner: 'Michael' },
+      { id: 'h-pos-setup',           title: 'POS setup: Fribar (0 kr) + produkter med reel pris',         desc: 'Vi kan genbruge produkter fra sidste arrangement. Fribar-produkter skal kunne sælges til 0 kr og stadig tælles i lager.', deadline: 'hoerkam-6jun', defaultOwner: 'Tony' },
+      { id: 'h-lager-tracking',      title: 'Lagerstyring fuldt operationel og synlig',                   desc: 'Realtid lager-træk ved hvert POS-salg. Synlig for bemanding under arrangementet.', deadline: 'hoerkam-6jun', defaultOwner: 'Edwin' },
+      { id: 'h-scanner-funktionel',  title: 'Scanner fuldt funktionel — ind og ud',                       desc: 'Gæster scannes ind, kan scannes ud, kan re-scannes ind. Crew/medarbejder-scenarier også dækket.', deadline: 'hoerkam-6jun', defaultOwner: 'Edwin' },
+    ],
+  },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    return {
+      items: s.items || {},      // { itemId: { status, owner, notes } }
+      custom: s.custom || [],    // [ {id, sectionId, title, desc, deadline, owner, status, notes} ]
+    };
+  } catch (e) {
+    return { items: {}, custom: [] };
+  }
+}
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+let state = loadState();
+let activeFilter = 'all';
+let activeOwnerFilter = 'all';
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+function itemState(id) {
+  return state.items[id] || { status: 'todo', owner: '—', notes: '' };
+}
+function setItemState(id, patch) {
+  state.items[id] = { ...itemState(id), ...patch };
+  saveState();
+  renderReadiness();
+  refreshItemDom(id);
+}
+
+function refreshItemDom(id) {
+  const el = document.querySelector(`[data-item-id="${CSS.escape(id)}"]`);
+  if (!el) return;
+  const s = itemState(id);
+  el.classList.toggle('is-blocker', s.status === 'blocked');
+  el.classList.toggle('is-done', s.status === 'done');
+  const pill = el.querySelector('.status-pill');
+  pill.dataset.status = s.status;
+  pill.querySelector('.status-label').textContent = STATUS[s.status].label;
+  applyFilters();
+}
+
+function itemHtml(item, sectionId, isCustom = false) {
+  const s = itemState(item.id);
+  const ownerOptions = OWNERS.map(o =>
+    `<option value="${escapeHtml(o)}" ${s.owner === o ? 'selected' : ''}>${escapeHtml(o)}</option>`
+  ).join('');
+  const deadlineKey = item.deadline || 'nice';
+  const deadlineLabel = (DEADLINES[deadlineKey] || DEADLINES.nice).label;
+  const sourceLink = item.source
+    ? `<a class="item-source" href="${escapeHtml(item.source)}" target="_blank" rel="noopener">${escapeHtml(item.source)} ↗</a>`
+    : '';
+  const deleteBtn = isCustom
+    ? `<button class="btn-delete" onclick="deleteCustomItem('${escapeHtml(item.id)}')" title="Slet">✕</button>`
+    : '';
+  return `
+    <div class="item ${s.status === 'blocked' ? 'is-blocker' : ''} ${s.status === 'done' ? 'is-done' : ''}"
+         data-item-id="${escapeHtml(item.id)}"
+         data-deadline="${escapeHtml(deadlineKey)}"
+         data-owner="${escapeHtml(s.owner)}"
+         data-status="${escapeHtml(s.status)}">
+      <div class="item-main">
+        <div class="item-head">
+          <div>
+            <div class="item-title">${escapeHtml(item.title)}</div>
+            <div class="item-desc">${escapeHtml(item.desc || '')}</div>
+          </div>
+          <button class="status-pill" data-status="${s.status}" onclick="advanceStatus('${escapeHtml(item.id)}')">
+            <span class="status-label">${STATUS[s.status].label}</span>
+          </button>
+        </div>
+        <div class="item-controls">
+          <span class="deadline-badge ${escapeHtml(deadlineKey)}">${escapeHtml(deadlineLabel)}</span>
+          <select onchange="setOwner('${escapeHtml(item.id)}', this.value)">
+            ${ownerOptions}
+          </select>
+          <input type="text" placeholder="Noter…" value="${escapeHtml(s.notes || '')}"
+                 oninput="setNotes('${escapeHtml(item.id)}', this.value)">
+          ${sourceLink}
+          ${deleteBtn}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function sectionHtml(section, index) {
+  const allItems = [
+    ...section.items.map(i => ({ ...i, _custom: false })),
+    ...state.custom.filter(c => c.sectionId === section.id).map(i => ({ ...i, _custom: true })),
+  ];
+  // initialize default owners + statuses
+  allItems.forEach(it => {
+    if (!state.items[it.id]) {
+      state.items[it.id] = {
+        status: it.status || 'todo',
+        owner: it.defaultOwner || it.owner || '—',
+        notes: it.notes || '',
+      };
+    }
+  });
+  const itemsHtml = allItems.map(it => itemHtml(it, section.id, it._custom)).join('');
+  const done = allItems.filter(it => itemState(it.id).status === 'done').length;
+  return `
+    <div class="section" data-section-id="${escapeHtml(section.id)}">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-num">${String(index + 1).padStart(2, '0')}</div>
+          <h2>${escapeHtml(section.title)}</h2>
+        </div>
+        <div class="section-meta"><b class="sec-done">${done}</b> / <span class="sec-total">${allItems.length}</span> klar</div>
+      </div>
+      <div class="items" data-items-for="${escapeHtml(section.id)}">${itemsHtml}</div>
+      <div class="add-row">
+        <button type="button" class="add-toggle" onclick="toggleAddForm('${escapeHtml(section.id)}')">+ Tilføj punkt til ${escapeHtml(section.title)}</button>
+        <form data-add-for="${escapeHtml(section.id)}" onsubmit="addCustomItem(event, '${escapeHtml(section.id)}'); return false;">
+          <input name="title" type="text" placeholder="Titel" required>
+          <input name="desc" type="text" placeholder="Kort beskrivelse">
+          <select name="deadline">
+            <option value="golive-18maj">Go-live 18/5</option>
+            <option value="hoerkam-6jun">Hørkam 6/6</option>
+            <option value="beslutning">Beslutning</option>
+            <option value="nice">Senere</option>
+          </select>
+          <select name="owner">${OWNERS.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('')}</select>
+          <button type="submit">Tilføj</button>
+        </form>
+      </div>
+    </div>
+  `;
+}
+
+function render() {
+  const html = SECTIONS.map((s, i) => sectionHtml(s, i)).join('');
+  document.getElementById('sections').innerHTML = html;
+  // populate owner filter
+  const ownerSel = document.getElementById('ownerFilter');
+  const existing = ownerSel.value;
+  ownerSel.innerHTML = '<option value="all">Alle ejere</option>' +
+    OWNERS.filter(o => o !== '—').map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
+  if (existing && [...ownerSel.options].some(o => o.value === existing)) ownerSel.value = existing;
+  renderReadiness();
+  applyFilters();
+}
+
+function renderReadiness() {
+  // days
+  const today = new Date();
+  const target = new Date(GO_LIVE_DATE + 'T00:00:00');
+  const days = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+  const daysEl = document.getElementById('daysLeft');
+  daysEl.textContent = days >= 0 ? days : Math.abs(days) + ' dage over';
+  document.getElementById('card-days').classList.remove('danger', 'warn', 'ok');
+  if (days < 7) document.getElementById('card-days').classList.add('danger');
+  else if (days < 14) document.getElementById('card-days').classList.add('warn');
+
+  // tally
+  let total = 0, totalDone = 0, criticalTotal = 0, criticalDone = 0, blockers = 0;
+  const allItems = [
+    ...SECTIONS.flatMap(s => s.items),
+    ...state.custom,
+  ];
+  allItems.forEach(it => {
+    total++;
+    const st = itemState(it.id);
+    if (st.status === 'done') totalDone++;
+    if (st.status === 'blocked') blockers++;
+    if (it.deadline === 'golive-18maj') {
+      criticalTotal++;
+      if (st.status === 'done') criticalDone++;
+    }
+  });
+  document.getElementById('totalDone').textContent = totalDone;
+  document.getElementById('totalTotal').textContent = total;
+  document.getElementById('criticalDone').textContent = criticalDone;
+  document.getElementById('criticalTotal').textContent = criticalTotal;
+  document.getElementById('blockersCount').textContent = blockers;
+  document.getElementById('card-blockers').classList.toggle('danger', blockers > 0);
+  document.getElementById('card-critical').classList.toggle('ok', criticalTotal > 0 && criticalDone === criticalTotal);
+  document.getElementById('card-critical').classList.toggle('warn', criticalDone > 0 && criticalDone < criticalTotal);
+
+  // refresh section progress numbers
+  document.querySelectorAll('.section').forEach((secEl) => {
+    const id = secEl.dataset.sectionId;
+    const section = SECTIONS.find(x => x.id === id);
+    if (!section) return;
+    const items = [...section.items, ...state.custom.filter(c => c.sectionId === id)];
+    const done = items.filter(i => itemState(i.id).status === 'done').length;
+    secEl.querySelector('.sec-done').textContent = done;
+    secEl.querySelector('.sec-total').textContent = items.length;
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════════════════════════
+function advanceStatus(id) {
+  const cur = itemState(id).status;
+  const next = STATUS[cur].next;
+  setItemState(id, { status: next });
+}
+function setOwner(id, owner) {
+  setItemState(id, { owner });
+}
+function setNotes(id, notes) {
+  state.items[id] = { ...itemState(id), notes };
+  saveState();
+}
+function toggleAddForm(sectionId) {
+  const f = document.querySelector(`form[data-add-for="${CSS.escape(sectionId)}"]`);
+  if (f) f.classList.toggle('open');
+}
+function addCustomItem(ev, sectionId) {
+  const form = ev.target;
+  const fd = new FormData(form);
+  const id = 'custom-' + sectionId + '-' + Date.now().toString(36);
+  const item = {
+    id,
+    sectionId,
+    title: fd.get('title'),
+    desc: fd.get('desc') || '',
+    deadline: fd.get('deadline'),
+    owner: fd.get('owner') || '—',
+    status: 'todo',
+    notes: '',
+  };
+  state.custom.push(item);
+  state.items[id] = { status: 'todo', owner: item.owner, notes: '' };
+  saveState();
+  form.reset();
+  form.classList.remove('open');
+  render();
+}
+function deleteCustomItem(id) {
+  if (!confirm('Slet dette punkt?')) return;
+  state.custom = state.custom.filter(x => x.id !== id);
+  delete state.items[id];
+  saveState();
+  render();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FILTERS
+// ═══════════════════════════════════════════════════════════════
+function applyFilters() {
+  const f = activeFilter;
+  const ownerF = activeOwnerFilter;
+  document.querySelectorAll('.item').forEach((el) => {
+    let show = true;
+    if (f === 'golive-18maj' && el.dataset.deadline !== 'golive-18maj') show = false;
+    if (f === 'hoerkam-6jun' && el.dataset.deadline !== 'hoerkam-6jun') show = false;
+    if (f === 'beslutning' && el.dataset.deadline !== 'beslutning') show = false;
+    if (f === 'blocked' && el.dataset.status !== 'blocked') show = false;
+    if (f === 'open' && el.dataset.status === 'done') show = false;
+    if (ownerF !== 'all' && el.dataset.owner !== ownerF) show = false;
+    el.classList.toggle('is-filtered-out', !show);
+  });
+  // hide whole section if all items filtered
+  document.querySelectorAll('.section').forEach((sec) => {
+    const visible = sec.querySelectorAll('.item:not(.is-filtered-out)').length;
+    sec.classList.toggle('is-filtered-out', visible === 0);
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const chip = e.target.closest('.filter-chip');
+  if (chip) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeFilter = chip.dataset.filter;
+    applyFilters();
+  }
+});
+document.getElementById('ownerFilter').addEventListener('change', (e) => {
+  activeOwnerFilter = e.target.value;
+  applyFilters();
+});
+
+// keep dataset.owner up to date when user changes select
+document.addEventListener('change', (e) => {
+  if (e.target.matches('.item-controls select')) {
+    const item = e.target.closest('.item');
+    if (item) item.dataset.owner = e.target.value;
+    applyFilters();
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// EXPORT / IMPORT / RESET / SUMMARY
+// ═══════════════════════════════════════════════════════════════
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `go-live-18maj-${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function importData(ev) {
+  const file = ev.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const obj = JSON.parse(reader.result);
+      if (!obj || typeof obj !== 'object') throw new Error('Ugyldig fil');
+      state = { items: obj.items || {}, custom: obj.custom || [] };
+      saveState();
+      render();
+      alert('Importeret.');
+    } catch (e) {
+      alert('Kunne ikke læse fil: ' + e.message);
+    }
+  };
+  reader.readAsText(file);
+  ev.target.value = '';
+}
+function resetAll() {
+  if (!confirm('Nulstil alt? Alle statusser, ejere, noter og selvtilføjede punkter forsvinder.')) return;
+  state = { items: {}, custom: [] };
+  saveState();
+  render();
+}
+function copyShareableSummary() {
+  const lines = ['Go-Live 18/5 — status'];
+  const today = new Date();
+  const target = new Date(GO_LIVE_DATE + 'T00:00:00');
+  const days = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+  lines.push(`Dage tilbage: ${days}`);
+  let blockers = 0;
+  SECTIONS.forEach((section) => {
+    const items = [...section.items, ...state.custom.filter(c => c.sectionId === section.id)];
+    const done = items.filter(i => itemState(i.id).status === 'done').length;
+    lines.push('');
+    lines.push(`## ${section.title} (${done}/${items.length})`);
+    items.forEach((it) => {
+      const s = itemState(it.id);
+      if (s.status === 'blocked') blockers++;
+      const mark = { todo: '[ ]', wip: '[~]', review: '[r]', done: '[x]', blocked: '[!]' }[s.status];
+      const owner = s.owner && s.owner !== '—' ? ` — ${s.owner}` : '';
+      lines.push(`${mark} ${it.title}${owner}`);
+      if (s.notes) lines.push(`     ↳ ${s.notes}`);
+    });
+  });
+  if (blockers > 0) {
+    lines.splice(2, 0, `BLOKKERE: ${blockers}`);
+  }
+  const text = lines.join('\n');
+  navigator.clipboard.writeText(text).then(
+    () => alert('Resumé kopieret til udklipsholder.'),
+    () => {
+      const w = window.open('', '_blank');
+      w.document.write('<pre>' + escapeHtml(text) + '</pre>');
+    }
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+render();
+</script>
+
+</body>
+</html>

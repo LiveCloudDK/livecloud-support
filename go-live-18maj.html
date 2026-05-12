@@ -369,18 +369,24 @@
 
   /* Roles row */
   .role-row {
-    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+    display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px;
   }
-  .role-slot {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--bg); border: 1px solid var(--border-strong);
-    border-radius: 8px; padding: 2px 4px 2px 10px;
-    font-size: 11.5px;
+  /* En role-group samler ALLE assignments for én rolle (Ejer/Test/Godkend).
+     Label vises kun én gang foran gruppen. */
+  .role-group {
+    display: inline-flex; align-items: center; gap: 4px;
+    flex-wrap: wrap;
   }
-  .role-slot-label {
+  .role-group-label {
     font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px;
     text-transform: uppercase; color: var(--text-dim);
     font-family: 'JetBrains Mono', monospace; padding-right: 2px;
+  }
+  .role-slot {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--bg); border: 1px solid var(--border-strong);
+    border-radius: 8px; padding: 2px 4px 2px 8px;
+    font-size: 11.5px;
   }
   .role-slot select {
     background: transparent; border: 0; color: var(--text);
@@ -404,7 +410,23 @@
     background: var(--accent-green); border-color: var(--accent-green);
   }
   .role-slot.signed .signoff::after { content: '✓'; opacity: 1; color: #062322; }
-  .role-slot.signed .role-slot-label { color: var(--accent-green); }
+  .role-group.all-signed .role-group-label { color: var(--accent-green); }
+  .role-slot .assignment-remove {
+    background: transparent; border: 0; color: var(--text-dim);
+    cursor: pointer; padding: 0 4px; font-size: 14px; line-height: 1;
+    font-family: inherit; opacity: 0.6; transition: opacity 0.12s, color 0.12s;
+  }
+  .role-slot:hover .assignment-remove { opacity: 1; }
+  .role-slot .assignment-remove:hover { color: var(--accent-red); }
+  .add-assignment {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 1px dashed var(--border-strong); background: transparent;
+    color: var(--text-dim); cursor: pointer; padding: 0;
+    font-size: 16px; line-height: 1; font-family: inherit;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .add-assignment:hover { border-color: var(--accent); color: var(--accent); border-style: solid; }
 
   /* Due-date chip — valgfri dato pr. task */
   .due-date-wrap {
@@ -1164,8 +1186,37 @@ function escapeHtml(s) {
 
 function emptyRoles() {
   const r = {};
-  ROLES.forEach(role => { r[role.key] = { who: '—', signedOff: false }; });
+  ROLES.forEach(role => {
+    r[role.key] = { assignments: [{ who: '—', signedOff: false }] };
+  });
   return r;
+}
+
+// Migrér gammel rolle-form { who, signedOff } → { assignments: [{who, signedOff}] }
+function normalizeRole(roleData) {
+  if (!roleData) return { assignments: [{ who: '—', signedOff: false }] };
+  if (Array.isArray(roleData.assignments) && roleData.assignments.length > 0) {
+    return { assignments: roleData.assignments.map(a => ({
+      who: a.who || '—',
+      signedOff: !!a.signedOff,
+    })) };
+  }
+  // Gammel shape med who/signedOff direkte på role-objektet
+  return {
+    assignments: [{
+      who: roleData.who || '—',
+      signedOff: !!roleData.signedOff,
+    }],
+  };
+}
+
+// En rolle "tæller som signed off" hvis den har mindst én rigtig person og
+// alle rigtige personer har signet (— ignoreres). Bruges af auto-done-logikken.
+function roleIsSignedOff(roleData) {
+  const r = normalizeRole(roleData);
+  const real = r.assignments.filter(a => a.who && a.who !== '—');
+  if (real.length === 0) return false;
+  return real.every(a => a.signedOff);
 }
 
 // Returnerer den visningsklare titel for et item — overrider seed/custom-værdi
@@ -1270,10 +1321,10 @@ function refreshDueDate(id) {
 function itemState(id) {
   const raw = state.items[id];
   if (!raw) return { status: 'todo', roles: emptyRoles(), notes: '', subItems: [] };
-  // Back-compat: hvis state stadig har gammel `owner`-felt, migrér
+  // Back-compat A: gammel state uden `roles` (havde `owner` direkte)
   if (!raw.roles) {
     const roles = emptyRoles();
-    if (raw.owner && raw.owner !== '—') roles.driver.who = raw.owner;
+    if (raw.owner && raw.owner !== '—') roles.driver.assignments[0].who = raw.owner;
     return {
       ...raw,
       status: raw.status || 'todo',
@@ -1282,10 +1333,15 @@ function itemState(id) {
       subItems: raw.subItems || [],
     };
   }
-  // Sørg for at alle role-keys er til stede; bevar alle øvrige felter
+  // Back-compat B + C: hver rolle kan have gammel {who,signedOff}-form
+  // eller mangle helt. Normalisér til assignments[].
+  const roles = {};
+  ROLES.forEach(role => {
+    roles[role.key] = normalizeRole(raw.roles[role.key]);
+  });
   return {
     ...raw,
-    roles: { ...emptyRoles(), ...raw.roles },
+    roles,
     subItems: raw.subItems || [],
   };
 }
@@ -1320,23 +1376,22 @@ function refreshItemDom(id) {
   pill.querySelector('.status-label').textContent = STATUS[s.status].label;
   el.dataset.status = s.status;
   el.dataset.people = peopleListFor(s).join(',');
-  // refresh role-slot visuals
-  ROLES.forEach(role => {
-    const slot = el.querySelector(`.role-slot[data-role="${role.key}"]`);
-    if (!slot) return;
-    const r = s.roles[role.key];
-    slot.classList.toggle('signed', !!r.signedOff);
-    const sel = slot.querySelector('select');
-    if (sel && sel.value !== r.who) sel.value = r.who;
-  });
+  // Re-render hele role-row så multi-assignment-strukturen er konsistent.
+  // (Det er stadig billigt — kun strenge inden for ét item.)
+  const roleRow = el.querySelector('.role-row');
+  if (roleRow) {
+    const item = findItemMeta(id)?.item || { id };
+    roleRow.innerHTML = ROLES.map(role => roleGroupHtml(item, role, s)).join('');
+  }
   applyFilters();
 }
 
 function peopleListFor(s) {
   const list = [];
   ROLES.forEach(role => {
-    const w = s.roles[role.key]?.who;
-    if (w && w !== '—' && !list.includes(w)) list.push(w);
+    (s.roles[role.key]?.assignments || []).forEach(a => {
+      if (a.who && a.who !== '—' && !list.includes(a.who)) list.push(a.who);
+    });
   });
   return list;
 }
@@ -1392,20 +1447,41 @@ function refreshSubItemsDom(itemId) {
   old.replaceWith(tmp.firstElementChild);
 }
 
-function roleSlotHtml(item, role, current) {
-  const r = current.roles[role.key] || { who: '—', signedOff: false };
+function assignmentHtml(item, role, index, assignment, canRemove) {
   const options = OWNERS.map(o =>
-    `<option value="${escapeHtml(o)}" ${r.who === o ? 'selected' : ''}>${escapeHtml(o)}</option>`
+    `<option value="${escapeHtml(o)}" ${assignment.who === o ? 'selected' : ''}>${escapeHtml(o)}</option>`
   ).join('');
+  const removeBtn = canRemove
+    ? `<button type="button" class="assignment-remove"
+              onclick="removeAssignment('${escapeHtml(item.id)}', '${role.key}', ${index})"
+              title="Fjern denne person">×</button>`
+    : '';
   return `
-    <span class="role-slot ${r.signedOff ? 'signed' : ''}" data-role="${role.key}" title="${escapeHtml(role.hint)}">
-      <span class="role-slot-label">${escapeHtml(role.short)}</span>
-      <select onchange="setRoleWho('${escapeHtml(item.id)}', '${role.key}', this.value)">${options}</select>
+    <span class="role-slot ${assignment.signedOff ? 'signed' : ''}" data-role="${role.key}" data-idx="${index}">
+      <select onchange="setAssignmentWho('${escapeHtml(item.id)}', '${role.key}', ${index}, this.value)">${options}</select>
       <button type="button" class="signoff"
-              onclick="toggleSignoff('${escapeHtml(item.id)}', '${role.key}')"
-              aria-label="${r.signedOff ? 'Fjern godkendelse' : 'Sign-off ' + role.label}"
-              title="${r.signedOff ? 'Klik for at fjerne godkendelse' : 'Klik for at give ' + role.label.toLowerCase() + '-godkendelse'}"></button>
+              onclick="toggleAssignmentSignoff('${escapeHtml(item.id)}', '${role.key}', ${index})"
+              aria-label="${assignment.signedOff ? 'Fjern godkendelse' : 'Sign-off'}"
+              title="${assignment.signedOff ? 'Klik for at fjerne godkendelse' : 'Klik for at signe af'}"></button>
+      ${removeBtn}
     </span>
+  `;
+}
+
+function roleGroupHtml(item, role, current) {
+  const r = normalizeRole(current.roles[role.key]);
+  const canRemove = r.assignments.length > 1;
+  const chips = r.assignments.map((a, i) => assignmentHtml(item, role, i, a, canRemove)).join('');
+  const allSigned = roleIsSignedOff(r) ? 'all-signed' : '';
+  return `
+    <div class="role-group ${allSigned}" data-role-group="${role.key}" title="${escapeHtml(role.hint)}">
+      <span class="role-group-label">${escapeHtml(role.short)}</span>
+      ${chips}
+      <button type="button" class="add-assignment"
+              onclick="addAssignment('${escapeHtml(item.id)}', '${role.key}')"
+              aria-label="Tilføj endnu en ${escapeHtml(role.label.toLowerCase())}"
+              title="Tilføj endnu en ${escapeHtml(role.label.toLowerCase())}">+</button>
+    </div>
   `;
 }
 
@@ -1419,7 +1495,7 @@ function itemHtml(item, sectionId, isCustom = false) {
   const deleteBtn = isCustom
     ? `<button class="btn-delete" onclick="deleteCustomItem('${escapeHtml(item.id)}')" title="Slet">✕</button>`
     : '';
-  const rolesHtml = ROLES.map(role => roleSlotHtml(item, role, s)).join('');
+  const rolesHtml = ROLES.map(role => roleGroupHtml(item, role, s)).join('');
   const overdue = isItemOverdue(item.id);
   return `
     <div class="item ${s.status === 'blocked' ? 'is-blocker' : ''} ${s.status === 'done' ? 'is-done' : ''} ${overdue ? 'is-overdue' : ''}"
@@ -1646,23 +1722,62 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeStatusMenu();
 });
 window.addEventListener('scroll', closeStatusMenu, { passive: true });
-function setRoleWho(id, roleKey, who) {
+// ─────────── Assignment-handlers ───────────
+function updateAssignment(id, roleKey, index, patch) {
   const cur = itemState(id);
-  const roles = { ...cur.roles, [roleKey]: { ...cur.roles[roleKey], who } };
+  const roleData = normalizeRole(cur.roles[roleKey]);
+  const next = roleData.assignments.map((a, i) =>
+    i === index ? { ...a, ...patch } : a
+  );
+  const roles = { ...cur.roles, [roleKey]: { assignments: next } };
+  return roles;
+}
+
+function setAssignmentWho(id, roleKey, index, who) {
+  const roles = updateAssignment(id, roleKey, index, { who });
   setItemState(id, { roles });
 }
-function toggleSignoff(id, roleKey) {
+
+function toggleAssignmentSignoff(id, roleKey, index) {
   const cur = itemState(id);
-  const prev = cur.roles[roleKey] || { who: '—', signedOff: false };
-  const roles = { ...cur.roles, [roleKey]: { ...prev, signedOff: !prev.signedOff } };
-  // Hvis alle tre roller har signed-off → auto-advance til "done"
-  // (kun hvis status ikke allerede er done eller blocked)
+  const roleData = normalizeRole(cur.roles[roleKey]);
+  const prev = roleData.assignments[index] || { who: '—', signedOff: false };
+  const roles = updateAssignment(id, roleKey, index, { signedOff: !prev.signedOff });
+  // Auto-advance: hvis alle roller (med mindst én rigtig person) har alle
+  // deres assignments signet, ryk status til "done". Hvis en sign-off
+  // fjernes på en done-opgave, ryk tilbage til "review".
   let nextStatus = cur.status;
-  const allSigned = ROLES.every(r => roles[r.key]?.signedOff);
+  const allSigned = ROLES.every(r => roleIsSignedOff(roles[r.key]));
   if (allSigned && cur.status !== 'done' && cur.status !== 'blocked') {
     nextStatus = 'done';
   } else if (!allSigned && cur.status === 'done') {
-    // Hvis nogen fjerner en sign-off på en done-opgave, ryk tilbage til review
+    nextStatus = 'review';
+  }
+  setItemState(id, { roles, status: nextStatus });
+}
+
+function addAssignment(id, roleKey) {
+  const cur = itemState(id);
+  const roleData = normalizeRole(cur.roles[roleKey]);
+  const roles = {
+    ...cur.roles,
+    [roleKey]: { assignments: [...roleData.assignments, { who: '—', signedOff: false }] },
+  };
+  setItemState(id, { roles });
+}
+
+function removeAssignment(id, roleKey, index) {
+  const cur = itemState(id);
+  const roleData = normalizeRole(cur.roles[roleKey]);
+  if (roleData.assignments.length <= 1) return; // behold mindst én
+  const next = roleData.assignments.filter((_, i) => i !== index);
+  const roles = { ...cur.roles, [roleKey]: { assignments: next } };
+  // Recheck auto-done efter fjernelse
+  let nextStatus = cur.status;
+  const allSigned = ROLES.every(r => roleIsSignedOff(roles[r.key]));
+  if (allSigned && cur.status !== 'done' && cur.status !== 'blocked') {
+    nextStatus = 'done';
+  } else if (!allSigned && cur.status === 'done') {
     nextStatus = 'review';
   }
   setItemState(id, { roles, status: nextStatus });
@@ -2001,9 +2116,11 @@ function copyShareableSummary() {
       const mark = { todo: '[ ]', wip: '[~]', review: '[r]', done: '[x]', blocked: '[!]' }[s.status];
       const roleParts = ROLES
         .map(r => {
-          const v = s.roles[r.key];
-          if (!v || v.who === '—') return null;
-          return `${r.short}:${v.who}${v.signedOff ? '✓' : ''}`;
+          const v = normalizeRole(s.roles[r.key]);
+          const real = v.assignments.filter(a => a.who && a.who !== '—');
+          if (!real.length) return null;
+          const names = real.map(a => `${a.who}${a.signedOff ? '✓' : ''}`).join('+');
+          return `${r.short}:${names}`;
         })
         .filter(Boolean);
       const dueTxt = s.dueDate

@@ -927,6 +927,20 @@ function getKB() {
     // ============================================================
     // FAQ, Sikkerhed & Mistet mobil
     // ============================================================
+    flere_enheder: {
+      title: 'Kan jeg være logget ind på to enheder samtidig?',
+      reply: 'Nej. Din profil kan kun være aktiv på <strong>én enhed ad gangen</strong>.',
+      steps: [
+        'Logger du ind på en ny enhed, bliver den forrige automatisk logget ud',
+        'MitID kræves ved enhedsskift, så ingen andre kan tilgå din profil',
+        '<strong>Mistet telefon?</strong> Log ind på en lånt enhed — den gamle session afsluttes automatisk og du har fuld adgang til billet, Beats og kvitteringer',
+        '<strong>Ny telefon?</strong> Installer appen, log ind med MitID, og den gamle telefon logges automatisk ud',
+        '<strong>Vil du have backup på festivalen?</strong> Et chip-armbånd knyttet til din profil fungerer offline uden at kræve en ekstra app-session'
+      ],
+      followUp: 'Reglen handler om sikkerhed: én aktiv session beskytter mod misbrug. Du kan altid frit skifte enhed, det skal bare ske ét sted ad gangen.',
+      related: ['mistet_mobil', 'misbrug', 'profil', 'armbånd']
+    },
+
     mistet_mobil: {
       title: 'Mistet mobil eller telefon',
       reply: 'Bare rolig. Dine billetter og dine Beats er sikre, også selvom du mister telefonen.',
@@ -1279,6 +1293,7 @@ const keywordMap = [
 
   // Sikkerhed & Praktisk
   { keys: ['mistet mobil', 'mister telefon', 'miste mobil', 'tabt telefon', 'mistet telefon', 'stjålet telefon', 'mister min telefon', 'mistet min mobil', 'mistet min telefon', 'telefonen stjålet', 'miste min telefon'], topic: 'mistet_mobil' },
+  { keys: ['flere enheder', 'to enheder', 'logget ind to', 'logget ind flere', 'enheder samtidig', 'enhedsskift', 'skifte enhed', 'skift enhed', 'ny telefon', 'flere telefoner', 'backup telefon', 'lånt telefon'], topic: 'flere_enheder' },
   { keys: ['misbruge', 'misbrug', 'andre bruge', 'nogen stjæler'], topic: 'misbrug' },
   { keys: ['oplysninger sikret', 'datasikkerhed', 'mine data', 'privatliv', 'gdpr', 'sikkerhed', 'sikret'], topic: 'datasikkerhed' },
   { keys: ['strøm', 'batteri', 'løber tør', 'dør', 'opladning', 'powerbank', 'tomt batteri', 'tør for strøm', 'telefon dør', 'mobil dør', 'løbe tør', 'tomt for strøm'], topic: 'strøm' },
@@ -1371,6 +1386,7 @@ function getRelatedLabel(topic) {
     ingen_mobilpay: 'Uden Apple Pay',
     ingen_wallet: 'Kort i wallet',
     mistet_mobil: 'Mistet mobil',
+    flere_enheder: 'Skifte enhed',
     misbrug: 'Sikkerhed',
     datasikkerhed: 'Datasikkerhed',
     strøm: 'Tør for strøm',

@@ -1064,7 +1064,7 @@ function getKB() {
       reply: 'Personer der ikke kan eller skal have egen MitID-profil — typisk børn under 13 og ledsagere uden egen smartphone — kan tildeles en adgang på din billet.',
       steps: [
         'Gå til "Dine billetter" i appen',
-        'Vælg en adgang og tryk "Tilknyt barn" (for børn under 13) eller "Tilknyt ledsager" (for voksne uden MitID/smartphone)',
+        'Vælg en adgang og tryk "Tildel til person uden MitID"',
         'Skriv navn (og for et barn også alder)',
         'Ved indgangen viser du selv din app, og I går ind sammen — det er din app der scannes',
         'Vil personen gerne kunne gå rundt på egen hånd? Så kan I købe et chip-armbånd, som kobles til din profil'
@@ -1138,12 +1138,11 @@ function getKB() {
       title: 'Betal for venner eller familie',
       reply: 'Ja, det er nemt. Du kan ikke videregive Beats direkte til andre, men du kan traktere på flere andre måder:',
       steps: [
-        '<strong>Pre-bestilling i appen:</strong> Bestil en runde til dig og dine venner direkte i appen. Beats trækkes fra din saldo',
-        '<strong>Bordbestilling:</strong> Udvalgte steder kan du få bragt bestillingen ud til jer, I slipper for køen',
+        '<strong>Pre-bestilling i appen:</strong> Læg en runde til dig og dine venner i appen, før I går hen til baren. Beats trækkes fra din saldo, og bestillingen laves frisk når I ankommer ved baren',
         '<strong>Ved baren:</strong> Bestil for hele flokken, og betal med din app eller dit armbånd. Beats trækkes fra din saldo',
         '<strong>For børn:</strong> Knyt deres armbånd til din profil, så trækkes deres køb direkte fra dine Beats'
       ],
-      followUp: 'Der er ingen grænse for, hvor mange du kan invitere på en omgang. Og med pre-bestilling slipper I helt for køen.',
+      followUp: 'Der er ingen grænse for, hvor mange du kan invitere på en omgang. Pre-bestilling sparer "hvad vil I have?"-delen af køen.',
       related: ['indsæt_penge', 'beats', 'betaling']
     },
 
@@ -1221,15 +1220,16 @@ function getKB() {
     },
 
     pre_order: {
-      title: 'Pre-bestilling og bordservice',
-      reply: 'Ja. Du kan bruge appen til at slippe for at stå i kø.',
+      title: 'Pre-bestilling i appen',
+      reply: 'Ja. Pre-bestilling lader jer hoppe over "hvad vil I have?"-delen af køen.',
       steps: [
-        '<strong>Pre-bestilling:</strong> Bestil drikkevarer eller mad til dig selv og dine venner direkte i appen',
-        '<strong>Bordbestilling:</strong> Udvalgte steder kan du bestille til bordet',
-        '<strong>Bestilling til lejeren:</strong> Udvalgte steder kan I få leveret direkte til jeres leje på pladsen',
-        'Alle bestillinger betales med Beats fra din saldo'
+        'Vælg en bar eller bod i appen og læg drikkevarer eller mad i din ordre',
+        'Bekræft ordren, Beats trækkes fra din saldo',
+        'I går selv hen til baren eller boden',
+        'De laver bestillingen <strong>frisk</strong>, når I er der, så det hele er helt nylavet og varmt/koldt',
+        'I venter altså stadig et øjeblik, men slipper for at stille jer i kø for at bestille og betale'
       ],
-      followUp: 'Tjek i appen, hvilke steder der tilbyder pre-bestilling, bordbestilling eller levering. Det er ikke alle steder, der har det, men antallet vokser.',
+      followUp: 'Bordbestilling og levering til lejeren er ikke en del af systemet i år, det vender vi måske tilbage til næste år. Tjek i appen, hvilke barer og boder der tilbyder pre-bestilling.',
       related: ['beats', 'betal_for_andre', 'betaling']
     },
 

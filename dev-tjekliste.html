@@ -578,21 +578,13 @@
       <div class="section-meta"><span class="sm-done">0</span>/<span class="sm-total">0</span></div>
     </div>
     <div class="items">
-      <div class="item" data-tag="guest">
+      <div class="item" data-tag="guest critical">
         <div class="check"></div>
         <div class="item-body">
-          <div class="item-title">Tilknyt barn under 13 til voksens billet</div>
-          <div class="item-desc">Navn + alder. Intet MitID/profil på barnet. Barnet kommer ind sammen med voksen.</div>
+          <div class="item-title">Tildel adgang til person uden MitID</div>
+          <div class="item-desc">Én samlet "Tildel til person uden MitID"-knap på en adgang. Bruger indtaster navn (+ alder hvis barn). Dækker både børn under 13 og voksne ledsagere uden MitID/smartphone. Adgangen forbliver på ordreholderens profil, ingen MitID/profil oprettes på den tildelte person.</div>
         </div>
-        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
-      </div>
-      <div class="item" data-tag="guest">
-        <div class="check"></div>
-        <div class="item-body">
-          <div class="item-title">Tilknyt ledsager til voksens billet</div>
-          <div class="item-desc">For personer uden smartphone/profil. Følges ad ved ind- og udgang.</div>
-        </div>
-        <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="ticket-flows-qa.html">flows-qa</a></div>
+        <div class="item-meta"><span class="item-tag guest">gæst</span><span class="item-tag critical">kritisk</span><a class="item-source" href="faq.html#identity">faq.html</a></div>
       </div>
       <div class="item" data-tag="guest">
         <div class="check"></div>
@@ -909,15 +901,15 @@
         <div class="check"></div>
         <div class="item-body">
           <div class="item-title">Pre-bestilling fra app</div>
-          <div class="item-desc">Bestil drikke/mad i app, hent ved bar uden kø. Beats trækkes ved bestilling.</div>
+          <div class="item-desc">Læg drikke/mad i ordre i app, Beats trækkes ved bekræftelse. Gæsten går selv til bar/bod, hvor bestillingen laves frisk ved ankomst (ikke prefab). Sparer "hvad vil I have?"-delen af køen, ikke ventetiden.</div>
         </div>
         <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
       </div>
-      <div class="item" data-tag="guest">
+      <div class="item" data-tag="guest" data-deferred="true" style="opacity: 0.55;">
         <div class="check"></div>
         <div class="item-body">
-          <div class="item-title">Bordbestilling + bestilling til lejer</div>
-          <div class="item-desc">Udvalgte steder kan levere til bord eller lejr. Betales via Beats.</div>
+          <div class="item-title">Bordbestilling + bestilling til lejer <em style="color: var(--accent-amber); font-style: normal; font-size: 11px; margin-left: 6px;">[UDSKUDT — ikke 2026]</em></div>
+          <div class="item-desc">Udvalgte steder kan levere til bord eller lejr. Betales via Beats. <strong>Ikke en del af 2026-systemet.</strong> Måske 2027.</div>
         </div>
         <div class="item-meta"><span class="item-tag guest">gæst</span><a class="item-source" href="faq.html">faq.html</a></div>
       </div>

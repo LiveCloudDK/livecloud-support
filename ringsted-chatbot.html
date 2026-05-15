@@ -667,14 +667,13 @@ function getKB() {
       title: 'Videregiv billet til en anden',
       reply: 'Du kan videregive billetter på flere måder:',
       steps: [
-        '<strong>Videregiv hele billetten:</strong> Gå til "Dine billetter" → vælg billetten → tryk "Videregiv billet" → alle adgange videregives samlet',
-        '<strong>Videregiv enkelt adgang:</strong> Har du en partout? Du kan videregive udvalgte dage enkeltvis til forskellige personer',
+        '<strong>Videregiv hele billetten:</strong> Gå til "Dine billetter" → vælg billetten → tryk "Videregiv billet" → alle adgange videregives samlet og permanent',
+        '<strong>Overføre en dag (partout):</strong> Har du en 3-dags partout? Du kan overføre fx torsdag til en anden. Det er permanent, du kan ikke selv deltage den dag bagefter',
+        '<strong>Dele en campingadgang (glamcamp):</strong> Har du en glamcamp-billet med 2 eller 4 adgange? Du kan dele dem ud til din lejr og trække en delt adgang tilbage hvis behovet ændrer sig',
         '<strong>Videresend billetkode:</strong> Har du uindløste koder? Del dem via SMS, Messenger eller email, modtageren indløser selv',
-        'Indtast <strong>modtagerens navn og email</strong>',
-        'Modtageren får en <strong>email med et link</strong>, gyldigt i <strong>72 timer</strong>',
-        'Modtageren skal have en <strong>MitID-verificeret profil</strong> i appen for at acceptere'
+        'Modtageren får en <strong>email med et link</strong>, gyldigt i <strong>72 timer</strong>, og skal have en <strong>MitID-verificeret profil</strong> for at acceptere'
       ],
-      followUp: '<strong>OBS:</strong> Videregivelse af billetter er <strong>permanent</strong>. Ønsker du billetten retur, skal modtageren videregive den tilbage til dig. Billetprisen må ikke overstige den originale købspris.',
+      followUp: '<strong>Forskellen kort:</strong> hele billet og partout-dag er permanent — kan kun returneres ved at modtager sender tilbage. Glamcamp-adgange er revocable — du beholder kontrollen. Billetprisen må ved alle videregivelser ikke overstige den originale købspris.',
       related: ['claim', 'billet', 'modtag', 'videresend_kode', 'gensend_invitation', 'vilkår_overførsel']
     },
     modtag: {
@@ -1079,16 +1078,15 @@ function getKB() {
 
     overdrag_dage: {
       title: 'Kan jeg overdrage enkelte dage eller adgange?',
-      reply: 'Ja, det kan du sagtens, så længe din billet indeholder <strong>flere adgange</strong>.',
+      reply: 'Ja — der er to forskellige måder afhængigt af din billettype:',
       steps: [
-        'Det gælder fx en <strong>partout-billet</strong> (torsdag, fredag, lørdag) eller en <strong>glamcamp-billet</strong> med 2 eller 4 adgange',
-        'Åbn appen og gå til "Mine billetter"',
-        'Vælg den adgang, du vil give videre, fx torsdag, eller én af glamcamp-adgangene',
-        'Tryk "Videregiv", og skriv modtagerens e-mailadresse',
+        '<strong>Partout (3-dags billet):</strong> Brug "Overføre en dag" til at sende fx torsdag til en anden. <strong>Det er permanent</strong> — når dagen er overført, kan du ikke selv deltage den dag, og vil du have den retur, skal modtageren selv sende den tilbage.',
+        '<strong>Glamcamp (2 eller 4 adgange):</strong> Brug "Dele en campingadgang" til at fordele pladser i din lejr. <strong>Du beholder kontrollen</strong> — hvis behovet ændrer sig kan du trække en delt adgang tilbage til din egen profil.',
+        'Begge flows: Åbn "Mine billetter", vælg adgangen, tryk "Overfør" (partout) eller "Del" (glamcamp), og skriv modtagerens e-mailadresse',
         'Modtageren får et link og skal acceptere i sin egen app (bekræftet med MitID)',
         '<strong>Almindelige campingbilletter</strong> dækker hele festivalens periode og kan kun videregives som helhed, ikke stykkes ud'
       ],
-      followUp: 'De adgange, du ikke uddeler, bliver på din egen billet. Bemærk: Din profil, billet og Beats er strengt personlige, du må ikke bare låne dit eget armbånd eller din app ud.',
+      followUp: 'Forskellen i et sætning: <strong>overføre</strong> = permanent, du giver dagen helt fra dig. <strong>Dele</strong> = revocable, du kan trække adgangen tilbage. Bemærk: din profil, billet og Beats er strengt personlige, du må ikke bare låne dit eget armbånd eller din app ud.',
       related: ['transfer', 'uddel_billetter', 'armbånd', 'vilkår_overførsel']
     },
 
@@ -1100,7 +1098,7 @@ function getKB() {
         'Har du købt flere billetter, fx til venner eller familie, skal de uddeles',
         'Hver enkelt billet skal aktiveres på modtagerens egen profil',
         'Modtageren skal have en profil, bekræftet med MitID',
-        'Du kan uddele enkelte adgange fra din partout, hvis du vil (se "Overdrag enkelte dage")'
+        'Du kan overføre enkelte dage fra din partout, eller dele en glamcamp-adgang (se "Overfør / del dage")'
       ],
       followUp: 'Én billet pr. profil sikrer, at der ikke kan snydes med billetter, og at hver person er entydigt bekræftet. Det beskytter både dig og festivalen.',
       related: ['billet', 'uddel_billetter', 'overdrag_dage', 'transfer']
@@ -1251,7 +1249,7 @@ const keywordMap = [
   { keys: ['modtag', 'fået billet', 'nogen sendt', 'accepter', 'modtaget', 'tilsendt', 'fået tilsendt'], topic: 'modtag' },
   { keys: ['se billet', 'mine billet', 'vis billet', 'hvor er min billet', 'find billet'], topic: 'billet' },
   { keys: ['uddel', 'uddele', 'fordel billetter', 'dele billetter ud'], topic: 'uddel_billetter' },
-  { keys: ['overdrag dage', 'overdrage dage', 'enkeltdag', 'give en dag', 'låne dag', 'enkelt dag', 'glamcamp', 'glamping', 'campingbillet', 'camping billet', 'camping-billet', 'uddele adgang', 'uddele dag', 'partout dage'], topic: 'overdrag_dage' },
+  { keys: ['overdrag dage', 'overdrage dage', 'overføre dag', 'overføre en dag', 'overfør dag', 'overfør en dag', 'dele campingadgang', 'del campingadgang', 'dele adgang glamcamp', 'enkeltdag', 'give en dag', 'enkelt dag', 'glamcamp', 'glamping', 'campingbillet', 'camping billet', 'camping-billet', 'uddele adgang', 'uddele dag', 'partout dage'], topic: 'overdrag_dage' },
   { keys: ['flere billetter', 'mange billetter', 'mere end én billet', 'flere i appen'], topic: 'flere_billetter' },
   { keys: ['billet', 'ticket', 'billetter', 'adgang', 'entre'], topic: 'billet' },
 
@@ -1382,7 +1380,7 @@ function getRelatedLabel(topic) {
     ingen_mitid: 'Uden MitID',
     børn: 'Børn',
     uddel_billetter: 'Uddel billetter',
-    overdrag_dage: 'Overdrag dage',
+    overdrag_dage: 'Overfør / del dage',
     flere_billetter: 'Flere billetter',
     indsæt_penge: 'Beats til andre',
     betal_for_andre: 'Betal for andre',

@@ -1046,16 +1046,16 @@ function getKB() {
     },
 
     børn: {
-      title: 'Børn og ledsagere',
-      reply: 'Det er helt i orden. Børn under 15 og ledsagere behøver hverken egen telefon, app eller profil.',
+      title: 'Tildel adgang til person uden MitID',
+      reply: 'Personer der ikke kan eller skal have egen MitID-profil — typisk børn under 13 og ledsagere uden egen smartphone — kan tildeles en adgang på din billet.',
       steps: [
         'Gå til "Dine billetter" i appen',
-        'Vælg en adgang, og tryk på "Tilknyt barn" (eller "Tilknyt ledsager")',
-        'Skriv navnet og alderen (0 til 14 år for børn)',
-        'Ved indgangen viser du selv din app, og I går ind sammen',
-        'Vil barnet gerne kunne gå rundt på egen hånd? Så kan I købe et chip-armbånd, som kobles til din profil'
+        'Vælg en adgang og tryk "Tilknyt barn" (for børn under 13) eller "Tilknyt ledsager" (for voksne uden MitID/smartphone)',
+        'Skriv navn (og for et barn også alder)',
+        'Ved indgangen viser du selv din app, og I går ind sammen — det er din app der scannes',
+        'Vil personen gerne kunne gå rundt på egen hånd? Så kan I købe et chip-armbånd, som kobles til din profil'
       ],
-      followUp: '<strong>Du har fuld kontrol.</strong> Armbåndet er koblet til din profil, så du kan følge med i, hvad barnet køber, direkte i din app. Du bestemmer også, hvor mange Beats der er til rådighed.',
+      followUp: '<strong>MitID-aldersgrænse:</strong> MitID udstedes først fra 13 år, derfor er børn under 13 altid på en voksens billet. Ledsagere kan tildeles uanset alder, hvis de ikke har MitID eller egen smartphone. <strong>Du har fuld kontrol</strong> — armbåndet er koblet til din profil, så du kan følge med i, hvad der købes, direkte i din app, og du bestemmer hvor mange Beats der er til rådighed.',
       related: ['billet', 'armbånd', 'profil', 'uddel_billetter']
     },
 
@@ -1378,7 +1378,7 @@ function getRelatedLabel(topic) {
     ingen_smartphone: 'Ingen smartphone',
     ældre_telefon: 'Ældre telefon',
     ingen_mitid: 'Uden MitID',
-    børn: 'Børn',
+    børn: 'Tildel adgang uden MitID',
     uddel_billetter: 'Uddel billetter',
     overdrag_dage: 'Overfør / del dage',
     flere_billetter: 'Flere billetter',

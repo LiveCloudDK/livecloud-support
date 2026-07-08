@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Håndbog: Information / servicedesk</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --green:#2563eb;--green-d:#1d4ed8;--green-bg:#eff6ff;--green-line:#bfdbfe;
+    --red:#c92835;--red-bg:#fef2f2;--red-line:#fecaca;--orange:#d97706;--orange-bg:#fff7ed;--orange-line:#fed7aa;
+    --grey:#5a6475;--grey-bg:#f4f4f5;--grey-line:#e4e4e7;--amber:#b45309;--amber-bg:#fffbeb;
+    --blue:#0a5cff;--gold:#ffad00;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  aside .back{display:block;color:var(--muted);text-decoration:none;font-size:12px;margin-bottom:8px}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--green);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-bg);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#d4d4d8}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--green);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .catgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  .cat{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  .cat .ch{padding:11px 15px;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px;font-size:14px}
+  .cat.ok .ch{background:#1f9d55}.cat.retry .ch{background:#d97706}.cat.support .ch{background:#4b515e}
+  .cat .cb{padding:12px 15px}.cat .cb p{margin:0;font-size:13.5px;color:#52525b}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  ul.plain{margin:12px 0 0;padding-left:0;list-style:none;display:grid;gap:8px}
+  ul.plain li{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 13px;font-size:14px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  .split .box{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fff}
+  .split .box h4{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+  .split .box.tool h4{color:var(--green)}.split .box.ops h4{color:var(--amber)}
+  .split .box ul{margin:0;padding-left:18px;font-size:13.5px;color:#52525b}.split .box li{margin:3px 0}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:var(--green-bg);border:1px solid var(--green-line);color:#1e40af;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+  .stop{background:var(--red-bg);border:1px solid var(--red-line);color:#991b1b;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.stop b{color:#7f1d1d}
+  table.qref{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  table.qref th,table.qref td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.qref th{background:#fafafa;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#52525b}
+  table.qref tr:last-child td{border-bottom:none}table.qref td b{color:#18181b}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}.catgrid,.split{grid-template-columns:1fr}main{padding:24px 18px 80px}}
+  @media print{@page{margin:14mm}html{scroll-behavior:auto}body{background:#fff;font-size:11.5pt}aside{display:none !important}.layout{display:block;max-width:none;margin:0}main{padding:0}.gcard,.chip,.note,.tip,.stop,.cat,table.qref,.split .box{box-shadow:none !important}.pbanner,.note,.tip,.stop,ol.steps li,ul.plain li,.gcard,.cat,.split .box{break-inside:avoid}h1,h2,h3.flow,.pbanner{break-after:avoid}.pbanner{-webkit-print-color-adjust:exact;print-color-adjust:exact}a{color:inherit;text-decoration:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <a class="back" href="index.html">← Alle personale-guides</a>
+    <div class="brand"><div class="lg">ℹ️</div><div><b>Information</b><small>Servicedesk for gæster</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Din rolle</a>
+      <div class="g">Sådan gør du</div>
+      <a href="#situationer">Situationer ved skranken</a>
+      <a href="#udsted">Udsted armbånd</a>
+      <a href="#snit">Jeres værktøjskasse vs festival-ops</a>
+      <a href="#hurtig">Hurtig-oversigt</a>
+      <div class="g">Når noget går galt</div>
+      <a href="#galt">Eskalering og kontakt</a>
+      <a href="#guides">Andre guides</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Håndbog · Information / servicedesk</div>
+      <h1>Information / servicedesk</h1>
+      <p class="lede">I er skranken for gæsterne. <b>I håndterer som udgangspunkt alle gæste-henvendelser selv.</b> I har adgang til FMS, så I slår gæster og billetter op og retter mangler den vej. Kun de meget tekniske sager går videre - og det er et skøn fra jeres områdeleder. Det I ikke selv kan, sender I det rigtige sted hen: LiveCloud (teknik) eller festivalens eget ops (sikkerhed, lost &amp; found, wayfinding).</p>
+      <hr class="rule">
+      <div class="cards">
+        <a class="gcard" href="#situationer"><span class="em">🎫</span><b>Situationer</b><small>Opslag, billet, adgang</small></a>
+        <a class="gcard" href="#snit"><span class="em">🧰</span><b>Værktøjskasse vs ops</b><small>Hvad er jeres, hvad routes</small></a>
+        <a class="gcard" href="#hurtig"><span class="em">⚡</span><b>Hurtig-oversigt</b><small>Alt på ét kort</small></a>
+        <a class="gcard" href="haandbog-gates.html"><span class="em">🎫</span><b>Gate-guide</b><small>Dem der sender til jer</small></a>
+      </div>
+      <div class="note" style="margin-top:16px"><b>Grundreglen ved skranken.</b> Lov aldrig en refusion eller et bestemt udfald på stedet. Penge verificeres i backend, aldrig ved skranken. Log gæstens detaljer, sig at det bliver kigget på, og eskalér.</div>
+      <div class="tip"><b>Gæster hos jer, staff og artister hos akkreditering.</b> Kommer en medarbejder eller artist til jer og har brug for hjælp, så bed dem gå til Akkreditering. Det er kun for at holde begge skranker fri: I tager gæsterne, akkreditering tager staff og artister.</div>
+    </section>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#1d4ed8,#1e3a8a)"><div class="av">🎫</div><div><div class="who">Sådan gør du</div><h2>Situationer ved skranken</h2><p>Find situationen, følg kortet, eskalér kun når det siger det.</p></div></div>
+
+    <h3 class="flow" id="situationer"><span class="g1">Sådan gør du</span>Situationer ved skranken</h3>
+    <div class="catgrid">
+      <div class="cat ok"><div class="ch">✓ Gæst kan ikke scannes ind</div><div class="cb"><p>Slå op på navn / email / scannable kode. Tjek at de er på den rigtige konto og evt. anden email. Find billetten, og <b>check ind manuelt.</b></p></div></div>
+      <div class="cat support"><div class="ch">→ Manglende billet / app helt nede</div><div class="cb"><p>Mest kritiske. Verificér identitet, sørg for en gyldig billet (opret gæsten hvis nødvendigt) og bind <b>selv</b> et armbånd (adgang + betaling bevares). Se "Udsted armbånd" nedenfor.</p></div></div>
+      <div class="cat ok"><div class="ch">✓ Ingen smartphone</div><div class="cb"><p><b>I håndterer det ved skranken.</b> Slå gæsten op eller opret dem, sørg for en gyldig billet, og bind et armbånd. Kommer de med en printet billet: tast nummeret ind eller scan den. Send dem <b>ikke</b> til akkrediteringsboden. Se "Udsted armbånd" nedenfor.</p></div></div>
+      <div class="cat support"><div class="ch">→ Forkert gate / camping uden camping-billet</div><div class="cb"><p>Løs det ved skranken eller henvis til den rigtige gate. Improvisér ikke adgang; er der tvivl, verificér først.</p></div></div>
+      <div class="cat retry"><div class="ch">↻ "Allerede checket ind" (gen-adgang)</div><div class="cb"><p>Normalt ved gen-indgang - luk ind. Ligner det billet-deling (samme billet, flere personer): hold gæsten, verificér, og eskalér til LiveCloud-supporten.</p></div></div>
+      <div class="cat retry"><div class="ch">↻ Billet gæsten kommer med</div><div class="cb"><p>Forkert konto/email, navn på billet, modtaget/overdraget billet: slå op, ret hvad I kan, ellers log og eskalér.</p></div></div>
+      <div class="cat support"><div class="ch">→ Betaling / refusion / "trukket forkert"</div><div class="cb"><p>Lov aldrig noget. Log navn/email, tid, beløb, terminal/vendor. Sig det løses samme dag. Giv det videre (områdeleder / POS eller command center).</p></div></div>
+      <div class="cat support"><div class="ch">→ Camping-scanner-problem meldt ind</div><div class="cb"><p>Camping-scannerne er ubemandede. Hjælp gæsten via opslag/manuel check-in, eller send en roamende supporter derud.</p></div></div>
+    </div>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#1d4ed8,#1e3a8a)"><div class="av">📿</div><div><div class="who">Sådan gør du</div><h2>Udsted armbånd</h2><p>For en gæst uden smartphone eller uden billet på skærmen.</p></div></div>
+
+    <h3 class="flow" id="udsted"><span class="g1">Sådan gør du</span>Udsted armbånd</h3>
+    <p class="ctx">Dette håndterer I selv ved skranken - gæsten skal <b>ikke</b> sendes til akkrediteringsboden (den tager sig af staff og artister). <b>I printer intet</b> - gæsten får et armbånd bundet til en gyldig billet i systemet.</p>
+    <ol class="steps">
+      <li><b>Find eller opret billetten i FMS.</b> Har gæsten en billet, slå den op på navn / email / scannable kode. Kommer gæsten med en <b>printet billet</b>, så tast billetnummeret ind eller scan den med scanneren koblet til laptoppen. Er der ingen profil eller billet, så <b>opret gæsten</b> og sørg for at der er en gyldig billet til dem. Verificér identiteten.</li>
+      <li><b>Bind et armbånd</b> til den fundne / oprettede profil, og bekræft ejer-navnet.</li>
+      <li>Ved dårlig forbindelse: vent på et tydeligt "lykkedes" før du prøver igen - <b>dobbelt-bind aldrig</b> et armbånd.</li>
+      <li>Armbåndet er nu gæstens billet: adgang ved gaten og betaling (Beats) følger med.</li>
+    </ol>
+    <div class="tip">I skal bruge: <b>FMS-adgang</b> (opret / opslag / bind), <b>armbånd</b>, og en <b>scanner koblet til laptoppen</b> til printede billetter. Ingen printer - I udsteder ikke QR-koder. De detaljerede binding-trin står i <a href="akkreditering-armbaand.html">Armbånd-guiden</a>.</div>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#1d4ed8,#1e3a8a)"><div class="av">🧰</div><div><div class="who">Sådan gør du</div><h2>Jeres værktøjskasse vs festival-ops</h2><p>Løs det der er jeres. Send resten det rigtige sted hen.</p></div></div>
+
+    <h3 class="flow" id="snit"><span class="g1">Sådan gør du</span>Jeres værktøjskasse vs festival-ops</h3>
+    <p class="ctx">Skil det I selv løser med LiveCloud-værktøjerne fra det der hører til festivalens egen drift.</p>
+    <div class="split">
+      <div class="box tool"><h4>🧰 Jeres LiveCloud-værktøjskasse</h4><ul>
+        <li>Opslag i FMS på navn/email/kode</li>
+        <li>Manuel check-in / check-ud</li>
+        <li>Opret gæst + bind armbånd til en gyldig billet (I gør det selv)</li>
+        <li>Billet-opslag og -rettelser I kan lave</li>
+        <li>Offline-QR / Festival-ID hjælp</li>
+      </ul></div>
+      <div class="box ops"><h4>➡️ Send til festival-ops</h4><ul>
+        <li>Mistet barn / sårbar gæst → festivalens sikkerhed</li>
+        <li>Lost &amp; found / glemte sager</li>
+        <li>Wayfinding, program, generelle spørgsmål</li>
+        <li>Tilgængelighed / særlig adgang</li>
+        <li>Klager, crowd, orden</li>
+      </ul></div>
+    </div>
+    <div class="tip">Teknik-problemer (scanner, app, terminal, backend) er LiveCloud - de går til den embedded LiveCloud-supporter eller command center, ikke til festival-ops.</div>
+
+    <h3 class="flow" id="hurtig"><span class="g1">Sådan gør du</span>Hurtig-oversigt</h3>
+    <table class="qref">
+      <tr><th>Gæsten har</th><th>Gør dette</th></tr>
+      <tr><td>Billet kan ikke scannes</td><td>Opslag (navn/email/kode) → manuel check-in</td></tr>
+      <tr><td>Ingen billet / app nede</td><td>Verificér ID → sørg for gyldig billet → bind armbånd (se Udsted armbånd)</td></tr>
+      <tr><td>Ingen smartphone</td><td>Opret/find billet + bind armbånd; printet billet: tast/scan (se Udsted armbånd)</td></tr>
+      <tr><td>Billet-problem (konto/navn/overdraget)</td><td>Slå op, ret, ellers log + eskalér</td></tr>
+      <tr><td>Betaling/refusion-spørgsmål</td><td>Lov intet, log, send videre</td></tr>
+      <tr><td>Mistet barn / lost &amp; found / info</td><td>Festival-ops (ikke LiveCloud)</td></tr>
+    </table>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#b45309,#92400e)"><div class="av">🆘</div><div><div class="who">Når noget går galt</div><h2>Eskalering og kontakt</h2><p>Teknik til LiveCloud, drift til festival-ops.</p></div></div>
+
+    <h3 class="flow" id="galt"><span class="g1">Når noget går galt</span>Eskalering og kontakt</h3>
+    <table class="qref">
+      <tr><th>Problem</th><th>Ring / gå til</th></tr>
+      <tr><td><b>Teknik: scanner / app / backend</b></td><td>LiveCloud-supporten (embedded) → command center</td></tr>
+      <tr><td><b>Billet-deling / mistænkelig adgang</b></td><td>LiveCloud-supporten → command center</td></tr>
+      <tr><td><b>Betaling / Beats / refusion</b></td><td>Log → områdeleder / POS eller command center; backend retter i ledger</td></tr>
+      <tr><td><b>Sikkerhed / mistet barn / crowd</b></td><td>Festivalens eget ops</td></tr>
+      <tr><td><b>Akut</b></td><td>Kommandocentral 91 54 40 04</td></tr>
+    </table>
+    <div class="stop"><b>Aldrig ved skranken:</b> lov ikke refusioner eller udfald, og luk ikke nogen ind på tvivl. Verificér identitet og eskalér først.</div>
+
+    <h3 class="flow" id="guides"><span class="g1">Detaljer</span>Andre guides</h3>
+    <div class="cards">
+      <a class="gcard" href="haandbog-gates.html"><span class="em">🎫</span><b>Gate &amp; scanner</b><small>Dem der sender til jer</small></a>
+      <a class="gcard" href="haandbog-support.html"><span class="em">🏃</span><b>Roaming support</b><small>Runnere på området</small></a>
+      <a class="gcard" href="scanner.html"><span class="em">📱</span><b>Scanner</b><small>Trin for trin</small></a>
+      <a class="gcard" href="festival-app.html"><span class="em">📲</span><b>Festival-app</b><small>Så du kan hjælpe gæsten</small></a>
+    </div>
+
+    <div class="footer">Ringsted Festival 2026 · Håndbog for Information / servicedesk. De konkrete navne, bemanding og eskalering står i roster'en / kontaktkortet (Duty &amp; On-Call Plan). Bekræftes på park-testdagen før print.</div>
+  </main>
+</div>
+</body>
+</html>

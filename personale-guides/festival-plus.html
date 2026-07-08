@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Festival+ Guide: tiered membership</title>
+<style>
+  :root{
+    --paper:#F2F4F7;--ink:#161A21;--muted:#5C6675;--faint:#8A94A2;--line:#E4E8ED;--line-2:#D2D8E0;--card:#FFFFFF;
+    --accent:#A9781A;--accent-ink:#7E5910;--accent-bg:#F7EFDD;--primary:#1B212A;
+    --ok:#2C7A57;--ok-bg:#E7F3EC;--beats:#9A6A12;--beats-bg:#F6EEDD;--danger:#B02330;
+    --guest:#A9781A;--guest-bg:#F7EFDD;--op:#0E7C86;--op-bg:#E1F1F2;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}body{margin:0}
+  .wrap{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:clamp(18px,4vw,52px) clamp(14px,4vw,36px)}
+  .doc{max-width:940px;margin:0 auto}
+  h1{font-size:clamp(1.9rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0}
+  h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;margin:0}
+  p{margin:0 0 .7em;max-width:72ch}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+  .lead{font-size:1.06rem;color:var(--muted);max-width:70ch}
+  .ui{font-weight:600;color:var(--ink);background:#EEF1F4;border:1px solid var(--line);border-radius:5px;padding:0 6px;white-space:nowrap;font-size:.92em}
+  code{font-family:var(--mono);font-size:.85em}
+  .breadcrumb{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:16px}
+  .breadcrumb a{color:var(--accent-ink);text-decoration:none}
+  .masthead{border-bottom:3px solid var(--ink);padding-bottom:22px;margin-bottom:20px}
+  .masthead .eyebrow{display:block;margin-bottom:10px}
+  .pchip{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap}
+  .pchip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pchip.guest{background:var(--guest-bg);color:var(--accent-ink)}.pchip.op{background:var(--op-bg);color:#0A5158}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-top:3px solid var(--accent);margin:16px 0 4px}
+  .pcard h3{font-size:1rem;margin:0 0 6px}.pcard p{font-size:.9rem;color:var(--muted);margin:0}
+  section.feature{margin-top:46px}
+  .feature>.head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
+  .feature>.head .num{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--accent)}
+  .feature>.head .tags{margin-left:auto}
+  .overview{color:var(--muted);font-size:.98rem;margin:4px 0 6px;max-width:74ch}
+  .sub-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:24px 0 14px;display:flex;align-items:center;gap:10px}
+  .sub-label::after{content:"";flex:1;height:1px;background:var(--line-2)}
+  .stepwrap{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+  @media(min-width:780px){.stepwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:30px}}
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+  ol.steps>li{counter-increment:s;display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}
+  ol.steps>li::before{content:counter(s);font-family:var(--mono);font-weight:700;font-size:.76rem;color:#fff;background:var(--accent);border-radius:50%;width:23px;height:23px;display:grid;place-items:center;margin-top:1px}
+  ol.steps>li>div>p{margin:0}ol.steps>li>div>p+p{margin-top:3px}
+  .hint{color:var(--muted);font-size:.87rem}
+  .result{color:var(--ok);font-size:.87rem;font-weight:600}.result::before{content:"→ "}
+  .note{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:.9rem}
+  .note.info{background:#EAF1F6;border-color:#3C6E93}
+  .note p{margin:0;max-width:none}.note p+p{margin-top:.5em}
+  .shot .cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+  /* tier cards illustration */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:560px){.tiers{grid-template-columns:1fr}}
+  .tier{border:1px solid var(--line-2);border-radius:14px;padding:14px;background:#fff}
+  .tier.best{border-color:var(--accent);box-shadow:0 6px 20px -12px rgba(169,120,26,.5)}
+  .tier .tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;color:var(--accent-ink);font-weight:700}
+  .tier .nm{font-weight:800;font-size:1.05rem;margin:2px 0}
+  .tier .sub{font-size:.76rem;color:var(--muted);min-height:2.6em}
+  .tier ul{list-style:none;margin:10px 0 0;padding:0;font-size:.78rem;color:var(--ink);display:flex;flex-direction:column;gap:5px}
+  .tier li{display:flex;gap:6px}.tier li::before{content:"✓";color:var(--ok);font-weight:800}
+  .tier .beats{color:var(--beats);font-weight:700}
+  /* phone */
+  .phone{width:214px;margin:0 auto;border-radius:30px;padding:6px;background:#12161C;box-shadow:0 14px 34px -16px rgba(0,0,0,.55)}
+  .phone .scr{border-radius:24px;overflow:hidden;background:#0C0F14}
+  .phone .top{font-family:var(--mono);font-size:.56rem;color:rgba(255,255,255,.5);text-align:center;padding:7px 8px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06)}
+  .phone .body{min-height:250px;padding:20px 18px;color:#EAEFF5;background:radial-gradient(130% 70% at 50% -10%,#3A3320 0%,#0C0F14 62%);display:flex;flex-direction:column;gap:11px}
+  .phone .eyb{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(233,196,106,.75);text-align:center}
+  .phone .h{font-weight:700;font-size:1rem;text-align:center}
+  .phone .row{display:flex;justify-content:space-between;font-size:.78rem;color:rgba(255,255,255,.75);border-top:1px solid rgba(255,255,255,.08);padding:6px 0}
+  .phone .row b{color:#fff}
+  .phone .beats{color:#E9C46A;font-weight:700}
+  .phone .pbtn{margin-top:auto;background:#E9C46A;color:#171410;border-radius:10px;padding:10px;text-align:center;font-weight:800;font-size:.83rem}
+  .phone .badge{align-self:center;background:linear-gradient(90deg,#E9C46A,#C9973F);color:#171410;font-weight:800;font-size:.72rem;letter-spacing:.08em;padding:5px 12px;border-radius:100px}
+  .cap2{text-align:center;font-size:.72rem;color:var(--faint);margin-top:8px}
+  .foot{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:.82rem}
+  .foot .mono{color:var(--muted);font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="doc">
+  <div class="breadcrumb"><a href="index.html">Personale-guides</a> / Festival+</div>
+  <header class="masthead">
+    <span class="eyebrow">LiveCloud · Festival+ (membership)</span>
+    <h1>Festival+ Guide</h1>
+    <p class="lead" style="margin-top:12px"><strong>Festival+</strong> is the optional, tiered <strong>membership</strong>: the guest picks a pass (Spark / Pulse / Power) that bundles a ticket, camping, Beats and VIP perks, and pays with Beats. It is <em>not</em> the same as the required 75 kr Festival Pass. When active, the guest wears a <strong>FESTIVAL+</strong> badge.</p>
+  </header>
+
+  <div class="pcard"><h3><span class="pchip guest">Guest</span> &nbsp; <span class="pchip op">Admin</span></h3><p>Guest (app) chooses a tier and becomes a member, paying with Beats. Admin (FMS) configures the tiers as products; membership is granted automatically on purchase.</p></div>
+
+  <div class="note info"><p><strong>Festival+ vs Festival Pass.</strong> Festival Pass = the required 75 kr entry credential (see its guide). Festival+ = an optional membership that <em>includes</em> a ticket + perks and is paid in Beats. Different products, different purpose.</p></div>
+
+  <!-- THE TIERS -->
+  <section class="feature" id="tiers">
+    <div class="head"><span class="num">THE TIERS</span><h2>Spark · Pulse · Power</h2></div>
+    <p class="overview">Three membership levels. What each includes (defaults, which the festival can tune in FMS):</p>
+    <div class="tiers">
+      <div class="tier"><div class="tag">EASY START</div><div class="nm">Spark</div><div class="sub">A simple start to feel the vibe.</div><ul><li>Festival ticket</li><li><span class="beats">100 Beats</span></li><li>Early ticket access</li></ul></div>
+      <div class="tier best"><div class="tag">BEST VALUE</div><div class="nm">Pulse</div><div class="sub">Stay close with a full weekend pass.</div><ul><li>Ticket &amp; camping spot</li><li><span class="beats">400 Beats</span></li><li>VIP early access</li><li>Backstage tours</li><li>Priority support</li></ul></div>
+      <div class="tier"><div class="tag">ULTIMATE VIP</div><div class="nm">Power</div><div class="sub">Experience it all with full VIP benefits.</div><ul><li>Ticket &amp; camping spot</li><li><span class="beats">1.000 Beats</span></li><li>VIP early access</li><li>Private lounge access</li><li>All-access VIP pass</li></ul></div>
+    </div>
+  </section>
+
+  <!-- GUEST -->
+  <section class="feature" id="guest">
+    <div class="head"><span class="num">PART 1</span><h2>Guest: become a member (app)</h2><span class="tags"><span class="pchip guest">native app</span></span></div>
+    <p class="overview">From the home screen the guest taps <span class="ui">Se Festival+</span>, picks a tier, confirms, and pays with Beats. The membership then shows as active with a badge.</p>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>On the home or settings screen, tap <span class="ui">Se Festival+</span> (“<span class="ui">Become part of the festival</span>”).</p></div></li>
+        <li><div><p><span class="ui">Choose your pass</span>: Spark, Pulse or Power. See <span class="ui">What you get</span>, then <span class="ui">Continue</span>.</p></div></li>
+        <li><div><p><span class="ui">Confirm membership</span>: plan, <span class="ui">Full season</span> duration, expiry, and payment from <span class="ui">Your Beats</span> (with <span class="ui">Top up</span> if short). Tap <span class="ui">Become a member</span>.</p></div></li>
+        <li><div><p><span class="ui">Welcome to {tier}</span>: “Your membership is active.”</p><p class="result">The guest now carries a <strong>FESTIVAL+</strong> badge and the tier’s perks (ticket, camping, Beats, VIP).</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">App · confirm &amp; active</div>
+        <div class="phone"><div class="scr"><div class="top">Festival+</div>
+          <div class="body">
+            <div class="eyb">Confirm membership</div>
+            <div class="h">Pulse</div>
+            <div class="row"><span>Duration</span><b>Full season</b></div>
+            <div class="row"><span>Expires</span><b>01 Aug 2026</b></div>
+            <div class="row"><span>Your Beats</span><span class="beats">400 Beats</span></div>
+            <div class="pbtn">Become a member</div>
+            <div class="badge">★ FESTIVAL+ PREMIUM</div>
+          </div>
+        </div></div>
+        <div class="cap2">Confirm with Beats → membership active + FESTIVAL+ badge.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section class="feature" id="admin">
+    <div class="head"><span class="num">PART 2</span><h2>Admin: tiers &amp; grants (FMS)</h2><span class="tags"><span class="pchip op">back-office</span></span></div>
+    <div class="stepwrap" style="grid-template-columns:1fr">
+      <ol class="steps">
+        <li><div><p>The three tiers are <strong>products</strong> configured for the summit (name, benefits, Beats included, price). The app falls back to Spark/Pulse/Power defaults if none are set.</p></div></li>
+        <li><div><p>Membership is <strong>granted automatically on purchase</strong>. When the guest’s order is confirmed, the subscription entitlement (active + tier + expiry) is created. No manual step per guest.</p><p class="result">The guest’s <span class="ui">Status</span> shows <span class="ui">Active</span> with an <span class="ui">Expires</span> date; the badge appears in the app.</p></div></li>
+      </ol>
+    </div>
+    <div class="note"><p>Festival+ was built and merged to main in an earlier session (verified this session, not re-built). It is a <strong>tenant loyalty membership</strong>, distinct from the LiveCloud Festival Pass access fee.</p></div>
+  </section>
+
+  <footer class="foot">
+    <p>Festival+: the tiered membership (Spark / Pulse / Power) paid in Beats, granted on purchase. Tier data from the app’s membership config; screens are 1:1 recreations with exact labels. Separate from the Festival Pass (see its guide).</p>
+  </footer>
+</div></div>
+</body>
+</html>

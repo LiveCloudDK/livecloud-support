@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Guide til Scanner: indgang og check-in</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --green:#1f8a4c;--green-d:#166534;--green-bg:#ecfdf5;--green-line:#a7f3d0;
+    --red:#c92835;--red-bg:#fef2f2;--red-line:#fecaca;--orange:#d97706;--orange-bg:#fff7ed;--orange-line:#fed7aa;
+    --grey:#5a6475;--grey-bg:#f4f4f5;--grey-line:#e4e4e7;--amber:#b45309;--amber-bg:#fffbeb;
+    --blue:#0a5cff;--gold:#ffad00;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--green);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-bg);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#d4d4d8}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner.scan{background:linear-gradient(100deg,#166534,#14532d)}.pbanner.trouble{background:linear-gradient(100deg,#b45309,#92400e)}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--green);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .screen{padding:16px;background:#fff}
+  .device{max-width:300px;margin:0 auto}
+  .scan{background:#0b0d12;border-radius:16px;padding:16px 14px;text-align:center;color:#fff}
+  .scan .top{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:#c9cbd6;margin-bottom:12px}
+  .modepill{border-radius:999px;padding:3px 11px;font-size:11px;font-weight:800;letter-spacing:.03em}
+  .modepill.in{background:#1f8a4c;color:#fff}.modepill.out{background:#c92835;color:#fff}.modepill.bi{background:#5a6475;color:#fff}
+  .vf{width:150px;height:150px;margin:6px auto;border-radius:18px;position:relative;background:rgba(255,255,255,.03)}
+  .vf i{position:absolute;width:24px;height:24px;border:3px solid #4ade80}
+  .vf .tl{top:10px;left:10px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+  .vf .tr{top:10px;right:10px;border-left:0;border-bottom:0;border-radius:0 6px 0 0}
+  .vf .bl{bottom:10px;left:10px;border-right:0;border-top:0;border-radius:0 0 0 6px}
+  .vf .br{bottom:10px;right:10px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+  .vf .qr{position:absolute;inset:0;margin:auto;width:70px;height:70px;border-radius:8px;opacity:.5;background:conic-gradient(#fff 90deg,#0b0d12 90deg 180deg,#fff 180deg 270deg,#0b0d12 270deg);background-size:17px 17px}
+  .scan .stopbtn{background:#c92835;color:#fff;border-radius:11px;padding:10px;font-weight:800;font-size:13px;margin-top:12px}
+  .res{border-radius:16px;overflow:hidden;max-width:320px;margin:10px auto;box-shadow:var(--shadow)}
+  .res .head{padding:20px 16px;text-align:center;color:#fff}
+  .res .head .big{font-size:34px;line-height:1}.res .head b{display:block;font-size:15px;margin-top:8px;letter-spacing:-.01em}
+  .res.ok .head{background:#1f9d55}.res.retry .head{background:#d97706}.res.support .head{background:#3f4551}
+  .res .band{padding:12px;text-align:center;font-weight:800;font-size:13px;letter-spacing:.06em;color:#fff}
+  .res.ok .band{background:#166534}.res.retry .band{background:#b45309}.res.support .band{background:#2b2f38}
+  .catgrid{display:grid;grid-template-columns:1fr;gap:12px;margin:12px 0}
+  .cat{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  .cat .ch{padding:11px 15px;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px;font-size:14px}
+  .cat.ok .ch{background:#1f9d55}.cat.retry .ch{background:#d97706}.cat.support .ch{background:#4b515e}
+  .cat .cb{padding:12px 15px}.cat .cb .msg{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .cat .cb .msg .m{font-size:12.5px;font-weight:600;border-radius:7px;padding:3px 9px;background:#fafafa;border:1px solid var(--line);color:#3f3f46}
+  .cat .cb p{margin:0;font-size:13.5px;color:#52525b}
+  .armband{background:#0f2a1e;border-radius:14px;padding:16px 14px;color:#fff;max-width:300px;margin:10px auto}
+  .armband .h{text-align:center;font-weight:800;letter-spacing:.05em;font-size:15px;background:#16a34a;border-radius:9px;padding:8px;margin-bottom:10px}
+  .armband .acc{display:flex;align-items:center;gap:10px;background:#12331f;border:1px solid #1f5133;border-radius:10px;padding:9px 11px;margin-bottom:7px}
+  .armband .acc .ic{width:26px;height:26px;border-radius:7px;background:#134e2b;color:#6ee7b7;display:grid;place-items:center;font-size:12px;flex:none}
+  .armband .acc b{font-size:12.5px;display:block}.armband .acc small{color:#9fb8ab;font-size:11px}
+  .armband .cta{background:#16a34a;border-radius:10px;padding:10px;text-align:center;font-weight:800;font-size:13px;margin-top:4px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  ul.plain{margin:12px 0 0;padding-left:0;list-style:none;display:grid;gap:8px}
+  ul.plain li{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 13px;font-size:14px}
+  .badge{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--green);color:#fff;font-size:10.5px;font-weight:700;vertical-align:1px;margin-right:3px}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+  .stop{background:var(--red-bg);border:1px solid var(--red-line);color:#991b1b;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.stop b{color:#7f1d1d}
+  table.qref{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  table.qref th,table.qref td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.qref th{background:#fafafa;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#52525b}
+  table.qref tr:last-child td{border-bottom:none}table.qref td b{color:#18181b}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}main{padding:24px 18px 80px}}
+  /* Print: rent A4-ark uden sidebar, sort på hvidt, ingen skygger */
+  @media print{
+    @page{margin:14mm}
+    html{scroll-behavior:auto}
+    body{background:#fff;font-size:11.5pt}
+    aside{display:none !important}
+    .layout{display:block;max-width:none;margin:0}
+    main{padding:0}
+    .frame,.gcard,.chip,.note,.tip,.stop,.cat,.armband,table.qref{box-shadow:none !important}
+    .pbanner,.frame,.note,.tip,.stop,ol.steps li,ul.plain li,.gcard,.cat,.armband,h3.flow{break-inside:avoid}
+    h1,h2,h3.flow,.pbanner{break-after:avoid}
+    .pbanner{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    a{color:inherit;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">✓</div><div><b>Scanner</b><small>Indgang og check-in</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du den</a>
+      <div class="g">Kom i gang</div>
+      <a href="#par">Par scanneren</a>
+      <a href="#login">Log ind</a>
+      <a href="#klar">Klar til at scanne</a>
+      <div class="g">Scan en gæst</div>
+      <a href="#scan">Scan-skærmen</a>
+      <a href="#resultater">Resultater</a>
+      <a href="#flere">Flere billetter</a>
+      <a href="#armband">Armbånd (NFC)</a>
+      <div class="g">Godt at vide</div>
+      <a href="#retning">Tjek ind og tjek ud</a>
+      <a href="#net">Kræver forbindelse</a>
+      <a href="#indstillinger">Indstillinger og frakobl</a>
+      <a href="#qref">Hurtig-oversigt</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide · du står ved gaten</div>
+      <h1>Scanner: indgang og check-in</h1>
+      <p class="lede">Du scanner gæsternes billetter og armbånd ved gaten. Guiden viser det, du ser på skærmen: <b>grøn</b> luk ind, <b>orange</b> prøv igen, <b>grå</b> send til supportdesk. Knap-navne og beskeder står som i appen, fx <span class="chip">Klar til at scanne</span>.</p>
+      <hr class="rule">
+      <div class="cards">
+        <a class="gcard" href="#par"><span class="em">🔗</span><b>Kom i gang</b><small>Par, log ind, klar</small></a>
+        <a class="gcard" href="#scan"><span class="em">🎫</span><b>Scan en gæst</b><small>Scan-skærm og resultater</small></a>
+        <a class="gcard" href="#armband"><span class="em">📶</span><b>Armbånd (NFC)</b><small>Samme resultat som QR</small></a>
+        <a class="gcard" href="#qref"><span class="em">⚡</span><b>Hurtig-oversigt</b><small>Alle resultater på ét kort</small></a>
+      </div>
+      <div class="note" style="margin-top:16px"><b>Grundreglen ved gaten.</b> Grøn betyder luk ind. Orange betyder prøv at scanne igen. Grå betyder send gæsten til supportdesk. Er du i tvivl, så luk ikke ind, send til supportdesk.</div>
+    </section>
+
+    <div class="pbanner scan"><div class="av">🔗</div><div><div class="who">Kom i gang</div><h2>Par enheden, log ind, bliv klar</h2><p>Scanneren pares til én gate med en kode fra admin.</p></div></div>
+
+    <h3 class="flow" id="par"><span class="g1">Kom i gang</span>Par scanneren</h3>
+    <p class="ctx">Første gang skal enheden pares med en gate. Du får en 9-cifret kode af admin.</p>
+    <ol class="steps">
+      <li>På <span class="chip">Par denne scanner</span> vælger du <span class="chip">Scan QR-kode</span> og scanner admins QR, eller <span class="chip">Indtast kode manuelt</span>.</li>
+      <li>Skriv den <b>9-cifrede parringskode</b> (og evt. et enhedsnavn) og tryk <span class="chip">Par enhed</span>.</li>
+      <li>Du ser <span class="chip">Parring lykkedes</span> med festival og gate. Tryk <span class="chip">Fortsæt</span>.</li>
+    </ol>
+    <div class="note">Er koden udløbet eller brugt, siger appen det (fx "Denne kode er udløbet. Bed admin om en ny."). Bed admin om en frisk kode.</div>
+
+    <h3 class="flow" id="login"><span class="g1">Kom i gang</span>Log ind</h3>
+    <ol class="steps">
+      <li>På <span class="chip">Velkommen tilbage</span> skriver du <span class="chip">Brugernavn</span> og <span class="chip">Adgangskode</span>.</li>
+      <li>Tryk <span class="chip">Log Ind</span>. (Enheden skal være paret først.)</li>
+    </ol>
+
+    <h3 class="flow" id="klar"><span class="g1">Kom i gang</span>Klar til at scanne</h3>
+    <p class="ctx">Forsiden viser hvor du står og hvad du scanner: <b>Event</b>, <b>Lokation</b> (gate og retning), <b>Profil</b> og <b>Adgang</b>.</p>
+    <ol class="steps">
+      <li>Tjek at Lokation og retning passer til din gate.</li>
+      <li>Tryk <span class="chip">Klar til at scanne</span> for at åbne scanneren.</li>
+      <li>Har enheden ingen NFC-chip, siger appen det. Du kan stadig scanne QR-koder; armbånd kan så ikke aflæses.</li>
+    </ol>
+
+    <div class="pbanner scan" style="background:linear-gradient(100deg,#166534,#14532d)"><div class="av">🎫</div><div><div class="who">Scan en gæst</div><h2>Scan, læs resultatet, handl</h2><p>Grøn luk ind. Orange prøv igen. Grå til supportdesk.</p></div></div>
+
+    <h3 class="flow" id="scan"><span class="g1">Scan en gæst</span>Scan-skærmen</h3>
+    <p class="ctx">Hold kameraet mod gæstens QR-kode, eller hold et NFC-armbånd tæt på. Øverst viser et badge hvad du gør: <span class="chip">Tjek ind</span> (grøn), <span class="chip">Tjek ud</span> (rød) eller <span class="chip">Tovejs</span>.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Scanner · Scanning</span></div>
+      <div class="screen"><div class="device"><div class="scan">
+        <div class="top"><span>Gate Nord</span><span class="modepill in">Tjek ind</span><span>🔦</span></div>
+        <div class="vf"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><div class="qr"></div></div>
+        <div class="stopbtn">Stop scanner</div>
+      </div></div></div></div>
+    <ol class="steps">
+      <li>Ret kameraet mod QR-koden. Scanneren læser den automatisk.</li>
+      <li>Brug <span class="chip">Tænd lommelygte</span> i mørke, og bed gæsten skrue lysstyrken op og holde telefonen stille.</li>
+      <li>Efter et resultat er du klar til næste. Ved grønt går den selv videre (<span class="chip">Næste billet</span>) efter et par sekunder.</li>
+    </ol>
+    <div class="tip">På Zebra-terminaler med hardware-scanner: <span class="chip">Tryk på aftrækkeren for at scanne</span>. Er kameraet sat på pause for at spare batteri, så tryk på skærmen for at genoptage.</div>
+
+    <h3 class="flow" id="resultater"><span class="g1">Scan en gæst</span>Resultater</h3>
+    <p class="ctx">Hvert scan giver ét af tre farve-resultater med en handling nederst. Farven fortæller dig hvad du skal gøre.</p>
+    <div class="frame"><div class="screen"><div class="device">
+      <div class="res ok"><div class="head"><div class="big">✓</div><b>Billet gyldig</b></div><div class="band">LUK GÆSTEN IND</div></div>
+    </div></div></div>
+    <div class="catgrid">
+      <div class="cat ok"><div class="ch">🟢 Grøn: LUK GÆSTEN IND</div><div class="cb"><div class="msg"><span class="m">Billet gyldig</span><span class="m">Tjekket ind</span><span class="m">Tjekket ud</span></div><p>Billetten er gyldig. Luk gæsten ind (eller registrér som tjekket ud ved en udgang).</p></div></div>
+      <div class="cat retry"><div class="ch">🟠 Orange: PRØV AT SCANNE IGEN</div><div class="cb"><div class="msg"><span class="m">Allerede tjekket ind</span><span class="m">Ukendt kode</span><span class="m">Scanning mislykkedes</span><span class="m">NFC-tag kunne ikke læses</span></div><p>Noget gik galt med selve scanningen, eller billetten er allerede tjekket ind. Scan igen, ret QR/lys, prøv armbåndet igen.</p></div></div>
+      <div class="cat support"><div class="ch">⚪ Grå: SEND TIL SUPPORTDESK</div><div class="cb"><div class="msg"><span class="m">Billet er til en anden gate</span><span class="m">Ingen adgang</span><span class="m">Adgangstype ikke tilladt ved denne port</span><span class="m">Gæsten er ikke tjekket ind</span><span class="m">Eventet er ikke i gang</span><span class="m">Ingen gyldige billetter</span></div><p>Adgangen skal afklares. Luk ikke ind. Send gæsten til supportdesk.</p></div></div>
+    </div>
+    <div class="stop"><b>Er du i tvivl, så luk ikke ind.</b> Grå resultater afgøres ikke ved gaten. Send gæsten til supportdesk.</div>
+
+    <h3 class="flow" id="flere"><span class="g1">Scan en gæst</span>Flere billetter</h3>
+    <p class="ctx">Har gæsten flere billetter på samme kode, viser appen dem i en liste, så du kan vælge hvilke der skal tjekkes ind.</p>
+    <ol class="steps">
+      <li>Ved <span class="chip">Flere billetter fundet</span> ser du billetterne delt i <b>ikke tjekket ind</b> og <b>tjekket ind</b>.</li>
+      <li>Hver billet viser hvem den gælder, type og status, fx <span class="chip">Gyldig her</span>, <span class="chip">Allerede brugt</span> eller <span class="chip">Gyldig ved en anden indgang</span>.</li>
+      <li>Vælg dem der skal ind, og tryk <span class="chip">Tjek ind</span> (eller <span class="chip">Tjek ud</span>).</li>
+    </ol>
+
+    <h3 class="flow" id="armband"><span class="g1">Scan en gæst</span>Armbånd (NFC)</h3>
+    <p class="ctx">Et NFC-armbånd scannes på præcis samme måde som en QR-kode. Hold armbåndet tæt på scanneren i stedet for at rette kameraet mod en QR. Du får det <b>samme</b> farve-resultat som ved QR: grøn luk ind, orange prøv igen, grå til supportdesk. Der er ingen særskilt armbånds-skærm.</p>
+    <ol class="steps">
+      <li>Hold armbåndet tæt på scanneren. Det bruger den samme scan-skærm som QR.</li>
+      <li>Læs farve-resultatet og handl på det, præcis som ved en QR-billet.</li>
+      <li>Kan båndet ikke aflæses, viser appen orange <span class="chip">NFC-tag kunne ikke læses</span>. Prøv igen, eller scan gæstens QR-kode i stedet.</li>
+      <li>Har enheden ingen NFC-chip, kan armbånd ikke aflæses. Brug QR-koden.</li>
+    </ol>
+
+    <div class="pbanner trouble"><div class="av">ℹ️</div><div><div class="who">Godt at vide</div><h2>Retning, forbindelse og enheden</h2><p>Tjek ind eller ud, hvorfor scanneren kræver net, og hvordan du frakobler.</p></div></div>
+
+    <h3 class="flow" id="retning"><span class="g1">Godt at vide</span>Tjek ind og tjek ud</h3>
+    <ul class="plain">
+      <li><b>Fast gate:</b> Er gaten sat til kun indgang eller kun udgang, scanner du altid samme vej. Der er ingen knap at skifte.</li>
+      <li><b>Tovejs-gate:</b> Badgeet viser <span class="chip">Tovejs</span>, og appen vælger selv ind eller ud (<span class="chip">Automatisk</span>) ud fra gæstens status. Du kan tvinge <span class="chip">Check ind</span> eller <span class="chip">Check ud</span> fra forsiden.</li>
+    </ul>
+
+    <h3 class="flow" id="net"><span class="g1">Godt at vide</span>Kræver forbindelse</h3>
+    <div class="stop"><b>Scanneren kræver netværk.</b> Der er ingen offline-liste. Er der ingen forbindelse, bliver scanningen afbrudt uden resultat. Vent til nettet er tilbage og scan igen. Meld vedvarende netproblemer videre.</div>
+
+    <h3 class="flow" id="indstillinger"><span class="g1">Godt at vide</span>Indstillinger og frakobl</h3>
+    <ul class="plain">
+      <li>Under <span class="chip">Profil</span> ser du <span class="chip">Tilladelser</span>, <span class="chip">Event</span>, <span class="chip">Lokation</span> og <span class="chip">Indstillinger</span> (hardware-scanner, NFC, sprog, version).</li>
+      <li>Skal enheden flyttes til en anden gate/festival: <span class="chip">Frakobl denne enhed</span>. Så skal den pares på ny med en frisk kode.</li>
+    </ul>
+
+    <h3 class="flow" id="qref"><span class="g1">Opslag</span>Hurtig-oversigt</h3>
+    <table class="qref">
+      <tr><th>Du ser</th><th>Farve</th><th>Gør sådan</th></tr>
+      <tr><td><b>Billet gyldig</b> · <b>Tjekket ind</b> / <b>Tjekket ud</b></td><td>Grøn</td><td>Luk gæsten ind (eller tjekket ud).</td></tr>
+      <tr><td><b>Allerede tjekket ind</b> · <b>Ukendt kode</b> · <b>Scanning mislykkedes</b> · <b>NFC-tag kunne ikke læses</b></td><td>Orange</td><td>Prøv at scanne igen. Ret QR/lys, prøv armbåndet igen.</td></tr>
+      <tr><td><b>Billet er til en anden gate</b> · <b>Ingen adgang</b> · <b>Adgangstype ikke tilladt</b> · <b>Gæsten er ikke tjekket ind</b> · <b>Eventet er ikke i gang</b> · <b>Ingen gyldige billetter</b></td><td>Grå</td><td>Luk ikke ind. Send til supportdesk.</td></tr>
+      <tr><td><b>Flere billetter fundet</b></td><td>Liste</td><td>Vælg billetterne og tjek ind.</td></tr>
+      <tr><td><b>Armbånd (NFC)</b></td><td>Som QR</td><td>Samme grøn/orange/grå resultat som en QR-scanning.</td></tr>
+      <tr><td>Intet resultat / scanning afbrudt</td><td>Net</td><td>Ingen forbindelse. Vent og scan igen.</td></tr>
+    </table>
+
+    <div class="footer">LiveCloud · Ringsted Festival. Guide til scanner-appen (indgang og check-in). Skærme, beskeder og knap-navne er hentet fra den faktiske scanner-app. Barpersonale: se POS-guiden. Gæste-support: se Festival App-guiden.</div>
+  </main>
+</div>
+</body>
+</html>

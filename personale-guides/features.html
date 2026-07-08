@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Complete Operations Guide — Festival Pass, Login Link, Beats, Pant &amp; Garderobe</title>
+<style>
+  :root{
+    --paper:#F2F4F7; --ink:#161A21; --muted:#5C6675; --faint:#8A94A2;
+    --line:#E4E8ED; --line-2:#D2D8E0; --card:#FFFFFF;
+    --accent:#C6512A; --accent-ink:#9E3F20; --accent-bg:#FBEDE7;
+    --primary:#1B212A; --ok:#2C7A57; --ok-bg:#E7F3EC; --beats:#9A6A12; --beats-bg:#F6EEDD; --danger:#B02330; --danger-bg:#FBEBEC;
+    --op:#0E7C86; --op-bg:#E1F1F2; --staff:#2C7A57; --staff-bg:#E7F3EC; --guest:#C6512A; --guest-bg:#FBEDE7;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0}
+  .wrap{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:clamp(18px,4vw,52px) clamp(14px,4vw,36px)}
+  .doc{max-width:1000px;margin:0 auto}
+  h1{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+  h2{font-size:1.3rem;font-weight:800;letter-spacing:-.01em;margin:0}
+  h3{font-size:.98rem;font-weight:700;margin:0 0 3px}
+  p{margin:0 0 .7em;max-width:72ch}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+  .lead{font-size:1.06rem;color:var(--muted);max-width:70ch}
+  .ui{font-weight:600;color:var(--ink);background:#EEF1F4;border:1px solid var(--line);border-radius:5px;padding:0 6px;white-space:nowrap;font-size:.92em}
+  .path{font-family:var(--mono);font-size:.82em;background:#EEF1F4;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+  code{font-family:var(--mono);font-size:.85em}
+
+  .masthead{border-bottom:3px solid var(--ink);padding-bottom:22px;margin-bottom:22px}
+  .masthead .eyebrow{display:block;margin-bottom:10px}
+
+  /* persona chips */
+  .pchip{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap;letter-spacing:.01em}
+  .pchip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pchip.op{background:var(--op-bg);color:#0A5158}
+  .pchip.staff{background:var(--staff-bg);color:#1F5C40}
+  .pchip.guest{background:var(--guest-bg);color:var(--accent-ink)}
+  .pchip.sys{background:#ECEFF3;color:#5C6675}
+
+  /* persona cards */
+  .personas{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:8px 0 4px}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-top:3px solid var(--line)}
+  .pcard.op{border-top-color:var(--op)}
+  .pcard.staff{border-top-color:var(--staff)}
+  .pcard.guest{border-top-color:var(--guest)}
+  .pcard h3{font-size:1rem;margin-bottom:6px}
+  .pcard p{font-size:.88rem;color:var(--muted);margin:0}
+  .pcard .where{font-family:var(--mono);font-size:.7rem;color:var(--faint);margin-top:9px;display:block}
+
+  .primer{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
+  .primer .p{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .primer .p h3{font-size:.92rem}
+  .primer .p p{font-size:.85rem;color:var(--muted);margin:0}
+
+  /* toc */
+  .toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:22px 0 6px}
+  .toc a{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;transition:border-color .15s}
+  .toc a:hover{border-color:var(--accent)}
+  .toc a .n{font-family:var(--mono);font-size:.68rem;color:var(--accent-ink);letter-spacing:.08em}
+  .toc a .t{display:block;font-weight:700;margin-top:2px;font-size:.94rem}
+  .toc a .s{display:block;color:var(--faint);font-size:.78rem;margin-top:2px}
+
+  section.feature{margin-top:52px;scroll-margin-top:16px}
+  .feature>.head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
+  .feature>.head .num{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--accent)}
+  .feature>.head .tags{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .overview{color:var(--muted);font-size:.98rem;margin:4px 0 6px;max-width:74ch}
+
+  .sub-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:28px 0 12px;display:flex;align-items:center;gap:10px}
+  .sub-label::after{content:"";flex:1;height:1px;background:var(--line-2)}
+
+  /* flow diagram */
+  .flowscroll{overflow-x:auto;padding:4px 0 8px}
+  .flow{display:flex;align-items:stretch;gap:0;min-width:min-content}
+  .flow .node{flex:0 0 165px;background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:11px 13px;position:relative}
+  .flow .node+.node{margin-left:30px}
+  .flow .node+.node::before{content:"→";position:absolute;left:-24px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:1.2rem}
+  .flow .node .lab{font-weight:700;font-size:.84rem;margin-top:7px;line-height:1.3}
+  .flow .node .d{font-size:.74rem;color:var(--muted);margin-top:4px;line-height:1.35}
+  .flow .node.money .lab{color:var(--beats)}
+
+  /* two-col step + illustration */
+  .stepwrap{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+  @media(min-width:780px){.stepwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:30px}}
+  .stepwrap.wide{grid-template-columns:1fr}
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+  ol.steps>li{counter-increment:s;display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}
+  ol.steps>li::before{content:counter(s);font-family:var(--mono);font-weight:700;font-size:.76rem;color:#fff;background:var(--accent);border-radius:50%;width:23px;height:23px;display:grid;place-items:center;margin-top:1px}
+  ol.steps>li>div>p{margin:0}
+  ol.steps>li>div>p+p{margin-top:3px}
+  .hint{color:var(--muted);font-size:.87rem}
+  .result{color:var(--ok);font-size:.87rem;font-weight:600}
+  .result::before{content:"→ "}
+  .stepgroup{margin-top:18px}
+  .stepgroup>.gh{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-weight:700;font-size:.9rem}
+
+  .note{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:.9rem}
+  .note.info{background:#EAF1F6;border-color:#3C6E93}
+  .note.warn{background:#FBF1E2;border-color:var(--beats)}
+  .note p{margin:0;max-width:none}
+  .note p+p{margin-top:.5em}
+
+  /* mockups */
+  .shot{position:sticky;top:14px}
+  .shot .cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+  .frame{background:#fff;border:1px solid var(--line-2);border-radius:12px;box-shadow:0 6px 24px -12px rgba(20,26,40,.28);overflow:hidden}
+  .menu{padding:6px;background:#fff}
+  .menu .item{padding:8px 12px;border-radius:7px;font-size:.9rem}
+  .menu .item.hi{background:var(--accent-bg);color:var(--accent-ink);font-weight:700;outline:1.5px solid var(--accent);outline-offset:-1.5px}
+  .menu .item.danger{color:var(--danger)}
+  .menu .sep{height:1px;background:var(--line);margin:5px 4px}
+  .dialog{padding:20px;background:#fff}
+  .dialog .dt{font-weight:800;font-size:1.02rem}
+  .dialog .dd{color:var(--muted);font-size:.85rem;margin:6px 0 14px}
+  .field{margin-bottom:12px}
+  .field .lab{font-size:.78rem;font-weight:600;margin-bottom:5px}
+  .field .lab .req{color:var(--danger)}
+  .field .box{border:1px solid var(--line-2);border-radius:8px;padding:9px 11px;font-size:.82rem;color:var(--faint);background:#fff}
+  .field .box.filled{color:var(--ink)}
+  .field .box.select{display:flex;justify-content:space-between;align-items:center}
+  .field .box.select::after{content:"⌄";color:var(--faint)}
+  .radio{display:flex;align-items:center;gap:8px;font-size:.85rem;margin:6px 0}
+  .radio .r{width:15px;height:15px;border-radius:50%;border:1.5px solid var(--line-2);flex:none}
+  .radio.on .r{border-color:var(--accent);box-shadow:inset 0 0 0 3px var(--accent)}
+  .microcopy{font-size:.72rem;color:var(--faint);margin-top:4px}
+  .dfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+  .btn{font-size:.83rem;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid var(--line-2);background:#fff;color:var(--ink)}
+  .btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .qr{width:148px;height:148px;margin:4px auto 12px;border-radius:8px;background:repeating-conic-gradient(#12181f 0 25%,#fff 0 50%) 0 0/14px 14px;opacity:.92}
+  .linkbox{display:flex;align-items:center;gap:8px;border:1px solid var(--line-2);border-radius:8px;padding:8px 10px}
+  .linkbox .u{font-family:var(--mono);font-size:.66rem;color:var(--ink);word-break:break-all;line-height:1.35}
+  .linkbox .cp{flex:none;width:22px;height:22px;border:1px solid var(--line);border-radius:5px;display:grid;place-items:center;color:var(--faint);font-size:.7rem}
+  .toast{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.85rem;box-shadow:0 6px 20px -10px rgba(0,0,0,.25)}
+  .toast .ck{width:18px;height:18px;border-radius:50%;background:var(--ok-bg);color:var(--ok);display:grid;place-items:center;font-size:.7rem;font-weight:800}
+  .toast.bad .ck{background:var(--danger-bg);color:var(--danger)}
+
+  /* phone */
+  .phone{width:212px;margin:0 auto;border-radius:30px;padding:6px;background:#12161C;box-shadow:0 14px 34px -16px rgba(0,0,0,.55)}
+  .phone .scr{border-radius:24px;overflow:hidden;background:#0C0F14}
+  .phone .wturl{font-family:var(--mono);font-size:.56rem;color:rgba(255,255,255,.55);text-align:center;padding:7px 8px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .phone .body{min-height:250px;padding:22px 18px;color:#EAEFF5;background:radial-gradient(130% 70% at 50% -10%,#2A3444 0%,#0C0F14 62%);display:flex;flex-direction:column;gap:12px}
+  .phone .center{margin:auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .spin{width:28px;height:28px;border-radius:50%;border:3px solid rgba(255,255,255,.18);border-top-color:#fff}
+  .phone .h{font-weight:700;font-size:.92rem}
+  .phone .m{font-size:.74rem;color:rgba(255,255,255,.62);max-width:22ch}
+  .phone .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px}
+  .phone .card .tt{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+  .phone .card .tn{font-weight:700;font-size:.86rem;margin-top:3px}
+  .phone .card .tb{font-size:.72rem;color:rgba(255,255,255,.62);margin-top:3px}
+  .phone .card .beats{color:#E9C46A;font-weight:700}
+  .phone .qrmini{width:96px;height:96px;margin:6px auto 0;border-radius:8px;background:repeating-conic-gradient(#0C0F14 0 25%,#fff 0 50%) 0 0/10px 10px}
+  .cap2{text-align:center;font-size:.72rem;color:var(--faint);margin-top:8px}
+
+  /* tables */
+  .tbl-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin-top:8px}
+  table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:640px}
+  thead th{background:#EDF0F3;text-align:left;font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:9px 12px;border-bottom:1px solid var(--line-2)}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even) td{background:#FAFBFC}
+  td .exp{color:var(--muted)}
+  .tag{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.05em;padding:2px 6px;border-radius:4px;white-space:nowrap;display:inline-block}
+  .tag.money{background:var(--beats-bg);color:var(--beats)}
+  .tag.guard{background:var(--danger-bg);color:var(--danger)}
+  .beats-amt{font-weight:700;color:var(--beats);font-variant-numeric:tabular-nums}
+
+  .foot{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:.82rem}
+  .foot .mono{color:var(--muted);font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="doc">
+
+  <header class="masthead">
+    <span class="eyebrow">LiveCloud · Complete Operations Guide</span>
+    <h1>Festival Pass, Login Link, Beats, Pant &amp; Garderobe</h1>
+    <p class="lead" style="margin-top:12px">Every flow, every persona, both systems (FMS back-office and the guest webticket/app). Each screen below mirrors the live UI and quotes the exact Danish labels in <span class="ui">grey</span>, so nobody is in doubt about which control to use.</p>
+  </header>
+
+  <!-- PERSONAS -->
+  <div class="sub-label" style="margin-top:8px">The three people in every flow</div>
+  <div class="personas">
+    <div class="pcard op"><h3><span class="pchip op">Operator</span></h3><p>Festival back-office in <strong>FMS</strong>. Configures products, comps passes, gives Beats, generates login links, looks up guests.</p><span class="where">staging-fms.livecloud.dk · Drift → Deltagere</span></div>
+    <div class="pcard staff"><h3><span class="pchip staff">Staff</span></h3><p>Front-line at a bar / booth / return point / cloakroom desk. Uses the <strong>scanner / POS app</strong> with a vendor key to scan guests and move Beats.</p><span class="where">Scanner app · vendor API key (lcap_…)</span></div>
+    <div class="pcard guest"><h3><span class="pchip guest">Guest</span></h3><p>The attendee. Uses the <strong>native app</strong> or the <strong>webticket</strong> (browser) to hold a pass, spend Beats, get refunds and show QR codes.</p><span class="where">App · …-webticket-…livecloud.dk</span></div>
+  </div>
+
+  <!-- PRIMER -->
+  <div class="sub-label">What the words mean</div>
+  <div class="primer">
+    <div class="p"><h3>Beats</h3><p>The festival wallet currency. 1 Beat = 1 DKK. Held on the guest’s profile; used for the store, bar, Pant deposits and Garderobe fees.</p></div>
+    <div class="p"><h3>Festival Pass</h3><p>The paid entry credential — 75 kr, valid 1 year, one-time (not a subscription). Required for everyone; can be comped for free.</p></div>
+    <div class="p"><h3>App vs Webticket</h3><p>The <strong>app</strong> is the full native experience. The <strong>webticket</strong> is the same account in a browser — the fallback for guests without the app or without MitID.</p></div>
+  </div>
+
+  <nav class="toc">
+    <a href="#pass"><span class="n">GUIDE 1</span><span class="t">Festival Pass</span><span class="s">Buy · comp · gate · renew</span></a>
+    <a href="#link"><span class="n">GUIDE 2</span><span class="t">Login Link + Webticket</span><span class="s">Generate · guest signs in</span></a>
+    <a href="#beats"><span class="n">GUIDE 3</span><span class="t">Beats wallet</span><span class="s">Top up · give · spend</span></a>
+    <a href="#pant"><span class="n">GUIDE 4</span><span class="t">Pant (deposit)</span><span class="s">Buy · return · refund</span></a>
+    <a href="#garderobe"><span class="n">GUIDE 5</span><span class="t">Garderobe</span><span class="s">Bind · charge · release</span></a>
+    <a href="#safety"><span class="n">REF</span><span class="t">Money-safety</span><span class="s">What the guards do</span></a>
+  </nav>
+
+  <!-- ========================= 1 · FESTIVAL PASS ========================= -->
+  <section class="feature" id="pass">
+    <div class="head"><span class="num">GUIDE 1</span><h2>Festival Pass</h2><span class="tags"><span class="pchip guest">Guest</span><span class="pchip op">Operator</span></span></div>
+    <p class="overview">The paid entry credential (75 kr / 1 year). It gates the entry credential (wallet / QR / wristband) and the buy-actions. LiveCloud sells it as its own product, so it is additive — it does not touch the festival’s ticket revenue. Everyone needs one; specific guests can be comped for free.</p>
+
+    <div class="flowscroll"><div class="flow">
+      <div class="node"><span class="pchip guest">Guest</span><div class="lab">Buys in app<br>OR</div><div class="d"><span class="pchip op" style="font-size:.62rem">Operator</span> comps it free</div></div>
+      <div class="node money"><span class="pchip sys">System</span><div class="lab">Pass active</div><div class="d">Valid 1 year</div></div>
+      <div class="node"><span class="pchip sys">System</span><div class="lab">Gates unlock</div><div class="d">Entry credential + buy-actions</div></div>
+      <div class="node"><span class="pchip guest">Guest</span><div class="lab">Near expiry</div><div class="d">One-tap renew prompt</div></div>
+    </div></div>
+
+    <div class="sub-label">Setup · one-time per summit <span class="pchip op">Operator</span></div>
+    <p>The <strong>“Festival Pass”</strong> product must exist for the summit (on staging it is seeded). If not, create it under <span class="path">/commerce/products</span> as a <em>PlatformAccess</em> product, price 7500 (75.00 kr), <code>meta.platform_access = { billing_interval:"one_time", duration_days:365 }</code>, published to the <em>guest-app</em> channel.</p>
+
+    <div class="stepwrap">
+      <div>
+        <div class="stepgroup"><div class="gh"><span class="pchip guest">Guest</span> Buying a pass (app)</div>
+          <ol class="steps">
+            <li><div><p>In the app, the guest opens the Festival Pass and pays the 75 kr with a card.</p></div></li>
+            <li><div><p>The pass is granted for one year.</p><p class="result">Entry credential + buy-actions unlock automatically.</p></div></li>
+          </ol>
+        </div>
+        <div class="stepgroup"><div class="gh"><span class="pchip op">Operator</span> Comping a free pass (FMS)</div>
+          <ol class="steps">
+            <li><div><p><span class="ui">Drift → Deltagere</span>, open the guest.</p></div></li>
+            <li><div><p><span class="ui">Handlinger</span> → <span class="ui">Giv gratis festivalpas</span>.</p></div></li>
+            <li><div><p>Type a reason in <span class="ui">Årsag</span> (required, written to the audit log), then confirm.</p><p class="result">Toast: “Gratis festivalpas tildelt.” A comped pass is identical to a paid one at the gate.</p></div></li>
+          </ol>
+        </div>
+      </div>
+      <div class="shot">
+        <div class="cap">FMS · comp dialog</div>
+        <div class="frame"><div class="dialog">
+          <div class="dt">Giv gratis festivalpas til Tony Mortensen</div>
+          <div class="dd">Tildeler et gratis festivalpas (adgang til festivalen og dit armbånd) uden gebyret på 75 kr. Bruges til myndigheder, artister, personale og VIP. Gælder ét år.</div>
+          <div class="field"><div class="lab">Årsag <span class="req">*</span></div><div class="box">Hvorfor gives festivalpasset gratis? (fx artist, personale, myndighed, VIP)</div><div class="microcopy">Påkrævet for audit-spor. Synligt i admin-logs.</div></div>
+          <div class="dfoot"><span class="btn">Annullér</span><span class="btn primary">Giv gratis festivalpas</span></div>
+        </div></div>
+        <div style="margin-top:12px" class="toast"><span class="ck">✓</span> Gratis festivalpas tildelt.</div>
+      </div>
+    </div>
+
+    <div class="note"><p><strong>Gate &amp; renewal (guest, app):</strong> without an active pass, the entry credential and buy-actions are blocked (the block only triggers on a definite “no pass” — network hiccups fail open, so a guest is never wrongly locked out). Near expiry the guest gets a one-tap renewal prompt (it is one-time, not an auto-charging subscription). Repeating the comp on the same guest is safe — it returns the existing pass, never a duplicate.</p></div>
+  </section>
+
+  <!-- ========================= 2 · LOGIN LINK + WEBTICKET ========================= -->
+  <section class="feature" id="link">
+    <div class="head"><span class="num">GUIDE 2</span><h2>Login Link + Webticket sign-in</h2><span class="tags"><span class="pchip op">Operator</span><span class="pchip guest">Guest</span></span></div>
+    <p class="overview">Some guests have no MitID (e.g. a foreign attendee an admin imported tickets for) and cannot log in normally. The operator generates a one-time link; the guest opens it and lands signed into the webticket — no MitID, no password.</p>
+
+    <div class="flowscroll"><div class="flow">
+      <div class="node"><span class="pchip op">Operator</span><div class="lab">Generate link</div><div class="d">Handlinger → Generér login-link (FMS)</div></div>
+      <div class="node"><span class="pchip op">Operator</span><div class="lab">Hand over</div><div class="d">Show QR or send the link</div></div>
+      <div class="node"><span class="pchip guest">Guest</span><div class="lab">Open link</div><div class="d">Tap / scan on phone</div></div>
+      <div class="node"><span class="pchip sys">System</span><div class="lab">Redeem token</div><div class="d">Webticket checks it (one-time)</div></div>
+      <div class="node"><span class="pchip guest">Guest</span><div class="lab">Signed in</div><div class="d">Lands on tickets + wallet</div></div>
+    </div></div>
+
+    <div class="sub-label"><span class="pchip op">Operator</span> Generate &amp; hand it over (FMS)</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Open the guest → <span class="ui">Handlinger</span> → <span class="ui">Generér login-link</span>.</p></div></li>
+        <li><div><p>A dialog shows a <strong>QR</strong> and the <strong>link</strong>. Let the guest scan the QR, or copy the link and send it.</p><p class="hint">It shows when it expires, e.g. “Udløber 05. juli 2026 kl. 00.46.”</p></div></li>
+        <li><div><p>Click <span class="ui">Luk</span>.</p><p class="result">The link works once, then expires (24 h).</p></div></li>
+      </ol>
+      <div class="shot">
+        <div class="cap">FMS · login-link dialog</div>
+        <div class="frame"><div class="dialog">
+          <div class="dt">Login-link til Tony Mortensen</div>
+          <div class="dd">Engangs-login til webticket uden MitID. Del linket eller lad gæsten scanne QR-koden. Kan kun bruges én gang.</div>
+          <div class="qr"></div>
+          <div class="field" style="margin-bottom:6px"><div class="lab">Login-link</div><div class="linkbox"><span class="u">https://staging-webticket-ringsted.livecloud.dk/login/link?token=…0fPFPcNuwqazr…</span><span class="cp">⧉</span></div></div>
+          <div class="microcopy">Udløber 05. juli 2026 kl. 00.46.</div>
+          <div class="dfoot"><span class="btn primary">Luk</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sub-label"><span class="pchip guest">Guest</span> Signing in (webticket)</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>The guest <strong>opens the link</strong> on their phone — tap it, or scan the QR from your screen with the camera.</p></div></li>
+        <li><div><p>The webticket shows a brief <strong>“Logger dig ind…”</strong> screen while it validates the one-time token.</p><p class="hint">Automatic — nothing to type.</p></div></li>
+        <li><div><p>They land <strong>signed in</strong> on their tickets and wallet.</p><p class="result">Done. The link is now used up.</p></div></li>
+      </ol>
+      <div class="shot">
+        <div class="cap">Guest phone · webticket</div>
+        <div class="phone"><div class="scr">
+          <div class="wturl">ringsted-webticket.livecloud.dk/login/link</div>
+          <div class="body">
+            <div class="center"><div class="spin"></div><div class="h">Logger dig ind…</div><div class="m">Et øjeblik — vi klargør din billet.</div></div>
+            <div class="card"><div class="tt">Din billet</div><div class="tn">Ringsted Festival 2026</div><div class="tb">Partout · gyldig · vis QR ved indgang</div></div>
+          </div>
+        </div></div>
+        <div class="cap2">Redeem screen → their ticket. The guest never types anything.</div>
+      </div>
+    </div>
+
+    <div class="note warn"><p><strong>If it doesn’t work:</strong> a used/expired link shows a short “link is invalid or expired” message with a route back to normal login — just generate a fresh one. <br><strong>Not live yet:</strong> the webticket redemption page is on the b2b <code>develop</code> branch but not on the webticket’s <code>staging</code> release, so a link currently returns 404 until that promotion is deployed.</p></div>
+  </section>
+
+  <!-- ========================= 3 · BEATS ========================= -->
+  <section class="feature" id="beats">
+    <div class="head"><span class="num">GUIDE 3</span><h2>Beats wallet</h2><span class="tags"><span class="pchip guest">Guest</span><span class="pchip op">Operator</span><span class="pchip staff">Staff</span></span></div>
+    <p class="overview">Beats is the festival wallet currency (1 Beat = 1 DKK). Guests fund it, then spend it on the store, bar, Pant deposits and Garderobe fees. Operators can gift or deduct Beats by hand.</p>
+
+    <div class="flowscroll"><div class="flow">
+      <div class="node"><span class="pchip guest">Guest</span><div class="lab">Top up (app)<br>OR</div><div class="d"><span class="pchip op" style="font-size:.62rem">Operator</span> gives Beats (FMS)</div></div>
+      <div class="node money"><span class="pchip sys">System</span><div class="lab">Beats in wallet</div><div class="d">On the guest profile</div></div>
+      <div class="node money"><span class="pchip staff">Staff</span><div class="lab">Spend</div><div class="d">Bar · store · Pant · Garderobe</div></div>
+    </div></div>
+
+    <div class="sub-label"><span class="pchip op">Operator</span> Give a guest Beats (FMS)</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Open the guest → <span class="ui">Handlinger</span> → <span class="ui">Udsted produkt</span>.</p></div></li>
+        <li><div><p>Pick a Beats amount in <span class="ui">Produkt</span> (e.g. <span class="ui">100 Beats</span>).</p></div></li>
+        <li><div><p>Under <span class="ui">Betalingsmetode</span> choose <span class="ui">Gratis (gave)</span> to gift it, or <span class="ui">Træk fra beats</span> to deduct.</p></div></li>
+        <li><div><p>Add a reason → <span class="ui">Udsted produkt</span>.</p><p class="result">Toast: “Product given to attendee.” The <span class="ui">Credits</span> field updates at once (e.g. 100 Beats).</p></div></li>
+      </ol>
+      <div class="shot">
+        <div class="cap">FMS · give-product dialog</div>
+        <div class="frame"><div class="dialog">
+          <div class="dt">Udsted produkt til Tony Mortensen</div>
+          <div class="dd">Vælg et produkt og betalingsmetode at give til denne gæst.</div>
+          <div class="field"><div class="lab">Produkt</div><div class="box select filled">100 Beats — 10000 DKK (credit_wallet)</div></div>
+          <div class="field"><div class="lab">Betalingsmetode</div><div class="radio on"><span class="r"></span> Gratis (gave)</div><div class="radio"><span class="r"></span> Træk fra beats (saldo: 0)</div></div>
+          <div class="field"><div class="lab">Årsag <span class="req">*</span></div><div class="box">Hvorfor allokeres disse beats?</div></div>
+          <div class="dfoot"><span class="btn">Annullér</span><span class="btn primary">Udsted produkt</span></div>
+        </div></div>
+      </div>
+    </div>
+    <div class="note info"><p><strong>Guest side:</strong> the guest tops up with a card in the app, and sees the balance in the app or webticket wallet. When paying an order with Beats, the system charges the correct amount (the øre→Beats conversion is applied — a 20 kr item costs 20 Beats, not 2000).</p></div>
+  </section>
+
+  <!-- ========================= 4 · PANT ========================= -->
+  <section class="feature" id="pant">
+    <div class="head"><span class="num">GUIDE 4</span><h2>Pant — deposit refunded on return</h2><span class="tags"><span class="pchip guest">Guest</span><span class="pchip staff">Staff</span></span></div>
+    <p class="overview">A Pant item (e.g. a reusable cup) carries a refundable Beats deposit. The guest pays it at purchase and gets it back when they return the item to staff. Net wallet change over buy + return is zero.</p>
+
+    <div class="flowscroll"><div class="flow">
+      <div class="node money"><span class="pchip guest">Guest</span><div class="lab">Buy the item</div><div class="d">Deposit charged in Beats (app)</div></div>
+      <div class="node"><span class="pchip sys">System</span><div class="lab">Outstanding</div><div class="d">Shown in “Min pant”</div></div>
+      <div class="node"><span class="pchip guest">Guest</span><div class="lab">Return item</div><div class="d">Shows QR at return point</div></div>
+      <div class="node"><span class="pchip staff">Staff</span><div class="lab">Scan &amp; confirm</div><div class="d">Scanner app</div></div>
+      <div class="node money"><span class="pchip sys">System</span><div class="lab">Refund</div><div class="d">Deposit back to Beats</div></div>
+    </div></div>
+
+    <div class="sub-label">Setup <span class="pchip op">Operator</span></div>
+    <p>A Pant product must exist — a <em>Deposit</em> product with <code>meta.pant.deposit_amount</code> in Beats (seeded on staging: Genbrugskrus = <span class="beats-amt">20 Beats</span>). The return scanner needs a <strong>vendor API key</strong>: <span class="path">/commerce/vendors</span> → open the vendor → create an <span class="ui">API-nøgle</span>, put the <code>lcap_…</code> key in that vendor’s scanner.</p>
+
+    <div class="stepwrap wide">
+      <div>
+        <div class="stepgroup"><div class="gh"><span class="pchip guest">Guest</span> Buy the deposit item</div>
+          <ol class="steps">
+            <li><div><p>The guest buys the item in the app; the deposit is charged from their Beats wallet and tracked as outstanding.</p><p class="hint">An operator can also do it: <span class="ui">Ordrer → opret</span> the item, then <span class="ui">Træk fra wallet</span> (charge-wallet).</p></div></li>
+          </ol>
+        </div>
+        <div class="stepgroup"><div class="gh"><span class="pchip staff">Staff</span> Take the return</div>
+          <ol class="steps">
+            <li><div><p>At the return point, the guest opens <span class="ui">Min pant</span> and shows the QR.</p></div></li>
+            <li><div><p>Staff scan the guest and confirm the return in the scanner app.</p><p class="result">The deposit is refunded to the guest’s Beats wallet (e.g. <span class="beats-amt">+20 Beats</span>) and the item drops off the outstanding list.</p></div></li>
+          </ol>
+        </div>
+      </div>
+      <div class="shot" style="position:static">
+        <div class="cap">Guest phone · “Min pant”</div>
+        <div class="phone"><div class="scr">
+          <div class="wturl">Min pant</div>
+          <div class="body">
+            <div class="card"><div class="tt">Udestående pant</div><div class="tn">Genbrugskrus (pant)</div><div class="tb">Antal: 1 · depositum <span class="beats">20 Beats</span></div><div class="qrmini"></div><div class="tb" style="text-align:center;margin-top:8px">Vis koden ved boden for at få pant retur</div></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="note warn"><p><strong>Guardrails (already verified):</strong> scanning the same item twice refunds <strong>nothing</strong> the second time (“no outstanding deposit”). A partial return (e.g. 2 of 3) leaves the rest outstanding. Requesting more than is outstanding refunds only what is owed — never more.</p></div>
+  </section>
+
+  <!-- ========================= 5 · GARDEROBE ========================= -->
+  <section class="feature" id="garderobe">
+    <div class="head"><span class="num">GUIDE 5</span><h2>Garderobe — cloakroom rental</h2><span class="tags"><span class="pchip guest">Guest</span><span class="pchip staff">Staff</span></span></div>
+    <p class="overview">A cloakroom rental fee in Beats, charged when staff hang the guest’s coat and bind a hanger to them. Fee-only — <strong>not refunded</strong> at pickup (it is a rental, not a deposit).</p>
+
+    <div class="flowscroll"><div class="flow">
+      <div class="node"><span class="pchip guest">Guest</span><div class="lab">Has Beats</div><div class="d">Funded beforehand</div></div>
+      <div class="node money"><span class="pchip staff">Staff</span><div class="lab">Bind hanger</div><div class="d">Scan guest + hanger → fee charged</div></div>
+      <div class="node"><span class="pchip guest">Guest</span><div class="lab">Enjoys festival</div><div class="d">Coat is bound to them</div></div>
+      <div class="node"><span class="pchip staff">Staff</span><div class="lab">Release</div><div class="d">Scan hanger at pickup · no refund</div></div>
+    </div></div>
+
+    <div class="sub-label">Setup <span class="pchip op">Operator</span></div>
+    <p>A Garderobe product must exist — a <em>Rental</em> product with <code>meta.garderobe.rental_fee</code> in Beats (seeded on staging: <span class="beats-amt">30 Beats</span>). Same vendor API key as Pant. <strong>Precondition:</strong> the guest must already hold enough Beats (see Guide 3) — the fee is charged live at bind.</p>
+
+    <div class="stepwrap wide">
+      <div>
+        <div class="stepgroup"><div class="gh"><span class="pchip staff">Staff</span> Bind (drop-off)</div>
+          <ol class="steps">
+            <li><div><p>Staff scan the guest and the hanger in the scanner app.</p><p class="result">The fee is charged (e.g. <span class="beats-amt">−30 Beats</span>) and the hanger is bound to the guest.</p></div></li>
+          </ol>
+        </div>
+        <div class="stepgroup"><div class="gh"><span class="pchip staff">Staff</span> Release (pickup)</div>
+          <ol class="steps">
+            <li><div><p>At pickup, staff scan the hanger to release it.</p><p class="result">Hanger freed, no refund. The guest keeps the difference of their balance; the rental fee stays spent.</p></div></li>
+          </ol>
+        </div>
+      </div>
+      <div class="shot" style="position:static">
+        <div class="cap">Guest phone · “Min garderobe”</div>
+        <div class="phone"><div class="scr">
+          <div class="wturl">Min garderobe</div>
+          <div class="body">
+            <div class="card"><div class="tt">Aktiv garderobe</div><div class="tn">Bøjle H-042</div><div class="tb">Leje betalt · <span class="beats">30 Beats</span></div><div class="qrmini"></div><div class="tb" style="text-align:center;margin-top:8px">Vis koden ved afhentning</div></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="note warn"><p><strong>Guardrails (already verified):</strong> a guest with too few Beats is declined with <strong>no charge and no hanger bound</strong>. Binding a hanger that is already in use is blocked (“hanger in use”) with <strong>no second charge</strong>. Releasing an already-released or unknown hanger is a safe no-op. Release never refunds.</p></div>
+  </section>
+
+  <!-- ========================= MONEY-SAFETY REFERENCE ========================= -->
+  <section class="feature" id="safety">
+    <div class="head"><span class="num">REF</span><h2>Money-safety — what the guards do</h2></div>
+    <p class="overview">The behaviours below are built in and were verified on staging. Staff and operators do not need to do anything special — this is what the system guarantees if a scan or click is repeated or mistaken.</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Flow</th><th>If this happens…</th><th>The system…</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag money">PANT</span> Double return</td><td>Same item scanned for return twice.</td><td class="exp">Refunds the deposit once. The second scan refunds <strong>0</strong> (“no outstanding deposit”).</td></tr>
+        <tr><td><span class="tag money">PANT</span> Over-quantity</td><td>Return more than is outstanding.</td><td class="exp">Refunds only what is owed — never over-refunds.</td></tr>
+        <tr><td><span class="tag money">GARDEROBE</span> Insufficient Beats</td><td>Guest can’t cover the fee at bind.</td><td class="exp">Declines with <strong>no charge</strong> and no hanger bound (nothing partial).</td></tr>
+        <tr><td><span class="tag money">GARDEROBE</span> Double-bind</td><td>Same hanger bound twice (even racing).</td><td class="exp"><strong>One charge</strong> only; the second is blocked (“hanger in use”).</td></tr>
+        <tr><td><span class="tag money">GARDEROBE</span> Re-release</td><td>Release a hanger already released / unknown.</td><td class="exp">Safe no-op, no error, no wallet change.</td></tr>
+        <tr><td><span class="tag money">PASS</span> Repeat comp</td><td>Comp the same guest twice.</td><td class="exp">Returns the existing pass — <strong>never a duplicate</strong>.</td></tr>
+        <tr><td><span class="tag money">BEATS</span> Pay with Beats</td><td>Guest pays an order with Beats.</td><td class="exp">Charges the correct amount — a 20 kr item costs 20 Beats (the øre→Beats conversion is applied).</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer class="foot">
+    <p>Complete guide across FMS (operator) and the webticket/app (guest), with the staff scanner in between. Illustrations recreate the live UI 1:1 with the exact Danish labels (real screenshot export is temporarily unavailable in this environment). All flows verified on <span class="mono">staging-fms.livecloud.dk</span>.<br>
+    <strong>Live status:</strong> Festival Pass, Beats, Pant &amp; Garderobe are deployed on staging (products seeded). The Login-link webticket page is merged to b2b <span class="mono">develop</span> and awaits the webticket <span class="mono">staging</span> promotion before the guest side works end-to-end.</p>
+  </footer>
+
+</div></div>
+</body>
+</html>

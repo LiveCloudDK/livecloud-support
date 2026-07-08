@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Guide til POS: bartender</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --pos:#c2410c;--pos-d:#9a3412;--green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;
+    --red:#dc2626;--red-bg:#fef2f2;--red-line:#fecaca;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;
+    --amber:#b45309;--amber-bg:#fffbeb;--blue:#0a5cff;--purple:#7c3aed;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--pos);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--pos);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--pos);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#d4d4d8}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner.sell{background:linear-gradient(100deg,#c2410c,#9a3412)}.pbanner.trouble{background:linear-gradient(100deg,#b45309,#92400e)}.pbanner.leder{background:linear-gradient(100deg,#6d28d9,#5b21b6)}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--pos);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .screen{padding:16px;background:#fff}
+  .device{max-width:340px;margin:0 auto}
+  .apphead{display:flex;align-items:center;gap:8px;background:#0e1424;color:#fff;border-radius:10px 10px 0 0;padding:9px 12px;font-size:12.5px}
+  .apphead b{font-size:13px}.apphead .gear{margin-left:auto;opacity:.7}
+  .appbody{background:#0b0d12;border-radius:0 0 12px 12px;padding:12px}
+  .appsearch{background:#161a24;border:1px solid #262c39;border-radius:9px;padding:8px 11px;color:#8b91a3;font-size:12px;margin-bottom:9px}
+  .seg{display:flex;gap:8px;margin-bottom:11px}
+  .seg span{flex:1;text-align:center;padding:8px;border-radius:9px;font-size:12.5px;font-weight:700;color:#c9cbd6;background:#161a24;border:1px solid #262c39}
+  .seg span.nfc{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+  .seg span.qr{background:#3b1f6e;border-color:#6d28d9;color:#c4b5fd}
+  .grid3{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .tile{border-radius:11px;padding:12px 10px;text-align:center;background:#fff;color:#18181b;min-height:66px;display:flex;flex-direction:column;justify-content:center}
+  .tile b{font-size:13px;line-height:1.2}.tile .pr{font-size:11.5px;color:var(--pos);font-weight:700;margin-top:3px}.tile .pr span{color:#a1a1aa;font-weight:600}
+  .tile.dark{background:#141a27;color:#c9cbd6}.tile.dark b{color:#e6e8ee}
+  .cartbar{display:flex;align-items:center;gap:10px;margin-top:11px;color:#e6e8ee;font-size:12.5px}
+  .cartbar .betal{margin-left:0;width:100%;background:#16a34a;color:#fff;text-align:center;border-radius:10px;padding:11px;font-weight:800;font-size:14px;margin-top:9px}
+  .ghead{background:#0f2a1e;border:1px solid #14532d;border-left:4px solid #16a34a;border-radius:11px;padding:11px 12px;display:flex;align-items:center;gap:11px;color:#fff;margin-bottom:10px}
+  .ghead .av{width:38px;height:38px;border-radius:50%;background:#134e2b;color:#6ee7b7;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+  .ghead b{font-size:13.5px;display:block}.ghead small{color:#9fb8ab;font-size:11.5px;display:block}
+  .ghead .acts{margin-left:auto;display:flex;gap:6px}.ghead .acts span{font-size:11px;font-weight:700;border:1px solid #2b6b47;border-radius:8px;padding:5px 9px;color:#9be7c0}
+  .ghead .acts span.top{border-color:#7c5b12;color:#f5c563}
+  .modal{background:#0b0d12;border-radius:14px;padding:18px 16px;text-align:center;color:#fff}
+  .modal .grab{width:40px;height:4px;border-radius:99px;background:#2b3040;margin:0 auto 12px}
+  .modal h5{margin:6px 0 2px;font-size:17px}.modal p{margin:0 0 12px;color:#9aa0b4;font-size:12.5px}
+  .mrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .mrow .m{border-radius:12px;padding:14px 10px;font-weight:800;font-size:13.5px}
+  .mrow .m.nfc{background:#1d4ed8;color:#fff}.mrow .m.qr{background:#5b21b6;color:#ede9fe}
+  .mrow .m .s{display:block;font-size:11px;font-weight:600;opacity:.85;margin-top:3px}
+  .manual{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .manual .f{flex:1;background:#161a24;border:1px solid #262c39;border-radius:9px;padding:8px 11px;color:#8b91a3;font-size:12px;text-align:left}
+  .manual .s{background:#262c39;color:#c9cbd6;border-radius:9px;padding:8px 14px;font-size:12px;font-weight:700}
+  .modal .skip{color:#9aa0b4;font-size:12.5px}
+  .badge{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--pos);color:#fff;font-size:10.5px;font-weight:700;vertical-align:1px;margin-right:3px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--pos);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+  .stop{background:var(--red-bg);border:1px solid var(--red-line);color:#991b1b;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.stop b{color:#7f1d1d}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}main{padding:24px 18px 80px}}
+  /* Print: rent A4-ark uden sidebar, sort på hvidt, ingen skygger */
+  @media print{
+    @page{margin:14mm}
+    html{scroll-behavior:auto}
+    body{background:#fff;font-size:11.5pt}
+    aside{display:none !important}
+    .layout{display:block;max-width:none;margin:0}
+    main{padding:0}
+    .frame,.gcard,.chip,.note,.tip,.stop{box-shadow:none !important}
+    .pbanner,.frame,.note,.tip,.stop,ol.steps li,.gcard,h3.flow{break-inside:avoid}
+    h1,h2,h3.flow,.pbanner{break-after:avoid}
+    .pbanner{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    a{color:inherit;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">POS</div><div><b>POS</b><small>Guide til bartender</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du den</a>
+      <div class="g">Kom godt i gang</div>
+      <a href="#login">Log ind og vælg kasse</a>
+      <div class="g">Salg</div>
+      <a href="#saelg">Sælg en vare</a>
+      <a href="#scan">Scan gæsten</a>
+      <a href="#beats">Beats: event-valutaen</a>
+      <a href="#betal">Sådan betaler gæsten</a>
+      <div class="g">Efter salget</div>
+      <a href="#historik">Slå en tidligere ordre op</a>
+      <div class="g">Kun for holdleder</div>
+      <a href="#leder">Refundér og annullér</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide · du står i baren</div>
+      <h1>POS: bartender</h1>
+      <p class="lede">En enkel guide til hvad kasse-appen kan, og hvordan du bruger den i baren. Appen er din kasse til events og festivaler. Gæster betaler med <b>beats</b> (event-valuta) eller kort. Knap-navne på skærmen står i grå, fx <span class="chip">Betaling</span>.</p>
+      <hr class="rule">
+      <div class="cards">
+        <a class="gcard" href="#login"><span class="em">🔑</span><b>Kom godt i gang</b><small>Log ind, vælg kasse</small></a>
+        <a class="gcard" href="#saelg"><span class="em">🧾</span><b>Sælg en vare</b><small>Varer, kurv, betaling</small></a>
+        <a class="gcard" href="#scan"><span class="em">📲</span><b>Scan gæsten</b><small>NFC, QR, manuel</small></a>
+        <a class="gcard" href="#historik"><span class="em">🔎</span><b>Find en ordre</b><small>Slå et køb op igen</small></a>
+      </div>
+      <div class="tip" style="margin-top:16px">OBS: Terminalerne er allerede sat op og klar.</div>
+    </section>
+
+    <div class="pbanner sell"><div class="av">🍺</div><div><div class="who">Sådan sælger du</div><h2>Scan gæsten, sælg, tag betaling</h2><p>Gæsten skal identificeres før betaling. Beats trækkes fra saldoen, eller gæsten betaler med kort.</p></div></div>
+
+    <h3 class="flow" id="login"><span class="g1">Kom godt i gang</span>Log ind og vælg kasse</h3>
+    <ol class="steps">
+      <li><b>Log ind:</b> Indtast dit brugernavn og adgangskode (de hører til dit event). Du holdes logget ind, så du slipper for at logge ind hele tiden. Skulle du blive logget ud, kan du bare logge ind igen. Din kurv forsvinder ikke.</li>
+      <li><b>Vælg din kasse (terminal):</b> Hvis dit event kræver det, vælger du hvilken kasse du står ved, før du kan sælge. Valget huskes.</li>
+      <li>Du kan skifte kasse under <span class="chip">Indstillinger</span> og <span class="chip">Terminal</span>.</li>
+    </ol>
+
+    <h3 class="flow" id="saelg"><span class="g1">Salg</span>Sælg en vare</h3>
+    <p class="ctx">Salgsskærmen har tre dele: gæsten øverst, varerne i midten og kurven nederst.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">POS · Testbar · Terminal 1</span></div>
+      <div class="screen"><div class="device">
+        <div class="apphead"><b>Testbar</b><span>· Terminal 1</span><span class="gear">⚙</span></div>
+        <div class="appbody">
+          <div class="appsearch">Scan eller indtast gæste-ID...</div>
+          <div class="seg"><span class="nfc">((•)) NFC</span><span class="qr">▦ QR</span></div>
+          <div class="grid3">
+            <div class="tile"><b>Grøn Tuborg fadøl</b><div class="pr">kr <span>/ beats</span></div></div>
+            <div class="tile"><b>Coca Cola</b><div class="pr">kr <span>/ beats</span></div></div>
+            <div class="tile"><b>Vodka/RedBull</b><div class="pr">kr <span>/ beats</span></div></div>
+            <div class="tile"><b>10 Blandede Shotsrør</b><div class="pr">kr <span>/ beats</span></div></div>
+            <div class="tile dark"><b>Øvrige</b><div class="pr" style="color:#8b91a3">20 varer</div></div>
+            <div class="tile dark"><b>🔢 Andet beløb</b></div>
+          </div>
+          <div class="cartbar"><span>🛒 1 vare</span><span style="color:var(--pos);font-weight:700">· beats</span><span>· kr</span></div>
+          <div class="betal">Betal</div>
+        </div>
+      </div></div></div>
+    <ol class="steps">
+      <li><b>Scan eller find gæsten</b> (se <a href="#scan">Scan gæsten</a>), eller fortsæt uden gæst hvis det er tilladt.</li>
+      <li><b>Tryk på varerne</b> for at lægge dem i kurven. Udsolgte varer kan ikke vælges.</li>
+      <li>Tryk <span class="chip">Betaling</span> og vælg hvordan gæsten betaler.</li>
+      <li><b>Kvittér.</b> Kurven ryddes, og du er klar til næste gæst.</li>
+    </ol>
+    <div class="note">Varer kan vises med pris i både <b>kroner og beats</b>. Vælger du et produkt uden at have scannet en gæst først, minder appen dig om at scanne gæsten.</div>
+
+    <h3 class="flow" id="scan"><span class="g1">Salg</span>Scan gæsten</h3>
+    <p class="ctx">Gæster scannes via armbånd, telefon eller billet. Der er tre måder.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">POS · Scan gæst for at fortsætte</span></div>
+      <div class="screen"><div class="device"><div class="modal">
+        <div class="grab"></div>
+        <div style="font-size:22px">⛶</div>
+        <h5>Scan gæst for at fortsætte</h5><p>En gæst skal identificeres før betaling</p>
+        <div class="mrow"><div class="m nfc">((•)) NFC<span class="s">Hold armbånd mod enheden</span></div><div class="m qr">▦ QR-kode<span class="s">Scan med kamera</span></div></div>
+        <div class="manual"><div class="f">Gæste-ID...</div><div class="s">Søg</div></div>
+        <div class="skip">Fortsæt uden gæst</div>
+      </div></div></div></div>
+    <ol class="steps">
+      <li><b>Armbånd eller telefon (NFC):</b> Hold armbåndet eller telefonen hen til enheden. Et tap registreres med det samme.</li>
+      <li><b>QR-kode:</b> Scan gæstens kode med kameraet. En QR kan også indeholde en hel ordre.</li>
+      <li><b>Manuel søgning:</b> Indtast gæstens kode i hånden.</li>
+    </ol>
+    <p class="ctx">Når gæsten er fundet, viser appen navn, beats-saldo og evt. gemt kort.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">POS · Testbar · Terminal 1</span></div>
+      <div class="screen"><div class="device">
+        <div class="apphead"><b>Testbar</b><span>· Terminal 1</span><span class="gear">⚙</span></div>
+        <div class="appbody">
+          <div class="ghead"><div class="av">SH</div><div><b>Simon Heiselberg Jensen</b><small>Beats-saldo · 💳 Visa ···· 2547</small></div><div class="acts"><span>Ordrer</span><span class="top">Optankning</span></div></div>
+          <div class="grid3"><div class="tile"><b>Coca Cola</b><div class="pr">kr <span>/ beats</span></div></div><div class="tile"><b>Grøn Tuborg fadøl</b><div class="pr">kr <span>/ beats</span></div></div></div>
+          <div class="betal">Betal</div>
+        </div>
+      </div></div></div>
+    <div class="tip">Ud for gæsten kan du åbne <span class="chip">Ordrer</span> (gæstens historik) eller <span class="chip">Optankning</span> hvis gæsten skal have flere beats på.</div>
+
+    <h3 class="flow" id="beats"><span class="g1">Salg</span>Beats: event-valutaen</h3>
+    <p class="ctx">Beats er pengene på festivalen. Gæsten har en saldo og betaler med beats i stedet for kontanter.</p>
+    <ol class="steps">
+      <li><b>Kurs:</b> Sættes af systemet, fx 1 krone = 1 beat.</li>
+      <li><b>Saldo:</b> Vises øverst, så snart en gæst er scannet.</li>
+      <li>Har gæsten nok beats, betaler de direkte. Mangler der beats, skal de tanke op (via <span class="chip">Optankning</span> eller i deres egen app).</li>
+    </ol>
+
+    <h3 class="flow" id="betal"><span class="g1">Salg</span>Sådan betaler gæsten</h3>
+    <ol class="steps">
+      <li><b>Beats:</b> Trækkes fra gæstens saldo.</li>
+      <li><b>Kort (Softpay):</b> Gæsten holder kortet mod terminalens kortlæser.</li>
+    </ol>
+
+    <div class="pbanner trouble"><div class="av">↩️</div><div><div class="who">Efter salget</div><h2>Slå en tidligere ordre op</h2><p>Find en gæsts køb igen. Refundering og annullering ordner din leder.</p></div></div>
+
+    <h3 class="flow" id="historik"><span class="g1">Efter salget</span>Slå en tidligere ordre op</h3>
+    <p class="ctx">Ud for gæsten åbner du <span class="chip">Ordrer</span> og ser gæstens køb med det nyeste øverst. Det bruger du, hvis en gæst spørger til noget, de har købt.</p>
+    <div class="stop"><b>Refundering og annullering ordner din leder.</b> Det kræver godkendelse og en PIN. Skal en ordre laves om eller betales tilbage, så tilkald din leder i stedet for at gøre det selv.</div>
+
+    <div class="pbanner leder"><div class="av">🔑</div><div><div class="who">Kun for holdleder</div><h2>Refundér eller annullér en ordre</h2><p>Det er en leder-opgave. Den kræver din PIN og skal godkendes først.</p></div></div>
+
+    <h3 class="flow" id="leder"><span class="g1">Kun for holdleder</span>Refundér og annullér</h3>
+    <p class="ctx">Denne del er kun for dig, der er holdleder ved kassen og har PIN-koden. Almindelige bartendere tilkalder dig i stedet.</p>
+    <ol class="steps">
+      <li>Find ordren under <span class="chip">Historik</span>. Du kan søge på navn, beløb, ordrenummer eller betalingsmetode.</li>
+      <li><b>Refundér</b> hele eller dele af en ordre. Beløbet går tilbage til gæstens saldo eller kort. Kræver PIN.</li>
+      <li><b>Annullér</b> en ordre, der blev oprettet, men aldrig gennemført.</li>
+    </ol>
+    <div class="stop"><b>Skal godkendes, før det gøres.</b></div>
+
+    <div class="footer">LiveCloud · Ringsted Festival. Guide til POS (bartender), bygget efter brugervejledningen "Pos Bartender". Skærmene er tro gengivelser af kasse-appen; danske knap-navne står i grå. Gæste-appen og support: se Festival App-guiden.</div>
+  </main>
+</div>
+</body>
+</html>

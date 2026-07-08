@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Festival Pass Guide: the paid entry credential</title>
+<style>
+  :root{
+    --paper:#F2F4F7;--ink:#161A21;--muted:#5C6675;--faint:#8A94A2;--line:#E4E8ED;--line-2:#D2D8E0;--card:#FFFFFF;
+    --accent:#0E7C86;--accent-ink:#0A5158;--accent-bg:#E1F1F2;--primary:#1B212A;
+    --ok:#2C7A57;--ok-bg:#E7F3EC;--beats:#9A6A12;--beats-bg:#F6EEDD;--danger:#B02330;--danger-bg:#FBEBEC;
+    --op:#0E7C86;--op-bg:#E1F1F2;--guest:#C6512A;--guest-bg:#FBEDE7;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}body{margin:0}
+  .wrap{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:clamp(18px,4vw,52px) clamp(14px,4vw,36px)}
+  .doc{max-width:940px;margin:0 auto}
+  h1{font-size:clamp(1.9rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0}
+  h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;margin:0}
+  p{margin:0 0 .7em;max-width:72ch}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+  .lead{font-size:1.06rem;color:var(--muted);max-width:70ch}
+  .ui{font-weight:600;color:var(--ink);background:#EEF1F4;border:1px solid var(--line);border-radius:5px;padding:0 6px;white-space:nowrap;font-size:.92em}
+  code{font-family:var(--mono);font-size:.85em}
+  .breadcrumb{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:16px}
+  .breadcrumb a{color:var(--accent-ink);text-decoration:none}
+  .masthead{border-bottom:3px solid var(--ink);padding-bottom:22px;margin-bottom:20px}
+  .masthead .eyebrow{display:block;margin-bottom:10px}
+  .pchip{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap}
+  .pchip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pchip.op{background:var(--op-bg);color:var(--accent-ink)}.pchip.guest{background:var(--guest-bg);color:#9E3F20}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-top:3px solid var(--accent);margin:16px 0 4px}
+  .pcard h3{font-size:1rem;margin:0 0 6px}.pcard p{font-size:.9rem;color:var(--muted);margin:0}
+  section.feature{margin-top:46px}
+  .feature>.head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
+  .feature>.head .num{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--accent)}
+  .feature>.head .tags{margin-left:auto}
+  .overview{color:var(--muted);font-size:.98rem;margin:4px 0 6px;max-width:74ch}
+  .sub-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:24px 0 12px;display:flex;align-items:center;gap:10px}
+  .sub-label::after{content:"";flex:1;height:1px;background:var(--line-2)}
+  .stepwrap{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+  @media(min-width:780px){.stepwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:30px}}
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+  ol.steps>li{counter-increment:s;display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}
+  ol.steps>li::before{content:counter(s);font-family:var(--mono);font-weight:700;font-size:.76rem;color:#fff;background:var(--accent);border-radius:50%;width:23px;height:23px;display:grid;place-items:center;margin-top:1px}
+  ol.steps>li>div>p{margin:0}ol.steps>li>div>p+p{margin-top:3px}
+  .hint{color:var(--muted);font-size:.87rem}
+  .result{color:var(--ok);font-size:.87rem;font-weight:600}.result::before{content:"→ "}
+  .note{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:.9rem}
+  .note.warn{background:#FBF1E2;border-color:var(--beats)}.note.info{background:#EAF1F6;border-color:#3C6E93}
+  .note p{margin:0;max-width:none}.note p+p{margin-top:.5em}
+  .shot .cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+  .frame{background:#fff;border:1px solid var(--line-2);border-radius:12px;box-shadow:0 6px 24px -12px rgba(20,26,40,.28);overflow:hidden}
+  .dialog{padding:20px;background:#fff}.dialog .dt{font-weight:800;font-size:1.02rem}.dialog .dd{color:var(--muted);font-size:.85rem;margin:6px 0 14px}
+  .field{margin-bottom:12px}.field .lab{font-size:.78rem;font-weight:600;margin-bottom:5px}.field .lab .req{color:var(--danger)}
+  .field .box{border:1px solid var(--line-2);border-radius:8px;padding:9px 11px;font-size:.82rem;color:var(--faint)}
+  .microcopy{font-size:.72rem;color:var(--faint);margin-top:4px}
+  .dfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+  .btn{font-size:.83rem;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid var(--line-2);background:#fff;color:var(--ink)}
+  .btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .toast{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.85rem;box-shadow:0 6px 20px -10px rgba(0,0,0,.25);margin-top:12px}
+  .toast .ck{width:18px;height:18px;border-radius:50%;background:var(--ok-bg);color:var(--ok);display:grid;place-items:center;font-size:.7rem;font-weight:800}
+  .phone{width:214px;margin:0 auto;border-radius:30px;padding:6px;background:#12161C;box-shadow:0 14px 34px -16px rgba(0,0,0,.55)}
+  .phone .scr{border-radius:24px;overflow:hidden;background:#0C0F14}
+  .phone .top{font-family:var(--mono);font-size:.56rem;color:rgba(255,255,255,.5);text-align:center;padding:7px 8px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06)}
+  .phone .body{min-height:250px;padding:22px 18px;color:#EAEFF5;background:radial-gradient(130% 70% at 50% -10%,#2A3444 0%,#0C0F14 62%);display:flex;flex-direction:column;gap:12px}
+  .phone .eyb{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);text-align:center}
+  .phone .h{font-weight:700;font-size:1rem;text-align:center}
+  .phone .m{font-size:.75rem;color:rgba(255,255,255,.64);text-align:center;max-width:24ch;margin:0 auto}
+  .phone .price{font-size:1.8rem;font-weight:800;text-align:center}
+  .phone .pbtn{margin-top:auto;background:#fff;color:#12161C;border-radius:10px;padding:10px;text-align:center;font-weight:700;font-size:.83rem}
+  .phone .locked{border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px;text-align:center;color:rgba(255,255,255,.75);font-size:.8rem}
+  .phone .locked .lk{font-size:1.3rem}
+  .phone .banner{background:rgba(233,196,106,.14);border:1px solid rgba(233,196,106,.4);border-radius:12px;padding:12px 14px;font-size:.78rem}
+  .phone .banner b{color:#E9C46A}
+  .cap2{text-align:center;font-size:.72rem;color:var(--faint);margin-top:8px}
+  .foot{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:.82rem}
+  .foot .mono{color:var(--muted);font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="doc">
+  <div class="breadcrumb"><a href="index.html">Personale-guides</a> / Festival Pass</div>
+  <header class="masthead">
+    <span class="eyebrow">LiveCloud · Festival Pass (PlatformAccess)</span>
+    <h1>Festival Pass Guide</h1>
+    <p class="lead" style="margin-top:12px">The <strong>Festival Pass</strong> is the paid entry credential: 75 kr, valid one year, one-time (not a subscription). Everyone needs one; it unlocks the entry credential (wallet / QR / wristband) and the buy-actions. It is LiveCloud’s own product, so it is additive and does not touch the festival’s ticket revenue. Two sides: the operator comps it for free, or the guest buys it in the app.</p>
+  </header>
+
+  <div class="pcard"><h3><span class="pchip op">Operator</span> &nbsp; <span class="pchip guest">Guest</span></h3><p>Operator (FMS) comps a free pass for authorities / artists / staff / VIP. Guest (app) buys the 75 kr pass; without it, buy-actions are blocked, and near expiry a renewal prompt appears.</p></div>
+
+  <!-- OPERATOR -->
+  <section class="feature" id="op">
+    <div class="head"><span class="num">PART 1</span><h2>Operator: comp a free pass (FMS)</h2><span class="tags"><span class="pchip op">back-office</span></span></div>
+    <p class="overview">Give a specific guest the pass for free, bypassing the 75 kr fee. A comped pass is identical to a paid one at the gate.</p>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p><span class="ui">Drift → Deltagere</span>, open the guest.</p></div></li>
+        <li><div><p><span class="ui">Handlinger</span> → <span class="ui">Giv gratis festivalpas</span>.</p></div></li>
+        <li><div><p>Type a reason in <span class="ui">Årsag</span> (required, audit log), then confirm.</p><p class="result">“Gratis festivalpas tildelt.” Access unlocks, valid one year.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">FMS · comp dialog</div>
+        <div class="frame"><div class="dialog">
+          <div class="dt">Giv gratis festivalpas til Tony Mortensen</div>
+          <div class="dd">Tildeler et gratis festivalpas (adgang til festivalen og dit armbånd) uden gebyret på 75 kr. Bruges til myndigheder, artister, personale og VIP. Gælder ét år.</div>
+          <div class="field"><div class="lab">Årsag <span class="req">*</span></div><div class="box">Hvorfor gives festivalpasset gratis?</div><div class="microcopy">Påkrævet for audit-spor. Synligt i admin-logs.</div></div>
+          <div class="dfoot"><span class="btn">Annullér</span><span class="btn primary">Giv gratis festivalpas</span></div>
+        </div></div>
+        <div class="toast"><span class="ck">✓</span> Gratis festivalpas tildelt.</div>
+      </div>
+    </div>
+    <div class="note"><p>Re-comping the same guest is safe. It returns the existing pass, never a duplicate. Setup: the “Festival Pass” product (type <em>PlatformAccess</em>, 75,00 kr, <code>meta.platform_access {one_time, 365d}</code>) must exist for the summit. See the FMS guide.</p></div>
+  </section>
+
+  <!-- GUEST -->
+  <section class="feature" id="guest">
+    <div class="head"><span class="num">PART 2</span><h2>Guest: buy it, and the gate (app)</h2><span class="tags"><span class="pchip guest">native app</span></span></div>
+    <p class="overview">In the app the guest buys the pass with a card; until they have it, the buy-actions are blocked; near expiry a one-tap renewal prompt appears.</p>
+
+    <div class="sub-label">Buy the pass</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>The guest opens the <strong>Festival Pass</strong> screen and pays <strong>75 kr</strong> with a card.</p></div></li>
+        <li><div><p>The pass is granted for one year.</p><p class="result">The entry credential (wallet / QR / wristband) and buy-actions unlock automatically.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">App · Festival Pass</div>
+        <div class="phone"><div class="scr"><div class="top">Festival Pass</div>
+          <div class="body">
+            <div class="eyb">Festival Pass</div>
+            <div class="h">Adgang til festivalen</div>
+            <div class="price">75 kr</div>
+            <div class="m">Gælder ét år · adgang + dit armbånd</div>
+            <div class="pbtn">Køb Festival Pass</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sub-label">The gate + renewal</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p><strong>Without a pass</strong>, buy-actions are blocked: buying tickets/merch (<span class="ui">StoreCheckout</span>), topping up Beats (<span class="ui">BeatsLoading</span>), and linking a wristband (<span class="ui">LinkWristband</span>) all prompt for the pass first.</p><p class="hint">The block only fires on a definite “no pass”. Network errors fail <strong>open</strong>, so a guest is never wrongly locked out.</p></div></li>
+        <li><div><p><strong>Near expiry</strong>, a renewal banner appears (it is one-time, not an auto-charging subscription). One tap re-buys and extends another year.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">App · gate + renewal</div>
+        <div class="phone"><div class="scr"><div class="top">Køb</div>
+          <div class="body">
+            <div class="locked"><div class="lk">🔒</div>Festival Pass kræves for at købe.<br>Få dit pas for at fortsætte.</div>
+            <div class="banner">Dit <b>Festival Pass</b> udløber snart. <b>Forny nu</b> for at beholde adgang.</div>
+            <div class="pbtn">Få / forny Festival Pass</div>
+          </div>
+        </div></div>
+        <div class="cap2">Buy-actions blocked without a pass; renewal prompt near expiry.</div>
+      </div>
+    </div>
+    <div class="note info"><p><strong>Not the same as Festival+.</strong> The Festival Pass is the required 75 kr access credential. Festival+ is the optional tiered membership (Spark/Pulse/Power) bought with Beats. See the Festival+ guide.</p></div>
+  </section>
+
+  <footer class="foot">
+    <p>Festival Pass (PlatformAccess): operator comp (FMS) + guest buy / gate / renewal (app). Built this session (FMS #1811 + app #1177), on staging. Screens are 1:1 recreations with exact labels.</p>
+  </footer>
+</div></div>
+</body>
+</html>

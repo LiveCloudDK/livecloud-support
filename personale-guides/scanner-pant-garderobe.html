@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Scanner Guide — Pant &amp; Garderobe (front-line staff)</title>
+<style>
+  :root{
+    --paper:#F2F4F7;--ink:#161A21;--muted:#5C6675;--faint:#8A94A2;--line:#E4E8ED;--line-2:#D2D8E0;--card:#FFFFFF;
+    --accent:#2C7A57;--accent-ink:#1F5C40;--accent-bg:#E7F3EC;--primary:#1B212A;
+    --ok:#2C7A57;--ok-bg:#E7F3EC;--beats:#9A6A12;--beats-bg:#F6EEDD;--danger:#B02330;--danger-bg:#FBEBEC;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}body{margin:0}
+  .wrap{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:clamp(18px,4vw,52px) clamp(14px,4vw,36px)}
+  .doc{max-width:940px;margin:0 auto}
+  h1{font-size:clamp(1.9rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+  h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;margin:0}
+  p{margin:0 0 .7em;max-width:72ch}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+  .lead{font-size:1.06rem;color:var(--muted);max-width:70ch}
+  .ui{font-weight:600;color:var(--ink);background:#EEF1F4;border:1px solid var(--line);border-radius:5px;padding:0 6px;white-space:nowrap;font-size:.92em}
+  code{font-family:var(--mono);font-size:.85em}
+  .masthead{border-bottom:3px solid var(--ink);padding-bottom:22px;margin-bottom:20px}
+  .masthead .eyebrow{display:block;margin-bottom:10px}
+  .pchip{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap;background:var(--accent-bg);color:var(--accent-ink)}
+  .pchip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-top:3px solid var(--accent);margin:16px 0 4px}
+  .pcard h3{font-size:1rem;margin:0 0 6px}.pcard p{font-size:.9rem;color:var(--muted);margin:0}
+  .pcard .where{font-family:var(--mono);font-size:.7rem;color:var(--faint);margin-top:9px;display:block}
+  section.feature{margin-top:46px;scroll-margin-top:16px}
+  .feature>.head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
+  .feature>.head .num{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--accent)}
+  .overview{color:var(--muted);font-size:.98rem;margin:4px 0 6px;max-width:74ch}
+  .sub-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:24px 0 12px;display:flex;align-items:center;gap:10px}
+  .sub-label::after{content:"";flex:1;height:1px;background:var(--line-2)}
+  .stepwrap{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+  @media(min-width:780px){.stepwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:30px}}
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+  ol.steps>li{counter-increment:s;display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}
+  ol.steps>li::before{content:counter(s);font-family:var(--mono);font-weight:700;font-size:.76rem;color:#fff;background:var(--accent);border-radius:50%;width:23px;height:23px;display:grid;place-items:center;margin-top:1px}
+  ol.steps>li>div>p{margin:0}ol.steps>li>div>p+p{margin-top:3px}
+  .hint{color:var(--muted);font-size:.87rem}
+  .result{color:var(--ok);font-size:.87rem;font-weight:600}.result::before{content:"→ "}
+  .note{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:.9rem}
+  .note.warn{background:#FBF1E2;border-color:var(--beats)}.note.info{background:#EAF1F6;border-color:#3C6E93}
+  .note p{margin:0;max-width:none}.note p+p{margin-top:.5em}
+  .shot .cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+  /* scanner device mock */
+  .dev{width:210px;margin:0 auto;border-radius:22px;padding:8px;background:#171B22;box-shadow:0 14px 34px -16px rgba(0,0,0,.55)}
+  .dev .scr{border-radius:16px;overflow:hidden;background:#0C0F14}
+  .dev .top{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.55);text-align:center;padding:8px;background:rgba(255,255,255,.05);letter-spacing:.05em}
+  .dev .body{min-height:230px;padding:18px 16px;color:#EAEFF5;background:radial-gradient(130% 70% at 50% -10%,#243247 0%,#0C0F14 62%);display:flex;flex-direction:column;gap:12px}
+  .dev .scanbox{margin:6px auto;width:120px;height:120px;border-radius:14px;border:2px dashed rgba(120,220,170,.55);display:grid;place-items:center;color:rgba(120,220,170,.85);font-size:.72rem;text-align:center;position:relative}
+  .dev .scanbox::before,.dev .scanbox::after{content:"";position:absolute;width:22px;height:22px;border:3px solid #46D39A}
+  .dev .scanbox::before{top:-2px;left:-2px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+  .dev .scanbox::after{bottom:-2px;right:-2px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+  .dev .prompt{text-align:center;font-size:.8rem;color:rgba(255,255,255,.7)}
+  .dev .res{background:rgba(70,211,154,.12);border:1px solid rgba(70,211,154,.4);border-radius:12px;padding:12px 14px;text-align:center}
+  .dev .res.bad{background:rgba(211,80,80,.12);border-color:rgba(211,90,90,.5)}
+  .dev .res .big{font-size:1.5rem;font-weight:800;color:#7BE3B0}
+  .dev .res.bad .big{color:#F09090;font-size:1rem}
+  .dev .res .sm{font-size:.72rem;color:rgba(255,255,255,.7);margin-top:3px}
+  .dev .btn{background:#fff;color:#12161C;border-radius:10px;padding:10px;text-align:center;font-weight:700;font-size:.82rem;margin-top:auto}
+  .cap2{text-align:center;font-size:.72rem;color:var(--faint);margin-top:8px}
+  .beats-amt{font-weight:700;color:var(--beats)}
+  .foot{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:.82rem}
+  .foot .mono{color:var(--muted);font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="doc">
+  <header class="masthead">
+    <span class="eyebrow">LiveCloud · Scanner / POS</span>
+    <h1>Scanner Guide</h1>
+    <p class="lead" style="margin-top:12px">For <strong>you, on the front line</strong> — at a Pant return point or the Garderobe (cloakroom) desk. You scan the guest (and, for cloakroom, the hanger) on the scanner / POS device, and Beats move automatically. This guide is the whole job in three short flows.</p>
+  </header>
+
+  <div class="pcard"><h3><span class="pchip">Staff</span></h3><p>You take reusable items back and refund the deposit, or you hang coats and charge the cloakroom fee. Everything is a scan; the system handles the money and stops mistakes.</p><span class="where">Scanner / POS app · signed in for your vendor (bar / booth / desk)</span></div>
+
+  <div class="note info"><p><strong>Before your shift:</strong> your device must be signed in for the right vendor. If it asks for a key, get the <code>lcap_…</code> vendor API key from your admin (they create it in FMS under Vendors → API keys). One key per device/vendor.</p></div>
+
+  <!-- PANT RETURN -->
+  <section class="feature" id="pant">
+    <div class="head"><span class="num">FLOW 1</span><h2>Pant — take a return, refund the deposit</h2></div>
+    <p class="overview">A guest brings back a Pant item (e.g. a reusable cup). You scan them, confirm, and their deposit goes straight back to their Beats wallet.</p>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Ask the guest to open <span class="ui">Min pant</span> in their app and show the QR.</p></div></li>
+        <li><div><p><strong>Scan</strong> the guest QR on your device.</p></div></li>
+        <li><div><p>Pick the item and quantity being returned, and <strong>confirm</strong>.</p></div></li>
+        <li><div><p>Hand the deposit back.</p><p class="result">The screen shows the refund, e.g. <span class="beats-amt">+20 Beats</span> returned. The item drops off their outstanding list.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Scanner · pant return</div>
+        <div class="dev"><div class="scr"><div class="top">PANT · RETURN</div>
+          <div class="body">
+            <div class="prompt">Scan the guest’s Min pant code</div>
+            <div class="scanbox">Genbrugskrus<br>× 1</div>
+            <div class="res"><div class="big">+20 Beats</div><div class="sm">Refunded to Tony Mortensen</div></div>
+            <div class="btn">Confirm return</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="note warn"><p><strong>Don’t worry about mistakes:</strong> scanning the same item again refunds <strong>nothing</strong> (“no outstanding deposit”). Returning fewer than they bought is fine — the rest stays outstanding. You can never refund more than the guest actually owes.</p></div>
+  </section>
+
+  <!-- GARDEROBE BIND -->
+  <section class="feature" id="bind">
+    <div class="head"><span class="num">FLOW 2</span><h2>Garderobe — hang a coat, charge the fee</h2></div>
+    <p class="overview">At drop-off you scan the guest and the hanger. The rental fee is taken from their Beats and the hanger is tied to them.</p>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p><strong>Scan the guest</strong> (their Festival-ID / app QR).</p></div></li>
+        <li><div><p><strong>Scan the hanger</strong> (its code / QR), then confirm.</p></div></li>
+        <li><div><p>Give the guest their hanger tag.</p><p class="result">The screen shows the fee taken, e.g. <span class="beats-amt">−30 Beats</span>, and “hanger bound”.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Scanner · garderobe bind</div>
+        <div class="dev"><div class="scr"><div class="top">GARDEROBE · BIND</div>
+          <div class="body">
+            <div class="prompt">Scan guest, then hanger</div>
+            <div class="scanbox">Hanger<br>H-042</div>
+            <div class="res"><div class="big">−30 Beats</div><div class="sm">Hanger H-042 bound to guest</div></div>
+            <div class="btn">Confirm</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="note warn"><p><strong>The device protects you:</strong> if the guest hasn’t enough Beats, it declines with <strong>no charge and no hanger bound</strong> — ask them to top up first. If a hanger is already in use, it blocks the second bind (no double charge).</p></div>
+  </section>
+
+  <!-- GARDEROBE RELEASE -->
+  <section class="feature" id="release">
+    <div class="head"><span class="num">FLOW 3</span><h2>Garderobe — give the coat back</h2></div>
+    <p class="overview">At pickup you scan the hanger to release it. There is <strong>no refund</strong> — the fee was a rental.</p>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p><strong>Scan the hanger</strong> (or type its code).</p></div></li>
+        <li><div><p>Hand the coat over. Done.</p><p class="result">“Hanger released.” Balance unchanged — no refund on pickup.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Scanner · garderobe release</div>
+        <div class="dev"><div class="scr"><div class="top">GARDEROBE · RELEASE</div>
+          <div class="body">
+            <div class="prompt">Scan the hanger to release</div>
+            <div class="scanbox">Hanger<br>H-042</div>
+            <div class="res"><div class="big">Released</div><div class="sm">Hanger H-042 · no refund</div></div>
+            <div class="btn">Done</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="note"><p>Scanning a hanger that’s already released, or one you don’t recognise, does nothing and shows no error — safe to try.</p></div>
+  </section>
+
+  <footer class="foot">
+    <p>Scanner guide for front-line staff — Pant returns and Garderobe bind/release. The device screens are illustrative; the actions and the money-safety behaviour are exactly as built and verified on <span class="mono">staging</span>. The <strong>FMS guide</strong> covers the admin setup (products + your vendor key); the <strong>Webticket guide</strong> covers the guest side.</p>
+  </footer>
+</div></div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guide til FMS · Bemanding — festivalkontoret</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;--rust:#9a3412;
+    --green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;
+    --amber:#b45309;--amber-bg:#fffbeb;--blue:#0a5cff;--wyw-bg:#eef2ff;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:248px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:6px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--rust);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--brand);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .wyw{background:var(--wyw-bg);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:14px 18px;margin:20px 0;font-size:14.5px}.wyw b{color:#1e3a8a}
+  .who{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:18px 0;background:#fff;box-shadow:var(--shadow)}
+  .who .av{width:46px;height:46px;border-radius:13px;background:#eef2ff;display:grid;place-items:center;font-size:22px;flex:none}
+  .who b{font-size:15px}.who p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+  h3.flow{font-size:22px;margin:34px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--rust);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .setup{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:12px 0;font-size:13.8px}
+  .setup .h{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .app{display:grid;grid-template-columns:186px 1fr;min-height:170px}
+  .side{background:#fafafa;border-right:1px solid var(--line);padding:12px 10px;font-size:12.5px}
+  .side .brand{display:flex;align-items:center;gap:9px;padding:2px 6px 8px}
+  .side .brand .lg{width:23px;height:23px;border-radius:7px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:10px}
+  .side .brand small{display:block;color:var(--muted);font-size:10px}
+  .staging{display:inline-block;margin:0 6px 8px;padding:3px 10px;border-radius:999px;background:var(--amber-bg);border:1px solid #fde68a;color:var(--amber);font-size:10px;font-weight:700;letter-spacing:.08em}
+  .grp{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin:11px 8px 4px}
+  .it{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;color:#3f3f46}.it .ic{width:14px;height:14px;border-radius:4px;background:#e4e4e7;flex:none}
+  .it.on{background:#efeff1;color:#111;font-weight:600}.it.on .ic{background:#111}
+  .main2{padding:18px 20px;background:#fff;min-width:0}
+  .ph{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}.ph h5{margin:0;font-size:18px}.ph p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+  .ph .acts{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}.btn.pri{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:4px 0 12px;background:var(--line)}
+  .kpi{padding:11px 12px;background:#fff}.kpi .k{font-size:9.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}.kpi .v{font-size:21px;font-weight:800;margin-top:2px}
+  .card2{border:1px solid var(--line);border-radius:12px;padding:12px 15px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:9px 0}
+  .card2 .t b{font-size:13.5px}.card2 .t p{margin:2px 0 0;color:var(--muted);font-size:12px}.card2 .right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .fakefile{border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--muted);background:#fafafa}
+  .searchbar{display:flex;gap:10px;align-items:center;margin:12px 0 8px}.search{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--muted);font-size:12.5px;background:#fafafa}
+  .toggle{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}.toggle span{padding:6px 11px;font-size:12px;font-weight:600;color:var(--muted)}.toggle span.on{background:#efeff1;color:#111}
+  .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px}.filters .f{border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:12px;color:#52525b;background:#fff}.filters .f::after{content:" ▾";color:var(--muted)}
+  .unit{border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:9px 0}.unit .row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.unit .row1 b{font-size:14px}
+  .tag2{font-size:10.5px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:#52525b;background:#fafafa}
+  .unit .lead{color:var(--muted);font-size:12.5px;margin-top:2px}.unit .meta{display:flex;gap:14px;flex-wrap:wrap;color:#3f3f46;font-size:12.5px;margin-top:8px;align-items:center}.unit .meta .hi{color:var(--green);font-weight:700}
+  .person{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-top:9px;background:#fcfcfd}.person .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.person .top b{font-size:13.5px}
+  .person .top .sp{margin-left:auto;color:var(--muted);font-size:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.pill{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 10px;border:1px solid var(--grey-line);background:var(--grey-pill);color:#a1a1aa}.pill.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .badge{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#111;color:#fff;font-size:10.5px;font-weight:700;vertical-align:1px;margin-right:3px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:#111;color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .guest{border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 10px 10px 0;padding:9px 13px;margin:9px 0;font-size:13.5px;color:#065f46}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .csvcols{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.csvcols span{font-size:11.5px;border:1px solid var(--line);background:#fafafa;border-radius:7px;padding:4px 9px;color:#3f3f46}.csvcols span.acc{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .lab{font-size:11px;font-weight:700;color:#52525b;margin:8px 0 2px}
+  .tree{font-size:13px;line-height:1.95}.tree .lvl1{font-weight:700}.tree .lvl2{margin-left:22px}.tree .lvl3{margin-left:44px;color:#3f3f46}
+  .tree .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#111;margin-right:8px;vertical-align:2px}.tree .lvl2 .dot{background:#6366f1}.tree .lvl3 .dot{background:#a1a1aa}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.app{grid-template-columns:1fr}.app .side{display:none}main{padding:24px 18px 80px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">LC</div><div><b>FMS · Bemanding</b><small>Guide til festivalkontoret</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du den</a>
+      <a href="#g1">1 · Udfyld arket</a>
+      <a href="#g2">2 · Importér</a>
+      <a href="#g3">3 · Se strukturen</a>
+      <a href="#g4">4 · Find &amp; filtrér</a>
+      <a href="#g5">5 · Følg status</a>
+      <a href="#g6">6 · Send invitationer</a>
+      <a href="#g7">7 · Flyt &amp; luk adgang</a>
+      <a href="#g8">8 · Adgange &amp; billetter</a>
+      <a href="#g9">9 · Eksportér til løn</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide · du bruger FMS</div>
+      <h1>Bemanding — sådan bygger du personalet</h1>
+      <p class="lede">Du er på festivalkontoret. Her importerer du personale-arket, får styr på hvem der er hvor, deler adgange og beats ud, og holder øje med status. Hver skærm herunder svarer til den du ser i FMS. Danske knap-navne står i grå — fx <span class="chip">Importér</span> — så du ved hvad du skal klikke på.</p>
+      <hr class="rule">
+      <div class="who"><div class="av">🗂️</div><div><b>Det er dig</b><p>Festivalkontor / admin (fx Britt). Du arbejder i FMS.</p></div></div>
+      <div class="wyw"><b>Hvor du arbejder:</b> alt ligger under <span class="chip">Akkreditering → Bemanding</span> i FMS. Tjek at den rigtige festival er valgt øverst til venstre (<span class="chip">Ringsted Festival</span>), før du går i gang.</div>
+    </section>
+
+    <h3 class="flow" id="g1"><span class="g1">Trin 1</span>Udfyld arket</h3>
+    <p class="ctx">Én række pr. person. Skriv overskrifterne præcis som her. De sidste kolonner er <b>adgange</b> — sæt et <code>x</code> for at give adgangen.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">medarbejder-skabelon.csv</span></div>
+      <div class="main2">
+        <div class="lab">Basis</div><div class="csvcols"><span>Roller</span><span>Område</span><span>Fornavn</span><span>Efternavn</span><span>Mobil</span><span>Email</span><span>Teamleder Fornavn</span><span>Teamleder Efternavn</span><span>Honorar Type</span><span>Beløb</span><span>Beats</span></div>
+        <div class="lab">Vagtdage (x)</div><div class="csvcols"><span>På vagt - Torsdag</span><span>På vagt - Fredag</span><span>På vagt - Lørdag</span></div>
+        <div class="lab">Adgange (x)</div><div class="csvcols"><span class="acc">Slaraffenland</span><span class="acc">Glamcamp</span><span class="acc">Artist</span><span class="acc">Backstage</span><span class="acc">Scene</span><span class="acc">Nedtagning</span><span class="acc">Kasernen</span><span class="acc">Kompagniet</span></div>
+      </div></div>
+    <ol class="steps">
+      <li>Sæt <span class="chip">Roller</span> = <span class="chip">Områdeleder</span> · <span class="chip">Teamleder</span> · <span class="chip">Medarbejder</span>, og <span class="chip">Område</span> = holdets navn (samme tekst for hele holdet).</li>
+      <li>På en medarbejder skriver du <span class="chip">Teamleder Fornavn/Efternavn</span> — så kobles personen til den rette leder. Mellemnavne og et samlet <span class="chip">Navn</span>-felt går også godt.</li>
+      <li>Vælg <span class="chip">Honorar Type</span>: <span class="chip">løn</span> (kræver CPR + adresse), <span class="chip">faktura</span> eller <span class="chip">vaerdikort</span> (beats). Skriv <span class="chip">Beats</span>-tallet for dem der får beats.</li>
+    </ol>
+    <div class="note"><b>Lad Fornavn/Efternavn stå tomt</b>, hvis du endnu ikke ved hvem det bliver — så bliver det en ubesat plads med holdets adgange + beats, som kan udfyldes senere.</div>
+
+    <h3 class="flow" id="g2"><span class="g1">Trin 2</span>Importér arket</h3>
+    <p class="ctx">Ét klik bygger hele strukturen op.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">staging-fms.livecloud.dk/commerce/vendor-staffing</span></div>
+      <div class="app"><div class="side"><div class="brand"><div class="lg">LC</div><div><b>LiveCloud</b><small>Ringsted Festival</small></div></div><span class="staging">STAGING</span><div class="grp">Akkreditering</div><div class="it"><span class="ic"></span>Modtagere</div><div class="it on"><span class="ic"></span>Bemanding</div><div class="it"><span class="ic"></span>Servicedesk</div><div class="it"><span class="ic"></span>Armbånd</div></div>
+        <div class="main2"><div class="ph"><div><h5>Bemanding</h5><p>Områder, hold og tilmeldinger for Ringsted Festival.</p></div><div class="acts"><span class="btn pri">+ Opret område</span><span class="btn">Send invitationer</span><span class="btn">Eksportér ▾</span></div></div>
+        <div class="kpis"><div class="kpi"><div class="k">Områder</div><div class="v">9</div></div><div class="kpi"><div class="k">Pladser</div><div class="v">5</div></div><div class="kpi"><div class="k">Tilmeldt</div><div class="v">2/5</div></div><div class="kpi"><div class="k">Ledige</div><div class="v">2</div></div><div class="kpi"><div class="k">Beats</div><div class="v">650</div></div></div>
+        <div class="card2"><div class="t"><b><span class="badge">1</span>Importér bemanding fra CSV</b><p>Opretter områder, ledere og pladser i ét hug.</p></div><div class="right"><span class="fakefile">Choose file</span><span class="btn pri">Importér</span></div></div></div></div></div>
+    <ol class="steps">
+      <li>Klik <span class="chip">Choose file</span>, vælg dit ark, og klik <span class="chip">Importér</span>. Områder, hold, ledere og pladser oprettes, og honorar/beats/vagtdage/adgange sættes fra kolonnerne.</li>
+      <li>Læs <b>advarslerne</b>: en adgangs-kolonne der ikke matcher et billet-produkt springes over, og rækker uden område/e-mail nævnes.</li>
+      <li>Du kan trygt <b>importere igen</b> — allerede tilmeldte personer bevares, kun ubesatte pladser bygges om.</li>
+    </ol>
+
+    <h3 class="flow" id="g3"><span class="g1">Trin 3</span>Se strukturen</h3>
+    <p class="ctx">Efter import har du et hierarki: festival → område → hold → medarbejder. Lederne er ejere af deres enhed.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding · Træ</span></div>
+      <div class="main2"><div class="tree">
+        <div class="lvl1"><span class="dot"></span>Slaraffenland <span class="tag2">Område</span> · Miki Olsen</div>
+        <div class="lvl2"><span class="dot"></span>VS-Test Backstage <span class="tag2">Hold</span> · Bea Backstagechef</div>
+        <div class="lvl3"><span class="dot"></span>Alma Andersen · Medarbejder · Backstage · Tor+Fre</div>
+        <div class="lvl3"><span class="dot"></span>Ubesat plads · Medarbejder · Backstage · Fre</div>
+        <div class="lvl2"><span class="dot"></span>VS-Test Runner Team <span class="tag2">Hold</span> · Rasmus Runnerchef</div>
+      </div></div></div>
+    <ol class="steps">
+      <li>En <span class="chip">Områdeleder</span> bliver ejer af en <b>område</b>-enhed; en <span class="chip">Teamleder</span> ejer et <b>hold</b>.</li>
+      <li>En <span class="chip">Medarbejder</span> hænges på sin teamleders hold (via Teamleder-navnet).</li>
+      <li>Du sætter selv hvilke hold der ligger under hvilket område — giv bare hvert hold et unikt <span class="chip">Område</span>-navn i arket.</li>
+    </ol>
+
+    <h3 class="flow" id="g4"><span class="g1">Trin 4</span>Find &amp; filtrér</h3>
+    <p class="ctx">Skift visning, søg og filtrér for hurtigt at finde det rette hold eller den rette person.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding</span></div>
+      <div class="main2"><div class="searchbar"><div class="search"><span class="badge">1</span>Søg navn, e-mail eller telefon…</div><div class="toggle"><span class="on">Træ</span><span>Personer</span></div></div>
+      <div class="filters"><span class="f">Alle roller</span><span class="f">Alle statusser</span><span class="f">Alle kontrakter</span><span class="f">Alle data</span></div></div></div>
+    <ol class="steps">
+      <li>Skift mellem <span class="chip">Træ</span> (hierarki) og <span class="chip">Personer</span> (flad liste på tværs af alle hold).</li>
+      <li>Søg på navn, e-mail, telefon eller adgangens navn — listen filtreres med det samme.</li>
+      <li>Kombinér filtrene (<span class="chip">Alle roller</span> · <span class="chip">Alle statusser</span> · <span class="chip">Alle kontrakter</span> · <span class="chip">Alle data</span>) — fx "medarbejdere uden CPR".</li>
+    </ol>
+
+    <h3 class="flow" id="g5"><span class="g1">Trin 5</span>Følg status</h3>
+    <p class="ctx">Fold et hold ud (<span class="chip">Se hold</span>) og se hver persons status som pills.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding · VS-Test Backstage</span></div>
+      <div class="main2"><div class="unit"><div class="row1"><b>VS-Test Backstage</b><span class="tag2">Hold</span><span style="margin-left:auto;display:flex;gap:8px"><span class="btn">Rediger område</span><span class="btn">Del tilmeldings-QR</span></span></div>
+        <div class="lead">Leder: Bea Backstagechef</div><div class="meta"><span class="hi">1/1 tilmeldt</span><span>1 inviteret</span><span>1 løn</span><span>200 beats</span></div>
+        <div class="person"><div class="top"><b>Bea Backstagechef</b><span class="tag2">Leder</span><span class="sp"><span>løn · 180.00</span><span>Flyt</span><span style="color:#dc2626">Luk adgang</span></span></div>
+          <div class="pills"><span class="pill ok">Inviteret 2. jul.</span><span class="pill ok">Tilmeldt</span><span class="pill ok">1 billet</span><span class="pill ok">200 beats</span><span class="pill">Kontrakt</span><span class="pill">CPR mangler</span><span class="pill">Adresse mangler</span></div></div></div></div></div>
+    <ol class="steps">
+      <li><b>Grønne pills</b> = på plads: inviteret, tilmeldt, billet udstedt, beats tildelt.</li>
+      <li><b>Grå pills</b> = mangler: <span class="chip">Kontrakt</span>, <span class="chip">CPR mangler</span>, <span class="chip">Adresse mangler</span>. CPR/adresse gælder kun løn-folk og vises først når personen er tilmeldt.</li>
+      <li>Ud for personen kan du <span class="chip">Flyt</span> til et andet hold eller <span class="chip">Luk adgang</span>.</li>
+    </ol>
+
+    <h3 class="flow" id="g6"><span class="g1">Trin 6</span>Send invitationer</h3>
+    <p class="ctx">Folk med e-mail får en mail; hold uden e-mail får en QR de kan tilmelde sig med.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding</span></div>
+      <div class="main2"><div class="card2"><div class="t"><b><span class="badge">1</span>Send invitationer</b><p>Sender tilmeldings-mails til alle med e-mail (nye + gensend).</p></div><div class="right"><span class="btn pri">Send invitationer</span></div></div>
+      <div class="card2"><div class="t"><b><span class="badge">2</span>Del tilmeldings-QR</b><p>Ét QR/link pr. hold, til folk uden e-mail.</p></div><div class="right"><span class="btn">Del tilmeldings-QR</span></div></div></div></div>
+    <ol class="steps">
+      <li>Klik <span class="chip">Send invitationer</span> — der sendes til alle med e-mail og gensendes til dem der ikke har reageret.</li>
+      <li>Brug <span class="chip">Del tilmeldings-QR</span> pr. hold til folk uden e-mail — de scanner og tilmelder sig selv.</li>
+    </ol>
+    <div class="guest"><b>Det de ser:</b> personen lander på webticket'en, logger ind med MitID eller e-mailkode og claimer sin plads. (Se webticket-guiden.)</div>
+
+    <h3 class="flow" id="g7"><span class="g1">Trin 7</span>Flyt &amp; luk adgang</h3>
+    <ol class="steps">
+      <li>Klik <span class="chip">Flyt</span> ud for personen og vælg nyt hold — personen og status følger med.</li>
+      <li>Klik <span class="chip">Luk adgang</span> hvis nogen melder afbud — adgangen trækkes tilbage, og handlingen logges.</li>
+    </ol>
+
+    <h3 class="flow" id="g8"><span class="g1">Trin 8</span>Adgange &amp; billetter</h3>
+    <p class="ctx">Adgangs-kolonnerne udstedes som billetter. Er personen på vagt flere dage, får de adgangen pr. dag.</p>
+    <div class="setup"><div class="h">Opsætning (én gang pr. festival)</div>For hver adgang skal der findes et billet-produkt hvis handle rummer zone- + dag-token (fx <span class="chip">…-backstage-torsdag-…</span>). Findes det ikke, advarer importen — så I kan oprette det inden festivalen.</div>
+    <ol class="steps">
+      <li>To vagtdage → to billetter for den adgang (samme gælder camping-kryds).</li>
+      <li>Får du en advarsel om at en adgang ikke matcher noget billet-produkt, så få produktet oprettet, og importér igen.</li>
+    </ol>
+
+    <h3 class="flow" id="g9"><span class="g1">Trin 9</span>Eksportér til løn</h3>
+    <ol class="steps">
+      <li>Klik <span class="chip">Eksportér</span> — filen indeholder navn, honorar, CPR + adresse for løn-folk (til Danløn).</li>
+      <li><b>Fiktive test-CPR'er</b> blankes bevidst ud med en advarsel, så testdata aldrig ryger i rigtig løn.</li>
+      <li>Mangler CPR/adresse på en løn-person (grå pills), så mind personen om at gøre profilen færdig på webticket'en.</li>
+    </ol>
+
+    <div class="footer">LiveCloud FMS · Ringsted Festival — guide til festivalkontoret. Skærmene svarer til den live FMS; danske knap-navne står i grå. Til ledere og medarbejdere: se webticket-guiden.</div>
+  </main>
+</div>
+</body>
+</html>

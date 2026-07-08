@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Kundeservice: opret medarbejdere (Bemanding)</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --acc:#4f46e5;--acc-d:#3730a3;--green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;
+    --red:#c92835;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;--amber:#b45309;--amber-bg:#fffbeb;
+    --stg-bg:#fff3d6;--stg-line:#f5d17a;--stg-ink:#9a6a00;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--acc);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#d4d4d8}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner.k{background:linear-gradient(100deg,#4338ca,#3730a3)}.pbanner.s{background:linear-gradient(100deg,#0e7490,#155e75)}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fmsapp{display:grid;grid-template-columns:158px 1fr;min-height:180px;background:#fff}
+  .fmside{background:#fbfbfc;border-right:1px solid var(--line);padding:10px 8px;font-size:11.5px}
+  .fmside .brand{display:flex;align-items:center;gap:7px;padding:2px 4px 4px}
+  .fmside .brand .lg{width:22px;height:22px;border-radius:6px;background:#0b0b0c;color:#fff;display:grid;place-items:center;font-size:8px;font-weight:800}
+  .fmside .brand b{font-size:11px;line-height:1.05}.fmside .brand small{color:var(--muted);font-size:9px}
+  .fmside .stg{display:block;text-align:center;background:var(--stg-bg);color:var(--stg-ink);border:1px solid var(--stg-line);border-radius:6px;padding:2px;font-size:9px;font-weight:800;letter-spacing:.08em;margin:6px 2px 8px}
+  .fmside .grp{color:var(--muted);font-size:9px;letter-spacing:.06em;text-transform:uppercase;margin:9px 7px 3px}
+  .fmside .it{display:flex;align-items:center;gap:7px;padding:5px 7px;border-radius:7px;color:#3f3f46}
+  .fmside .it .ic{width:13px;height:13px;border-radius:4px;background:#e4e4e7;flex:none}
+  .fmside .it.on{background:#eef2ff;color:var(--acc-d);font-weight:600}.fmside .it.on .ic{background:var(--acc)}
+  .fmmain{padding:15px 17px;background:#fff;min-width:0}
+  .fmh{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:12px}.fmh h5{margin:0;font-size:19px}.fmh p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+  .fmh .act{margin-left:auto;display:flex;gap:7px}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}
+  .btn.dark{background:#0b0b0c;color:#fff;border-color:#0b0b0c}
+  .stats{display:flex;gap:26px;border:1px solid var(--line);border-radius:13px;padding:14px 18px;margin-bottom:12px;flex-wrap:wrap}
+  .stats .s .k{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}.stats .s .v{font-size:22px;font-weight:800;margin-top:1px}
+  .import{border:1px solid var(--line);border-radius:13px;padding:13px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+  .import .t b{font-size:13.5px}.import .t p{margin:2px 0 0;color:var(--muted);font-size:12px}.import .right{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .file{border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--muted);background:#fafafa}
+  .searchbar{display:flex;gap:8px;align-items:center;margin:4px 0 8px}.search{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--muted);font-size:12.5px;background:#fafafa}
+  .seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}.seg span{padding:7px 12px;font-size:12px;font-weight:600;color:var(--muted)}.seg span.on{background:#fff;color:#111;box-shadow:inset 0 0 0 1px var(--line)}
+  .unit{border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:9px 0;background:#fff}
+  .unit .top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.unit .top b{font-size:14px}.unit .top .act{margin-left:auto;display:flex;gap:7px}
+  .tag2{font-size:10.5px;font-weight:700;border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:#52525b;background:#fafafa}
+  .unit .meta{color:var(--muted);font-size:12px;margin-top:3px}
+  .unit .sub{display:flex;gap:16px;color:#3f3f46;font-size:12.5px;margin-top:8px;flex-wrap:wrap}.unit .sub .ok{color:var(--green);font-weight:700}
+  .person{border:1px solid var(--line);border-radius:11px;padding:11px 13px;margin-top:9px;background:#fcfcfd}
+  .person .top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.person .top b{font-size:13.5px}
+  .person .top .sp{margin-left:auto;color:var(--muted);font-size:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .person .top .del{color:var(--red);font-weight:700}
+  .pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.pill{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 10px;border:1px solid var(--grey-line);background:var(--grey-pill);color:#a1a1aa}.pill.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .modal{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff;max-width:440px;margin:0 auto;box-shadow:var(--shadow)}
+  .modal h5{margin:0 0 2px;font-size:17px}.modal .mp{color:var(--muted);font-size:12.5px;margin:0 0 12px}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .lab{font-size:11px;font-weight:700;color:#52525b;margin:8px 0 2px}.lab .req{color:var(--red)}
+  .field{border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:12.5px;color:#3f3f46;background:#fafafa}
+  .field.sel::after{content:"▾";float:right;color:#a1a1aa}
+  .modal .foot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+  .zap{color:var(--green);font-weight:700}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}.fmsapp{grid-template-columns:1fr}.fmside{display:none}main{padding:24px 18px 80px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">KS</div><div><b>Kundeservice</b><small>Opret medarbejdere</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du den</a>
+      <div class="g">Kom i gang</div>
+      <a href="#aabn">Åbn Bemanding</a>
+      <div class="g">Opret medarbejdere</div>
+      <a href="#import">Importér mange (CSV)</a>
+      <a href="#manuelt">Opret én manuelt</a>
+      <a href="#billet">Tildel billet og beats</a>
+      <div class="g">Følg op</div>
+      <a href="#status">Status og handlinger</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide · du er kundeservice i FMS</div>
+      <h1>Kundeservice: opret medarbejdere</h1>
+      <p class="lede">Du opretter festivalens medarbejdere i <b>Bemanding</b> og tildeler dem billetter og beats. Der er to veje: <b>importér mange på én gang</b> fra et regneark, eller <b>opret én ad gangen</b> manuelt. Knap-navne i FMS står i grå, fx <span class="chip">Importér</span>.</p>
+      <hr class="rule">
+      <div class="cards">
+        <a class="gcard" href="#aabn"><span class="em">🧭</span><b>Åbn Bemanding</b><small>Find skærmen</small></a>
+        <a class="gcard" href="#import"><span class="em">📥</span><b>Importér mange</b><small>CSV i ét hug</small></a>
+        <a class="gcard" href="#manuelt"><span class="em">➕</span><b>Opret én manuelt</b><small>Rediger person-formen</small></a>
+        <a class="gcard" href="#status"><span class="em">✅</span><b>Status og handlinger</b><small>Følg tilmelding og løn</small></a>
+      </div>
+    </section>
+
+    <div class="pbanner k"><div class="av">🧭</div><div><div class="who">Kom i gang</div><h2>Bemanding er dit arbejdsbord</h2><p>Områder, hold og tilmeldinger for festivalen, samlet ét sted.</p></div></div>
+
+    <h3 class="flow" id="aabn"><span class="g1">Kom i gang</span>Åbn Bemanding</h3>
+    <p class="ctx">I venstremenuen under <span class="chip">Akkreditering</span> vælger du <span class="chip">Bemanding</span>. Øverst ser du et overblik: hvor mange områder, pladser, tilmeldte, ledige pladser og beats.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">staging-fms.livecloud.dk/commerce/vendor-staffing</span></div>
+      <div class="fmsapp">
+        <div class="fmside"><div class="brand"><div class="lg">LC</div><div><b>LiveCloud</b><small>Ringsted Festival</small></div></div><div class="stg">STAGING</div>
+          <div class="grp">Akkreditering</div>
+          <div class="it"><span class="ic"></span>Modtagere</div><div class="it on"><span class="ic"></span>Bemanding</div><div class="it"><span class="ic"></span>Servicedesk</div><div class="it"><span class="ic"></span>Armbånd</div></div>
+        <div class="fmmain">
+          <div class="fmh"><div><h5>Bemanding</h5><p>Områder, hold og tilmeldinger for Ringsted Festival.</p></div><div class="act"><span class="btn dark">+ Opret område</span><span class="btn">Send invitationer</span><span class="btn">Eksportér</span></div></div>
+          <div class="stats"><div class="s"><div class="k">Områder</div><div class="v">9</div></div><div class="s"><div class="k">Pladser</div><div class="v">5</div></div><div class="s"><div class="k">Tilmeldt</div><div class="v">2 / 5</div></div><div class="s"><div class="k">Ledige</div><div class="v">2</div></div><div class="s"><div class="k">Beats</div><div class="v">650</div></div></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Tjek øverst til venstre at du står på den <b>rigtige festival</b> (fx Ringsted Festival).</li>
+      <li>Overblikket viser status for hele bemandingen. Herunder ligger områderne og deres hold.</li>
+    </ol>
+
+    <div class="pbanner k" style="background:linear-gradient(100deg,#4338ca,#3730a3)"><div class="av">👥</div><div><div class="who">Opret medarbejdere</div><h2>Importér mange, eller opret én</h2><p>Regneark til mange på én gang. Formen til enkelte medarbejdere.</p></div></div>
+
+    <h3 class="flow" id="import"><span class="g1">Opret medarbejdere</span>Importér mange (CSV)</h3>
+    <p class="ctx">Har du et regneark med områder, ledere og pladser, opretter importen det hele i ét hug.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding · Importér</span></div>
+      <div class="fmmain">
+        <div class="import"><div class="t"><b>Importér bemanding fra CSV</b><p>Opretter områder, ledere og pladser i ét hug.</p></div><div class="right"><span class="file">Choose file</span><span class="btn dark">Importér</span></div></div>
+      </div></div>
+    <ol class="steps">
+      <li>Klik <span class="chip">Choose file</span> og vælg dit CSV-regneark.</li>
+      <li>Klik <span class="chip">Importér</span>. Områder, hold, ledere og pladser oprettes automatisk.</li>
+      <li>Fanger importen en fejl (fx en kolonne der ikke passer til en billet-type), får du en advarsel, så du kan rette regnearket og importere igen.</li>
+    </ol>
+    <div class="tip">Regnearket er semikolon-adskilt (som danske Excel-eksporter). Kolonner styrer hvem der er leder, hvilke adgange og beats hver plads får, og hvilke dage de gælder.</div>
+
+    <h3 class="flow" id="manuelt"><span class="g1">Opret medarbejdere</span>Opret én manuelt</h3>
+    <p class="ctx">Skal du bare tilføje eller rette en enkelt person, bruger du <span class="chip">Rediger person</span>-formen. Åbn et hold og tryk blyanten ud for personen, eller tilføj en ny.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding · Rediger person</span></div>
+      <div class="fmmain"><div class="modal">
+        <h5>Rediger person</h5><p class="mp">Ret oplysninger og indstillinger for personen i holdet.</p>
+        <div class="frow"><div><div class="lab">Fornavn</div><div class="field">Bea</div></div><div><div class="lab">Efternavn</div><div class="field">Backstagechef</div></div></div>
+        <div class="frow"><div><div class="lab">E-mail</div><div class="field">bea@eksempel.dk</div></div><div><div class="lab">Telefon</div><div class="field">20000001</div></div></div>
+        <div class="frow"><div><div class="lab">Rolle <span class="req">*</span></div><div class="field">Teamleder</div></div><div><div class="lab">Funktion</div><div class="field sel">Leder</div></div></div>
+        <div class="frow"><div><div class="lab">Honorartype</div><div class="field sel">Løn</div></div><div><div class="lab">Beløb</div><div class="field">180,00</div></div></div>
+        <div class="frow"><div><div class="lab">Beats</div><div class="field">200</div></div><div><div class="lab">Billetter</div><div class="field">VS-Test Scene</div></div></div>
+        <div class="foot"><span class="btn">Annuller</span><span class="btn dark">Gem ændringer</span></div>
+      </div></div></div>
+    <ol class="steps">
+      <li>Udfyld <span class="chip">Fornavn</span>, <span class="chip">Efternavn</span>, <span class="chip">E-mail</span> og <span class="chip">Telefon</span>.</li>
+      <li>Vælg <span class="chip">Rolle</span> (fx Teamleder eller Medarbejder) og <span class="chip">Funktion</span>.</li>
+      <li>Sæt <span class="chip">Honorartype</span> (Løn eller Faktura) og <span class="chip">Beløb</span>.</li>
+      <li>Tryk <span class="chip">Gem ændringer</span>. Personen får en plads i holdet.</li>
+    </ol>
+    <div class="note">Er personen <b>allerede tilmeldt</b>, kan udstedte billetter ikke ændres her, men du kan altid rette navn, rolle og honorar frit.</div>
+
+    <h3 class="flow" id="billet"><span class="g1">Opret medarbejdere</span>Tildel billet og beats</h3>
+    <p class="ctx">På samme form styrer du hvad personen får med.</p>
+    <ol class="steps">
+      <li><b>Billetter:</b> vælg de adgange personen skal have (fx VS-Test Scene). De bliver til scanbare billetter når personen tilmelder sig.</li>
+      <li><b>Beats:</b> skriv hvor mange festival-credits personen skal have på sin wallet.</li>
+      <li>Gem. Billet og beats følger personen, og lederen kan fordele mere fra webticket'en.</li>
+    </ol>
+
+    <div class="pbanner s"><div class="av">✅</div><div><div class="who">Følg op</div><h2>Status og handlinger</h2><p>Se hvem der er tilmeldt, hvem der mangler, og hvad hver plads har fået.</p></div></div>
+
+    <h3 class="flow" id="status"><span class="g1">Følg op</span>Status og handlinger</h3>
+    <p class="ctx">Hvert område og hold viser leder, hvor mange der er tilmeldt, og hvor mange beats der er delt ud. Åbn holdet for at se den enkelte person.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding · hold og person</span></div>
+      <div class="fmmain">
+        <div class="searchbar"><div class="search">Søg navn, e-mail eller telefon…</div><div class="seg"><span>Træ</span><span class="on">Personer</span></div></div>
+        <div class="unit">
+          <div class="top"><b>VS-Test Backstage</b><span class="tag2">Hold</span><span class="act"><span class="btn">Rediger område</span><span class="btn">Del tilmeldings-QR</span></span></div>
+          <div class="meta">Leder: Bea Backstagechef</div>
+          <div class="sub"><span class="ok">1 / 1 tilmeldt</span><span>1 inviteret</span><span>1 løn</span><span>200 beats</span></div>
+          <div class="person"><div class="top"><b>Bea Backstagechef</b><span class="tag2">Leder</span><span class="sp"><span>VS-Test Scene</span><span>løn · 180.00</span><span>⇄ Flyt</span><span class="del">🚫 Luk adgang</span></span></div>
+            <div class="pills"><span class="pill ok">Inviteret 2. jul.</span><span class="pill ok">Tilmeldt</span><span class="pill ok">1 billet</span><span class="pill ok">200 beats</span><span class="pill">Kontrakt</span><span class="pill">CPR mangler</span><span class="pill">Adresse mangler</span></div>
+          </div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Grønne pills betyder <b>klar</b>: <span class="chip">Tilmeldt</span>, <span class="chip">1 billet</span>, <span class="chip">200 beats</span>. Grå pills mangler stadig, fx <span class="chip">CPR mangler</span> (personen udfylder selv ved login, hvis de skal have løn).</li>
+      <li>Har nogen ikke reageret på invitationen, brug <span class="chip">Send invitationer</span> øverst, eller del en <span class="chip">Del tilmeldings-QR</span> så folk tilmelder sig selv.</li>
+      <li>Skal en person flyttes til et andet hold, brug <span class="chip">⇄ Flyt</span>. Skal adgangen lukkes, brug <span class="chip">Luk adgang</span> (billet og medlemskab fjernes, ubrugte beats går tilbage til puljen).</li>
+    </ol>
+    <div class="tip">Søgefeltet finder folk på navn, e-mail eller telefon på tværs af alle hold. Skift mellem <span class="chip">Træ</span> (områder og hold) og <span class="chip">Personer</span> (flad liste).</div>
+
+    <div class="footer">LiveCloud · Ringsted Festival. Guide til kundeservice: opret medarbejdere i Bemanding (FMS). Skærmene er tro gengivelser af de live FMS-skærme på staging; danske knap-navne står i grå. Se også webticket-guiden for hvordan ledere selv fordeler adgange og beats.</div>
+  </main>
+</div>
+</body>
+</html>

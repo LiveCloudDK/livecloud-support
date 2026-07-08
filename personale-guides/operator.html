@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LiveCloud FMS · Staffing Operator Guides (Ringsted Festival)</title>
+<style>
+  :root{
+    --bg:#f6f6f7; --panel:#fff; --ink:#18181b; --muted:#71717a; --line:#ececed;
+    --brand:#0b0b0c; --rust:#9a3412; --green:#059669; --green-bg:#ecfdf5; --green-line:#a7f3d0;
+    --grey-pill:#f4f4f5; --grey-line:#e4e4e7; --amber:#b45309; --amber-bg:#fffbeb; --blue:#0a5cff;
+    --wyw-bg:#eef2ff; --wyw-line:#c7d2fe; --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1240px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.18em;font-size:11px;font-weight:700;color:var(--rust);text-transform:uppercase}
+  h1{font-size:34px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.08}
+  .lede{color:#3f3f46;max-width:78ch;font-size:16px}
+  .rule{height:3px;background:var(--brand);border:none;margin:26px 0}
+  /* Danish label chip */
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;
+    padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  /* where-you-work callout */
+  .wyw{background:var(--wyw-bg);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:14px 18px;margin:20px 0;font-size:14.5px}
+  .wyw b{color:#1e3a8a}
+  /* guide cards */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#d4d4d8}
+  .gcard .n{font-size:10.5px;letter-spacing:.1em;color:var(--rust);font-weight:700;text-transform:uppercase}
+  .gcard b{display:block;font-size:15px;margin:5px 0 3px}
+  .gcard small{color:var(--muted);font-size:12.5px}
+  /* personas */
+  h2.sec{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:56px 0 6px;padding-top:12px;border-top:1px solid var(--line)}
+  .personas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
+  .persona{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff}
+  .persona .av{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;margin-bottom:7px}
+  .persona .av.a{background:#eef2ff}.persona .av.o{background:#ecfeff}.persona .av.t{background:#f0fdf4}.persona .av.m{background:#fff7ed}
+  .persona h4{margin:0;font-size:15px}.persona em{color:var(--muted);font-size:12px;font-style:normal}
+  .persona p{margin:5px 0 0;font-size:13px;color:#3f3f46}
+  .persona .pl{margin-top:7px;font-size:11px;font-weight:700;color:var(--rust);text-transform:uppercase;letter-spacing:.04em}
+
+  h3.flow{font-size:22px;margin:30px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--rust);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:78ch;font-size:14.5px}
+  .setup{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:12px 0;font-size:13.8px}
+  .setup .h{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:5px}
+
+  /* mockups */
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}
+  .bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .app{display:grid;grid-template-columns:186px 1fr;min-height:180px}.app.web{grid-template-columns:146px 1fr}
+  .side{background:#fafafa;border-right:1px solid var(--line);padding:12px 10px;font-size:12.5px}
+  .side .brand{display:flex;align-items:center;gap:9px;padding:2px 6px 8px}
+  .side .brand .lg{width:23px;height:23px;border-radius:7px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:10px}
+  .side .brand small{display:block;color:var(--muted);font-size:10px}
+  .staging{display:inline-block;margin:0 6px 8px;padding:3px 10px;border-radius:999px;background:var(--amber-bg);border:1px solid #fde68a;color:var(--amber);font-size:10px;font-weight:700;letter-spacing:.08em}
+  .grp{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin:11px 8px 4px}
+  .it{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;color:#3f3f46}
+  .it .ic{width:14px;height:14px;border-radius:4px;background:#e4e4e7;flex:none}
+  .it.on{background:#efeff1;color:#111;font-weight:600}.it.on .ic{background:#111}
+  .main2{padding:18px 20px;background:#fff;min-width:0}
+  .ph{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .ph h5{margin:0;font-size:18px}.ph p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+  .ph .acts{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}
+  .btn.pri{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:4px 0 12px;background:var(--line)}
+  .kpi{padding:11px 12px;background:#fff}.kpi .k{font-size:9.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}.kpi .v{font-size:21px;font-weight:800;margin-top:2px}
+  .card2{border:1px solid var(--line);border-radius:12px;padding:12px 15px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:9px 0}
+  .card2 .t b{font-size:13.5px}.card2 .t p{margin:2px 0 0;color:var(--muted);font-size:12px}
+  .card2 .right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .fakefile{border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--muted);background:#fafafa}
+  .searchbar{display:flex;gap:10px;align-items:center;margin:12px 0 8px}
+  .search{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--muted);font-size:12.5px;background:#fafafa}
+  .toggle{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .toggle span{padding:6px 11px;font-size:12px;font-weight:600;color:var(--muted)}.toggle span.on{background:#efeff1;color:#111}
+  .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px}
+  .filters .f{border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:12px;color:#52525b;background:#fff}.filters .f::after{content:" ▾";color:var(--muted)}
+  .unit{border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:9px 0}
+  .unit .row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.unit .row1 b{font-size:14px}
+  .tag2{font-size:10.5px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:#52525b;background:#fafafa}
+  .unit .lead{color:var(--muted);font-size:12.5px;margin-top:2px}
+  .unit .meta{display:flex;gap:14px;flex-wrap:wrap;color:#3f3f46;font-size:12.5px;margin-top:8px;align-items:center}.unit .meta .hi{color:var(--green);font-weight:700}
+  .person{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-top:9px;background:#fcfcfd}
+  .person .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.person .top b{font-size:13.5px}
+  .person .top .sp{margin-left:auto;color:var(--muted);font-size:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+  .pill{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 10px;border:1px solid var(--grey-line);background:var(--grey-pill);color:#a1a1aa}
+  .pill.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .field{border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:12.5px;color:var(--muted);background:#fafafa;margin:6px 0}
+  .lab{font-size:11px;font-weight:700;color:#52525b;margin:8px 0 2px}
+  .zap{color:var(--green);font-weight:700}
+  .login{max-width:400px;margin:6px auto;padding:4px}
+  .login .welcome{text-align:center;border:1px solid var(--line);border-radius:15px;padding:18px}
+  .login .welcome h5{margin:6px 0 5px;font-size:22px}.login .welcome p{margin:0;color:var(--muted);font-size:12.5px}
+  .login .box{border:1px solid var(--line);border-radius:15px;padding:16px;margin-top:12px}
+  .tabs{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:12px}
+  .tabs span{flex:1;text-align:center;padding:8px;font-size:12.5px;font-weight:600;color:var(--muted)}.tabs span.on{background:#fff;color:#111;box-shadow:inset 0 0 0 1px var(--line)}
+  .mitid{width:100%;background:var(--blue);color:#fff;border:none;border-radius:11px;padding:11px;font-weight:700;font-size:13.5px}
+  .mut{color:var(--muted);font-size:12px;text-align:center;margin:0 0 10px}
+
+  .badge{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#111;color:#fff;font-size:10.5px;font-weight:700;vertical-align:1px;margin-right:3px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:#111;color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .guest{border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 10px 10px 0;padding:9px 13px;margin:9px 0;font-size:13.5px;color:#065f46}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+  .note b{color:#7c2d12}
+  .journey{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  .journey .st{flex:1;min-width:150px;border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:#fff}
+  .journey .st .n{font-size:11px;font-weight:700;color:var(--muted)}
+  .journey .st b{display:block;font-size:14px;margin:2px 0}.journey .st span{font-size:12.5px;color:#3f3f46}
+  .journey .st.fms{border-top:3px solid #111}.journey .st.web{border-top:3px solid var(--blue)}
+  .csvcols{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+  .csvcols span{font-size:11.5px;border:1px solid var(--line);background:#fafafa;border-radius:7px;padding:4px 9px;color:#3f3f46}
+  .csvcols span.acc{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .tree{font-size:13px;line-height:1.95}.tree .lvl1{font-weight:700}.tree .lvl2{margin-left:22px}.tree .lvl3{margin-left:44px;color:#3f3f46}
+  .tree .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#111;margin-right:8px;vertical-align:2px}
+  .tree .lvl2 .dot{background:#6366f1}.tree .lvl3 .dot{background:#a1a1aa}
+  .footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:980px){.layout{grid-template-columns:1fr}aside{display:none}.cards,.personas{grid-template-columns:repeat(2,1fr)}.kpis{grid-template-columns:repeat(2,1fr)}.app,.app.web{grid-template-columns:1fr}.app .side,.app.web .side{display:none}main{padding:24px 18px 80px}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">LC</div><div><b>Staffing guides</b><small>Ringsted Festival</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Overview</a>
+      <a href="#personas">Personas</a>
+      <div class="g">FMS · Bemanding (operator)</div>
+      <a href="#g1">1 · Prepare the sheet</a>
+      <a href="#g2">2 · Import the CSV</a>
+      <a href="#g3">3 · The structure</a>
+      <a href="#g4">4 · Find &amp; filter</a>
+      <a href="#g5">5 · Track status</a>
+      <a href="#g6">6 · Invitations &amp; QR</a>
+      <a href="#g7">7 · Move &amp; close access</a>
+      <a href="#g8">8 · Access &amp; SKUs</a>
+      <a href="#g9">9 · Export to Danløn</a>
+      <div class="g">Webticket · login</div>
+      <a href="#g10">10 · Sign in</a>
+      <a href="#g11">11 · Complete profile</a>
+      <div class="g">Webticket · leader</div>
+      <a href="#g12">12 · See your team</a>
+      <a href="#g13">13 · Hand out access</a>
+      <a href="#g14">14 · Hand out Beats</a>
+      <a href="#g15">15 · Invitations &amp; contracts</a>
+      <div class="g">Webticket · staff</div>
+      <a href="#g16">16 · My tickets</a>
+      <a href="#g17">17 · Beats</a>
+      <a href="#g18">18 · Resale &amp; contract</a>
+      <div class="g">End to end</div>
+      <a href="#journeys">Persona journeys</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="intro">
+      <div class="eyebrow">LiveCloud FMS · Staffing operator guides</div>
+      <h1>Bemanding, CSV import, access, Beats<br>&amp; the webticket flows</h1>
+      <p class="lede">Step-by-step guides for the operator (admin) tasks in <b>FMS Bemanding</b> <em>and</em> what leaders and staff see on the <b>webticket</b>. Every screen below mirrors the live UI; the actual Danish labels are shown in grey, e.g. <span class="chip">Importér</span>, so you click the right thing.</p>
+      <hr class="rule">
+      <div class="wyw"><b>Where you work:</b> the operator side is under <span class="chip">Akkreditering → Bemanding</span> in FMS, the whole staffing structure lives here. Leaders and staff work on the <b>webticket</b> (<span class="chip">staging-webticket.livecloud.dk</span>). Make sure the correct summit is selected first (top-left, <span class="chip">Ringsted Festival</span>).</div>
+      <div class="cards">
+        <a class="gcard" href="#g2"><div class="n">Guides 1, 9</div><b>FMS · Bemanding</b><small>Import the sheet, build the tree, hand out access + Beats, track, export</small></a>
+        <a class="gcard" href="#g10"><div class="n">Guides 10, 11</div><b>Sign in</b><small>MitID / e-mail code · complete profile (CPR + address)</small></a>
+        <a class="gcard" href="#g12"><div class="n">Guides 12, 15</div><b>Leader (webticket)</b><small>See the team, hand out access + Beats, invitations, contracts</small></a>
+        <a class="gcard" href="#g16"><div class="n">Guides 16, 18</div><b>Staff (webticket)</b><small>My tickets, wallet, resale, sign contract</small></a>
+      </div>
+    </section>
+
+    <h2 class="sec">Personas</h2>
+    <div class="personas">
+      <div class="persona"><div class="av a">🗂️</div><h4>Admin</h4><em>festival office · e.g. Britt</em><p>Builds the whole staffing and tracks status.</p><div class="pl">FMS · Bemanding</div></div>
+      <div class="persona"><div class="av o">🧭</div><h4>Area leader</h4><em>e.g. Miki Olsen</em><p>Owns several teams under an area.</p><div class="pl">Webticket</div></div>
+      <div class="persona"><div class="av t">👥</div><h4>Team leader</h4><em>e.g. Bea Backstagechef</em><p>Owns one team and its staff.</p><div class="pl">Webticket</div></div>
+      <div class="persona"><div class="av m">🎫</div><h4>Staff member</h4><em>e.g. Alma Andersen</em><p>Manages only themselves.</p><div class="pl">Webticket</div></div>
+    </div>
+    <p class="ctx">Both leader roles use the <b>same</b> webticket tools, the difference is scope: an <b>area leader</b> sees several teams, a <b>team leader</b> one.</p>
+
+    <!-- ===================== FMS ===================== -->
+    <h2 class="sec">FMS · Bemanding, the operator (admin)</h2>
+
+    <h3 class="flow" id="g1"><span class="g1">Guide 1</span>Prepare the sheet</h3>
+    <p class="ctx">One row per person. Headers are used verbatim. The last columns are <b>access</b>, an <code>x</code> grants it.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">medarbejder-skabelon.csv</span></div>
+      <div class="main2">
+        <div class="lab">Base columns</div>
+        <div class="csvcols"><span>Roller</span><span>Område</span><span>Fornavn</span><span>Efternavn</span><span>Mobil</span><span>Email</span><span>Teamleder Fornavn</span><span>Teamleder Efternavn</span><span>Honorar Type</span><span>Beløb</span><span>Beats</span></div>
+        <div class="lab">Shift days (x)</div>
+        <div class="csvcols"><span>På vagt - Torsdag</span><span>På vagt - Fredag</span><span>På vagt - Lørdag</span></div>
+        <div class="lab">Access (x)</div>
+        <div class="csvcols"><span class="acc">Slaraffenland</span><span class="acc">Glamcamp</span><span class="acc">Artist</span><span class="acc">Backstage</span><span class="acc">Scene</span><span class="acc">Nedtagning</span><span class="acc">Kasernen</span><span class="acc">Kompagniet</span></div>
+      </div></div>
+    <ol class="steps">
+      <li><b>Role</b> (<span class="chip">Roller</span>) = <span class="chip">Områdeleder</span> · <span class="chip">Teamleder</span> · <span class="chip">Medarbejder</span>. <b>Team</b> (<span class="chip">Område</span>) = the team name, identical for the whole team.</li>
+      <li>A staff member's <span class="chip">Teamleder Fornavn/Efternavn</span> links them to the right leader. The importer tolerates middle names and a single combined <span class="chip">Navn</span> field.</li>
+      <li><b>Fee type</b> (<span class="chip">Honorar Type</span>): <span class="chip">løn</span> (needs CPR + address for Danløn) · <span class="chip">faktura</span> · <span class="chip">vaerdikort</span> (Beats). Set the <span class="chip">Beats</span> number for anyone who gets Beats.</li>
+    </ol>
+    <div class="note"><b>Blank name</b> = an open slot on the team (for people not yet found). It inherits the team's access + Beats and can be named later.</div>
+
+    <h3 class="flow" id="g2"><span class="g1">Guide 2</span>Import the CSV</h3>
+    <p class="ctx">One click builds the whole structure. Under <span class="chip">Akkreditering → Bemanding</span>.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">staging-fms.livecloud.dk/commerce/vendor-staffing</span></div>
+      <div class="app">
+        <div class="side"><div class="brand"><div class="lg">LC</div><div><b>LiveCloud</b><small>Ringsted Festival</small></div></div><span class="staging">STAGING</span>
+          <div class="grp">Akkreditering</div><div class="it"><span class="ic"></span>Modtagere</div><div class="it on"><span class="ic"></span>Bemanding</div><div class="it"><span class="ic"></span>Servicedesk</div><div class="it"><span class="ic"></span>Armbånd</div></div>
+        <div class="main2">
+          <div class="ph"><div><h5>Bemanding</h5><p>Områder, hold og tilmeldinger for Ringsted Festival.</p></div><div class="acts"><span class="btn pri">+ Opret område</span><span class="btn">Send invitationer</span><span class="btn">Eksportér ▾</span></div></div>
+          <div class="kpis"><div class="kpi"><div class="k">Områder</div><div class="v">9</div></div><div class="kpi"><div class="k">Pladser</div><div class="v">5</div></div><div class="kpi"><div class="k">Tilmeldt</div><div class="v">2/5</div></div><div class="kpi"><div class="k">Ledige</div><div class="v">2</div></div><div class="kpi"><div class="k">Beats</div><div class="v">650</div></div></div>
+          <div class="card2"><div class="t"><b><span class="badge">1</span>Importér bemanding fra CSV</b><p>Opretter områder, ledere og pladser i ét hug.</p></div><div class="right"><span class="fakefile">Choose file</span><span class="btn pri">Importér</span></div></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Pick the sheet (<span class="chip">Choose file</span>) and click <span class="chip">Importér</span>. Areas, teams, leaders and staff slots are created, with fee/Beats/shifts/access set from the columns.</li>
+      <li><b>Warnings</b> appear if an access column matches no ticket product (it is skipped), or a row is missing area/e-mail.</li>
+      <li><b>Re-import is safe</b>: already-claimed people are preserved; only open slots are rebuilt.</li>
+    </ol>
+
+    <h3 class="flow" id="g3"><span class="g1">Guide 3</span>The structure</h3>
+    <p class="ctx">The import builds a hierarchy: festival → area → team → staff. Leaders become owners of their unit.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding · Træ</span></div>
+      <div class="main2"><div class="tree">
+        <div class="lvl1"><span class="dot"></span>Slaraffenland <span class="tag2">Område</span> · Miki Olsen</div>
+        <div class="lvl2"><span class="dot"></span>VS-Test Backstage <span class="tag2">Hold</span> · Bea Backstagechef</div>
+        <div class="lvl3"><span class="dot"></span>Alma Andersen · Medarbejder · Backstage · Thu+Fri</div>
+        <div class="lvl3"><span class="dot"></span>Open slot · Medarbejder · Backstage · Fri</div>
+        <div class="lvl2"><span class="dot"></span>VS-Test Runner Team <span class="tag2">Hold</span> · Rasmus Runnerchef</div>
+      </div></div></div>
+    <ol class="steps">
+      <li><span class="chip">Områdeleder</span> → a unit of type <span class="chip">område</span>, owner. <span class="chip">Teamleder</span> → a unit of type <span class="chip">hold</span>, owner.</li>
+      <li><span class="chip">Medarbejder</span> → attached to their team leader's team (by the Teamleder name) as a contact.</li>
+      <li>The area↔team hierarchy is set after import, just give each team a unique <span class="chip">Område</span> name in the sheet.</li>
+    </ol>
+
+    <h3 class="flow" id="g4"><span class="g1">Guide 4</span>Find &amp; filter</h3>
+    <p class="ctx">Two views + search + filters make it easy to reach the right team or person.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding</span></div>
+      <div class="main2">
+        <div class="searchbar"><div class="search"><span class="badge">1</span>Søg navn, e-mail eller telefon…</div><div class="toggle"><span class="on">Træ</span><span>Personer</span></div></div>
+        <div class="filters"><span class="f">Alle roller</span><span class="f">Alle statusser</span><span class="f">Alle kontrakter</span><span class="f">Alle data</span></div>
+      </div></div>
+    <ol class="steps">
+      <li><span class="chip">Træ</span> (tree) shows the hierarchy; <span class="chip">Personer</span> (people) is a flat list across all teams.</li>
+      <li><b>Search</b> by name, e-mail, phone or access name, filters instantly.</li>
+      <li>Combine the filters (<span class="chip">Alle roller</span> · <span class="chip">Alle statusser</span> · <span class="chip">Alle kontrakter</span> · <span class="chip">Alle data</span>), e.g. "staff without CPR".</li>
+    </ol>
+
+    <h3 class="flow" id="g5"><span class="g1">Guide 5</span>Track status</h3>
+    <p class="ctx">Expand a team to see each person's status as pills.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding · VS-Test Backstage</span></div>
+      <div class="main2"><div class="unit">
+        <div class="row1"><b>VS-Test Backstage</b><span class="tag2">Hold</span><span style="margin-left:auto;display:flex;gap:8px"><span class="btn">Rediger område</span><span class="btn">Del tilmeldings-QR</span></span></div>
+        <div class="lead">Leder: Bea Backstagechef</div>
+        <div class="meta"><span class="hi">1/1 tilmeldt</span><span>1 inviteret</span><span>1 løn</span><span>200 beats</span></div>
+        <div class="person"><div class="top"><b>Bea Backstagechef</b><span class="tag2">Leder</span><span class="sp"><span>løn · 180.00</span><span>Flyt</span><span style="color:#dc2626">Luk adgang</span></span></div>
+          <div class="pills"><span class="pill ok">Inviteret 2. jul.</span><span class="pill ok">Tilmeldt</span><span class="pill ok">1 billet</span><span class="pill ok">200 beats</span><span class="pill">Kontrakt</span><span class="pill">CPR mangler</span><span class="pill">Adresse mangler</span></div></div>
+      </div></div></div>
+    <ol class="steps">
+      <li><b>Green pills</b> = done: <span class="chip">Inviteret</span>, <span class="chip">Tilmeldt</span>, ticket issued, Beats granted.</li>
+      <li><b>Grey pills</b> = missing: <span class="chip">Kontrakt</span>, <span class="chip">CPR mangler</span>, <span class="chip">Adresse mangler</span>. CPR/address apply to <span class="chip">løn</span> staff only (for Danløn) and appear once the person is claimed.</li>
+      <li>Per person: <span class="chip">Flyt</span> to another team, or <span class="chip">Luk adgang</span> (close access).</li>
+    </ol>
+
+    <h3 class="flow" id="g6"><span class="g1">Guide 6</span>Invitations &amp; QR</h3>
+    <p class="ctx">People with e-mail get a mail; teams without e-mail get a QR to self-enrol.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bemanding</span></div>
+      <div class="main2">
+        <div class="card2"><div class="t"><b><span class="badge">1</span>Send invitationer</b><p>Sends enrolment mails to everyone with e-mail (new + resend).</p></div><div class="right"><span class="btn pri">Send invitationer</span></div></div>
+        <div class="card2"><div class="t"><b><span class="badge">2</span>Del tilmeldings-QR</b><p>One QR/link per team, for people without e-mail.</p></div><div class="right"><span class="btn">Del tilmeldings-QR</span></div></div>
+      </div></div>
+    <ol class="steps">
+      <li><span class="chip">Send invitationer</span> mails everyone invited who has an e-mail and resends to non-responders.</li>
+      <li><span class="chip">Del tilmeldings-QR</span> per area/team: people scan and enrol themselves, even without e-mail.</li>
+    </ol>
+    <div class="guest"><b>What they see:</b> the person lands on the webticket, signs in with MitID / e-mail code, and claims their slot.</div>
+
+    <h3 class="flow" id="g7"><span class="g1">Guide 7</span>Move &amp; close access</h3>
+    <ol class="steps">
+      <li><span class="chip">Flyt</span> next to the person → pick a new team. The person and their status move with them.</li>
+      <li><span class="chip">Luk adgang</span> withdraws the person's access (e.g. on a no-show). The action is logged.</li>
+      <li>A claimed person's data survives re-import; only open slots are rebuilt.</li>
+    </ol>
+
+    <h3 class="flow" id="g8"><span class="g1">Guide 8</span>Access &amp; SKUs</h3>
+    <p class="ctx">Access columns are issued as tickets. On shift for several days → the access is issued per day.</p>
+    <div class="setup"><div class="h">Setup (one-time, per summit)</div>For each access, create a ticket product (SKU) whose handle carries the zone + day token, e.g. <span class="chip">…-backstage-torsdag-…</span>. The per-summit access map connects the column name to the zone token.</div>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Access × shift day → tickets</span></div>
+      <div class="main2"><div class="journey">
+        <div class="st fms"><div class="n">Sheet</div><b>Backstage = x</b><span>Shifts: Thu + Fri</span></div>
+        <div class="st fms"><div class="n">System</div><b>Access map</b><span>backstage → zone token</span></div>
+        <div class="st web"><div class="n">Issued</div><b>2 tickets</b><span>Backstage Torsdag<br>Backstage Fredag</span></div>
+      </div></div></div>
+    <ol class="steps">
+      <li>Each access matches a <b>ticket product (SKU)</b> whose handle holds the zone + day token.</li>
+      <li><b>Day multiplication</b>: two shift days → two tickets for that access. Camping ticks work the same way.</li>
+      <li>If the SKU does not exist yet, the import warns you, so you can create it before the festival.</li>
+    </ol>
+
+    <h3 class="flow" id="g9"><span class="g1">Guide 9</span>Export to Danløn</h3>
+    <ol class="steps">
+      <li>Click <span class="chip">Eksportér</span> → the file holds name, fee, CPR + address for <span class="chip">løn</span> staff.</li>
+      <li><b>Fictitious test CPRs</b> (from MitID test) are deliberately blanked with a warning, so test data can never reach real payroll.</li>
+      <li>Missing CPR/address on a løn person shows as grey pills, remind the person to complete their profile.</li>
+    </ol>
+
+    <!-- ===================== WEBTICKET · LOGIN ===================== -->
+    <h2 class="sec">Webticket · sign in &amp; profile</h2>
+
+    <h3 class="flow" id="g10"><span class="g1">Guide 10</span>Sign in</h3>
+    <p class="ctx">All leaders and staff use the webticket. Two ways to sign in.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">staging-webticket.livecloud.dk</span></div>
+      <div class="app web"><div class="side"><div class="brand"><div class="lg">LC</div><div><b>Webticket</b></div></div><div class="it on"><span class="ic"></span>Oversigt</div><div class="it"><span class="ic"></span>Butik</div><div class="grp" style="margin-top:26px">&nbsp;</div><div class="it"><span class="ic"></span>Lyst</div><div class="it"><span class="ic"></span>Dansk</div><div class="it"><span class="ic"></span>Log ind</div></div>
+        <div class="main2"><div class="login"><div class="welcome"><div class="eyebrow" style="color:var(--muted)">Velkommen</div><h5>Webticket</h5><p>Log ind for at administrere billetter, Beats eller din bod</p></div>
+          <div class="box"><div class="tabs"><span class="on"><span class="badge">1</span>MitID</span><span><span class="badge">2</span>E-mailkode</span></div><p class="mut">Log ind eller opret din konto sikkert med MitID.</p><button class="mitid">▪ Fortsæt med MitID</button></div></div></div></div></div>
+    <ol class="steps">
+      <li><span class="chip">MitID</span> (recommended), confirms identity and auto-fills CPR + address if the person is on payroll.</li>
+      <li><span class="chip">E-mailkode</span>, pick the tab, enter the e-mail, type the one-time code. Arriving via an invitation locks the e-mail to the invited address.</li>
+    </ol>
+
+    <h3 class="flow" id="g11"><span class="g1">Guide 11</span>Complete profile (CPR + address)</h3>
+    <p class="ctx">Payroll staff are asked to finish their profile. Stored encrypted, used only for Danløn, never shown to anyone.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Webticket · Gør din profil færdig</span></div>
+      <div class="main2"><div class="login"><div class="box" style="margin-top:0">
+        <div class="lab">CPR-nummer</div><div class="field">DDMMÅÅ-XXXX</div>
+        <div class="lab">Adresse</div><div class="field">Street + no.</div>
+        <div style="display:flex;gap:8px"><div style="flex:0 0 90px"><div class="lab">Postnr.</div><div class="field">4100</div></div><div style="flex:1"><div class="lab">By</div><div class="field">Ringsted</div></div></div>
+        <button class="mitid" style="background:#111;margin-top:8px">Gem og fortsæt</button>
+      </div></div></div></div>
+    <ol class="steps">
+      <li>With <span class="chip">MitID</span>, the fields are pre-filled from the MitID claims (source marked as MitID-verified).</li>
+      <li>With <b>address protection or a hidden CPR</b>, the fields come up empty, the person types them in (source = manual).</li>
+      <li>After <span class="chip">Gem og fortsæt</span>, <span class="zap">CPR registreret</span> / <span class="zap">Adresse registreret</span> turn green, including in the office's Bemanding view.</li>
+    </ol>
+
+    <!-- ===================== WEBTICKET · LEADER ===================== -->
+    <h2 class="sec">Webticket · area &amp; team leader</h2>
+
+    <h3 class="flow" id="g12"><span class="g1">Guide 12</span>See your team</h3>
+    <p class="ctx">As a leader you see your people with status and actions. Area leader sees several teams; team leader one.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">staging-webticket.livecloud.dk/tickets</span></div>
+      <div class="app web"><div class="side"><div class="brand"><div class="lg">LC</div><div><b>Webticket</b></div></div><div class="it"><span class="ic"></span>Oversigt</div><div class="it on"><span class="ic"></span>Billetter</div><div class="it"><span class="ic"></span>Modtagere</div><div class="it"><span class="ic"></span>Beats</div><div class="it"><span class="ic"></span>Resale</div><div class="it"><span class="ic"></span>Kontrakter</div></div>
+        <div class="main2"><div class="ph"><div><h5>Billetter</h5><p>Hand out access and Beats to your team.</p></div></div>
+          <div class="searchbar"><div class="search"><span class="badge">1</span>Søg medarbejder…</div></div>
+          <div class="person"><div class="top"><b>Alma Andersen</b><span class="tag2">Medarbejder</span><span class="sp"><span class="zap">⚡ Beats</span><span>Vis pas</span></span></div><div class="pills"><span class="pill ok">Tilmeldt</span><span class="pill ok">Backstage Torsdag</span><span class="pill ok">Crew Torsdag</span><span class="pill ok">150 beats</span></div></div>
+          <div class="person"><div class="top"><b>Open slot</b><span class="tag2">Medarbejder</span><span class="sp"><span>Sæt navn</span><span>Gensend</span></span></div><div class="pills"><span class="pill">Afventer navn</span><span class="pill ok">Backstage Fredag</span></div></div>
+        </div></div></div>
+    <ol class="steps">
+      <li><b>Search</b> by name, e-mail or access name to reach the right person fast.</li>
+      <li>Each person shows their status: claimed, which access, how many Beats.</li>
+      <li>Open slots can be named (<span class="chip">Sæt navn</span>) or re-invited (<span class="chip">Gensend</span>).</li>
+    </ol>
+
+    <h3 class="flow" id="g13"><span class="g1">Guide 13</span>Hand out access</h3>
+    <ol class="steps">
+      <li><span class="chip">Sæt navn</span> on a slot (or name only, no e-mail, becomes a slot to fill later).</li>
+      <li><b>Bulk QR</b>: one QR/link for several slots at once.</li>
+      <li><b>Print passes</b> (QR + name + day). The access becomes a scannable ticket on their profile.</li>
+    </ol>
+
+    <h3 class="flow" id="g14"><span class="g1">Guide 14</span>Hand out Beats</h3>
+    <p class="ctx">Beats are festival credits people pay with. Hand out per person.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Webticket · Tildel beats</span></div>
+      <div class="main2"><div class="login"><div class="box" style="margin-top:0">
+        <div class="lab">Modtager</div><div class="field">Alma Andersen</div>
+        <div class="lab">Antal beats <span style="color:var(--muted);font-weight:400">(pool: 450 left)</span></div><div class="field">150</div>
+        <div class="lab">Note (optional)</div><div class="field">Backstage shift</div>
+        <button class="mitid" style="background:var(--green);margin-top:8px">⚡ Tildel beats</button>
+      </div></div></div></div>
+    <ol class="steps">
+      <li>Click <span class="chip">⚡ Beats</span> next to the person.</li>
+      <li>Enter the <b>amount</b> (up to what the pool has left) and an optional note. Confirm.</li>
+      <li>Beats land on the person's wallet instantly. You can track what's been handed out and what's left.</li>
+    </ol>
+
+    <h3 class="flow" id="g15"><span class="g1">Guide 15</span>Invitations &amp; contracts</h3>
+    <ol class="steps">
+      <li><span class="chip">Gensend</span> an invitation to a non-responder, or <b>invite via QR</b> so people enrol to your team themselves.</li>
+      <li>Under <span class="chip">Kontrakter</span> you can view contracts and sign your own digitally; staff sign theirs on their own login.</li>
+    </ol>
+
+    <!-- ===================== WEBTICKET · STAFF ===================== -->
+    <h2 class="sec">Webticket · staff member</h2>
+
+    <h3 class="flow" id="g16"><span class="g1">Guide 16</span>My tickets</h3>
+    <p class="ctx">The staff member's home page: payroll status, their access, their Beats.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">staging-webticket.livecloud.dk/dashboard</span></div>
+      <div class="app web"><div class="side"><div class="brand"><div class="lg">LC</div><div><b>Webticket</b></div></div><div class="it on"><span class="ic"></span>Oversigt</div><div class="it"><span class="ic"></span>Mine billetter</div><div class="it"><span class="ic"></span>Beats</div><div class="it"><span class="ic"></span>Resale</div><div class="it"><span class="ic"></span>Kontrakter</div><div class="it"><span class="ic"></span>Profil</div></div>
+        <div class="main2"><div class="ph"><div><h5>Velkommen, Alma 👋</h5><p>Your access and Beats for Ringsted Festival.</p></div></div>
+          <div class="card2"><div class="t"><b><span class="badge">1</span>Løn-oplysninger</b><p>Used only for payroll (Danløn).</p></div><div class="right"><span class="pill ok">CPR er registreret</span><span class="pill">Adresse mangler</span></div></div>
+          <div class="card2"><div class="t"><b><span class="badge">2</span>Mine billetter</b><p>Scannable access, can be linked to your wristband.</p></div><div class="right"><span class="pill ok">Backstage Torsdag</span><span class="pill ok">Crew Torsdag</span></div></div>
+          <div class="card2"><div class="t"><b><span class="badge">3</span>Beats</b><p>Beats to pay with at bars and stalls.</p></div><div class="right"><b style="font-size:17px">150 Beats</b><span class="btn">Tank op</span><span class="btn">Refunder</span></div></div>
+        </div></div></div>
+    <ol class="steps">
+      <li><span class="chip">Løn-oplysninger</span>: green = on file, grey = missing. If grey, finish the profile under <span class="chip">Profil</span>.</li>
+      <li><span class="chip">Mine billetter</span>: access as QR codes, ready to scan and to link to a wristband.</li>
+      <li><span class="chip">Beats</span>: the Beats balance.</li>
+    </ol>
+
+    <h3 class="flow" id="g17"><span class="g1">Guide 17</span>Beats</h3>
+    <ol class="steps">
+      <li>See the <b>Beats balance</b>.</li>
+      <li><span class="chip">Tank op</span>, buy more with a card (top-up).</li>
+      <li><span class="chip">Refunder</span>, refund only your card top-ups to the card; earned or received Beats stay and are spent on-site.</li>
+    </ol>
+
+    <h3 class="flow" id="g18"><span class="g1">Guide 18</span>Resale &amp; contract</h3>
+    <ol class="steps">
+      <li>Under <span class="chip">Resale</span>, list a ticket you won't use for resale (if allowed for that ticket), or buy one that's listed.</li>
+      <li>Under <span class="chip">Kontrakter</span>, read and sign your contract digitally, the leader and office see it's signed.</li>
+    </ol>
+
+    <!-- ===================== JOURNEYS ===================== -->
+    <h2 class="sec">End to end · persona journeys</h2>
+    <p class="ctx">The three journeys tie the flow together. Black border = FMS, blue border = webticket.</p>
+
+    <h3 class="flow" id="journeys">Admin (festival office)</h3>
+    <div class="journey">
+      <div class="st fms"><div class="n">1</div><b>Prepare sheet</b><span>Roles, area, fee, Beats, shifts, access.</span></div>
+      <div class="st fms"><div class="n">2</div><b>Import</b><span>Structure builds itself.</span></div>
+      <div class="st fms"><div class="n">3</div><b>Invitations</b><span>Mail + enrolment QR.</span></div>
+      <div class="st fms"><div class="n">4</div><b>Track</b><span>Pills: claimed, ticket, Beats, CPR.</span></div>
+      <div class="st fms"><div class="n">5</div><b>Export</b><span>To Danløn (test CPRs excluded).</span></div>
+    </div>
+
+    <h3 class="flow">Area / team leader</h3>
+    <div class="journey">
+      <div class="st web"><div class="n">1</div><b>Sign in</b><span>MitID / e-mail code.</span></div>
+      <div class="st web"><div class="n">2</div><b>Complete profile</b><span>CPR + address if on payroll.</span></div>
+      <div class="st web"><div class="n">3</div><b>See the team</b><span>Search + status.</span></div>
+      <div class="st web"><div class="n">4</div><b>Hand out access + Beats</b><span>Name, QR, ⚡ Beats.</span></div>
+      <div class="st web"><div class="n">5</div><b>Contracts</b><span>Sign + track the team.</span></div>
+    </div>
+
+    <h3 class="flow">Staff member</h3>
+    <div class="journey">
+      <div class="st web"><div class="n">1</div><b>Receive invite</b><span>Mail or enrolment QR.</span></div>
+      <div class="st web"><div class="n">2</div><b>Sign in</b><span>MitID / e-mail code.</span></div>
+      <div class="st web"><div class="n">3</div><b>Complete profile</b><span>CPR + address if on payroll.</span></div>
+      <div class="st web"><div class="n">4</div><b>Get access + Beats</b><span>Tickets on the profile, Beats in wallet.</span></div>
+      <div class="st web"><div class="n">5</div><b>Use it</b><span>Scan access, pay with Beats, resale.</span></div>
+    </div>
+
+    <div class="footer">
+      LiveCloud FMS · Ringsted Festival, staffing operator guides. Screens mirror the live UI (staging-fms.livecloud.dk / staging-webticket.livecloud.dk); Danish labels are shown in grey chips. Real screenshots can be dropped into the frames. Self-contained, open in a browser, share or print.
+    </div>
+  </main>
+</div>
+</body>
+</html>

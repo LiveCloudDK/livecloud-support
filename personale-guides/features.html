@@ -183,7 +183,7 @@
   <!-- PERSONAS -->
   <div class="sub-label" style="margin-top:8px">The three people in every flow</div>
   <div class="personas">
-    <div class="pcard op"><h3><span class="pchip op">Operator</span></h3><p>Festival back-office in <strong>FMS</strong>. Configures products, comps passes, gives Beats, generates login links, looks up guests.</p><span class="where">staging-fms.livecloud.dk · Drift → Deltagere</span></div>
+    <div class="pcard op"><h3><span class="pchip op">Operator</span></h3><p>Festival back-office in <strong>FMS</strong>. Configures products, comps passes, gives Beats, generates login links, looks up guests.</p><span class="where">fms.livecloud.dk · Drift → Deltagere</span></div>
     <div class="pcard staff"><h3><span class="pchip staff">Staff</span></h3><p>Front-line at a bar / booth / return point / cloakroom desk. Uses the <strong>scanner / POS app</strong> with a vendor key to scan guests and move Beats.</p><span class="where">Scanner app · vendor API key (lcap_…)</span></div>
     <div class="pcard guest"><h3><span class="pchip guest">Guest</span></h3><p>The attendee. Uses the <strong>native app</strong> or the <strong>webticket</strong> (browser) to hold a pass, spend Beats, get refunds and show QR codes.</p><span class="where">App · …-webticket-…livecloud.dk</span></div>
   </div>
@@ -218,7 +218,7 @@
     </div></div>
 
     <div class="sub-label">Setup · one-time per summit <span class="pchip op">Operator</span></div>
-    <p>The <strong>“Festival Pass”</strong> product must exist for the summit (on staging it is seeded). If not, create it under <span class="path">/commerce/products</span> as a <em>PlatformAccess</em> product, price 7500 (75.00 kr), <code>meta.platform_access = { billing_interval:"one_time", duration_days:365 }</code>, published to the <em>guest-app</em> channel.</p>
+    <p>The <strong>“Festival Pass”</strong> product must exist for the summit (normally seeded already). If not, create it under <span class="path">/commerce/products</span> as a <em>PlatformAccess</em> product, price 7500 (75.00 kr), <code>meta.platform_access = { billing_interval:"one_time", duration_days:365 }</code>, published to the <em>guest-app</em> channel.</p>
 
     <div class="stepwrap">
       <div>
@@ -277,7 +277,7 @@
           <div class="dt">Login-link til Tony Mortensen</div>
           <div class="dd">Engangs-login til webticket uden MitID. Del linket eller lad gæsten scanne QR-koden. Kan kun bruges én gang.</div>
           <div class="qr"></div>
-          <div class="field" style="margin-bottom:6px"><div class="lab">Login-link</div><div class="linkbox"><span class="u">https://staging-webticket-ringsted.livecloud.dk/login/link?token=…0fPFPcNuwqazr…</span><span class="cp">⧉</span></div></div>
+          <div class="field" style="margin-bottom:6px"><div class="lab">Login-link</div><div class="linkbox"><span class="u">https://webticket.ringstedfestival.dk/login/link?token=…0fPFPcNuwqazr…</span><span class="cp">⧉</span></div></div>
           <div class="microcopy">Udløber 05. juli 2026 kl. 00.46.</div>
           <div class="dfoot"><span class="btn primary">Luk</span></div>
         </div></div>
@@ -304,7 +304,7 @@
       </div>
     </div>
 
-    <div class="note warn"><p><strong>If it doesn’t work:</strong> a used/expired link shows a short “link is invalid or expired” message with a route back to normal login — just generate a fresh one. <br><strong>Not live yet:</strong> the webticket redemption page is on the b2b <code>develop</code> branch but not on the webticket’s <code>staging</code> release, so a link currently returns 404 until that promotion is deployed.</p></div>
+    <div class="note warn"><p><strong>If it doesn’t work:</strong> a used/expired link shows a short “link is invalid or expired” message with a route back to normal login — just generate a fresh one. <br><strong>Not live yet:</strong> the webticket redemption page is not yet deployed on the webticket, so a link currently returns 404 until it goes live.</p></div>
   </section>
 
   <!-- ========================= 3 · BEATS ========================= -->
@@ -355,7 +355,7 @@
     </div></div>
 
     <div class="sub-label">Setup <span class="pchip op">Operator</span></div>
-    <p>A Pant product must exist — a <em>Deposit</em> product with <code>meta.pant.deposit_amount</code> in Beats (seeded on staging: Genbrugskrus = <span class="beats-amt">20 Beats</span>). The return scanner needs a <strong>vendor API key</strong>: <span class="path">/commerce/vendors</span> → open the vendor → create an <span class="ui">API-nøgle</span>, put the <code>lcap_…</code> key in that vendor’s scanner.</p>
+    <p>A Pant product must exist — a <em>Deposit</em> product with <code>meta.pant.deposit_amount</code> in Beats (seeded: Genbrugskrus = <span class="beats-amt">20 Beats</span>). The return scanner needs a <strong>vendor API key</strong>: <span class="path">/commerce/vendors</span> → open the vendor → create an <span class="ui">API-nøgle</span>, put the <code>lcap_…</code> key in that vendor’s scanner.</p>
 
     <div class="stepwrap wide">
       <div>
@@ -398,7 +398,7 @@
     </div></div>
 
     <div class="sub-label">Setup <span class="pchip op">Operator</span></div>
-    <p>A Garderobe product must exist — a <em>Rental</em> product with <code>meta.garderobe.rental_fee</code> in Beats (seeded on staging: <span class="beats-amt">30 Beats</span>). Same vendor API key as Pant. <strong>Precondition:</strong> the guest must already hold enough Beats (see Guide 3) — the fee is charged live at bind.</p>
+    <p>A Garderobe product must exist — a <em>Rental</em> product with <code>meta.garderobe.rental_fee</code> in Beats (seeded: <span class="beats-amt">30 Beats</span>). Same vendor API key as Pant. <strong>Precondition:</strong> the guest must already hold enough Beats (see Guide 3) — the fee is charged live at bind.</p>
 
     <div class="stepwrap wide">
       <div>
@@ -430,7 +430,7 @@
   <!-- ========================= MONEY-SAFETY REFERENCE ========================= -->
   <section class="feature" id="safety">
     <div class="head"><span class="num">REF</span><h2>Money-safety — what the guards do</h2></div>
-    <p class="overview">The behaviours below are built in and were verified on staging. Staff and operators do not need to do anything special — this is what the system guarantees if a scan or click is repeated or mistaken.</p>
+    <p class="overview">The behaviours below are built in and were verified. Staff and operators do not need to do anything special — this is what the system guarantees if a scan or click is repeated or mistaken.</p>
     <div class="tbl-scroll"><table>
       <thead><tr><th>Flow</th><th>If this happens…</th><th>The system…</th></tr></thead>
       <tbody>
@@ -446,8 +446,8 @@
   </section>
 
   <footer class="foot">
-    <p>Complete guide across FMS (operator) and the webticket/app (guest), with the staff scanner in between. Illustrations recreate the live UI 1:1 with the exact Danish labels (real screenshot export is temporarily unavailable in this environment). All flows verified on <span class="mono">staging-fms.livecloud.dk</span>.<br>
-    <strong>Live status:</strong> Festival Pass, Beats, Pant &amp; Garderobe are deployed on staging (products seeded). The Login-link webticket page is merged to b2b <span class="mono">develop</span> and awaits the webticket <span class="mono">staging</span> promotion before the guest side works end-to-end.</p>
+    <p>Complete guide across FMS (operator) and the webticket/app (guest), with the staff scanner in between. Illustrations recreate the live UI 1:1 with the exact Danish labels (real screenshot export is temporarily unavailable in this environment). All flows verified on <span class="mono">fms.livecloud.dk</span>.<br>
+    <strong>Live status:</strong> Festival Pass, Beats, Pant &amp; Garderobe are deployed (products seeded). The Login-link webticket page awaits its webticket release before the guest side works end-to-end.</p>
   </footer>
 
 </div></div>

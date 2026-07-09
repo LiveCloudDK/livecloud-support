@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Walk-up gæst uden smartphone (FMS)</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --acc:#2563eb;--acc-d:#1d4ed8;--green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;
+    --red:#c92835;--red-bg:#fef2f2;--red-line:#fecaca;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;
+    --amber:#b45309;--amber-bg:#fffbeb;--beats:#9a6a12;--beats-bg:#f6eedd;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#eff4ff;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--acc);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#bfdbfe}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner.a{background:linear-gradient(100deg,#1d4ed8,#1e3a8a)}.pbanner.b{background:linear-gradient(100deg,#c2410c,#9a3412)}.pbanner.p{background:linear-gradient(100deg,#0f766e,#115e59)}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .card2{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff;max-width:520px;margin:0 auto;box-shadow:var(--shadow)}
+  .card2 h5{margin:0 0 1px;font-size:16px}.card2 .mp{color:var(--muted);font-size:12.5px;margin:0 0 12px}
+  .lab{font-size:11px;font-weight:700;color:#52525b;margin:11px 0 3px}.lab .opt{color:var(--muted);font-weight:600}
+  .field{border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:12.5px;color:#3f3f46;background:#fafafa;display:flex;align-items:center;justify-content:space-between}
+  .field.ph{color:#a1a1aa}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .foot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}
+  .btn.dark{background:#0b0b0c;color:#fff;border-color:#0b0b0c}.btn.acc{background:var(--acc);color:#fff;border-color:var(--acc)}
+  .badge{font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;border:1px solid var(--grey-line);background:#f4f4f5;color:#3f3f46}
+  .badge.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:#eff4ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+  .stop{background:var(--red-bg);border:1px solid var(--red-line);color:#991b1b;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.stop b{color:#7f1d1d}
+  .beatsbox{background:var(--beats-bg);border:1px solid #e6cf9a;color:var(--beats);border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.beatsbox b{color:#6b4a0c}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  .footer a{color:var(--acc-d)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}main{padding:24px 18px 80px}.row2{grid-template-columns:1fr}}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f766e"></head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">🎫</div><div><b>Walk-up gæst</b><small>Uden smartphone</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du den</a>
+      <div class="g">Situation A</div>
+      <a href="#har-billet">Gæsten har en billet</a>
+      <a href="#slaa-op">Scan / tast billetkoden</a>
+      <a href="#armband-a">Udlever armbånd</a>
+      <div class="g">Situation B</div>
+      <a href="#ingen-billet">Gæsten køber på stedet</a>
+      <a href="#udsted">Walk-up: udsted adgang</a>
+      <div class="g">Betaling</div>
+      <a href="#beats">Optank Beats (POS)</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide · Information / servicedesk i FMS</div>
+      <h1>Walk-up gæst uden smartphone</h1>
+      <p class="lede">En gæst uden smartphone kan ikke bruge app'en. Du hjælper dem ved skranken: enten <b>aktiverer du deres billet</b> (papir eller PDF) og binder et <b>armbånd</b>, eller du <b>udsteder adgang på stedet</b>. De betaler med armbånds-tap i <b>Beats</b>, så du <b>optanker Beats på POS-terminalen</b> for dem. Knap-navne i FMS står i grå, fx <span class="chip">Slå op</span>.</p>
+      <hr class="rule">
+      <div class="cards">
+        <a class="gcard" href="#har-billet"><span class="em">🎫</span><b>Har en billet</b><small>Papir eller PDF</small></a>
+        <a class="gcard" href="#armband-a"><span class="em">📿</span><b>Armbånd</b><small>Bind via NFC</small></a>
+        <a class="gcard" href="#ingen-billet"><span class="em">➕</span><b>Ingen billet</b><small>Udsted på stedet</small></a>
+        <a class="gcard" href="#beats"><span class="em">💰</span><b>Betaling</b><small>Optank Beats</small></a>
+      </div>
+      <div class="stop" style="margin-top:16px"><b>Vigtigt om betaling.</b> Vi kan <b>ikke</b> gemme et kreditkort på gæstens profil. Det kan kun gæsten selv i sin egen app (via Swedbank). En gæst uden smartphone betaler derfor altid med <b>Beats</b>, og du <b>optanker Beats for dem på POS-terminalen</b>. Se afsnittet Optank Beats.</div>
+      <div class="tip">Walk-up og armbånd kræver rollen <b>superadmin, summit-admin</b> eller <b>commerce-admin</b> i FMS. Har du ikke adgang til skærmene, så få en med rollen til det.</div>
+    </section>
+
+    <div class="pbanner a"><div class="av">🎫</div><div><div class="who">Situation A</div><h2>Gæsten har allerede en billet</h2><p>Papir eller PDF: slå koden op og bind et armbånd.</p></div></div>
+
+    <h3 class="flow" id="har-billet"><span class="g1">Situation A</span>Gæsten har en billet (papir/PDF)</h3>
+    <p class="ctx">Har gæsten købt en billet i forvejen og kommer med den printet eller som PDF, bruger du <span class="chip">Servicedesk</span> i FMS. Du slår billetkoden op og binder et armbånd, så billetten er aktiv på gæsten.</p>
+
+    <h3 class="flow" id="slaa-op"><span class="g1">Situation A</span>Scan eller tast billetkoden</h3>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/commerce/service-desk</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="card2">
+          <h5>Scan billet</h5><p class="mp">Skan eller indtast billetkoden for at finde ordreholder.</p>
+          <div class="lab">Billetkode</div>
+          <div class="field ph">RF-… (skan koden, eller tast den fra papir-billetten)</div>
+          <div class="foot"><span class="btn">Nulstil</span><span class="btn dark">Slå op</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Åbn <span class="chip">Servicedesk</span> og find kortet <span class="chip">Scan billet</span>.</li>
+      <li>Har du en scanner koblet til laptoppen, så <b>scan</b> QR'en på billetten. Ellers <b>taster du billetkoden ind</b> fra papiret i feltet <span class="chip">Billetkode</span>.</li>
+      <li>Tryk <span class="chip">Slå op</span>. Servicedesk viser ordreholderen og gæsten bag billetten.</li>
+    </ol>
+    <div class="note">Finder den ingenting, så tjek koden for tastefejl. Er billetten allerede brugt eller annulleret, siger den det. Er du i tvivl, så eskalér efter Information-håndbogen.</div>
+
+    <h3 class="flow" id="armband-a"><span class="g1">Situation A</span>Udlever armbånd</h3>
+    <p class="ctx">Når billetten er slået op, dukker der et kort frem til at knytte et armbånd. Det er armbåndet, bundet til billetten, der er gæstens adgang og betalingsmiddel.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Servicedesk · armbånd</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="card2">
+          <h5>Skan NFC-armbånd</h5><p class="mp">Hold et armbånd mod scanneren for at knytte det til billetten.</p>
+          <div class="field ph">Hold armbånd mod scanneren…</div>
+          <div class="foot"><span class="btn acc">Udlever armbånd</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Hold et nyt armbånd mod <b>NFC-scanneren</b>. Nummeret dukker op i feltet <span class="chip">Skan NFC-armbånd</span>.</li>
+      <li>Tryk <span class="chip">Udlever armbånd</span>. Du ser <b>Armbånd tilknyttet</b>.</li>
+      <li>Billetten er nu aktiv og knyttet til armbåndet. Mangler gæsten Beats, så optank på terminalen (se nedenfor).</li>
+    </ol>
+
+    <div class="pbanner b"><div class="av">➕</div><div><div class="who">Situation B</div><h2>Gæsten køber adgang på stedet</h2><p>Ingen billet i forvejen: udsted alt i én handling.</p></div></div>
+
+    <h3 class="flow" id="ingen-billet"><span class="g1">Situation B</span>Gæsten har ingen billet</h3>
+    <p class="ctx">Har gæsten ingen billet, og skal have adgang på stedet, bruger du <span class="chip">Walk-up</span>-kortet på <span class="chip">Armbåndsudlevering</span>. Det opretter gæsten, billetten, ordren og armbåndet i én handling, uden app og uden MitID.</p>
+
+    <h3 class="flow" id="udsted"><span class="g1">Situation B</span>Walk-up: udsted adgang</h3>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/admin/accreditation/desk</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="card2">
+          <h5>Walk-up — udsted adgang</h5><p class="mp">Giv en uplanlagt gæst adgang på stedet, uden app eller profil.</p>
+          <div class="lab">Adgang</div>
+          <div class="field">Vælg billet-/adgangstype<span>▾</span></div>
+          <div class="row2">
+            <div><div class="lab">Navn <span class="opt">(valgfrit)</span></div><div class="field ph">Anonym hvis tom</div></div>
+            <div><div class="lab">Beats <span class="opt">(valgfrit)</span></div><div class="field ph">0</div></div>
+          </div>
+          <div class="lab">Armbånd <span class="opt">(valgfrit)</span></div>
+          <div class="field ph">Hold mod scanneren…</div>
+          <div class="row2">
+            <div><div class="lab">Betaling</div><div class="field">Kort<span>▾</span></div></div>
+            <div><div class="lab">Betalingsreference <span class="opt">(valgfrit)</span></div><div class="field ph">fx terminal-kvittering</div></div>
+          </div>
+          <div class="foot"><span class="btn acc">Udsted adgang</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Vælg <span class="chip">Adgang</span> (billet-/adgangstypen gæsten skal have).</li>
+      <li>Skriv evt. <span class="chip">Navn</span>. Er feltet tomt, oprettes gæsten anonymt.</li>
+      <li>Vil du give en start-saldo med det samme, skriv et beløb i <span class="chip">Beats</span>.</li>
+      <li>Hold et armbånd mod scanneren i <span class="chip">Armbånd</span>, så bindes det med det samme.</li>
+      <li>Vælg <span class="chip">Betaling</span> (<span class="chip">Kontant</span>, <span class="chip">Kort</span> eller <span class="chip">Gratis (comp)</span>) og skriv evt. en <span class="chip">Betalingsreference</span>.</li>
+      <li>Tryk <span class="chip">Udsted adgang</span>. Gæst, billet, ordre og armbånd er nu oprettet.</li>
+    </ol>
+    <div class="note"><b>"Kort" gemmer ikke et kort.</b> Vælger du <span class="chip">Kort</span> under Betaling, noterer FMS bare, at betalingen er taget på terminalen (SoftPos). Der gemmes intet kort på gæsten, og armbåndet trækker ikke automatisk på et kort. Videre Beats-optankning sker på POS-terminalen.</div>
+
+    <div class="pbanner p"><div class="av">💰</div><div><div class="who">Betaling</div><h2>Optank Beats på POS-terminalen</h2><p>Gæsten uden telefon kan ikke selv optanke, så det gør du.</p></div></div>
+
+    <h3 class="flow" id="beats"><span class="g1">Betaling</span>Optank Beats for gæsten</h3>
+    <p class="ctx">Alt betales i <b>Beats</b>. En gæst uden smartphone kan ikke optanke i app'en, og vi kan ikke gemme et kort på profilen. Så du optanker Beats for dem på <b>POS-terminalen</b> med kort, Apple/Google Pay eller MobilePay. Bagefter betaler gæsten varer ved at <b>tappe armbåndet</b>.</p>
+    <ol class="steps">
+      <li>Identificér gæsten på terminalen: <b>tap armbåndet</b> (ellers slå op på navn).</li>
+      <li>Åbn <span class="chip">Beats-optankning</span> på terminalen og tag betalingen med kort / Apple/Google Pay / MobilePay.</li>
+      <li>Beats lægges på gæstens saldo. Gæsten betaler nu varer med armbånds-tap i Beats.</li>
+    </ol>
+    <div class="beatsbox"><b>Hvor optanker man?</b> Primært hos <b>Informationen</b>. Ellers er det en <b>special-mulighed i barerne</b>, hvis en gæst uden telefon skal have fyldt op undervejs. Trin for trin på terminalen står i <a href="pos.html" style="color:#6b4a0c;font-weight:700">POS-guiden</a>.</div>
+    <div class="tip">Har du allerede lagt en start-saldo på via <span class="chip">Beats</span>-feltet i Walk-up, er gæsten kørende med det samme. Løber saldoen tør, optankes der igen på terminalen.</div>
+
+    <div class="footer">LiveCloud · Ringsted Festival. Guide til Information / servicedesk: walk-up gæst uden smartphone i FMS. Skærmene er tro gengivelser af de live FMS-skærme; danske knap-navne står i grå. Se også <a href="haandbog-information.html">Information / servicedesk</a>, <a href="akkreditering-armbaand.html">Akkreditering: armbånd</a> og <a href="pos.html">POS</a>.</div>
+  </main>
+</div>
+<script src="guide-enhance.js"></script>
+</body>
+</html>

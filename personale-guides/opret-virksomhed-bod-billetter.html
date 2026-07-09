@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Kundeservice: opret virksomhed med bod og billetter (FMS)</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --acc:#0e7490;--acc-d:#155e75;--green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;
+    --red:#c92835;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;--amber:#b45309;--amber-bg:#fffbeb;
+    --stg-bg:#fff3d6;--stg-line:#f5d17a;--stg-ink:#9a6a00;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#ecfeff;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--acc);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#a5f3fc}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner.k{background:linear-gradient(100deg,#0e7490,#155e75)}.pbanner.s{background:linear-gradient(100deg,#0f766e,#115e59)}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .modal{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff;max-width:520px;margin:0 auto;box-shadow:var(--shadow)}
+  .modal h5{margin:0 0 1px;font-size:17px}.modal .mp{color:var(--muted);font-size:12.5px;margin:0 0 12px}
+  .wsteps{display:flex;align-items:center;gap:6px;margin:2px 0 14px;font-size:11px;color:var(--muted)}
+  .wsteps .st{display:flex;align-items:center;gap:6px}
+  .wsteps .n{width:17px;height:17px;border-radius:50%;background:#e4e4e7;color:#52525b;display:grid;place-items:center;font-size:10px;font-weight:700}
+  .wsteps .st.on .n{background:#0b0b0c;color:#fff}.wsteps .st.on{color:#111;font-weight:600}
+  .wsteps .st.done .n{background:var(--green);color:#fff}
+  .wsteps .ln{flex:1;height:1px;background:var(--line);min-width:12px}
+  .lab{font-size:11px;font-weight:700;color:#52525b;margin:11px 0 3px}.lab .req{color:var(--red)}
+  .field{border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:12.5px;color:#3f3f46;background:#fafafa}
+  .field.ph{color:#a1a1aa}
+  .field.sel{display:flex;align-items:center;justify-content:space-between}.field.sel::after{content:"⌄";color:#a1a1aa;font-size:15px;line-height:0}
+  .shopbox{border:1px dashed #c7c7cf;border-radius:11px;padding:11px 13px;margin-bottom:4px}
+  .shopbox .t{font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:#71717a}
+  .shopbox .r{display:flex;gap:8px;margin-top:7px}.shopbox .r .field{flex:1}
+  .shopbox .hint{font-size:11px;color:var(--muted);margin-top:6px}
+  .vatalert{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:10px;padding:10px 12px;margin-top:8px;font-size:12px}
+  .vatalert b{color:#7c2d12}
+  .vatalert .cbx{display:flex;align-items:center;gap:8px;margin-top:8px;font-weight:600;color:#7c2d12}
+  .vatalert .cb{width:15px;height:15px;border-radius:4px;border:1.5px solid #d1a34a;background:#fff;flex:none;position:relative}
+  .vatalert .cb.on{background:var(--amber);border-color:var(--amber)}.vatalert .cb.on::after{content:"✓";color:#fff;font-size:10px;position:absolute;top:-2px;left:2px}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .sumbox{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:10px;font-size:12px}
+  .sumbox .l{display:flex;justify-content:space-between;padding:2px 0}.sumbox .l span:first-child{color:var(--muted)}
+  .foot{display:flex;justify-content:space-between;gap:8px;margin-top:14px}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}
+  .btn.dark{background:#0b0b0c;color:#fff;border-color:#0b0b0c}
+  .errfield{border:1px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:9px;padding:8px 11px;font-size:12px;margin-top:3px}
+  .ordcard{border:1px solid var(--line);border-radius:12px;background:#fff;padding:0}
+  .ordcard .h{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line)}.ordcard .h b{font-size:14px}.ordcard .h .btn{margin-left:auto}
+  .ordrow{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:12.5px}
+  .ordrow .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:#52525b;min-width:96px}
+  .ordrow .nm{color:#27272a}.ordrow .rt{margin-left:auto;display:flex;gap:12px;align-items:center;color:var(--muted)}
+  .badge{font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;border:1px solid var(--grey-line);background:#f4f4f5;color:#3f3f46}
+  .badge.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .badge.wait{background:var(--amber-bg);border-color:#fde68a;color:var(--amber)}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:#ecfeff;border:1px solid #a5f3fc;color:var(--acc-d);border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  .footer a{color:var(--acc-d)}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}.frow{grid-template-columns:1fr}main{padding:24px 18px 80px}}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0e7490"></head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">🏪</div><div><b>Kundeservice</b><small>Virksomhed, bod, billetter</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du den</a>
+      <div class="g">1 · Virksomheden</div>
+      <a href="#virksomhed">Opret virksomhed og ejer</a>
+      <div class="g">2 · Boden</div>
+      <a href="#bod">Tilknyt bod til virksomheden</a>
+      <div class="g">3 · Billetterne</div>
+      <a href="#billetter">Opret og betal ordren</a>
+      <div class="g">4 · Ejeren</div>
+      <a href="#afsted">Send ejeren afsted</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide · Kundeservice i FMS</div>
+      <h1>Opret virksomhed med bod og billetter</h1>
+      <p class="lede">Den fulde kæde, fra tom skærm til en ejer, der er klar. Du opretter <b>virksomheden</b> med en ejer, tilknytter en <b>bod</b> til virksomheden, lægger <b>billetter</b> på som en ordre og markerer den betalt. Så kan ejeren logge på webticket og komme i gang. Knap- og feltnavne i FMS står i grå, fx <span class="chip">Opret ny</span>.</p>
+      <hr class="rule">
+      <div class="cards">
+        <a class="gcard" href="#virksomhed"><span class="em">🏢</span><b>Virksomhed + ejer</b><small>Handel · Modtagere</small></a>
+        <a class="gcard" href="#bod"><span class="em">🏪</span><b>Tilknyt bod</b><small>Organisation</small></a>
+        <a class="gcard" href="#billetter"><span class="em">🎫</span><b>Billetordre</b><small>Opret og betal</small></a>
+        <a class="gcard" href="#afsted"><span class="em">🚀</span><b>Send afsted</b><small>Webticket</small></a>
+      </div>
+      <div class="tip">Rækkefølgen betyder noget. Opret virksomheden <b>først</b>, så du kan vælge den som <span class="chip">Organisation</span> på boden. Billetterne bliver først synlige, når ordren er markeret betalt.</div>
+    </section>
+
+    <div class="pbanner k"><div class="av">🏢</div><div><div class="who">Trin 1 · Virksomheden</div><h2>Opret virksomhed og ejer</h2><p>En virksomhed med CVR, og en ejer som kontaktperson via e-mail.</p></div></div>
+
+    <h3 class="flow" id="virksomhed"><span class="g1">Trin 1 · Virksomheden</span>Opret ny modtager</h3>
+    <p class="ctx">Gå til <span class="chip">Handel</span> og <span class="chip">Modtagere</span>, tryk <span class="chip">Opret ny</span>. Wizardens tre trin er <span class="chip">Modtagertype</span>, <span class="chip">Detaljer</span> og <span class="chip">Gennemse</span>. Vælg typen <span class="chip">Virksomhed</span> og udfyld CVR og ejerens e-mail.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Opret ny modtager · Detaljer</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="modal">
+          <h5>Virksomhed</h5><p class="mp">Virksomhed med CVR-nummer · til fakturering og moms.</p>
+          <div class="wsteps"><span class="st done"><span class="n">✓</span>Modtagertype</span><span class="ln"></span><span class="st on"><span class="n">2</span>Detaljer</span><span class="ln"></span><span class="st"><span class="n">3</span>Gennemse</span></div>
+          <div class="lab">Navn <span class="req">*</span></div><div class="field">Bodegabaren ApS</div>
+          <div class="lab">CVR-/momsnummer</div><div class="field">DK87654321</div>
+          <div class="frow"><div><div class="lab">Kontaktperson <span class="req">*</span></div><div class="field">Bo Bodejer</div></div><div><div class="lab">Kontakt-e-mail <span class="req">*</span></div><div class="field">bo@bodegabaren.dk</div></div></div>
+          <div class="foot"><span class="btn">Tilbage</span><span class="btn dark">Næste</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Under <span class="chip">Handel</span> vælger du <span class="chip">Modtagere</span> og trykker <span class="chip">Opret ny</span>.</li>
+      <li>På <span class="chip">Modtagertype</span> vælger du <span class="chip">Virksomhed</span> (Virksomhed med CVR-nummer · til fakturering og moms.). Tryk <span class="chip">Næste</span>.</li>
+      <li>På <span class="chip">Detaljer</span> skriver du <span class="chip">Navn</span> og <span class="chip">CVR-/momsnummer</span>, og ejeren som <span class="chip">Kontakt-e-mail</span>.</li>
+      <li>Gå til <span class="chip">Gennemse</span>, tjek oplysningerne og tryk <span class="chip">Opret</span>.</li>
+    </ol>
+    <div class="note">Vær opmærksom på de to vagter: findes <b>CVR</b> allerede, siger FMS <b>Der findes allerede en virksomhed med dette CVR … Kontaktpersonen knyttes til den eksisterende virksomhed</b>, og du opretter ikke en ny. Findes <b>e-mailen</b> allerede, blokerer FMS med <b>Der findes allerede en konto med denne e-mail … Tilknyt kontakten der i stedet for at oprette en dublet.</b></div>
+    <div class="tip">Skal du håndtere en ejer, der findes i forvejen, eller billetter der allerede er importeret, så følg <a href="opret-virksomhed-tilknyt-ejer.html">Opret virksomhed og tilknyt eksisterende ejer</a> i detaljer.</div>
+
+    <div class="pbanner k" style="background:linear-gradient(100deg,#0891b2,#0e7490)"><div class="av">🏪</div><div><div class="who">Trin 2 · Boden</div><h2>Tilknyt boden til virksomheden</h2><p>Feltet Organisation binder boden til virksomheden, du lige oprettede.</p></div></div>
+
+    <h3 class="flow" id="bod"><span class="g1">Trin 2 · Boden</span>Opret bod og vælg organisation</h3>
+    <p class="ctx">Under <span class="chip">Handel</span> opretter du boden. På <span class="chip">Opret bod</span> udfylder du grundoplysningerne. Det vigtigste er <span class="chip">Organisation</span>, der som standard står på <span class="chip">Ingen (selvstændig vendor)</span>. Vælg i stedet virksomheden, du lige oprettede, så boden hører til virksomheden. Ejeren når webticket via <span class="chip">Login-e-mail</span>.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/commerce/vendors · Opret bod</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="modal">
+          <h5>Opret bod</h5><p class="mp">Grundlæggende oplysninger for boden.</p>
+          <div class="lab">Navn <span class="req">*</span></div><div class="field">Bodegabaren</div>
+          <div class="frow"><div><div class="lab">Slug</div><div class="field ph">bodens-slug</div></div><div><div class="lab">Titel</div><div class="field">Bodegabaren</div></div></div>
+          <div class="lab">Bodtype</div><div class="field sel ph">Vælg bodtype</div>
+          <div class="lab">Organisation</div><div class="field sel">Bodegabaren ApS</div>
+          <div class="vatalert" style="background:#ecfeff;border-color:#a5f3fc;color:#155e75">Standard er <b>Ingen (selvstændig vendor)</b>. Vælg virksomheden her, så boden knyttes til den.</div>
+          <div class="frow"><div><div class="lab">Login-e-mail</div><div class="field">bo@bodegabaren.dk</div></div><div><div class="lab">Login-adgangskode</div><div class="field ph">••••••••</div></div></div>
+          <div class="frow"><div><div class="lab">Pinkode</div><div class="field ph">••••</div></div><div><div class="lab">Kontakt-e-mail</div><div class="field">bo@bodegabaren.dk</div></div></div>
+          <div class="foot"><span class="btn">Tilbage</span><span class="btn dark">Opret bod</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Udfyld <span class="chip">Navn</span>, <span class="chip">Slug</span> (fx bodens-slug) og <span class="chip">Titel</span>.</li>
+      <li>Vælg <span class="chip">Bodtype</span> under <span class="chip">Vælg bodtype</span>.</li>
+      <li>Ved <span class="chip">Organisation</span> skifter du fra <span class="chip">Ingen (selvstændig vendor)</span> til virksomheden, du oprettede i trin 1. Det er dét, der knytter boden til virksomheden.</li>
+      <li>Sæt <span class="chip">Login-e-mail</span>, <span class="chip">Login-adgangskode</span> og <span class="chip">Pinkode</span>. Login-e-mailen er den, ejeren logger på webticket med. Tilføj evt. <span class="chip">Kontakt-e-mail</span>.</li>
+      <li>Tryk <span class="chip">Opret bod</span>.</li>
+    </ol>
+    <div class="note">Sæt kun flueben i <span class="chip">Testbod</span> (Bruges til testformål), hvis boden ikke er en rigtig bod. En ægte bod til en ejer skal <b>ikke</b> være en testbod.</div>
+    <div class="tip">Trin for trin på alle bodens felter, se <a href="opret-bod.html">Opret bod</a>.</div>
+
+    <div class="pbanner k" style="background:linear-gradient(100deg,#0d9488,#0f766e)"><div class="av">🎫</div><div><div class="who">Trin 3 · Billetterne</div><h2>Opret billetordren og markér betalt</h2><p>Billetterne bliver først synlige og brugbare, når ordren er betalt.</p></div></div>
+
+    <h3 class="flow" id="billetter"><span class="g1">Trin 3 · Billetterne</span>Opret ordre og markér betalt</h3>
+    <p class="ctx">Åbn virksomhedens side. Under <span class="chip">Ordrer &amp; billetter</span> vælger du et <span class="chip">Billetprodukt</span> og et <span class="chip">Antal</span> og trykker <span class="chip">Opret ordre</span>. Åbn derefter ordren og tryk <span class="chip">Markér som betalt</span>. Bekræftelsen er <b>Faktura oprettet.</b></p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/commerce/organizations/… · Ordrer &amp; billetter</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="modal">
+          <h5>Opret ordre</h5><p class="mp">Vælg et billetprodukt og antal, og opret ordren.</p>
+          <div class="lab">Billetprodukt</div><div class="field sel">Partout · Bodegabaren</div>
+          <div class="lab">Antal</div><div class="field">10</div>
+          <div class="sumbox"><div class="l"><span>Navn (valgfrit)</span><span>Bodegabaren, sæson</span></div><div class="l"><span>Fakturanummer (valgfrit)</span><span>Tom</span></div><div class="l"><span>Kommentar (valgfrit)</span><span>Tom</span></div><div class="l"><span>Praktisk note til pass (valgfrit)</span><span>Tom</span></div></div>
+          <div class="foot"><span class="btn">Annullér</span><span class="btn dark">Opret ordre</span></div>
+        </div>
+        <div class="ordcard" style="margin-top:14px">
+          <div class="h"><b>Ordrer &amp; billetter</b><span class="btn dark">Markér som betalt</span></div>
+          <div class="ordrow"><span class="mono">#100612</span><span class="nm">Partout · 10 stk.</span><span class="rt"><span class="badge wait">Afventer betaling</span></span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>På virksomhedens side finder du <span class="chip">Ordrer &amp; billetter</span>.</li>
+      <li>Vælg et <span class="chip">Billetprodukt</span> og skriv <span class="chip">Antal</span>. Du kan udfylde de valgfrie felter <span class="chip">Navn</span>, <span class="chip">Fakturanummer</span>, <span class="chip">Kommentar</span> og <span class="chip">Praktisk note til pass</span>.</li>
+      <li>Tryk <span class="chip">Opret ordre</span>. FMS bekræfter med <b>Faktura oprettet.</b></li>
+      <li>Åbn ordren og tryk <span class="chip">Markér som betalt</span>. Nu bliver billetterne synlige og brugbare. Fortrød du, vender <span class="chip">Markér som ubetalt</span> det tilbage.</li>
+    </ol>
+    <div class="note">Billetterne bliver <b>først synlige og brugbare, når ordren er markeret betalt</b>. Glem ikke <span class="chip">Markér som betalt</span>, ellers kan ejeren ikke fordele dem.</div>
+    <div class="tip">Samme ordremekanik bruges til akkreditering. Se <a href="akkreditering-opret-manager.html">Opret manager til akkreditering</a>.</div>
+
+    <div class="pbanner s"><div class="av">🚀</div><div><div class="who">Trin 4 · Ejeren</div><h2>Send ejeren afsted</h2><p>Med en betalt ordre logger ejeren på webticket og går i gang.</p></div></div>
+
+    <h3 class="flow" id="afsted"><span class="g1">Trin 4 · Ejeren</span>Ejeren overtager på webticket</h3>
+    <p class="ctx">Når ordren er betalt, er der ikke mere at gøre i FMS. Ejeren logger på webticket med <span class="chip">MitID</span> på samme e-mail, eller med bodens login-e-mail, og fordeler billetterne og sætter boden op.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">webticket · Bodegabaren</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="ordcard">
+          <div class="h"><b>Klar til ejeren</b><span class="badge ok" style="margin-left:auto">Betalt</span></div>
+          <div class="ordrow"><span class="nm">Virksomhed</span><span class="rt">Bodegabaren ApS</span></div>
+          <div class="ordrow"><span class="nm">Bod</span><span class="rt">Bodegabaren</span></div>
+          <div class="ordrow"><span class="nm">Billetter i pulje</span><span class="rt">10 stk.</span></div>
+          <div class="ordrow"><span class="nm">Login-e-mail</span><span class="rt">bo@bodegabaren.dk</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Kontrollér at ordren står som betalt, og at boden har virksomheden som <span class="chip">Organisation</span>.</li>
+      <li>Bed ejeren logge på webticket med <span class="chip">MitID</span> på samme e-mail, eller med bodens <span class="chip">Login-e-mail</span>.</li>
+      <li>Ejeren fordeler nu billetterne fra puljen og sætter boden op selv.</li>
+    </ol>
+    <div class="tip">Hvad ejeren gør på webticket, står i <a href="virksomhedsejer-bodejer-webticket.html">Virksomhedsejer og bodejer på webticket</a>.</div>
+
+    <div class="footer">LiveCloud · Ringsted Festival. Guide til kundeservice: den fulde kæde fra virksomhed og ejer, til bod, billetordre og en ejer, der er klar på webticket. Skærmene er tro gengivelser af de live FMS-skærme; danske felt- og knap-navne står i grå. Se også <a href="opret-virksomhed-tilknyt-ejer.html">Tilknyt eksisterende ejer</a>, <a href="opret-bod.html">Opret bod</a> og <a href="akkreditering-opret-manager.html">Opret manager</a>.</div>
+  </main>
+</div>
+<script src="guide-enhance.js"></script></body>
+</html>

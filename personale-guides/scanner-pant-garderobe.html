@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<title>Scanner Guide — Pant &amp; Garderobe (front-line staff)</title>
+<title>Scanner-guide · Pant &amp; Garderobe (frontlinjepersonale)</title>
 <style>
   :root{
     --paper:#F2F4F7;--ink:#161A21;--muted:#5C6675;--faint:#8A94A2;--line:#E4E8ED;--line-2:#D2D8E0;--card:#FFFFFF;
@@ -73,88 +73,88 @@
 <div class="wrap"><div class="doc">
   <header class="masthead">
     <span class="eyebrow">LiveCloud · Scanner / POS</span>
-    <h1>Scanner Guide</h1>
-    <p class="lead" style="margin-top:12px">For <strong>you, on the front line</strong> — at a Pant return point or the Garderobe (cloakroom) desk. You scan the guest (and, for cloakroom, the hanger) on the scanner / POS device, and Beats move automatically. This guide is the whole job in three short flows.</p>
+    <h1>Scanner-guide</h1>
+    <p class="lead" style="margin-top:12px">Til <strong>dig i frontlinjen</strong> · ved et pant-afleveringssted eller i garderoben. Du scanner gæsten (og, i garderoben, bøjlen) på scanner- / POS-enheden, og Beats flytter sig automatisk. Denne guide er hele opgaven i tre korte flows.</p>
   </header>
 
-  <div class="pcard"><h3><span class="pchip">Staff</span></h3><p>You take reusable items back and refund the deposit, or you hang coats and charge the cloakroom fee. Everything is a scan; the system handles the money and stops mistakes.</p><span class="where">Scanner / POS app · signed in for your vendor (bar / booth / desk)</span></div>
+  <div class="pcard"><h3><span class="pchip">Personale</span></h3><p>Du tager genbrugsartikler retur og refunderer panten, eller du hænger jakker op og opkræver garderobegebyret. Alt er en scanning · systemet håndterer pengene og forhindrer fejl.</p><span class="where">Scanner / POS-app · logget ind for din vendor (bar / bod / disk)</span></div>
 
-  <div class="note info"><p><strong>Before your shift:</strong> your device must be signed in for the right vendor. If it asks for a key, get the <code>lcap_…</code> vendor API key from your admin (they create it in FMS under Vendors → API keys). One key per device/vendor.</p></div>
+  <div class="note info"><p><strong>Før din vagt:</strong> din enhed skal være logget ind for den rigtige vendor. Hvis den beder om en nøgle, så få <code>lcap_…</code> vendor-API-nøglen fra din administrator (de opretter den i FMS under Vendors → API keys). Én nøgle pr. enhed/vendor.</p></div>
 
   <!-- PANT RETURN -->
   <section class="feature" id="pant">
-    <div class="head"><span class="num">FLOW 1</span><h2>Pant — take a return, refund the deposit</h2></div>
-    <p class="overview">A guest brings back a Pant item (e.g. a reusable cup). You scan them, confirm, and their deposit goes straight back to their Beats wallet.</p>
+    <div class="head"><span class="num">FLOW 1</span><h2>Pant · tag en retur, refundér panten</h2></div>
+    <p class="overview">En gæst kommer tilbage med en pant-vare (f.eks. et genbrugskrus). Du scanner gæsten, bekræfter, og panten går direkte tilbage til deres Beats-wallet.</p>
     <div class="stepwrap">
       <ol class="steps">
-        <li><div><p>Ask the guest to open <span class="ui">Min pant</span> in their app and show the QR.</p></div></li>
-        <li><div><p><strong>Scan</strong> the guest QR on your device.</p></div></li>
-        <li><div><p>Pick the item and quantity being returned, and <strong>confirm</strong>.</p></div></li>
-        <li><div><p>Hand the deposit back.</p><p class="result">The screen shows the refund, e.g. <span class="beats-amt">+20 Beats</span> returned. The item drops off their outstanding list.</p></div></li>
+        <li><div><p>Bed gæsten om at åbne <span class="ui">Min pant</span> i deres app og vise QR-koden.</p></div></li>
+        <li><div><p><strong>Scan</strong> gæstens QR på din enhed.</p></div></li>
+        <li><div><p>Vælg varen og antallet, der returneres, og <strong>bekræft</strong>.</p></div></li>
+        <li><div><p>Udlevér panten.</p><p class="result">Skærmen viser refunderingen, f.eks. <span class="beats-amt">+20 Beats</span> retur. Varen forsvinder fra deres udestående liste.</p></div></li>
       </ol>
-      <div class="shot"><div class="cap">Scanner · pant return</div>
-        <div class="dev"><div class="scr"><div class="top">PANT · RETURN</div>
+      <div class="shot"><div class="cap">Scanner · pant retur</div>
+        <div class="dev"><div class="scr"><div class="top">PANT · RETUR</div>
           <div class="body">
-            <div class="prompt">Scan the guest’s Min pant code</div>
+            <div class="prompt">Scan gæstens Min pant-kode</div>
             <div class="scanbox">Genbrugskrus<br>× 1</div>
-            <div class="res"><div class="big">+20 Beats</div><div class="sm">Refunded to Tony Mortensen</div></div>
-            <div class="btn">Confirm return</div>
+            <div class="res"><div class="big">+20 Beats</div><div class="sm">Refunderet til Tony Mortensen</div></div>
+            <div class="btn">Bekræft retur</div>
           </div>
         </div></div>
       </div>
     </div>
-    <div class="note warn"><p><strong>Don’t worry about mistakes:</strong> scanning the same item again refunds <strong>nothing</strong> (“no outstanding deposit”). Returning fewer than they bought is fine — the rest stays outstanding. You can never refund more than the guest actually owes.</p></div>
+    <div class="note warn"><p><strong>Vær ikke bange for fejl:</strong> scanner du den samme vare igen, refunderes der <strong>ingenting</strong> (“ingen udestående pant”). Det er helt fint at tage færre retur, end de købte · resten forbliver udestående. Du kan aldrig refundere mere, end gæsten faktisk skylder.</p></div>
   </section>
 
   <!-- GARDEROBE BIND -->
   <section class="feature" id="bind">
-    <div class="head"><span class="num">FLOW 2</span><h2>Garderobe — hang a coat, charge the fee</h2></div>
-    <p class="overview">At drop-off you scan the guest and the hanger. The rental fee is taken from their Beats and the hanger is tied to them.</p>
+    <div class="head"><span class="num">FLOW 2</span><h2>Garderobe · hæng en jakke op, opkræv gebyret</h2></div>
+    <p class="overview">Ved aflevering scanner du gæsten og bøjlen. Lejegebyret trækkes fra deres Beats, og bøjlen knyttes til dem.</p>
     <div class="stepwrap">
       <ol class="steps">
-        <li><div><p><strong>Scan the guest</strong> (their Festival-ID / app QR).</p></div></li>
-        <li><div><p><strong>Scan the hanger</strong> (its code / QR), then confirm.</p></div></li>
-        <li><div><p>Give the guest their hanger tag.</p><p class="result">The screen shows the fee taken, e.g. <span class="beats-amt">−30 Beats</span>, and “hanger bound”.</p></div></li>
+        <li><div><p><strong>Scan gæsten</strong> (deres Festival-ID / app-QR).</p></div></li>
+        <li><div><p><strong>Scan bøjlen</strong> (dens kode / QR), og bekræft.</p></div></li>
+        <li><div><p>Giv gæsten deres bøjlemærke.</p><p class="result">Skærmen viser det trukne gebyr, f.eks. <span class="beats-amt">−30 Beats</span>, og “bøjle bundet”.</p></div></li>
       </ol>
       <div class="shot"><div class="cap">Scanner · garderobe bind</div>
         <div class="dev"><div class="scr"><div class="top">GARDEROBE · BIND</div>
           <div class="body">
-            <div class="prompt">Scan guest, then hanger</div>
-            <div class="scanbox">Hanger<br>H-042</div>
-            <div class="res"><div class="big">−30 Beats</div><div class="sm">Hanger H-042 bound to guest</div></div>
-            <div class="btn">Confirm</div>
+            <div class="prompt">Scan gæst, derefter bøjle</div>
+            <div class="scanbox">Bøjle<br>H-042</div>
+            <div class="res"><div class="big">−30 Beats</div><div class="sm">Bøjle H-042 bundet til gæst</div></div>
+            <div class="btn">Bekræft</div>
           </div>
         </div></div>
       </div>
     </div>
-    <div class="note warn"><p><strong>The device protects you:</strong> if the guest hasn’t enough Beats, it declines with <strong>no charge and no hanger bound</strong> — ask them to top up first. If a hanger is already in use, it blocks the second bind (no double charge).</p></div>
+    <div class="note warn"><p><strong>Enheden beskytter dig:</strong> hvis gæsten ikke har nok Beats, afvises det <strong>uden opkrævning og uden bundet bøjle</strong> · bed dem om at tanke op først. Hvis en bøjle allerede er i brug, blokerer den det andet bind (ingen dobbeltopkrævning).</p></div>
   </section>
 
   <!-- GARDEROBE RELEASE -->
   <section class="feature" id="release">
-    <div class="head"><span class="num">FLOW 3</span><h2>Garderobe — give the coat back</h2></div>
-    <p class="overview">At pickup you scan the hanger to release it. There is <strong>no refund</strong> — the fee was a rental.</p>
+    <div class="head"><span class="num">FLOW 3</span><h2>Garderobe · giv jakken tilbage</h2></div>
+    <p class="overview">Ved afhentning scanner du bøjlen for at frigive den. Der er <strong>ingen refundering</strong> · gebyret var en leje.</p>
     <div class="stepwrap">
       <ol class="steps">
-        <li><div><p><strong>Scan the hanger</strong> (or type its code).</p></div></li>
-        <li><div><p>Hand the coat over. Done.</p><p class="result">“Hanger released.” Balance unchanged — no refund on pickup.</p></div></li>
+        <li><div><p><strong>Scan bøjlen</strong> (eller indtast dens kode).</p></div></li>
+        <li><div><p>Udlevér jakken. Færdig.</p><p class="result">“Bøjle frigivet.” Saldo uændret · ingen refundering ved afhentning.</p></div></li>
       </ol>
       <div class="shot"><div class="cap">Scanner · garderobe release</div>
         <div class="dev"><div class="scr"><div class="top">GARDEROBE · RELEASE</div>
           <div class="body">
-            <div class="prompt">Scan the hanger to release</div>
-            <div class="scanbox">Hanger<br>H-042</div>
-            <div class="res"><div class="big">Released</div><div class="sm">Hanger H-042 · no refund</div></div>
-            <div class="btn">Done</div>
+            <div class="prompt">Scan bøjlen for at frigive</div>
+            <div class="scanbox">Bøjle<br>H-042</div>
+            <div class="res"><div class="big">Frigivet</div><div class="sm">Bøjle H-042 · ingen refundering</div></div>
+            <div class="btn">Færdig</div>
           </div>
         </div></div>
       </div>
     </div>
-    <div class="note"><p>Scanning a hanger that’s already released, or one you don’t recognise, does nothing and shows no error — safe to try.</p></div>
+    <div class="note"><p>Scanner du en bøjle, der allerede er frigivet, eller en du ikke genkender, sker der ingenting, og der vises ingen fejl · det er trygt at prøve.</p></div>
   </section>
 
   <footer class="foot">
-    <p>Scanner guide for front-line staff — Pant returns and Garderobe bind/release. The device screens are illustrative; the actions and the money-safety behaviour are exactly as built and verified on <span class="mono">staging</span>. The <strong>FMS guide</strong> covers the admin setup (products + your vendor key); the <strong>Webticket guide</strong> covers the guest side.</p>
+    <p>Scanner-guide til frontlinjepersonale · pant-returer og garderobe bind/release. Enhedsskærmene er illustrative · handlingerne og penge-sikkerheden er præcis som bygget og verificeret på <span class="mono">staging</span>. <strong>FMS-guiden</strong> dækker admin-opsætningen (produkter + din vendor-nøgle) · <strong>Webticket-guiden</strong> dækker gæstesiden.</p>
   </footer>
 </div></div>
 </body>

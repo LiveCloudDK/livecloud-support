@@ -60,13 +60,13 @@
   .res{border-radius:16px;overflow:hidden;max-width:320px;margin:10px auto;box-shadow:var(--shadow)}
   .res .head{padding:20px 16px;text-align:center;color:#fff}
   .res .head .big{font-size:34px;line-height:1}.res .head b{display:block;font-size:15px;margin-top:8px;letter-spacing:-.01em}
-  .res.ok .head{background:#1f9d55}.res.retry .head{background:#d97706}.res.support .head{background:#3f4551}
+  .res.ok .head{background:#1f9d55}.res.retry .head{background:#c92835}.res.support .head{background:#c92835}
   .res .band{padding:12px;text-align:center;font-weight:800;font-size:13px;letter-spacing:.06em;color:#fff}
-  .res.ok .band{background:#166534}.res.retry .band{background:#b45309}.res.support .band{background:#2b2f38}
+  .res.ok .band{background:#166534}.res.retry .band{background:#991b1b}.res.support .band{background:#991b1b}
   .catgrid{display:grid;grid-template-columns:1fr;gap:12px;margin:12px 0}
   .cat{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
   .cat .ch{padding:11px 15px;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px;font-size:14px}
-  .cat.ok .ch{background:#1f9d55}.cat.retry .ch{background:#d97706}.cat.support .ch{background:#4b515e}
+  .cat.ok .ch{background:#1f9d55}.cat.retry .ch{background:#c92835}.cat.support .ch{background:#c92835}
   .cat .cb{padding:12px 15px}.cat .cb .msg{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
   .cat .cb .msg .m{font-size:12.5px;font-weight:600;border-radius:7px;padding:3px 9px;background:#fafafa;border:1px solid var(--line);color:#3f3f46}
   .cat .cb p{margin:0;font-size:13.5px;color:#52525b}
@@ -133,7 +133,7 @@
     <section id="intro">
       <div class="eyebrow">Guide · du står ved gaten</div>
       <h1>Scanner: indgang og check-in</h1>
-      <p class="lede">Du scanner gæsternes billetter og armbånd ved gaten. Guiden viser det, du ser på skærmen: <b>grøn</b> luk ind, <b>orange</b> prøv igen, <b>grå</b> send til supportdesk. Knap-navne og beskeder står som i appen, fx <span class="chip">Klar til at scanne</span>.</p>
+      <p class="lede">Du scanner gæsternes billetter og armbånd ved gaten. Guiden viser det, du ser på skærmen: <b>grøn</b> luk gæsten ind, <b>rød</b> luk ikke ind. Er skærmen rød, fortæller beskeden dig, om du skal scanne igen eller sende gæsten til Information. Knap-navne og beskeder står som i appen, fx <span class="chip">Klar til at scanne</span>.</p>
       <hr class="rule">
       <div class="cards">
         <a class="gcard" href="#par"><span class="em">🔗</span><b>Kom i gang</b><small>Par, log ind, klar</small></a>
@@ -141,7 +141,7 @@
         <a class="gcard" href="#armband"><span class="em">📶</span><b>Armbånd (NFC)</b><small>Samme resultat som QR</small></a>
         <a class="gcard" href="#qref"><span class="em">⚡</span><b>Hurtig-oversigt</b><small>Alle resultater på ét kort</small></a>
       </div>
-      <div class="note" style="margin-top:16px"><b>Grundreglen ved gaten.</b> Grøn betyder luk ind. Orange betyder prøv at scanne igen. Grå betyder send gæsten til supportdesk. Er du i tvivl, så luk ikke ind, send til supportdesk.</div>
+      <div class="note" style="margin-top:16px"><b>Grundreglen ved gaten.</b> Grøn betyder luk ind. Rød betyder luk ikke ind. På en rød skærm siger beskeden, om du skal scanne igen (fx ukendt kode) eller sende gæsten til Information (fx ingen adgang). Er du i tvivl, så luk ikke ind.</div>
     </section>
 
     <div class="pbanner scan"><div class="av">🔗</div><div><div class="who">Kom i gang</div><h2>Par enheden, log ind, bliv klar</h2><p>Scanneren pares til én gate med en kode fra admin.</p></div></div>
@@ -169,7 +169,7 @@
       <li>Har enheden ingen NFC-chip, siger appen det. Du kan stadig scanne QR-koder; armbånd kan så ikke aflæses.</li>
     </ol>
 
-    <div class="pbanner scan" style="background:linear-gradient(100deg,#166534,#14532d)"><div class="av">🎫</div><div><div class="who">Scan en gæst</div><h2>Scan, læs resultatet, handl</h2><p>Grøn luk ind. Orange prøv igen. Grå til supportdesk.</p></div></div>
+    <div class="pbanner scan" style="background:linear-gradient(100deg,#166534,#14532d)"><div class="av">🎫</div><div><div class="who">Scan en gæst</div><h2>Scan, læs resultatet, handl</h2><p>Grøn luk ind. Rød luk ikke ind. Læs beskeden.</p></div></div>
 
     <h3 class="flow" id="scan"><span class="g1">Scan en gæst</span>Scan-skærmen</h3>
     <p class="ctx">Hold kameraet mod gæstens QR-kode, eller hold et NFC-armbånd tæt på. Øverst viser et badge hvad du gør: <span class="chip">Tjek ind</span> (grøn), <span class="chip">Tjek ud</span> (rød) eller <span class="chip">Tovejs</span>.</p>
@@ -187,16 +187,17 @@
     <div class="tip">På Zebra-terminaler med hardware-scanner: <span class="chip">Tryk på aftrækkeren for at scanne</span>. Er kameraet sat på pause for at spare batteri, så tryk på skærmen for at genoptage.</div>
 
     <h3 class="flow" id="resultater"><span class="g1">Scan en gæst</span>Resultater</h3>
-    <p class="ctx">Hvert scan giver ét af tre farve-resultater med en handling nederst. Farven fortæller dig hvad du skal gøre.</p>
+    <p class="ctx">Hvert scan er enten grønt (luk ind) eller rødt (luk ikke ind). Er det rødt, fortæller beskeden dig, om du skal scanne igen eller sende gæsten til Information.</p>
     <div class="frame"><div class="screen"><div class="device">
       <div class="res ok"><div class="head"><div class="big">✓</div><b>Billet gyldig</b></div><div class="band">LUK GÆSTEN IND</div></div>
     </div></div></div>
     <div class="catgrid">
       <div class="cat ok"><div class="ch">🟢 Grøn: LUK GÆSTEN IND</div><div class="cb"><div class="msg"><span class="m">Billet gyldig</span><span class="m">Tjekket ind</span><span class="m">Tjekket ud</span></div><p>Billetten er gyldig. Luk gæsten ind (eller registrér som tjekket ud ved en udgang).</p></div></div>
-      <div class="cat retry"><div class="ch">🟠 Orange: PRØV AT SCANNE IGEN</div><div class="cb"><div class="msg"><span class="m">Allerede tjekket ind</span><span class="m">Ukendt kode</span><span class="m">Scanning mislykkedes</span><span class="m">NFC-tag kunne ikke læses</span></div><p>Noget gik galt med selve scanningen, eller billetten er allerede tjekket ind. Scan igen, ret QR/lys, prøv armbåndet igen.</p></div></div>
-      <div class="cat support"><div class="ch">⚪ Grå: SEND TIL SUPPORTDESK</div><div class="cb"><div class="msg"><span class="m">Billet er til en anden gate</span><span class="m">Ingen adgang</span><span class="m">Adgangstype ikke tilladt ved denne port</span><span class="m">Gæsten er ikke tjekket ind</span><span class="m">Eventet er ikke i gang</span><span class="m">Ingen gyldige billetter</span></div><p>Adgangen skal afklares. Luk ikke ind. Send gæsten til supportdesk.</p></div></div>
+      <div class="cat retry"><div class="ch">🔴 Rød · PRØV AT SCANNE IGEN</div><div class="cb"><div class="msg"><span class="m">Ukendt kode</span><span class="m">Scanning mislykkedes</span><span class="m">NFC-tag kunne ikke læses</span><span class="m">Allerede brugt</span></div><p>Noget gik galt med selve scanningen, eller koden er allerede brugt. Scan igen, ret QR/lys, prøv armbåndet igen.</p></div></div>
+      <div class="cat support"><div class="ch">🔴 Rød · SEND TIL INFORMATION</div><div class="cb"><div class="msg"><span class="m">Billet er til en anden gate</span><span class="m">Ingen adgang</span><span class="m">Adgangstype ikke tilladt ved denne port</span><span class="m">Gæsten er ikke tjekket ind</span><span class="m">Eventet er ikke i gang</span><span class="m">Ingen gyldige billetter</span></div><p>Adgangen skal afklares. Luk ikke ind. Send gæsten til Information.</p></div></div>
     </div>
-    <div class="stop"><b>Er du i tvivl, så luk ikke ind.</b> Grå resultater afgøres ikke ved gaten. Send gæsten til supportdesk.</div>
+    <div class="tip">Begge er den <b>samme røde skærm</b> ("Billet ugyldig"). Beskeden fortæller dig, om det er en scanning der skal prøves igen, eller en adgang der skal til Information. Appen giver også forskellig lyd: advarsel ved "prøv igen", fejl ved "ingen adgang".</div>
+    <div class="stop"><b>Er du i tvivl, så luk ikke ind.</b> Adgang afgøres ikke ved gaten. Send gæsten til Information.</div>
 
     <h3 class="flow" id="flere"><span class="g1">Scan en gæst</span>Flere billetter</h3>
     <p class="ctx">Har gæsten flere billetter på samme kode, viser appen dem i en liste, så du kan vælge hvilke der skal tjekkes ind.</p>
@@ -207,11 +208,11 @@
     </ol>
 
     <h3 class="flow" id="armband"><span class="g1">Scan en gæst</span>Armbånd (NFC)</h3>
-    <p class="ctx">Et NFC-armbånd scannes på præcis samme måde som en QR-kode. Hold armbåndet tæt på scanneren i stedet for at rette kameraet mod en QR. Du får det <b>samme</b> farve-resultat som ved QR: grøn luk ind, orange prøv igen, grå til supportdesk. Der er ingen særskilt armbånds-skærm.</p>
+    <p class="ctx">Et NFC-armbånd scannes på præcis samme måde som en QR-kode. Hold armbåndet tæt på scanneren i stedet for at rette kameraet mod en QR. Du får det <b>samme</b> farve-resultat som ved QR: grøn luk ind, rød luk ikke ind (læs beskeden). Der er ingen særskilt armbånds-skærm.</p>
     <ol class="steps">
       <li>Hold armbåndet tæt på scanneren. Det bruger den samme scan-skærm som QR.</li>
       <li>Læs farve-resultatet og handl på det, præcis som ved en QR-billet.</li>
-      <li>Kan båndet ikke aflæses, viser appen orange <span class="chip">NFC-tag kunne ikke læses</span>. Prøv igen, eller scan gæstens QR-kode i stedet.</li>
+      <li>Kan båndet ikke aflæses, viser appen rødt <span class="chip">NFC-tag kunne ikke læses</span>. Prøv igen, eller scan gæstens QR-kode i stedet.</li>
       <li>Har enheden ingen NFC-chip, kan armbånd ikke aflæses. Brug QR-koden.</li>
     </ol>
 
@@ -236,10 +237,10 @@
     <table class="qref">
       <tr><th>Du ser</th><th>Farve</th><th>Gør sådan</th></tr>
       <tr><td><b>Billet gyldig</b> · <b>Tjekket ind</b> / <b>Tjekket ud</b></td><td>Grøn</td><td>Luk gæsten ind (eller tjekket ud).</td></tr>
-      <tr><td><b>Allerede tjekket ind</b> · <b>Ukendt kode</b> · <b>Scanning mislykkedes</b> · <b>NFC-tag kunne ikke læses</b></td><td>Orange</td><td>Prøv at scanne igen. Ret QR/lys, prøv armbåndet igen.</td></tr>
-      <tr><td><b>Billet er til en anden gate</b> · <b>Ingen adgang</b> · <b>Adgangstype ikke tilladt</b> · <b>Gæsten er ikke tjekket ind</b> · <b>Eventet er ikke i gang</b> · <b>Ingen gyldige billetter</b></td><td>Grå</td><td>Luk ikke ind. Send til supportdesk.</td></tr>
+      <tr><td><b>Ukendt kode</b> · <b>Scanning mislykkedes</b> · <b>NFC-tag kunne ikke læses</b> · <b>Allerede brugt</b></td><td>Rød</td><td>Prøv at scanne igen. Ret QR/lys, prøv armbåndet igen.</td></tr>
+      <tr><td><b>Billet er til en anden gate</b> · <b>Ingen adgang</b> · <b>Adgangstype ikke tilladt</b> · <b>Gæsten er ikke tjekket ind</b> · <b>Eventet er ikke i gang</b> · <b>Ingen gyldige billetter</b></td><td>Rød</td><td>Luk ikke ind. Send til Information.</td></tr>
       <tr><td><b>Flere billetter fundet</b></td><td>Liste</td><td>Vælg billetterne og tjek ind.</td></tr>
-      <tr><td><b>Armbånd (NFC)</b></td><td>Som QR</td><td>Samme grøn/orange/grå resultat som en QR-scanning.</td></tr>
+      <tr><td><b>Armbånd (NFC)</b></td><td>Som QR</td><td>Samme grøn/rød resultat som en QR-scanning.</td></tr>
       <tr><td>Intet resultat / scanning afbrudt</td><td>Net</td><td>Ingen forbindelse. Vent og scan igen.</td></tr>
     </table>
 

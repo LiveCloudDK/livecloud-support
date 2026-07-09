@@ -42,7 +42,7 @@
   .catgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:12px 0}
   .cat{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
   .cat .ch{padding:11px 15px;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px;font-size:14px}
-  .cat.ok .ch{background:#1f9d55}.cat.retry .ch{background:#d97706}.cat.support .ch{background:#4b515e}
+  .cat.ok .ch{background:#1f9d55}.cat.retry .ch{background:#c92835}.cat.support .ch{background:#c92835}
   .cat .cb{padding:12px 15px}.cat .cb p{margin:0;font-size:13.5px;color:#52525b}
   ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
   ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
@@ -70,7 +70,7 @@
       <a href="#intro">Din rolle</a>
       <div class="g">Sådan gør du</div>
       <a href="#station">Din station: to gates</a>
-      <a href="#beslut">Beslutningen: tre farver</a>
+      <a href="#beslut">Beslutningen: to farver</a>
       <a href="#hurtig">Hurtig-oversigt</a>
       <div class="g">Når noget går galt</div>
       <a href="#galt">Eskalering og kontakt</a>
@@ -84,12 +84,12 @@
       <p class="lede">Du står ved en gate og scanner gæster ind (og ud). Dit job er hurtigt og binært: læs resultatet, luk ind eller send videre, og <b>hold køen kørende</b>. Alt der ikke er et rent scan sender du til <b>Information</b> - de har en egen guide til at løse det.</p>
       <hr class="rule">
       <div class="cards">
-        <a class="gcard" href="#beslut"><span class="em">🚦</span><b>Tre farver</b><small>Grøn, orange, grå</small></a>
+        <a class="gcard" href="#beslut"><span class="em">🚦</span><b>To farver</b><small>Grøn og rød</small></a>
         <a class="gcard" href="#hurtig"><span class="em">⚡</span><b>Hurtig-oversigt</b><small>Alt på ét kort</small></a>
         <a class="gcard" href="scanner.html"><span class="em">📱</span><b>Scanner-guide</b><small>Trin for trin i appen</small></a>
         <a class="gcard" href="haandbog-information.html"><span class="em">ℹ️</span><b>Information</b><small>Dem du sender svære sager til</small></a>
       </div>
-      <div class="note" style="margin-top:16px"><b>Grundreglen.</b> Grøn = luk ind. Orange = prøv at scanne igen. Grå = send til Information. Er du i tvivl om adgang, så luk <b>ikke</b> ind - send til Information.</div>
+      <div class="note" style="margin-top:16px"><b>Grundreglen.</b> Grøn = luk ind. Rød = luk ikke ind. På en rød skærm siger beskeden, om du skal scanne igen (fx ukendt kode) eller sende gæsten til Information (fx ingen adgang). Er du i tvivl om adgang, så luk <b>ikke</b> ind - send til Information.</div>
     </section>
 
     <div class="pbanner" style="background:linear-gradient(100deg,#166534,#14532d)"><div class="av">🚪</div><div><div class="who">Din station</div><h2>To gates, og hvem står hvor</h2><p>LiveCloud står med jer ved begge indgange.</p></div></div>
@@ -102,14 +102,14 @@
     <div class="note"><b>Ankomst-pres de første dage.</b> Ved åbningen står LiveCloud-supporten ved begge gates, og <b>i de tidlige dage hjælper også bar- &amp; bod-teamet ved gates</b> (barerne åbner senere). Når barerne åbner, deler holdet sig, og en supporter rykker til POS.</div>
     <div class="note"><b>Camping-scannerne.</b> Der er også scannere ved camping-adgangene, men <b>ingen LiveCloud-support står der</b>. Problemer dér sendes til Information, eller de roamende supportere hjælper på stedet.</div>
 
-    <div class="pbanner" style="background:linear-gradient(100deg,#166534,#14532d)"><div class="av">🚦</div><div><div class="who">Sådan gør du</div><h2>Beslutningen: tre farver</h2><p>Læs resultatet, handl, videre til næste.</p></div></div>
+    <div class="pbanner" style="background:linear-gradient(100deg,#166534,#14532d)"><div class="av">🚦</div><div><div class="who">Sådan gør du</div><h2>Beslutningen: to farver</h2><p>Læs resultatet, handl, videre til næste.</p></div></div>
 
-    <h3 class="flow" id="beslut"><span class="g1">Sådan gør du</span>Beslutningen: tre farver</h3>
+    <h3 class="flow" id="beslut"><span class="g1">Sådan gør du</span>Beslutningen: to farver</h3>
     <p class="ctx">Trin for trin i selve appen (par, log ind, scan) står i <a href="scanner.html">Scanner-guiden</a>. Her er beslutningen.</p>
     <div class="catgrid">
       <div class="cat ok"><div class="ch">✓ Grøn</div><div class="cb"><p>Gæsten er gyldig. <b>Luk ind.</b> Videre til næste.</p></div></div>
-      <div class="cat retry"><div class="ch">↻ Orange</div><div class="cb"><p>Prøv at scanne igen. Bed gæsten vise offline-QR / Festival-ID og skru lysstyrken op. Virker det stadig ikke: <b>send til Information.</b></p></div></div>
-      <div class="cat support"><div class="ch">→ Grå / alt andet</div><div class="cb"><p>Manglende billet, ingen smartphone, forkert gate, billet-disput, betalingsspørgsmål: <b>send til Information.</b> Du løser det ikke ved gaten.</p></div></div>
+      <div class="cat retry"><div class="ch">🔴 Rød · prøv igen</div><div class="cb"><p>Beskeden er "ukendt kode", "scanning mislykkedes" eller lignende. Bed gæsten vise offline-QR / Festival-ID og skru lysstyrken op, og scan igen. Virker det stadig ikke: <b>send til Information.</b></p></div></div>
+      <div class="cat support"><div class="ch">🔴 Rød · send til Information</div><div class="cb"><p>Beskeden er "ingen adgang", "forkert gate" eller lignende. Manglende billet, ingen smartphone, billet-disput, betalingsspørgsmål: <b>send til Information.</b> Du løser det ikke ved gaten.</p></div></div>
     </div>
     <div class="note"><b>Hold køen kørende.</b> Sidder én gæst fast, så træd dem til side, så køen bag dem flyder videre.</div>
 
@@ -117,8 +117,8 @@
     <table class="qref">
       <tr><th>Du ser</th><th>Gør dette</th></tr>
       <tr><td><b>Grøn</b> resultat</td><td>Luk ind.</td></tr>
-      <tr><td><b>Orange</b> / prøv igen</td><td>Offline-QR / Festival-ID, mere lys, scan igen. Ellers → Information.</td></tr>
-      <tr><td><b>Grå</b> / ukendt kode</td><td>Send til Information.</td></tr>
+      <tr><td><b>Rød</b> · prøv igen (ukendt kode, NFC)</td><td>Offline-QR / Festival-ID, skru lysstyrken op, scan igen. Ellers → Information.</td></tr>
+      <tr><td><b>Rød</b> · ingen adgang (forkert gate m.m.)</td><td>Send til Information.</td></tr>
       <tr><td>Ingen smartphone</td><td>Send til Information (de opretter/finder billetten og binder et armbånd).</td></tr>
       <tr><td>Scanner/enhed driller</td><td>Byt fra spare-puljen; LiveCloud-supporten på din gate verificerer.</td></tr>
       <tr><td>I tvivl om adgang</td><td>Luk ikke ind. Send til Information.</td></tr>

@@ -81,19 +81,24 @@
       <a href="#udsted">Walk-up: udsted adgang</a>
       <div class="g">Betaling</div>
       <a href="#beats">Optank Beats (POS)</a>
+      <div class="g">Virksomhedskunde</div>
+      <a href="#virk-slaaop">Slå virksomheden op</a>
+      <a href="#virk-ordre">Lav en Beats-ordre</a>
+      <a href="#virk-link">Send betalingslink</a>
     </nav>
   </aside>
   <main>
     <section id="intro">
       <div class="eyebrow">Guide · Information i FMS</div>
       <h1>Walk-up gæst uden smartphone</h1>
-      <p class="lede">En gæst uden smartphone kan ikke bruge app'en. Du hjælper dem ved skranken: enten <b>aktiverer du deres billet</b> (papir eller PDF) og binder et <b>armbånd</b>, eller du <b>udsteder adgang på stedet</b>. De betaler med armbånds-tap i <b>Beats</b>, så du <b>optanker Beats på POS-terminalen</b> for dem. Knap-navne i FMS står i grå, fx <span class="chip">Slå op</span>.</p>
+      <p class="lede">En gæst uden smartphone kan ikke bruge app'en. Du hjælper dem ved skranken: enten <b>aktiverer du deres billet</b> (papir eller PDF) og binder et <b>armbånd</b>, eller du <b>udsteder adgang på stedet</b>. De betaler med armbånds-tap i <b>Beats</b>, så du <b>optanker Beats på POS-terminalen</b> for dem. Sidst i guiden er der også en sektion om, hvordan en <b>virksomhedskunde</b> får flere Beats via et betalingslink. Knap-navne i FMS står i grå, fx <span class="chip">Slå op</span>.</p>
       <hr class="rule">
       <div class="cards">
         <a class="gcard" href="#har-billet"><span class="em">🎫</span><b>Har en billet</b><small>Papir eller PDF</small></a>
         <a class="gcard" href="#armband-a"><span class="em">📿</span><b>Armbånd</b><small>Bind via NFC</small></a>
         <a class="gcard" href="#ingen-billet"><span class="em">➕</span><b>Ingen billet</b><small>Udsted på stedet</small></a>
         <a class="gcard" href="#beats"><span class="em">💰</span><b>Betaling</b><small>Optank Beats</small></a>
+        <a class="gcard" href="#virk"><span class="em">🏢</span><b>Virksomhed</b><small>Flere Beats via link</small></a>
       </div>
       <div class="stop" style="margin-top:16px"><b>Vigtigt om betaling.</b> Vi kan <b>ikke</b> gemme et kreditkort på gæstens profil. Det kan kun gæsten selv i sin egen app (via Swedbank). En gæst uden smartphone betaler derfor altid med <b>Beats</b>, og du <b>optanker Beats for dem på POS-terminalen</b>. Se afsnittet Optank Beats.</div>
       <div class="tip">Walk-up og armbånd kræver rollen <b>superadmin, summit-admin</b> eller <b>commerce-admin</b> i FMS. Har du ikke adgang til skærmene, så få en med rollen til det.</div>
@@ -102,45 +107,45 @@
     <div class="pbanner a"><div class="av">🎫</div><div><div class="who">Situation A</div><h2>Gæsten har allerede en billet</h2><p>Papir eller PDF: slå koden op og bind et armbånd.</p></div></div>
 
     <h3 class="flow" id="har-billet"><span class="g1">Situation A</span>Gæsten har en billet (papir/PDF)</h3>
-    <p class="ctx">Har gæsten købt en billet i forvejen og kommer med den printet eller som PDF, bruger du <span class="chip">Armbåndsudlevering</span> i FMS (samme skærm som Walk-up nedenfor). Du slår billetkoden op og binder et armbånd, så billetten er aktiv på gæsten.</p>
+    <p class="ctx">Har gæsten købt en billet i forvejen og kommer med den printet eller som PDF, bruger du <span class="chip">Informationen</span> i FMS (samme skærm som Walk-up nedenfor). Du slår billetkoden op og binder et armbånd, så billetten er aktiv på gæsten.</p>
 
     <h3 class="flow" id="slaa-op"><span class="g1">Situation A</span>Scan eller tast billetkoden</h3>
     <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/admin/accreditation/desk</span></div>
       <div style="padding:16px;background:#fbfbfc">
         <div class="card2">
-          <h5>Armbåndsudlevering</h5><p class="mp">Skan eller indtast billetkoden for at finde gæsten.</p>
+          <h5>Informationen</h5><p class="mp">Skan eller indtast billetkoden for at finde gæsten.</p>
           <div class="lab">Scan QR-pas / billetkode</div>
           <div class="field ph">RF-… (skan koden, eller tast den fra papir-billetten)</div>
           <div class="foot"><span class="btn dark">Slå op</span></div>
         </div>
       </div></div>
     <ol class="steps">
-      <li>Åbn <span class="chip">Armbåndsudlevering</span> i FMS.</li>
+      <li>Åbn <span class="chip">Informationen</span> i FMS.</li>
       <li>Har du en scanner koblet til laptoppen, så <b>scan</b> QR'en på billetten i <span class="chip">Scan QR-pas / billetkode…</span>. Ellers <b>taster du billetkoden ind</b> fra papiret. Tryk <span class="chip">Slå op</span>.</li>
       <li>Gæstens adgang(e) vises. Er der flere resultater, så tryk på den rigtige.</li>
     </ol>
     <div class="note">Finder den ingenting (<span class="chip">Ingen konto fundet for denne kode.</span>), så tjek koden for tastefejl, eller søg på navn eller telefon. Er billetten allerede brugt eller annulleret, siger den det. Er du i tvivl, så eskalér efter Information-håndbogen.</div>
 
-    <h3 class="flow" id="armband-a"><span class="g1">Situation A</span>Knyt armbånd</h3>
-    <p class="ctx">Når billetten er slået op, markerer du den adgang der mangler armbånd og knytter et bånd. Det er armbåndet, bundet til billetten, der er gæstens adgang og betalingsmiddel.</p>
-    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Armbåndsudlevering · Knyt armbånd</span></div>
+    <h3 class="flow" id="armband-a"><span class="g1">Situation A</span>Knyt armbånd til billetten</h3>
+    <p class="ctx">Når billetten er slået op, viser skærmen selve billetten og gæsten bag den. Billetten har allerede sin ejer, så du behøver <b>ikke</b> oprette en konto. Du binder blot et armbånd direkte til billetten. Det er armbåndet, bundet til billetten, der er gæstens adgang og betalingsmiddel.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Informationen · billet fundet</span></div>
       <div style="padding:16px;background:#fbfbfc">
         <div class="card2">
-          <h5>Knyt armbånd</h5><p class="mp">Hold armbåndet mod NFC-læseren.</p>
+          <h5>Knyt armbånd til denne billet</h5><p class="mp">Hold armbåndet mod NFC-læseren.</p>
           <div class="field ph">Hold armbånd mod scanneren…</div>
           <div class="foot"><span class="btn acc">Knyt</span></div>
         </div>
       </div></div>
     <ol class="steps">
-      <li>Marker den adgang der står <span class="chip">Mangler armbånd</span>, og tryk <span class="chip">Knyt armbånd</span>.</li>
-      <li>Hold et nyt armbånd mod <b>NFC-læseren</b>. Nummeret dukker op. Tryk <span class="chip">Knyt</span>. Du ser <b>Armbånd tilknyttet</b> i grønt.</li>
+      <li>På den fundne billet holder du et nyt armbånd mod <b>NFC-læseren</b> ved feltet <span class="chip">Knyt armbånd til denne billet</span>.</li>
+      <li>Nummeret dukker op. Tryk <span class="chip">Knyt</span>. Du ser <b>Armbånd tilknyttet</b> i grønt.</li>
       <li>Billetten er nu aktiv og knyttet til armbåndet. Mangler gæsten Beats, så optank på terminalen (se nedenfor).</li>
     </ol>
 
     <div class="pbanner b"><div class="av">➕</div><div><div class="who">Situation B</div><h2>Gæsten køber adgang på stedet</h2><p>Ingen billet i forvejen: udsted alt i én handling.</p></div></div>
 
     <h3 class="flow" id="ingen-billet"><span class="g1">Situation B</span>Gæsten har ingen billet</h3>
-    <p class="ctx">Har gæsten ingen billet, og skal have adgang på stedet, bruger du <span class="chip">Walk-up</span>-kortet på <span class="chip">Armbåndsudlevering</span>. Det opretter gæsten, billetten, ordren og armbåndet i én handling, uden app og uden MitID.</p>
+    <p class="ctx">Har gæsten ingen billet, og skal have adgang på stedet, bruger du <span class="chip">Walk-up</span>-kortet på <span class="chip">Informationen</span>. Det opretter gæsten, billetten, ordren og armbåndet i én handling, uden app og uden MitID.</p>
 
     <h3 class="flow" id="udsted"><span class="g1">Situation B</span>Walk-up: udsted adgang</h3>
     <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/admin/accreditation/desk</span></div>
@@ -184,7 +189,61 @@
     <div class="beatsbox"><b>Hvor optanker man?</b> Primært hos <b>Informationen</b>. Ellers er det en <b>special-mulighed i barerne</b>, hvis en gæst uden telefon skal have fyldt op undervejs. Trin for trin på terminalen står i <a href="pos.html" style="color:#6b4a0c;font-weight:700">POS-guiden</a>.</div>
     <div class="tip">Har du allerede lagt en start-saldo på via <span class="chip">Beats</span>-feltet i Walk-up, er gæsten kørende med det samme. Løber saldoen tør, optankes der igen på terminalen.</div>
 
-    <div class="footer">LiveCloud · Ringsted Festival. Guide til Information: walk-up gæst uden smartphone i FMS. Skærmene er tro gengivelser af de live FMS-skærme; danske knap-navne står i grå. Se også <a href="haandbog-information.html">Information</a>, <a href="akkreditering-armbaand.html">Akkreditering: armbånd</a> og <a href="pos.html">POS</a>.</div>
+    <div class="pbanner" style="background:linear-gradient(100deg,#4338ca,#3730a3)"><div class="av">🏢</div><div><div class="who">Virksomhedskunde</div><h2>Flere Beats på virksomhedskontoen</h2><p>Slå kontoen op, lav en Beats-ordre, send et betalingslink.</p></div></div>
+
+    <h3 class="flow" id="virk"><span class="g1">Virksomhedskunde</span>Når en virksomhed skal have flere Beats</h3>
+    <p class="ctx">En virksomhedskunde kan få flere Beats på virksomhedskontoen. Det kan <b>ikke</b> foregå på POS-terminalen. I stedet slår du kontoen op i FMS, laver en <b>ordre</b> på Beats, og sender et <b>betalingslink</b>, som kunden betaler online.</p>
+
+    <h3 class="flow" id="virk-slaaop"><span class="g1">Virksomhedskunde</span>Slå virksomheden op</h3>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/commerce/kunder</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="card2">
+          <h5>Modtagere</h5><p class="mp">Handel › Modtagere. Søg virksomheden frem.</p>
+          <div class="field ph">Søg på navn, e-mail, CVR-nummer eller handle…<span>Søg</span></div>
+          <div class="segs" style="margin-top:8px"><span class="seg">Alle</span><span class="seg on">Virksomhed</span><span class="seg">Privatperson</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Gå til <span class="chip">Modtagere</span> (Handel → Modtagere). Søg på navn, e-mail eller CVR og filtrér på <span class="chip">Virksomhed</span>. Tryk <span class="chip">Søg</span>.</li>
+      <li>Klik virksomheden i listen for at åbne kontoen. (Findes den ikke, så <span class="chip">Opret ny</span> → <span class="chip">Virksomhed</span> med CVR.)</li>
+    </ol>
+
+    <h3 class="flow" id="virk-ordre"><span class="g1">Virksomhedskunde</span>Lav en Beats-ordre</h3>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Virksomhedskonto · Ordrer &amp; billetter</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="card2">
+          <h5>Ordrer &amp; billetter</h5><p class="mp">Udsted billetter eller Beats til organisationen.</p>
+          <div class="lab">Billetprodukt</div><div class="field ph">(tom, hvis du kun tilføjer Beats)</div>
+          <div class="row2">
+            <div><div class="lab">Beats-produkt</div><div class="field">Vælg beats-produkt…<span>▾</span></div></div>
+            <div><div class="lab">Antal</div><div class="field ph">fx 5000</div></div>
+          </div>
+          <div class="foot"><span class="btn acc">Opret ordre</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>På kontoen finder du <span class="chip">Ordrer &amp; billetter</span>. Lad <span class="chip">Billetprodukt</span> være tomt.</li>
+      <li>Vælg et <span class="chip">Beats-produkt</span> og skriv <span class="chip">Antal</span> Beats. Tryk <span class="chip">Opret ordre</span>.</li>
+      <li>Ordren er nu oprettet (ubetalt). Kontoens <span class="chip">Beats-saldo</span> opdateres, når den er betalt.</li>
+    </ol>
+
+    <h3 class="flow" id="virk-link"><span class="g1">Virksomhedskunde</span>Send betalingslink</h3>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Ordre · Betalingslink</span></div>
+      <div style="padding:16px;background:#fbfbfc">
+        <div class="card2">
+          <h5>Send betalingslink til kunden?</h5><p class="mp">Kunden får et Swedbank-betalingslink på e-mail, så de kan betale ordren online.</p>
+          <div class="foot"><span class="btn">Annullér</span><span class="btn acc">Ja, send betalingslink</span></div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Åbn ordren. Under <span class="chip">Betalingslink</span> trykker du <span class="chip">Send betalingslink</span> (eller <span class="chip">Send link igen</span>).</li>
+      <li>Bekræft <span class="chip">Send betalingslink til kunden?</span> og tryk <span class="chip">Ja, send betalingslink</span>.</li>
+      <li>Du ser <b>Betalingslink sendt.</b> Når kunden har betalt, ligger Beats på virksomhedskontoen.</li>
+    </ol>
+    <div class="note"><b>Linket sendes på e-mail, ikke som kopier-link.</b> Kunden skal have en kontakt-e-mail på kontoen, ellers fejler det (<span class="chip">Kunden har ingen kontakt-e-mail…</span>). Det kræver også at kortbetaling er sat op. Virksomheden kan alternativt <b>faktureres</b> i stedet for at betale via link.</div>
+    <div class="tip">Forveksl ikke med <span class="chip">Fordel</span> / Beats-tildeling på ordren, som fordeler allerede-tilkøbte Beats ud til enkeltpersoner. Det tilføjer ikke nye Beats.</div>
+
+    <div class="footer">LiveCloud · Ringsted Festival. Guide til Information: walk-up gæst uden smartphone, og flere Beats til en virksomhedskunde, i FMS. Skærmene er tro gengivelser af de live FMS-skærme; danske knap-navne står i grå. Se også <a href="haandbog-information.html">Information</a>, <a href="akkreditering-armbaand.html">Akkreditering: armbånd</a> og <a href="pos.html">POS</a>.</div>
   </main>
 </div>
 <script src="guide-enhance.js"></script>

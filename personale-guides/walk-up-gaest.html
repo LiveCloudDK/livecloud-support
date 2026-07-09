@@ -102,38 +102,38 @@
     <div class="pbanner a"><div class="av">🎫</div><div><div class="who">Situation A</div><h2>Gæsten har allerede en billet</h2><p>Papir eller PDF: slå koden op og bind et armbånd.</p></div></div>
 
     <h3 class="flow" id="har-billet"><span class="g1">Situation A</span>Gæsten har en billet (papir/PDF)</h3>
-    <p class="ctx">Har gæsten købt en billet i forvejen og kommer med den printet eller som PDF, bruger du <span class="chip">Servicedesk</span> i FMS. Du slår billetkoden op og binder et armbånd, så billetten er aktiv på gæsten.</p>
+    <p class="ctx">Har gæsten købt en billet i forvejen og kommer med den printet eller som PDF, bruger du <span class="chip">Armbåndsudlevering</span> i FMS (samme skærm som Walk-up nedenfor). Du slår billetkoden op og binder et armbånd, så billetten er aktiv på gæsten.</p>
 
     <h3 class="flow" id="slaa-op"><span class="g1">Situation A</span>Scan eller tast billetkoden</h3>
-    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/commerce/service-desk</span></div>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/admin/accreditation/desk</span></div>
       <div style="padding:16px;background:#fbfbfc">
         <div class="card2">
-          <h5>Scan billet</h5><p class="mp">Skan eller indtast billetkoden for at finde ordreholder.</p>
-          <div class="lab">Billetkode</div>
+          <h5>Armbåndsudlevering</h5><p class="mp">Skan eller indtast billetkoden for at finde gæsten.</p>
+          <div class="lab">Scan QR-pas / billetkode</div>
           <div class="field ph">RF-… (skan koden, eller tast den fra papir-billetten)</div>
-          <div class="foot"><span class="btn">Nulstil</span><span class="btn dark">Slå op</span></div>
+          <div class="foot"><span class="btn dark">Slå op</span></div>
         </div>
       </div></div>
     <ol class="steps">
-      <li>Åbn <span class="chip">Servicedesk</span> og find kortet <span class="chip">Scan billet</span>.</li>
-      <li>Har du en scanner koblet til laptoppen, så <b>scan</b> QR'en på billetten. Ellers <b>taster du billetkoden ind</b> fra papiret i feltet <span class="chip">Billetkode</span>.</li>
-      <li>Tryk <span class="chip">Slå op</span>. Servicedesk viser ordreholderen og gæsten bag billetten.</li>
+      <li>Åbn <span class="chip">Armbåndsudlevering</span> i FMS.</li>
+      <li>Har du en scanner koblet til laptoppen, så <b>scan</b> QR'en på billetten i <span class="chip">Scan QR-pas / billetkode…</span>. Ellers <b>taster du billetkoden ind</b> fra papiret. Tryk <span class="chip">Slå op</span>.</li>
+      <li>Gæstens adgang(e) vises. Er der flere resultater, så tryk på den rigtige.</li>
     </ol>
-    <div class="note">Finder den ingenting, så tjek koden for tastefejl. Er billetten allerede brugt eller annulleret, siger den det. Er du i tvivl, så eskalér efter Information-håndbogen.</div>
+    <div class="note">Finder den ingenting (<span class="chip">Ingen konto fundet for denne kode.</span>), så tjek koden for tastefejl, eller søg på navn eller telefon. Er billetten allerede brugt eller annulleret, siger den det. Er du i tvivl, så eskalér efter Information-håndbogen.</div>
 
-    <h3 class="flow" id="armband-a"><span class="g1">Situation A</span>Udlever armbånd</h3>
-    <p class="ctx">Når billetten er slået op, dukker der et kort frem til at knytte et armbånd. Det er armbåndet, bundet til billetten, der er gæstens adgang og betalingsmiddel.</p>
-    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Servicedesk · armbånd</span></div>
+    <h3 class="flow" id="armband-a"><span class="g1">Situation A</span>Knyt armbånd</h3>
+    <p class="ctx">Når billetten er slået op, markerer du den adgang der mangler armbånd og knytter et bånd. Det er armbåndet, bundet til billetten, der er gæstens adgang og betalingsmiddel.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Armbåndsudlevering · Knyt armbånd</span></div>
       <div style="padding:16px;background:#fbfbfc">
         <div class="card2">
-          <h5>Skan NFC-armbånd</h5><p class="mp">Hold et armbånd mod scanneren for at knytte det til billetten.</p>
+          <h5>Knyt armbånd</h5><p class="mp">Hold armbåndet mod NFC-læseren.</p>
           <div class="field ph">Hold armbånd mod scanneren…</div>
-          <div class="foot"><span class="btn acc">Udlever armbånd</span></div>
+          <div class="foot"><span class="btn acc">Knyt</span></div>
         </div>
       </div></div>
     <ol class="steps">
-      <li>Hold et nyt armbånd mod <b>NFC-scanneren</b>. Nummeret dukker op i feltet <span class="chip">Skan NFC-armbånd</span>.</li>
-      <li>Tryk <span class="chip">Udlever armbånd</span>. Du ser <b>Armbånd tilknyttet</b>.</li>
+      <li>Marker den adgang der står <span class="chip">Mangler armbånd</span>, og tryk <span class="chip">Knyt armbånd</span>.</li>
+      <li>Hold et nyt armbånd mod <b>NFC-læseren</b>. Nummeret dukker op. Tryk <span class="chip">Knyt</span>. Du ser <b>Armbånd tilknyttet</b> i grønt.</li>
       <li>Billetten er nu aktiv og knyttet til armbåndet. Mangler gæsten Beats, så optank på terminalen (se nedenfor).</li>
     </ol>
 

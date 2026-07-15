@@ -1,215 +1,28 @@
 <!doctype html>
 <html lang="da">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
-<title>Kundeservice: udenlandsk gæst, login og Shopify-import (FMS)</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Udenlandsk gæst · bag login</title>
 <style>
-  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
-    --acc:#0e7490;--acc-d:#155e75;--green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;
-    --red:#c92835;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;--amber:#b45309;--amber-bg:#fffbeb;
-    --stg-bg:#fff3d6;--stg-line:#f5d17a;--stg-ink:#9a6a00;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
-  *{box-sizing:border-box}html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
-  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
-  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
-  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
-  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
-  aside .toc{margin-top:14px;font-size:13.5px}
-  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
-  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
-  aside .toc a:hover{background:#ecfeff;color:#111}
-  main{padding:34px 40px 100px;min-width:0}
-  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase}
-  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
-  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
-  .rule{height:3px;background:var(--acc);border:none;margin:24px 0}
-  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
-  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
-  .gcard:hover{border-color:#a5f3fc}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
-  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
-  .pbanner.k{background:linear-gradient(100deg,#0e7490,#155e75)}.pbanner.s{background:linear-gradient(100deg,#4338ca,#3730a3)}
-  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
-  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
-  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
-  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
-  h3.flow .g1{color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
-  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
-  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
-  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
-  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
-  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .modal{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff;max-width:520px;margin:0 auto;box-shadow:var(--shadow)}
-  .modal h5{margin:0 0 1px;font-size:17px}.modal .mp{color:var(--muted);font-size:12.5px;margin:0 0 12px}
-  .wsteps{display:flex;align-items:center;gap:6px;margin:2px 0 14px;font-size:11px;color:var(--muted)}
-  .wsteps .st{display:flex;align-items:center;gap:6px}
-  .wsteps .n{width:17px;height:17px;border-radius:50%;background:#e4e4e7;color:#52525b;display:grid;place-items:center;font-size:10px;font-weight:700}
-  .wsteps .st.on .n{background:#0b0b0c;color:#fff}.wsteps .st.on{color:#111;font-weight:600}
-  .wsteps .st.done .n{background:var(--green);color:#fff}
-  .wsteps .ln{flex:1;height:1px;background:var(--line);min-width:14px}
-  .tcard{display:flex;align-items:flex-start;gap:11px;border:1px solid var(--line);border-radius:11px;padding:11px 13px;margin-top:8px}
-  .tcard.on{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc);background:#ecfeff}
-  .tcard .ic{width:30px;height:30px;border-radius:9px;background:#f4f4f5;display:grid;place-items:center;font-size:15px;flex:none}
-  .tcard b{font-size:14px}.tcard p{margin:2px 0 0;color:var(--muted);font-size:12px}
-  .tcard .cv{margin-left:auto;color:#a1a1aa}
-  .lab{font-size:11px;font-weight:700;color:#52525b;margin:11px 0 3px}.lab .req{color:var(--red)}
-  .field{border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:12.5px;color:#3f3f46;background:#fafafa}
-  .field.ph{color:#a1a1aa}
-  .banner-info{background:#ecfeff;border:1px solid #a5f3fc;color:#155e75;border-radius:10px;padding:9px 12px;font-size:12px;margin-top:10px}
-  .foot{display:flex;justify-content:space-between;gap:8px;margin-top:14px}
-  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}
-  .btn.dark{background:#0b0b0c;color:#fff;border-color:#0b0b0c}.btn.acc{background:var(--acc);color:#fff;border-color:var(--acc)}
-  .badge{font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;border:1px solid var(--grey-line);background:#f4f4f5;color:#3f3f46}
-  .badge.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
-  .imp table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}
-  .imp th{text-align:left;color:var(--muted);font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;padding:5px 8px;border-bottom:1px solid var(--line)}
-  .imp td{padding:7px 8px;border-bottom:1px solid var(--line)}
-  .imp .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:#52525b}
-  .lgn{border:1px solid var(--line);border-radius:12px;background:#fff;max-width:320px;margin:0 auto;padding:16px;text-align:center}
-  .lgn .code{display:flex;gap:6px;justify-content:center;margin:12px 0}
-  .lgn .code span{width:30px;height:38px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;font-size:18px;font-weight:800;background:#fafafa}
-  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
-  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
-  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
-  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
-  .tip{background:#ecfeff;border:1px solid #a5f3fc;color:#155e75;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
-  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
-  .footer a{color:var(--acc-d)}
-  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}main{padding:24px 18px 80px}}
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:#f6f5f2; color:#1c2230; display:grid; place-items:center; min-height:100vh; padding:1.5rem; box-sizing:border-box; }
+  .card { max-width:26rem; background:#fff; border:1px solid #e2ded6; border-radius:14px; padding:2rem 1.8rem; text-align:center; box-shadow:0 8px 28px -18px rgba(0,0,0,.25); }
+  .lock { font-size:2.4rem; }
+  h1 { font-size:1.25rem; margin:.6rem 0 .4rem; }
+  p { color:#5c6472; font-size:.95rem; line-height:1.55; margin:.4rem 0; }
+  a.btn { display:inline-block; margin-top:1rem; background:#1c2230; color:#fff; text-decoration:none; padding:.65rem 1.2rem; border-radius:999px; font-size:.95rem; }
+  a.back { display:inline-block; margin-top:.9rem; color:#5c6472; font-size:.85rem; }
 </style>
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f766e"></head>
+</head>
 <body>
-<div class="layout">
-  <aside>
-    <div class="brand"><div class="lg">🌍</div><div><b>Kundeservice</b><small>Udenlandsk gæst</small></div></div>
-    <nav class="toc">
-      <a href="#intro">Sådan bruger du den</a>
-      <div class="g">Opret gæsten</div>
-      <a href="#opret">Opret ny modtager</a>
-      <a href="#login">Login og engangskode</a>
-      <a href="#test">Test login</a>
-      <div class="g">Billetter</div>
-      <a href="#shopify">Importér Shopify-ordre</a>
-      <a href="#tildel">Tildel billetterne</a>
-    </nav>
-  </aside>
-  <main>
-    <section id="intro">
-      <div class="eyebrow">Guide · du er kundeservice i FMS</div>
-      <h1>Udenlandsk gæst: login og Shopify-billetter</h1>
-      <p class="lede">En <b>udenlandsk gæst</b> har ikke MitID. Du opretter dem som <b>privatperson</b>, giver dem et login med <b>e-mail og engangskode</b>, og lægger de billetter de har købt via Shopify ind ved at <b>importere ordren</b>. Knap-navne i FMS står i grå, fx <span class="chip">Opret ny</span>.</p>
-      <hr class="rule">
-      <div class="cards">
-        <a class="gcard" href="#opret"><span class="em">➕</span><b>Opret gæsten</b><small>Privatperson</small></a>
-        <a class="gcard" href="#login"><span class="em">🔑</span><b>Login</b><small>E-mail og engangskode</small></a>
-        <a class="gcard" href="#test"><span class="em">✅</span><b>Test login</b><small>Åbn webbillet som gæst</small></a>
-        <a class="gcard" href="#shopify"><span class="em">🛒</span><b>Shopify</b><small>Importér ordren</small></a>
-      </div>
-    </section>
-
-    <div class="pbanner k"><div class="av">🌍</div><div><div class="who">Opret gæsten</div><h2>Privatperson uden MitID</h2><p>Udenlandske gæster logger ind med e-mail og en engangskode.</p></div></div>
-
-    <h3 class="flow" id="opret"><span class="g1">Opret gæsten</span>Opret ny modtager</h3>
-    <p class="ctx">Gå til <span class="chip">Modtagere</span> under Akkreditering og tryk <span class="chip">Opret ny</span>. Vælg typen <span class="chip">Privatperson</span> og skriv gæstens navn.</p>
-    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">fms.livecloud.dk/commerce/kunder</span></div>
-      <div style="padding:16px;background:#fbfbfc">
-        <div class="modal">
-          <h5>Opret ny modtager</h5><p class="mp">Vælg modtagertype, så viser vi kun de relevante felter.</p>
-          <div class="wsteps"><span class="st on"><span class="n">1</span>Modtagertype</span><span class="ln"></span><span class="st"><span class="n">2</span>Detaljer</span><span class="ln"></span><span class="st"><span class="n">3</span>Gennemse</span></div>
-          <div class="tcard"><div class="ic">🏢</div><div><b>Virksomhed</b><p>Virksomhed med CVR-nummer, til fakturering og moms.</p></div><span class="cv">›</span></div>
-          <div class="tcard on"><div class="ic">🧍</div><div><b>Privatperson</b><p>Ordre købt af en privatperson, konto uden organisation.</p></div><span class="cv">›</span></div>
-        </div>
-      </div></div>
-    <ol class="steps">
-      <li>Under <span class="chip">Akkreditering</span> vælger du <span class="chip">Modtagere</span> og trykker <span class="chip">Opret ny</span>.</li>
-      <li>Vælg <span class="chip">Privatperson</span> (Ordre købt af en privatperson).</li>
-      <li>På <span class="chip">Detaljer</span> skriver du gæstens <span class="chip">Navn på person</span> og trykker <span class="chip">Næste</span>.</li>
-    </ol>
-
-    <h3 class="flow" id="login"><span class="g1">Opret gæsten</span>Login og engangskode</h3>
-    <p class="ctx">På sidste trin <span class="chip">Gennemse</span> vælger du hvordan gæsten logger ind. For en udenlandsk gæst vælger du <span class="chip">Udenlandsk gæst</span> og skriver deres e-mail.</p>
-    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Opret ny modtager · Gennemse</span></div>
-      <div style="padding:16px;background:#fbfbfc">
-        <div class="modal">
-          <h5>Gennemse og opret</h5><p class="mp">Tjek oplysningerne, før modtageren oprettes.</p>
-          <div class="wsteps"><span class="st done"><span class="n">✓</span>Modtagertype</span><span class="ln"></span><span class="st done"><span class="n">✓</span>Detaljer</span><span class="ln"></span><span class="st on"><span class="n">3</span>Gennemse</span></div>
-          <div class="lab">Hvordan logger gæsten ind?</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-            <div class="tcard"><div><b>Dansk gæst</b><p>Logger ind med MitID.</p></div></div>
-            <div class="tcard on"><div><b>Udenlandsk gæst</b><p>Logger ind med e-mail og engangskode.</p></div></div>
-          </div>
-          <div class="banner-info">Invitationen sendes med det samme. Gæsten logger ind med sin e-mail og en engangskode, hverken MitID eller adgangskode er nødvendig.</div>
-          <div class="lab">E-mail <span class="req">*</span></div><div class="field ph">navn@eksempel.com</div>
-          <div class="foot"><span class="btn">Tilbage</span><span class="btn dark">Opret</span></div>
-        </div>
-      </div></div>
-    <ol class="steps">
-      <li>Vælg <span class="chip">Udenlandsk gæst</span>. Du ser teksten: <b>Invitationen sendes med det samme…</b></li>
-      <li>Skriv gæstens <span class="chip">E-mail</span>.</li>
-      <li>Tryk <span class="chip">Opret</span>. Gæsten får med det samme en mail med et login til webticket'en.</li>
-    </ol>
-    <div class="note">Er e-mailen allerede i systemet, siger den: <b>Der findes allerede en konto med denne e-mail …. Tilknyt kontakten der i stedet for at oprette en dublet.</b> Så find den eksisterende gæst i stedet for at oprette en ny.</div>
-
-    <div class="pbanner s"><div class="av">✅</div><div><div class="who">Tjek</div><h2>Test at gæsten kan logge ind</h2><p>Åbn webticket'en som gæsten, så ved du det virker.</p></div></div>
-
-    <h3 class="flow" id="test"><span class="g1">Tjek</span>Test login</h3>
-    <p class="ctx">Gæsten logger ind på webticket'en med sin e-mail og den <b>6-cifrede engangskode</b> fra mailen. Du kan selv tjekke, at kontoen virker, ved at åbne webticket'en som gæsten fra <span class="chip">Armbånd</span>.</p>
-    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">webticket · log ind med engangskode</span></div>
-      <div style="padding:16px;background:#f6f6f7">
-        <div class="lgn">
-          <div style="font-size:13px;font-weight:700">Indtast din engangskode</div>
-          <div style="font-size:11.5px;color:var(--muted);margin-top:3px">Vi har sendt en 6-cifret kode til din e-mail.</div>
-          <div class="code"><span>4</span><span>1</span><span>9</span><span>2</span><span>0</span><span>7</span></div>
-          <div style="font-size:11px;color:var(--muted)">Indtast den her for at logge ind.</div>
-        </div>
-      </div></div>
-    <ol class="steps">
-      <li>Bed gæsten åbne mailen og logge ind med <b>e-mail + 6-cifret kode</b>. De skal ikke bruge MitID eller adgangskode.</li>
-      <li>Vil du selv teste det, går du til <span class="chip">Armbånd</span> og bruger <span class="chip">Log ind som gæst (webbillet)</span>: søg gæsten frem og tryk <span class="chip">Åbn webbillet som</span>.</li>
-      <li>Du ser nu webticket'en, som gæsten ser den, og kan tjekke at billetterne er der. Hver login logges i aktivitetsloggen.</li>
-    </ol>
-    <div class="tip">Kom koden ikke frem, kan gæsten få en ny sendt fra login-siden. Alt foregår på e-mail, så du behøver ikke gæstens telefon.</div>
-
-    <div class="pbanner k" style="background:linear-gradient(100deg,#0e7490,#155e75)"><div class="av">🛒</div><div><div class="who">Billetter</div><h2>Hent Shopify-ordren ind</h2><p>Importér gæstens ordre, så billetterne lander på deres konto.</p></div></div>
-
-    <h3 class="flow" id="shopify"><span class="g1">Billetter</span>Importér Shopify-ordre</h3>
-    <p class="ctx">På gæstens konto åbner du <span class="chip">Importér Shopify-ordre</span>. Skriv ordrenummeret, hent ordren, og se hvilke billetter der kan importeres, før du trykker importér.</p>
-    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Gæstekonto · Importér Shopify-ordre</span></div>
-      <div style="padding:16px;background:#fbfbfc">
-        <div class="modal">
-          <h5>Importer ordre #100423</h5><p class="mp">Alle importerbare billetter hentes ind i kontoens pulje med deres aktuelle tilstand. Billetter på en anden konto, samt allerede importerede, annullerede og ugyldiggjorte, vises men importeres ikke.</p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="badge ok">3 kan importeres</span><span class="badge">1 allerede importeret</span></div>
-          <div class="imp"><table>
-            <tr><th>Kode</th><th>SKU / produkt</th><th>Køber</th><th>Status</th></tr>
-            <tr><td class="mono">RF-SHOP-771</td><td>Partout<div class="mono">PARTOUT-2026</div></td><td>Anna Foreign</td><td><span class="badge ok">Kan importeres</span></td></tr>
-            <tr><td class="mono">RF-SHOP-772</td><td>Partout<div class="mono">PARTOUT-2026</div></td><td>Anna Foreign</td><td><span class="badge ok">Kan importeres</span></td></tr>
-            <tr><td class="mono">RF-SHOP-773</td><td>Camping<div class="mono">CAMP-2026</div></td><td>Anna Foreign</td><td><span class="badge ok">Kan importeres</span></td></tr>
-          </table></div>
-          <div class="foot"><span class="btn">Tilbage</span><span class="btn dark">Importér 3</span></div>
-        </div>
-      </div></div>
-    <ol class="steps">
-      <li>Åbn gæstens konto og tryk <span class="chip">Importér Shopify-ordre</span>.</li>
-      <li>Skriv <span class="chip">Shopify-ordrenummer (uden #)</span> (tallet fra Shopify Admin) og tryk <span class="chip">Hent ordre</span>.</li>
-      <li>Gennemgå listen. Grønne <span class="chip">Kan importeres</span> hentes ind. Tryk <span class="chip">Importér 3</span> (tallet er hvor mange der kan importeres).</li>
-      <li>Du får kvitteringen <b>Importerede … billetter.</b>, og billetterne ligger nu på gæstens konto.</li>
-    </ol>
-    <div class="note">Billetter som en gæst allerede har indløst via QR, bindes til kontoen uden at fjerne gæsten. Billetter der er <span class="chip">På anden konto</span>, <span class="chip">Annulleret</span> eller <span class="chip">Ugyldiggjort</span> vises, men importeres ikke.</div>
-
-    <h3 class="flow" id="tildel"><span class="g1">Billetter</span>Tildel billetterne</h3>
-    <p class="ctx">De importerede billetter ligger i gæstens pulje. Er de ikke allerede på gæstens navn, tildeler du dem på gæstens side.</p>
-    <ol class="steps">
-      <li>På gæstens side trykker du <span class="chip">Tildel billet</span>, hvis der er ledige billetter i puljen.</li>
-      <li>Vælg billetten og bekræft. Billetten står nu på gæsten.</li>
-      <li>Gæsten ser billetterne, næste gang de logger ind med deres e-mail og engangskode.</li>
-    </ol>
-    <div class="tip">Gæsten ser sine billetter i webticket'en efter login med engangskoden.</div>
-
-    <div class="footer">LiveCloud · Ringsted Festival. Guide til kundeservice: opret udenlandsk gæst, giv login og importér Shopify-ordre i FMS. Skærmene er tro gengivelser af de live FMS-skærme; danske knap-navne står i grå. Se også <a href="opret-virksomhed-tilknyt-ejer.html">Opret virksomhed og tilknyt ejer</a>.</div>
-  </main>
-</div>
-<script src="guide-enhance.js"></script></body>
+  <div class="card">
+    <div class="lock">🔒</div>
+    <h1>Udenlandsk gæst</h1>
+    <p>Denne guide opretter brugere og ligger derfor bag login.</p>
+    <p>Du finder den i FMS under <b>Servicedesk, Support-guides</b>.</p>
+    <a class="btn" href="https://fms.livecloud.dk/commerce/service-desk/guides/admin/udenlandsk-gaest">Åbn guiden i FMS</a>
+    <a class="back" href="index.html">Tilbage til personale-guides</a>
+  </div>
+</body>
 </html>

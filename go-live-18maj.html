@@ -294,7 +294,7 @@
   .status-menu-item[data-status="done"]    .status-menu-dot { background: var(--accent-green); }
   .status-menu-item[data-status="blocked"] .status-menu-dot { background: var(--accent-red); }
 
-  /* Sub-items (underpunkter — kan promoveres til opgaver) */
+  /* Sub-items (underpunkter, kan promoveres til opgaver) */
   .sub-items {
     margin-top: 10px; padding: 10px 0 0 0;
     border-top: 1px dashed var(--border);
@@ -428,7 +428,7 @@
   }
   .add-assignment:hover { border-color: var(--accent); color: var(--accent); border-style: solid; }
 
-  /* Due-date chip — valgfri dato pr. task */
+  /* Due-date chip: valgfri dato pr. task */
   .due-date-wrap {
     display: inline-flex; align-items: center; gap: 2px;
   }
@@ -668,7 +668,7 @@
   <div class="sync-bar">
     <div class="sync-status">
       <span class="sync-dot" id="syncDot"></span>
-      <span id="syncLabel">Ikke logget ind — kun lokalt</span>
+      <span id="syncLabel">Ikke logget ind, kun lokalt</span>
     </div>
     <span class="sync-meta" id="syncMeta"></span>
     <button class="btn" id="syncBtn" onclick="openLoginModal()">Log ind på holdet</button>
@@ -678,7 +678,7 @@
   <div class="modal-backdrop" id="loginModal">
     <div class="modal">
       <h2>Log ind på go-live-tavlen</h2>
-      <p>Indtast team-token og dit navn. Token deles i Slack af Jakob — den giver adgang til at læse og skrive den delte tilstand. Begge dele gemmes lokalt i din browser.</p>
+      <p>Indtast team-token og dit navn. Token deles i Slack af Jakob. Den giver adgang til at læse og skrive den delte tilstand. Begge dele gemmes lokalt i din browser.</p>
       <label for="loginName">Dit navn</label>
       <input id="loginName" type="text" placeholder="Fx Tony" autocomplete="off">
       <label for="loginToken">Team-token</label>
@@ -695,7 +695,7 @@
   <div class="readiness" id="readiness">
     <div class="readiness-card" id="card-days">
       <div class="label">Dage til go-live</div>
-      <div class="value" id="daysLeft">—</div>
+      <div class="value" id="daysLeft">–</div>
     </div>
     <div class="readiness-card" id="card-critical">
       <div class="label">Kritisk 18/5</div>
@@ -760,7 +760,7 @@ const HOERKAM_DATE = '2026-06-06';
 const STORAGE_KEY = 'go-live-18maj-state-v1';
 
 // ═══════════════════════════════════════════════════════════════
-// SYNC CONFIG — sæt endpoint til Cloudflare Worker'en når den er deployet.
+// SYNC CONFIG: sæt endpoint til Cloudflare Worker'en når den er deployet.
 // docId må bestå af [a-zA-Z0-9_-]. Hvis endpoint er tom kører siden
 // kun mod localStorage (offline-fallback).
 // ═══════════════════════════════════════════════════════════════
@@ -772,7 +772,7 @@ const SYNC = {
 };
 const SYNC_CRED_KEY = 'go-live-18maj-cred-v1'; // { token, actor }
 
-const OWNERS = ['—', 'Jakob', 'Tony', 'Edwin', 'Michael', 'Mikkel', 'Simon', 'Britt', 'Ekstern'];
+const OWNERS = ['–', 'Jakob', 'Tony', 'Edwin', 'Mikkel', 'Simon', 'Britt', 'Ekstern'];
 
 // Roller pr. punkt: hvem driver, hvem QA-tester, hvem giver final godkendelse
 const ROLES = [
@@ -797,7 +797,7 @@ const DEADLINES = {
 };
 
 // ═══════════════════════════════════════════════════════════════
-// SEED DATA — combines user's checklist + critical items from
+// SEED DATA: combines user's checklist + critical items from
 // dev-tjekliste.html. Ids are stable so localStorage survives edits.
 // ═══════════════════════════════════════════════════════════════
 const SECTIONS = [
@@ -814,15 +814,15 @@ const SECTIONS = [
       ] },
       { id: 'b-festhallen-line',     title: 'Beslut Festhallen-app produkt-line ved Ringsted go-live',    desc: 'Kommende arrangementers billetter. Afgrøderes parallelt så Festhallen-appen er konsistent med Ringsted-launch.', deadline: 'beslutning', defaultOwner: 'Jakob' },
       { id: 'b-refund-policy',       title: 'Beslut refund-politik (hvem, hvornår, hvordan)',             desc: 'Hvem kan udløse refund? Kun support, eller også brugeren selv inden for X dage? Hvilke produkter er refunderbare?', deadline: 'beslutning', defaultOwner: 'Jakob' },
-      { id: 'b-foer-fest-flow',      title: 'Beslut flow for før-festen — invitation, batches, accept',   desc: 'Forslag: efter uge 1 (~25/5) sendes invitations-mail til alle med profil + aktiveret festivalbillet. Mailen indeholder et deep-link der åbner appen, hvor brugeren bekræfter deltagelse. Hvis batch 1 ikke giver nok svar, sender vi næste batch efter uge 2 (~1/6).', deadline: 'beslutning', defaultOwner: 'Jakob', defaultSubItems: [
+      { id: 'b-foer-fest-flow',      title: 'Beslut flow for før-festen: invitation, batches, accept',   desc: 'Forslag: efter uge 1 (~25/5) sendes invitations-mail til alle med profil + aktiveret festivalbillet. Mailen indeholder et deep-link der åbner appen, hvor brugeren bekræfter deltagelse. Hvis batch 1 ikke giver nok svar, sender vi næste batch efter uge 2 (~1/6).', deadline: 'beslutning', defaultOwner: 'Jakob', defaultSubItems: [
         'Bekræft strategi: post-go-live batch-invitation via mail + accept i app',
         'Målgruppe-kriterier låst fast (profil oprettet + festivalbillet aktiveret)',
-        'Batch-størrelse pr. udsendelse — hvor mange ad gangen?',
+        'Batch-størrelse pr. udsendelse: hvor mange ad gangen?',
         'Tidsplan: batch 1 (uge efter go-live, ~25/5), batch 2 (~1/6)',
-        'Tærskel for "tilfredsstillende antal svar" — hvornår triggeres batch 2?',
+        'Tærskel for "tilfredsstillende antal svar": hvornår triggeres batch 2?',
         'App: deep-link der åbner accept-skærm (afledt opgave i App-sektionen)',
         'Backend: målgruppe-filter + batch-udsendelse + accept-tracking (afledt opgave i FMS)',
-        'Mail-tekst og afsenderprofil — hvem skriver, hvilken signatur?',
+        'Mail-tekst og afsenderprofil: hvem skriver, hvilken signatur?',
       ] },
     ],
   },
@@ -832,7 +832,7 @@ const SECTIONS = [
     title: 'Brugerflows i appen',
     description: 'Gæste-app: profil, billet, betaling, køb. Alle skal være end-to-end testet på prod.',
     items: [
-      { id: 'app-profile-concepts',  title: 'Brugerprofiler — koncepter fra fredags-mødet',               desc: 'Implementér de besluttede koncepter: én aktiv profil pr. enhed, MitID kun ved logud/følsomme handlinger.', deadline: 'golive-18maj', defaultOwner: 'Mikkel', source: 'dev-tjekliste.html' },
+      { id: 'app-profile-concepts',  title: 'Brugerprofiler: koncepter fra fredags-mødet',               desc: 'Implementér de besluttede koncepter: én aktiv profil pr. enhed, MitID kun ved logud/følsomme handlinger.', deadline: 'golive-18maj', defaultOwner: 'Mikkel', source: 'dev-tjekliste.html' },
       { id: 'app-opret-profil',      title: 'Opret profil med MitID',                                     desc: 'Ny bruger downloader app, opretter profil, bekræfter med MitID. PIN/biometri herefter.', deadline: 'golive-18maj', defaultOwner: 'Mikkel', source: 'faq.html#access' },
       { id: 'app-claim-billet',      title: 'Claim billet / billetter',                                   desc: 'Indløs via share-sheet (PDF), billede, scan QR, fil, udklipsholder, billetkode. Alle 5 indløsningsmetoder live.', deadline: 'golive-18maj', defaultOwner: 'Edwin', source: 'billetguide.html' },
       { id: 'app-haandter-billet',   title: 'Håndtering af billetter (overblik, videregiv, tilknyt)',     desc: 'Bruger kan se sine billetter, videregive hele/enkelt adgang, tilknytte barn/ledsager, gensende invitation.', deadline: 'golive-18maj', defaultOwner: 'Edwin', source: 'billetguide.html' },
@@ -852,8 +852,8 @@ const SECTIONS = [
     title: 'B2B web',
     description: 'Virksomheds-portalen til billet- og Beats-tildeling.',
     items: [
-      { id: 'b2b-billethaandtering', title: 'B2B billet-håndtering på web',                               desc: 'Virksomhed kan se ordre, fordele adgange til medarbejdere, sende invites. Ordreholder-rolle.', deadline: 'golive-18maj', defaultOwner: 'Michael', source: 'faq-business.html' },
-      { id: 'b2b-beatshaandtering',  title: 'B2B Beats-håndtering på web',                                desc: 'Virksomhed kan tildele Beats-saldo pr. medarbejder. Saml-billing pr. medarbejder eller pr. virksomhed.', deadline: 'golive-18maj', defaultOwner: 'Michael' },
+      { id: 'b2b-billethaandtering', title: 'B2B billet-håndtering på web',                               desc: 'Virksomhed kan se ordre, fordele adgange til medarbejdere, sende invites. Ordreholder-rolle.', deadline: 'golive-18maj', source: 'faq-business.html' },
+      { id: 'b2b-beatshaandtering',  title: 'B2B Beats-håndtering på web',                                desc: 'Virksomhed kan tildele Beats-saldo pr. medarbejder. Saml-billing pr. medarbejder eller pr. virksomhed.', deadline: 'golive-18maj' },
     ],
   },
 
@@ -874,10 +874,10 @@ const SECTIONS = [
     title: 'Status-tjek (skal afklares)',
     description: 'Områder hvor vi har brug for en klar status-melding for at vide om de er en risiko for 18/5.',
     items: [
-      { id: 'status-akkreditering',  title: 'Akkreditering — status?',                                    desc: 'Hvor langt er flowet for akkrediterings-ansøgning, godkendelse og billet-udstedelse? Hvem driver?', deadline: 'golive-18maj', defaultOwner: 'Michael', source: 'akkreditering-overblik.html' },
-      { id: 'status-lager',          title: 'Lagerstyring — status?',                                     desc: 'Kan vi følge lagertal pr. produkt pr. lokation? Kritisk for Hørkam 6/6 og festivalen.', deadline: 'golive-18maj', defaultOwner: 'Edwin' },
-      { id: 'status-scanner',        title: 'Scanner — status?',                                          desc: 'Scanner-app/-enhed funktionel? Check-in og check-out flow? Offline-modus?', deadline: 'golive-18maj', defaultOwner: 'Edwin' },
-      { id: 'status-pos',            title: 'POS — status?',                                              desc: 'POS-terminal kan modtage Beats, kontant, kort? Integration mod produktkatalog?', deadline: 'golive-18maj', defaultOwner: 'Tony' },
+      { id: 'status-akkreditering',  title: 'Akkreditering: status?',                                    desc: 'Hvor langt er flowet for akkrediterings-ansøgning, godkendelse og billet-udstedelse? Hvem driver?', deadline: 'golive-18maj', source: 'akkreditering-overblik.html' },
+      { id: 'status-lager',          title: 'Lagerstyring: status?',                                     desc: 'Kan vi følge lagertal pr. produkt pr. lokation? Kritisk for Hørkam 6/6 og festivalen.', deadline: 'golive-18maj', defaultOwner: 'Edwin' },
+      { id: 'status-scanner',        title: 'Scanner: status?',                                          desc: 'Scanner-app/-enhed funktionel? Check-in og check-out flow? Offline-modus?', deadline: 'golive-18maj', defaultOwner: 'Edwin' },
+      { id: 'status-pos',            title: 'POS: status?',                                              desc: 'POS-terminal kan modtage Beats, kontant, kort? Integration mod produktkatalog?', deadline: 'golive-18maj', defaultOwner: 'Tony' },
     ],
   },
 
@@ -886,10 +886,10 @@ const SECTIONS = [
     title: 'Klargøring til Hørkam-arrangement 6/6',
     description: 'Hørkam er første rigtige driftstest. Skal være sat op før 6/6, men nogle dele kan vente til efter 18/5.',
     items: [
-      { id: 'h-b2b-web-nfc',         title: 'B2B web-håndtering med NFC-armbånd',                         desc: 'Virksomhed kan tildele NFC-armbånd til medarbejdere via web. Armbånd skal være knyttet til profil/saldo.', deadline: 'hoerkam-6jun', defaultOwner: 'Michael' },
+      { id: 'h-b2b-web-nfc',         title: 'B2B web-håndtering med NFC-armbånd',                         desc: 'Virksomhed kan tildele NFC-armbånd til medarbejdere via web. Armbånd skal være knyttet til profil/saldo.', deadline: 'hoerkam-6jun' },
       { id: 'h-pos-setup',           title: 'POS setup: Fribar (0 kr) + produkter med reel pris',         desc: 'Vi kan genbruge produkter fra sidste arrangement. Fribar-produkter skal kunne sælges til 0 kr og stadig tælles i lager.', deadline: 'hoerkam-6jun', defaultOwner: 'Tony' },
       { id: 'h-lager-tracking',      title: 'Lagerstyring fuldt operationel og synlig',                   desc: 'Realtid lager-træk ved hvert POS-salg. Synlig for bemanding under arrangementet.', deadline: 'hoerkam-6jun', defaultOwner: 'Edwin' },
-      { id: 'h-scanner-funktionel',  title: 'Scanner fuldt funktionel — ind og ud',                       desc: 'Gæster scannes ind, kan scannes ud, kan re-scannes ind. Crew/medarbejder-scenarier også dækket.', deadline: 'hoerkam-6jun', defaultOwner: 'Edwin' },
+      { id: 'h-scanner-funktionel',  title: 'Scanner fuldt funktionel: ind og ud',                       desc: 'Gæster scannes ind, kan scannes ud, kan re-scannes ind. Crew/medarbejder-scenarier også dækket.', deadline: 'hoerkam-6jun', defaultOwner: 'Edwin' },
     ],
   },
 ];
@@ -997,7 +997,7 @@ async function syncPull() {
     });
     if (res.status === 401) {
       clearCred(); cred = null;
-      setSyncStatus('is-error', 'Token afvist — log ind igen', '');
+      setSyncStatus('is-error', 'Token afvist, log ind igen', '');
       return;
     }
     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -1047,7 +1047,7 @@ async function syncPushNow() {
     });
     if (res.status === 401) {
       clearCred(); cred = null;
-      setSyncStatus('is-error', 'Token afvist — log ind igen', '');
+      setSyncStatus('is-error', 'Token afvist, log ind igen', '');
       return;
     }
     if (res.status === 409) {
@@ -1121,7 +1121,7 @@ function openLoginModal() {
   if (cred) {
     if (confirm('Log ud? Lokale data bliver liggende, men der synces ikke længere.')) {
       clearCred(); cred = null; stopSync();
-      setSyncStatus('', 'Ikke logget ind — kun lokalt', '');
+      setSyncStatus('', 'Ikke logget ind, kun lokalt', '');
     }
     return;
   }
@@ -1187,39 +1187,39 @@ function escapeHtml(s) {
 function emptyRoles() {
   const r = {};
   ROLES.forEach(role => {
-    r[role.key] = { assignments: [{ who: '—', signedOff: false }] };
+    r[role.key] = { assignments: [{ who: '–', signedOff: false }] };
   });
   return r;
 }
 
 // Migrér gammel rolle-form { who, signedOff } → { assignments: [{who, signedOff}] }
 function normalizeRole(roleData) {
-  if (!roleData) return { assignments: [{ who: '—', signedOff: false }] };
+  if (!roleData) return { assignments: [{ who: '–', signedOff: false }] };
   if (Array.isArray(roleData.assignments) && roleData.assignments.length > 0) {
     return { assignments: roleData.assignments.map(a => ({
-      who: a.who || '—',
+      who: a.who || '–',
       signedOff: !!a.signedOff,
     })) };
   }
   // Gammel shape med who/signedOff direkte på role-objektet
   return {
     assignments: [{
-      who: roleData.who || '—',
+      who: roleData.who || '–',
       signedOff: !!roleData.signedOff,
     }],
   };
 }
 
 // En rolle "tæller som signed off" hvis den har mindst én rigtig person og
-// alle rigtige personer har signet (— ignoreres). Bruges af auto-done-logikken.
+// alle rigtige personer har signet (– ignoreres). Bruges af auto-done-logikken.
 function roleIsSignedOff(roleData) {
   const r = normalizeRole(roleData);
-  const real = r.assignments.filter(a => a.who && a.who !== '—');
+  const real = r.assignments.filter(a => a.who && a.who !== '–');
   if (real.length === 0) return false;
   return real.every(a => a.signedOff);
 }
 
-// Returnerer den visningsklare titel for et item — overrider seed/custom-værdi
+// Returnerer den visningsklare titel for et item, overrider seed/custom-værdi
 // hvis brugeren har redigeret den. Bruges også af promoteSubItem og resumé.
 function displayTitleFor(item) {
   const s = state.items[item.id];
@@ -1324,7 +1324,7 @@ function itemState(id) {
   // Back-compat A: gammel state uden `roles` (havde `owner` direkte)
   if (!raw.roles) {
     const roles = emptyRoles();
-    if (raw.owner && raw.owner !== '—') roles.driver.assignments[0].who = raw.owner;
+    if (raw.owner && raw.owner !== '–') roles.driver.assignments[0].who = raw.owner;
     return {
       ...raw,
       status: raw.status || 'todo',
@@ -1377,7 +1377,7 @@ function refreshItemDom(id) {
   el.dataset.status = s.status;
   el.dataset.people = peopleListFor(s).join(',');
   // Re-render hele role-row så multi-assignment-strukturen er konsistent.
-  // (Det er stadig billigt — kun strenge inden for ét item.)
+  // (Det er stadig billigt, kun strenge inden for ét item.)
   const roleRow = el.querySelector('.role-row');
   if (roleRow) {
     const item = findItemMeta(id)?.item || { id };
@@ -1390,7 +1390,7 @@ function peopleListFor(s) {
   const list = [];
   ROLES.forEach(role => {
     (s.roles[role.key]?.assignments || []).forEach(a => {
-      if (a.who && a.who !== '—' && !list.includes(a.who)) list.push(a.who);
+      if (a.who && a.who !== '–' && !list.includes(a.who)) list.push(a.who);
     });
   });
   return list;
@@ -1552,8 +1552,8 @@ function sectionHtml(section, index) {
   allItems.forEach(it => {
     if (!state.items[it.id]) {
       const roles = emptyRoles();
-      const driverDefault = it.defaultDriver || it.defaultOwner || it.owner || '—';
-      if (driverDefault && driverDefault !== '—') roles.driver.who = driverDefault;
+      const driverDefault = it.defaultDriver || it.defaultOwner || it.owner || '–';
+      if (driverDefault && driverDefault !== '–') roles.driver.who = driverDefault;
       if (it.defaultTester) roles.tester.who = it.defaultTester;
       if (it.defaultApprover) roles.approver.who = it.defaultApprover;
       const subItems = (it.defaultSubItems || []).map((text, i) => ({
@@ -1608,7 +1608,7 @@ function render() {
   const ownerSel = document.getElementById('ownerFilter');
   const existing = ownerSel.value;
   ownerSel.innerHTML = '<option value="all">Alle ejere</option>' +
-    OWNERS.filter(o => o !== '—').map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
+    OWNERS.filter(o => o !== '–').map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
   if (existing && [...ownerSel.options].some(o => o.value === existing)) ownerSel.value = existing;
   renderReadiness();
   applyFilters();
@@ -1671,7 +1671,7 @@ function renderReadiness() {
 // ACTIONS
 // ═══════════════════════════════════════════════════════════════
 
-// Status popover-menu — én globalt element, positioneres ved den klikkede pill
+// Status popover-menu: én globalt element, positioneres ved den klikkede pill
 let statusMenuTargetId = null;
 
 function openStatusMenu(id, event) {
@@ -1741,7 +1741,7 @@ function setAssignmentWho(id, roleKey, index, who) {
 function toggleAssignmentSignoff(id, roleKey, index) {
   const cur = itemState(id);
   const roleData = normalizeRole(cur.roles[roleKey]);
-  const prev = roleData.assignments[index] || { who: '—', signedOff: false };
+  const prev = roleData.assignments[index] || { who: '–', signedOff: false };
   const roles = updateAssignment(id, roleKey, index, { signedOff: !prev.signedOff });
   // Auto-advance: hvis alle roller (med mindst én rigtig person) har alle
   // deres assignments signet, ryk status til "done". Hvis en sign-off
@@ -1761,7 +1761,7 @@ function addAssignment(id, roleKey) {
   const roleData = normalizeRole(cur.roles[roleKey]);
   const roles = {
     ...cur.roles,
-    [roleKey]: { assignments: [...roleData.assignments, { who: '—', signedOff: false }] },
+    [roleKey]: { assignments: [...roleData.assignments, { who: '–', signedOff: false }] },
   };
   setItemState(id, { roles });
 }
@@ -1852,7 +1852,7 @@ function handleEditableKey(event, onlyOneLine) {
   }
 }
 
-// Plain-text paste — ingen rich text fra Word/Notion
+// Plain-text paste: ingen rich text fra Word/Notion
 function handleEditablePaste(event) {
   event.preventDefault();
   const text = (event.clipboardData || window.clipboardData).getData('text/plain');
@@ -1900,7 +1900,7 @@ function toggleSubItem(itemId, subId) {
   );
   state.items[itemId] = { ...cur, subItems };
   saveState();
-  // Targeted DOM update — bevarer fokus/scroll
+  // Targeted DOM update: bevarer fokus/scroll
   const el = document.querySelector(`[data-item-id="${CSS.escape(itemId)}"] [data-sub-id="${CSS.escape(subId)}"]`);
   if (el) {
     const s = subItems.find(x => x.id === subId);
@@ -1947,7 +1947,7 @@ function promoteSubItem(itemId, subId) {
     title: sub.text,
     desc: 'Afledt af: ' + parentTitle,
     deadline: parentDeadline === 'beslutning' ? 'golive-18maj' : parentDeadline,
-    owner: '—',
+    owner: '–',
     status: 'todo',
     notes: '',
   };
@@ -1990,7 +1990,7 @@ function addCustomItem(ev, sectionId) {
     title: fd.get('title'),
     desc: fd.get('desc') || '',
     deadline: fd.get('deadline'),
-    owner: fd.get('owner') || '—',
+    owner: fd.get('owner') || '–',
     status: 'todo',
     notes: '',
   };
@@ -2099,7 +2099,7 @@ function resetAll() {
   render();
 }
 function copyShareableSummary() {
-  const lines = ['Go-Live 18/5 — status'];
+  const lines = ['Go-Live 18/5 · status'];
   const today = new Date();
   const target = new Date(GO_LIVE_DATE + 'T00:00:00');
   const days = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
@@ -2117,7 +2117,7 @@ function copyShareableSummary() {
       const roleParts = ROLES
         .map(r => {
           const v = normalizeRole(s.roles[r.key]);
-          const real = v.assignments.filter(a => a.who && a.who !== '—');
+          const real = v.assignments.filter(a => a.who && a.who !== '–');
           if (!real.length) return null;
           const names = real.map(a => `${a.who}${a.signedOff ? '✓' : ''}`).join('+');
           return `${r.short}:${names}`;
@@ -2126,7 +2126,7 @@ function copyShareableSummary() {
       const dueTxt = s.dueDate
         ? ` 📅 ${formatDueDate(s.dueDate)}${isItemOverdue(it.id) ? ' (overskredet)' : ''}`
         : '';
-      const roleTxt = roleParts.length ? ` — ${roleParts.join(' · ')}` : '';
+      const roleTxt = roleParts.length ? ` · ${roleParts.join(' · ')}` : '';
       lines.push(`${mark} ${displayTitleFor(it)}${dueTxt}${roleTxt}`);
       if (s.notes) lines.push(`     ↳ ${s.notes}`);
     });
@@ -2157,7 +2157,7 @@ if (!SYNC.endpoint) {
   setSyncStatus('is-syncing', 'Forbinder…', '');
   startSync();
 } else {
-  setSyncStatus('', 'Ikke logget ind — kun lokalt', '');
+  setSyncStatus('', 'Ikke logget ind, kun lokalt', '');
 }
 
 // Refresh "X min siden"-tekst hvert 30. sek

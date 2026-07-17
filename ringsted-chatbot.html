@@ -673,7 +673,7 @@ function getKB() {
         '<strong>Videresend billetkode:</strong> Har du uindløste koder? Del dem via SMS, Messenger eller email, modtageren indløser selv',
         'Modtageren får en <strong>email med et link</strong>, gyldigt i <strong>72 timer</strong>, og skal have en <strong>MitID-verificeret profil</strong> for at acceptere'
       ],
-      followUp: '<strong>Forskellen kort:</strong> hele billet og partout-dag er permanent — kan kun returneres ved at modtager sender tilbage. Glamcamp-adgange er revocable — du beholder kontrollen. Billetprisen må ved alle videregivelser ikke overstige den originale købspris.',
+      followUp: '<strong>Forskellen kort:</strong> hele billet og partout-dag er permanent: kan kun returneres ved at modtager sender tilbage. Glamcamp-adgange er revocable: du beholder kontrollen. Billetprisen må ved alle videregivelser ikke overstige den originale købspris.',
       related: ['claim', 'billet', 'modtag', 'videresend_kode', 'gensend_invitation', 'vilkår_overførsel']
     },
     modtag: {
@@ -933,7 +933,7 @@ function getKB() {
       steps: [
         'Logger du ind på en ny enhed, bliver den forrige automatisk logget ud',
         'MitID kræves ved enhedsskift, så ingen andre kan tilgå din profil',
-        '<strong>Mistet telefon?</strong> Log ind på en lånt enhed — den gamle session afsluttes automatisk og du har fuld adgang til billet, Beats og kvitteringer',
+        '<strong>Mistet telefon?</strong> Log ind på en lånt enhed: den gamle session afsluttes automatisk og du har fuld adgang til billet, Beats og kvitteringer',
         '<strong>Ny telefon?</strong> Installer appen, log ind med MitID, og den gamle telefon logges automatisk ud',
         '<strong>Vil du have backup på festivalen?</strong> Et chip-armbånd knyttet til din profil fungerer offline uden at kræve en ekstra app-session'
       ],
@@ -1022,7 +1022,7 @@ function getKB() {
         '<strong>Opret en profil i webshoppen</strong> (på computer eller lånt enhed). Bekræft med MitID',
         '<strong>Aktivér din billet i webshoppen</strong> ved at indtaste billetkoden, der står på din billet',
         '<strong>Køb et chip-armbånd i webshoppen</strong>, selve armbåndet udleveres i <strong>en af barerne</strong>, når du ankommer',
-        `Når du kommer til ${b.event.name}: Hent armbåndet i baren og <strong>knyt det derefter til din profil</strong> via appen eller webshoppen — først dér bliver det adgangsgivende`,
+        `Når du kommer til ${b.event.name}: Hent armbåndet i baren og <strong>knyt det derefter til din profil</strong> via appen eller webshoppen: først dér bliver det adgangsgivende`,
         'Brug armbåndet som både adgang og betaling, du holder det op til scanneren ved indgangen og ved baren',
         'Du kan fylde Beats på armbåndet via webshoppen eller ved baren under festivalen'
       ],
@@ -1061,15 +1061,15 @@ function getKB() {
 
     børn: {
       title: 'Tildel adgang til person uden MitID',
-      reply: 'Personer der ikke kan eller skal have egen MitID-profil — typisk børn under 13 og ledsagere uden egen smartphone — kan tildeles en adgang på din billet.',
+      reply: 'Personer der ikke kan eller skal have egen MitID-profil, typisk børn under 13 og ledsagere uden egen smartphone, kan tildeles en adgang på din billet.',
       steps: [
         'Gå til "Dine billetter" i appen',
         'Vælg en adgang og tryk "Tildel til person uden MitID"',
         'Skriv navn (og for et barn også alder)',
-        'Ved indgangen viser du selv din app, og I går ind sammen — det er din app der scannes',
+        'Ved indgangen viser du selv din app, og I går ind sammen: det er din app der scannes',
         'Vil personen gerne kunne gå rundt på egen hånd? Så kan I købe et chip-armbånd, som kobles til din profil'
       ],
-      followUp: '<strong>MitID-aldersgrænse:</strong> MitID udstedes først fra 13 år, derfor er børn under 13 altid på en voksens billet. Ledsagere kan tildeles uanset alder, hvis de ikke har MitID eller egen smartphone. <strong>Du har fuld kontrol</strong> — armbåndet er koblet til din profil, så du kan følge med i, hvad der købes, direkte i din app, og du bestemmer hvor mange Beats der er til rådighed.',
+      followUp: '<strong>MitID-aldersgrænse:</strong> MitID udstedes først fra 13 år, derfor er børn under 13 altid på en voksens billet. Ledsagere kan tildeles uanset alder, hvis de ikke har MitID eller egen smartphone. <strong>Du har fuld kontrol</strong>: armbåndet er koblet til din profil, så du kan følge med i, hvad der købes, direkte i din app, og du bestemmer hvor mange Beats der er til rådighed.',
       related: ['billet', 'armbånd', 'profil', 'uddel_billetter']
     },
 
@@ -1092,10 +1092,10 @@ function getKB() {
 
     overdrag_dage: {
       title: 'Kan jeg overdrage enkelte dage eller adgange?',
-      reply: 'Ja — der er to forskellige måder afhængigt af din billettype:',
+      reply: 'Ja, der er to forskellige måder afhængigt af din billettype:',
       steps: [
-        '<strong>Partout (3-dags billet):</strong> Brug "Overføre en dag" til at sende fx torsdag til en anden. <strong>Det er permanent</strong> — når dagen er overført, kan du ikke selv deltage den dag, og vil du have den retur, skal modtageren selv sende den tilbage.',
-        '<strong>Glamcamp (2 eller 4 adgange):</strong> Brug "Dele en campingadgang" til at fordele pladser i din lejr. <strong>Du beholder kontrollen</strong> — hvis behovet ændrer sig kan du trække en delt adgang tilbage til din egen profil.',
+        '<strong>Partout (3-dags billet):</strong> Brug "Overføre en dag" til at sende fx torsdag til en anden. <strong>Det er permanent</strong>: når dagen er overført, kan du ikke selv deltage den dag, og vil du have den retur, skal modtageren selv sende den tilbage.',
+        '<strong>Glamcamp (2 eller 4 adgange):</strong> Brug "Dele en campingadgang" til at fordele pladser i din lejr. <strong>Du beholder kontrollen</strong>: hvis behovet ændrer sig kan du trække en delt adgang tilbage til din egen profil.',
         'Begge flows: Åbn "Mine billetter", vælg adgangen, tryk "Overfør" (partout) eller "Del" (glamcamp), og skriv modtagerens e-mailadresse',
         'Modtageren får et link og skal acceptere i sin egen app (bekræftet med MitID)',
         '<strong>Almindelige campingbilletter</strong> dækker hele festivalens periode og kan kun videregives som helhed, ikke stykkes ud'
@@ -1652,7 +1652,7 @@ function showHumanEscalation() {
   card.className = 'info-card';
   card.innerHTML = `
     <div class="info-card-title">✉️ Skriv direkte til support</div>
-    <p>Du kan skrive til <a href="mailto:${email}" style="color: var(--primary, #ff0001); font-weight: 700;">${email}</a> — beskriv kort hvad du har brug for, så vender vi tilbage så hurtigt vi kan.</p>
+    <p>Du kan skrive til <a href="mailto:${email}" style="color: var(--primary, #ff0001); font-weight: 700;">${email}</a>. Beskriv kort hvad du har brug for, så vender vi tilbage så hurtigt vi kan.</p>
   `;
   bubble.appendChild(card);
   msg.appendChild(bubble);

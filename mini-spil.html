@@ -930,7 +930,7 @@ const bartender = {
       return;
     }
 
-    // Spawn logic — harder: up to 4 customers, burst spawns, ramping difficulty
+    // Spawn logic, harder: up to 4 customers, burst spawns, ramping difficulty
     s.spawnTimer -= dt;
     const maxCustomers = 4;
     const difficulty = Math.min(1, (60 - s.time) / 50); // 0 → 1 across the minute
@@ -1519,7 +1519,7 @@ const bardash = {
     return { y: s.groundY, h: 40, w: 30 };
   },
   drawChar(cx, cyBottom, state, t) {
-    // Flat silhouette in accent color — Dino-style minimalism
+    // Flat silhouette in accent color, Dino-style minimalism
     const color = C.pink;
     ctx.fillStyle = color;
 
@@ -1537,7 +1537,7 @@ const bardash = {
       return;
     }
 
-    // Run or jump — upright silhouette
+    // Run or jump: upright silhouette
     // Head
     ctx.beginPath();
     ctx.arc(cx, cyBottom - 42, 8, 0, Math.PI * 2);
@@ -1550,7 +1550,7 @@ const bardash = {
       ctx.fillRect(cx - 7, cyBottom - 14, 6, 10);
       ctx.fillRect(cx + 1, cyBottom - 14, 6, 10);
     } else {
-      // Running — alternating legs
+      // Running: alternating legs
       const step = Math.floor(t * 12) % 2;
       if (step === 0) {
         ctx.fillRect(cx - 8, cyBottom - 14, 6, 14);
@@ -1563,7 +1563,7 @@ const bardash = {
   },
   drawObstacle(o) {
     const s = this.s;
-    // All obstacles share a single muted crowd-silhouette color — unified
+    // All obstacles share a single muted crowd-silhouette color, unified
     // "crowd" aesthetic, letting the player, coins and stage lights be the
     // strong color accents.
     const col = '#8B7BB0';
@@ -1588,7 +1588,7 @@ const bardash = {
     } else if (o.type === 'cup') {
       const x = o.x;
       const y = s.groundY;
-      // Trapezoid cup (flat) — kept red as a safety-warning accent
+      // Trapezoid cup (flat), kept red as a safety-warning accent
       ctx.fillStyle = '#dc2626';
       ctx.beginPath();
       ctx.moveTo(x - 10, y - 18);
@@ -1620,7 +1620,7 @@ const bardash = {
     // Flat dark background (no gradient)
     clear(C.bg);
 
-    // Stage lights — fixed positions in upper area, pulsing with sin wave.
+    // Stage lights: fixed positions in upper area, pulsing with sin wave.
     // These are the main "festival" color accents.
     const stageLights = [
       { x: W * 0.08, y: 34, c: C.pink },
@@ -1646,7 +1646,7 @@ const bardash = {
     });
     ctx.globalAlpha = 1;
 
-    // Crowd silhouette strip just above the ground line — static, bobbing
+    // Crowd silhouette strip just above the ground line, static, bobbing
     const crowdY = s.groundY - 6;
     ctx.fillStyle = 'rgba(167, 139, 250, 0.14)';
     for (let i = -1; i < W / 14 + 1; i++) {
@@ -1665,7 +1665,7 @@ const bardash = {
       ctx.fillRect(bx + 2, crowdY - 2 + bob, 10, 4);
     }
 
-    // Single ground line — pink accent
+    // Single ground line, pink accent
     ctx.fillStyle = C.pink;
     ctx.fillRect(0, s.groundY, W, 2);
 
@@ -1676,7 +1676,7 @@ const bardash = {
       ctx.fillRect(i * 40 - dotOffset, s.groundY + 14, 6, 2);
     }
 
-    // Coins — simple circles with B
+    // Coins: simple circles with B
     s.coins.forEach(co => {
       if (co.collected) return;
       const bob = Math.sin((s.distance + co.bob) * 3) * 2;
@@ -1706,7 +1706,7 @@ const bardash = {
     // Character
     this.drawChar(s.char.x, s.groundY + s.char.y, s.char.state, s.char.runT);
 
-    // Distance counter — top right, tabular
+    // Distance counter: top right, tabular
     ctx.font = '800 22px Inter, sans-serif';
     ctx.fillStyle = C.text;
     ctx.textAlign = 'right';

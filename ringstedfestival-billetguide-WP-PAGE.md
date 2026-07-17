@@ -1,4 +1,4 @@
-# Ringsted Festival, billetguide — opsætningsguide til WordPress
+# Ringsted Festival, billetguide · opsætningsguide til WordPress
 
 Denne guide hjælper jer med at bygge billetguiden som en **selvstændig side** på ringstedfestival.dk med Kadence-temaet, så styling, fonts og farver matcher festivalens hjemmeside automatisk.
 
@@ -307,13 +307,13 @@ Invitationslinks udløber efter 72 timer, men kan gensendes. Gå til "Dine bille
 
 | Funktion | Modtager kræver | Permanent? |
 |---|---|---|
-| Indløs billet | Kun dig selv | — |
+| Indløs billet | Kun dig selv | – |
 | Videregiv hele billet | App + MitID-verificeret profil | Ja, modtager skal sende retur |
 | Videregiv enkelt adgang | App + MitID-verificeret profil | Ja, modtager skal sende retur |
 | Videresend billetkode | App + profil | Ja, når indløst |
 | Tilknyt barn (under 13) | Ingenting | Nej, kan ændres |
 | Tilknyt ledsager | Ingenting | Nej, kan ændres |
-| Gensend invitation | — | — |
+| Gensend invitation | – | – |
 
 **Block:** Separator (visuel skillelinje)
 

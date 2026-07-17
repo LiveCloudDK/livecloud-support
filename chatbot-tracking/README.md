@@ -2,8 +2,8 @@
 
 Én Cloudflare Worker, to formål:
 
-1. **Chatbot events** (offentligt, write-only) — modtager events fra `ringsted-chatbot.html`, skriver til Cloudflare KV (90 dages retention), poster `no_match` og negative `feedback` live til Slack.
-2. **Team-state** (auth via Bearer token) — delt JSON-tilstand for interne dokumenter som `go-live-18maj.html`. Holdet logger ind med en delt token og henter/gemmer samme blob, så ændringer er synlige på tværs af maskiner.
+1. **Chatbot events** (offentligt, write-only): modtager events fra `ringsted-chatbot.html`, skriver til Cloudflare KV (90 dages retention), poster `no_match` og negative `feedback` live til Slack.
+2. **Team-state** (auth via Bearer token): delt JSON-tilstand for interne dokumenter som `go-live-18maj.html`. Holdet logger ind med en delt token og henter/gemmer samme blob, så ændringer er synlige på tværs af maskiner.
 
 ## Hvad logger vi?
 
@@ -12,11 +12,11 @@
 | `message_sent` | Brugeren sender en besked | `query` (PII-redacted), `matched` (bool), `topic` (string\|null) |
 | `no_match` | Brugeren sendte en besked vi ikke kunne matche | `query` (PII-redacted), `consecutiveCount` |
 | `feedback` | Brugeren trykker 👍 / 👎 under et svar | `topic`, `rating: "up" \| "down"` |
-| `human_escalation_shown` | Brugeren har 2+ no-match i træk og fik vist support-email | — |
+| `human_escalation_shown` | Brugeren har 2+ no-match i træk og fik vist support-email | – |
 
 Alle events har desuden: `sessionId` (anonymt per fane), `timestamp`, `page`, `brand`, `userAgent` (trunkeret).
 
-PII-redaction sker **client-side** før eventet sendes — e-mails, tlf, CPR erstattes med `[email]`, `[number]`, `[cpr]`.
+PII-redaction sker **client-side** før eventet sendes: e-mails, tlf, CPR erstattes med `[email]`, `[number]`, `[cpr]`.
 
 ## Setup
 
@@ -38,7 +38,7 @@ wrangler secret put SLACK_WEBHOOK_URL
 # tilføj team-token som secret (til go-live-tavlen og andre delte docs)
 wrangler secret put TEAM_TOKEN
 # generér en stærk tilfældig værdi, fx via `openssl rand -hex 24`.
-# Del den i jeres interne Slack — alle der skal kunne redigere
+# Del den i jeres interne Slack, alle der skal kunne redigere
 # go-live-tavlen skal have token.
 
 # deploy
@@ -129,8 +129,8 @@ const SYNC = {
 ```
 
 Når siden er deployet med endpoint sat, kan holdet logge ind via "Log ind på holdet"-knappen øverst på siden. De indtaster:
-- **Deres navn** (Tony, Edwin, etc.) — bruges til "sidst opdateret af X"
-- **Team-token** — den værdi du satte under `wrangler secret put TEAM_TOKEN`
+- **Deres navn** (Tony, Edwin, etc.): bruges til "sidst opdateret af X"
+- **Team-token**: den værdi du satte under `wrangler secret put TEAM_TOKEN`
 
 Begge dele gemmes lokalt i browseren, så det er en engangs-handling pr. enhed.
 
@@ -138,7 +138,7 @@ Begge dele gemmes lokalt i browseren, så det er en engangs-handling pr. enhed.
 - Når du ændrer noget, gemmes det først lokalt og pushes til serveren ~1.2 sek efter sidste edit (debounced).
 - Hver klient poll'er hver 20. sek og henter ind, hvis nogen andre har skrevet.
 - Når en fane bliver synlig igen efter at have været i baggrunden, henter den straks.
-- Ved samtidig redigering vinder "sidste skriv". Hvis to mennesker ændrer det samme item indenfor samme sekund kan det ene tabes — det er sjældent og acceptabelt for dette dokument.
+- Ved samtidig redigering vinder "sidste skriv". Hvis to mennesker ændrer det samme item indenfor samme sekund kan det ene tabes. Det er sjældent og acceptabelt for dette dokument.
 
 ## Hvordan ser vi data?
 
@@ -183,7 +183,7 @@ Tøm med `localStorage.removeItem('rfb_events')`.
 
 - `userAgent` er trunkeret til 150 tegn.
 - `sessionId` er random per fane, kan ikke kobles til person.
-- PII-redaction er belt-and-braces — privacy-noten i bunden af chatten beder
+- PII-redaction er belt-and-braces: privacy-noten i bunden af chatten beder
   brugeren undlade at skrive personoplysninger.
 - KV-retention er 90 dage. Hvis vi vil aggregere længere tilbage, dumpes til
   R2 i anonymiseret form (kun topic-counts, ikke fri tekst).

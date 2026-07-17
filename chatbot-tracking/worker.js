@@ -1,4 +1,4 @@
-// Cloudflare Worker — tre formål:
+// Cloudflare Worker, tre formål:
 //
 //   1. POST /event           (offentligt, write-only)
 //      Modtager events fra ringsted-chatbot.html, skriver til KV
@@ -80,7 +80,7 @@ function requireAuth(request, env) {
 }
 
 // ═════════════════════════════════════════════════════════════
-// CHATBOT EVENTS — write
+// CHATBOT EVENTS: write
 // ═════════════════════════════════════════════════════════════
 async function handleChatbotEvent(request, env) {
   let payload;
@@ -104,7 +104,7 @@ async function handleChatbotEvent(request, env) {
 }
 
 // ═════════════════════════════════════════════════════════════
-// CHATBOT EVENTS — read (for dashboard)
+// CHATBOT EVENTS: read (for dashboard)
 // ═════════════════════════════════════════════════════════════
 async function listEvents(url, env) {
   if (!env.EVENTS) return jsonResponse({ events: [] });

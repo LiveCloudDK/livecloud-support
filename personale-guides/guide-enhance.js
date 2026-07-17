@@ -4,7 +4,7 @@
   if (window.__lcGuide) return;
   window.__lcGuide = 1;
 
-  var MAIL = 'support@livecloud.dk', TEL = '+4591544004', PHONE = '91 54 40 04';
+  var MAIL = 'support@livecloud.dk', TEL = '+4593104585', PHONE = '93 10 45 85';
 
   var css = document.createElement('style');
   css.textContent = [

@@ -1,10 +1,21 @@
-/* Shared guide chrome: help bar, section jump, print, offline (PWA).
-   Injected on every personale-guide page. Progressive: degrades to nothing. */
+/* Shared guide chrome: help bar, section jump, PDF download, offline (PWA).
+   Injected on every personale-guide page. Progressive: degrades to nothing.
+   Webticket guides are used by EXTERNAL people (managers, owners, staff);
+   they must not carry LiveCloud contact details - they point to the
+   festival's own customer service instead. */
 (function () {
   if (window.__lcGuide) return;
   window.__lcGuide = 1;
 
   var MAIL = 'support@livecloud.dk', TEL = '+4593104585', PHONE = '93 10 45 85';
+
+  var EXTERNAL = [
+    'omraadeleder.html', 'medarbejder.html', 'artist-manager.html',
+    'virksomhedsejer.html', 'bod-produkter.html', 'medarbejder-gaestebilletter.html',
+    'honorar-og-beats.html', 'virksomhedsejer-bodejer-webticket.html'
+  ];
+  var page = (location.pathname.split('/').pop() || 'index.html');
+  var isExternal = EXTERNAL.indexOf(page) !== -1;
 
   var css = document.createElement('style');
   css.textContent = [
@@ -27,18 +38,31 @@
     'font:600 14px system-ui;border:0}',
     '.lc-jm a:hover,.lc-jm a:active{background:#f2f2f4}',
     'body{padding-bottom:54px}',
-    '@media print{.lc-help,.lc-jump,.lc-jm{display:none !important}body{padding-bottom:0 !important}}'
+    '@media print{',
+    '.lc-help,.lc-jump,.lc-jm{display:none !important}',
+    'body{padding-bottom:0 !important;background:#fff !important}',
+    '.layout{display:block !important;grid-template-columns:1fr !important;max-width:none !important}',
+    '.layout > .toc,.toc{display:none !important}',
+    '.frame,.wtapp,.modal{break-inside:avoid}',
+    '}'
   ].join('');
   document.head.appendChild(css);
 
   var bar = document.createElement('div');
   bar.className = 'lc-help';
-  bar.innerHTML =
-    '<span class="lbl">Brug for hjælp?</span>' +
-    '<a href="mailto:' + MAIL + '">✉ ' + MAIL + '</a>' +
-    '<span class="sep">·</span>' +
-    '<a href="tel:' + TEL + '">☎ ' + PHONE + '</a>' +
-    '<button type="button" id="lcPrint" title="Print eller gem som PDF">🖨 Print</button>';
+  if (isExternal) {
+    bar.innerHTML =
+      '<span class="lbl">Spørgsmål?</span>' +
+      '<span>Kontakt festivalens kundeservice.</span>' +
+      '<button type="button" id="lcPrint" title="Gem denne guide som PDF">🖨 Hent som PDF</button>';
+  } else {
+    bar.innerHTML =
+      '<span class="lbl">Brug for hjælp?</span>' +
+      '<a href="mailto:' + MAIL + '">✉ ' + MAIL + '</a>' +
+      '<span class="sep">·</span>' +
+      '<a href="tel:' + TEL + '">☎ ' + PHONE + '</a>' +
+      '<button type="button" id="lcPrint" title="Print eller gem som PDF">🖨 Hent som PDF</button>';
+  }
   document.body.appendChild(bar);
   document.getElementById('lcPrint').addEventListener('click', function () { window.print(); });
 

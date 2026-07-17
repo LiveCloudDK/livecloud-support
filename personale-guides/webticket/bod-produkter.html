@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Bod: sæt din bod op i webticket (produkter, lager og bod-info)</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --acc:#0f766e;--acc-d:#115e59;--green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;
+    --red:#c92835;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;--amber:#b45309;--amber-bg:#fffbeb;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#effcf9;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--acc);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#99f6e4}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner.o{background:linear-gradient(100deg,#0f766e,#134e4a)}.pbanner.b{background:linear-gradient(100deg,#b45309,#92400e)}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .wtapp{display:grid;grid-template-columns:172px 1fr;min-height:210px;background:#ffffff;color:#27272a;font-size:12px}
+  .wtside{background:#fbfbfc;border-right:1px solid #ececed;padding:11px 9px}
+  .wtside .brand{display:flex;align-items:center;gap:8px;padding:2px 5px 9px}
+  .wtside .brand .lg{width:23px;height:23px;border-radius:7px;background:#e8b64a;color:#1a1a1a;display:grid;place-items:center;font-weight:800;font-size:9px}
+  .wtside .brand b{font-size:11.5px;color:#18181b;line-height:1.05}.wtside .brand small{color:#71717a;font-size:9px}
+  .wtside .grp{color:#a1a1aa;font-size:9px;letter-spacing:.07em;text-transform:uppercase;margin:10px 7px 4px}
+  .wtside .it{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;color:#3f3f46}
+  .wtside .it .ic{width:13px;height:13px;border-radius:4px;background:#e4e4e7;flex:none}
+  .wtside .it.on{background:rgba(232,182,74,.15);color:#9a6a00;font-weight:600}.wtside .it.on .ic{background:#e8b64a}
+  .wtmain{padding:15px 17px;min-width:0;background:#ffffff}
+  .wth{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .wth h5{margin:0;font-size:18px;color:#18181b}.wth p{margin:3px 0 0;color:#71717a;font-size:12px}
+  .wth .act{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .wtbtn{border:1px solid #ececed;background:#ffffff;border-radius:8px;padding:5px 10px;font-size:11.5px;font-weight:600;color:#27272a;white-space:nowrap}
+  .wtbtn.p{background:#e8b64a;color:#1c1c1c;border-color:#e8b64a}
+  .wtstats{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .wtstat{flex:1;min-width:90px;border:1px solid #ececed;border-radius:11px;padding:9px 12px;background:#ffffff}
+  .wtstat .k{font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:#71717a;font-weight:700}.wtstat .v{font-size:20px;font-weight:800;margin-top:2px;color:#18181b}
+  .wtpool{border:1px solid #f0dfb0;border-radius:12px;padding:11px 14px;background:linear-gradient(100deg,rgba(232,182,74,.09),rgba(232,182,74,.02));margin-bottom:12px}
+  .wtpool .t{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:#27272a}.wtpool b{color:#9a6a00}
+  .wtpool .bar2{height:7px;border-radius:99px;background:#ececed;margin-top:8px;overflow:hidden}.wtpool .bar2 i{display:block;height:100%;width:34%;background:#e8b64a;border-radius:99px}
+  .wtpool .sub{display:flex;gap:14px;margin-top:7px;font-size:11px;color:#52525b}
+  .wtcard{border:1px solid #ececed;border-radius:12px;background:#ffffff}
+  .wtcard .ch{padding:11px 14px 6px}.wtcard .ch b{font-size:13.5px;color:#18181b}.wtcard .ch p{margin:3px 0 0;color:#8f8f9a;font-size:11.5px}
+  .wtrow{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid #ececed;flex-wrap:wrap}
+  .wtrow .tk{font-size:12.5px;color:#27272a;font-weight:600;min-width:120px}
+  .wtrow .tk small{display:block;color:#a1a1aa;font-weight:400;font-size:11px}
+  .wtin{border:1px solid #ececed;border-radius:8px;padding:6px 9px;font-size:11.5px;color:#3f3f46;background:#fafafa}
+  .wtrow .assign{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-left:auto}
+  .wtbeats{border:1px solid #e8d9a8;background:rgba(232,182,74,.12);color:#9a6a00;border-radius:8px;padding:4px 10px;font-size:11.5px;font-weight:700}
+  .wtpill{font-size:11px;font-weight:700;border-radius:99px;padding:2px 10px;border:1px solid #ececed;background:#ececed;color:#a1a1aa;white-space:nowrap}
+  .wtpill.ok{background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.3);color:#059669}
+  .wtpill.info{background:rgba(96,165,250,.14);border-color:rgba(96,165,250,.35);color:#1e40af}
+  .wtmodal{border:1px solid #ececed;border-radius:13px;background:#ffffff;padding:15px 17px;max-width:420px;margin:0 auto}
+  .wtmodal h6{margin:0 0 2px;font-size:15.5px;color:#18181b}.wtmodal .mp{color:#71717a;font-size:12px;margin:0 0 12px}
+  .wtmodal .lab{font-size:10.5px;font-weight:700;color:#52525b;margin:10px 0 3px}
+  .wtmodal .fld{border:1px solid #ececed;border-radius:8px;padding:7px 10px;font-size:12px;color:#3f3f46;background:#fafafa}
+  .wtmodal .hint{font-size:10.5px;color:#71717a;margin-top:4px}
+  .wtmodal .foot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+  .wtseg{display:inline-flex;border:1px solid #ececed;border-radius:8px;overflow:hidden;font-size:11px;font-weight:700}
+  .wtseg span{padding:5px 10px;color:#71717a;background:#fff}.wtseg span.on{background:#e8b64a;color:#1c1c1c}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:#f0fdfa;border:1px solid #99f6e4;color:#115e59;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  .footer a{color:var(--acc-d)}
+  .setg .l{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#71717a;margin:11px 0 5px}
+  .setg .g2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .setg .f{border:1px solid #ececed;border-radius:8px;padding:6px 9px;font-size:11.5px;color:#3f3f46;background:#fafafa}
+  .setg .f.ro{background:#f4f4f5;color:#8a8a93;border-style:dashed}
+  .setg .f small{color:#a1a1aa;font-weight:600}
+  .setg .term{display:flex;align-items:center;gap:8px;border:1px solid #ececed;border-radius:8px;padding:7px 10px;font-size:11.5px;color:#27272a;background:#fff;margin-top:2px}
+  .setg .h{font-size:10.5px;color:#71717a;margin-top:6px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}.wtapp{grid-template-columns:1fr}.wtside{display:none}main{padding:24px 18px 80px}.setg .g2{grid-template-columns:1fr}}
+</style>
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#0f766e"></head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">🍔</div><div><b>Bod</b><small>Din bod i webticket</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du den</a>
+      <div class="g">Kom i gang</div>
+      <a href="#aabn">Log ind og åbn Bod</a>
+      <div class="g">Produkter</div>
+      <a href="#opret">Opret et produkt</a>
+      <a href="#rediger">Pris, navn og udsolgt</a>
+      <a href="#billede">Billede</a>
+      <a href="#lager">Justér lager</a>
+      <div class="g">Organisér</div>
+      <a href="#sortering">Kategorier og rækkefølge</a>
+      <a href="#slet">Slet et produkt</a>
+      <div class="g">Salg</div>
+      <a href="#salg">Se salg og eksportér</a>
+      <div class="g">Bod-info</div>
+      <a href="#info">Kontakt, drift og udbetaling</a>
+      <a href="#terminaler">Terminaler og synkronisering</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide · du driver en bod i webticket</div>
+      <h1>Bod: sæt din bod op i webticket</h1>
+      <p class="lede">Du styrer selv din bod i webticket'en: opret <b>varer</b>, sæt pris og lager, upload billeder, markér udsolgt, sortér til kassen, følg salget under <b>Salg</b>, og udfyld bodens stamdata under <b>Bod-info</b>. Det hele ligger i venstremenuen under <span class="chip">Bod</span>. Knap-navne står i grå, fx <span class="chip">Tilføj produkt</span>.</p>
+      <hr class="rule">
+      <div class="cards">
+        <a class="gcard" href="#opret"><span class="em">➕</span><b>Opret produkt</b><small>Navn, pris, startlager</small></a>
+        <a class="gcard" href="#rediger"><span class="em">✏️</span><b>Pris & udsolgt</b><small>Redigér i rækken</small></a>
+        <a class="gcard" href="#lager"><span class="em">📦</span><b>Justér lager</b><small>Op, ned eller sæt til</small></a>
+        <a class="gcard" href="#sortering"><span class="em">🗂️</span><b>Kategorier</b><small>Sortér til kassen</small></a>
+      </div>
+    </section>
+
+    <div class="pbanner o"><div class="av">🍔</div><div><div class="who">Kom i gang</div><h2>Bod er dit arbejdsbord</h2><p>Dine produkter, lager og bod-info samlet ét sted.</p></div></div>
+
+    <h3 class="flow" id="aabn"><span class="g1">Kom i gang</span>Log ind og åbn Bod</h3>
+    <p class="ctx">Log ind i webticket'en med <b>MitID</b> eller det <b>login-link</b>, du har fået af festivalen. I venstremenuen har du <span class="chip">Bod</span> med tre punkter: <span class="chip">Produkter</span>, <span class="chip">Sortering</span> og <span class="chip">Bod-info</span>.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">webticket.ringstedfestival.dk/vendor</span></div>
+      <div class="wtapp">
+        <div class="wtside"><div class="brand"><div class="lg">RF</div><div><b>Aktiv bod</b><small>Skift bod (kun ved 2+ boder)</small></div></div>
+          <div class="grp">Menu</div>
+          <div class="it"><span class="ic"></span>Oversigt</div><div class="it"><span class="ic"></span>Kontoejere</div>
+          <div class="grp">Bod</div>
+          <div class="it on"><span class="ic"></span>Produkter</div><div class="it"><span class="ic"></span>Sortering</div><div class="it"><span class="ic"></span>Salg</div><div class="it"><span class="ic"></span>Bod-info</div>
+        </div>
+        <div class="wtmain">
+          <div class="wth"><div><h5>Bod</h5><p>Se salg og redigér dine produkter.</p></div><div class="act"><span class="wtbtn p">Tilføj produkt</span></div></div>
+          <div class="wtcard">
+            <div class="wtrow" style="font-weight:700;color:#71717a;font-size:10px;text-transform:uppercase"><div class="tk">Produkt</div><div class="assign"><span>Pris</span><span>Lager</span><span>Tilgængelig</span></div></div>
+            <div class="wtrow"><div class="tk">Fadøl 0,4</div><div class="assign"><span class="wtin">45 kr</span><span class="wtin">120</span><span class="wtpill ok">Til salg</span><span class="wtbtn">Juster lager</span></div></div>
+            <div class="wtrow"><div class="tk">Pommes frites</div><div class="assign"><span class="wtin">35 kr</span><span class="wtin">0</span><span class="wtpill">Udsolgt</span><span class="wtbtn">Juster lager</span></div></div>
+          </div>
+        </div>
+      </div></div>
+    <ol class="steps">
+      <li>Tjek at du står på den <b>rigtige bod</b> øverst til venstre. Har du flere boder, kan du skifte med <span class="chip">Skift bod</span>. Har du kun én, er der ingen vælger.</li>
+      <li>Vælg <span class="chip">Bod</span> → <span class="chip">Produkter</span>. Her ser du alle bodens varer med pris, lager og status.</li>
+    </ol>
+
+    <div class="pbanner o" style="background:linear-gradient(100deg,#0f766e,#134e4a)"><div class="av">➕</div><div><div class="who">Opret</div><h2>Nyt produkt på få felter</h2><p>Navn, pris og evt. et startlager, så er varen klar.</p></div></div>
+
+    <h3 class="flow" id="opret"><span class="g1">Opret</span>Opret et produkt</h3>
+    <p class="ctx">Tryk <span class="chip">Tilføj produkt</span> øverst. Udfyld <span class="chip">Produktnavn</span> og <span class="chip">Pris</span> (i kroner), og evt. et <span class="chip">Startlager (valgfrit)</span>. Tryk <span class="chip">Opret produkt</span>.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bod · Tilføj produkt</span></div>
+      <div class="wtapp"><div class="wtmain" style="grid-column:1 / -1">
+        <div class="wtmodal">
+          <h6>Tilføj produkt</h6><p class="mp">Opret et nyt produkt til boden.</p>
+          <div class="lab">Produktnavn</div><div class="fld">Fadøl 0,4</div>
+          <div class="lab">Pris</div><div class="fld">45</div><div class="hint">Angiv prisen i kroner, fx 45.</div>
+          <div class="lab">Startlager (valgfrit)</div><div class="fld" style="color:#71717a">120</div>
+          <div class="foot"><span class="wtbtn">Annullér</span><span class="wtbtn p">Opret produkt</span></div>
+        </div>
+      </div></div></div>
+    <ol class="steps">
+      <li>Tryk <span class="chip">Tilføj produkt</span>.</li>
+      <li>Skriv <span class="chip">Produktnavn</span> og <span class="chip">Pris</span> i hele kroner (fx 45).</li>
+      <li>Vil du styre lager, skriv et <span class="chip">Startlager (valgfrit)</span>. Ellers lad det stå tomt, så sælges varen uden lagerstyring.</li>
+      <li>Tryk <span class="chip">Opret produkt</span>. Du får kvitteringen <b>Produkt oprettet.</b>, og varen står nu i listen.</li>
+    </ol>
+
+    <h3 class="flow" id="rediger"><span class="g1">Produkter</span>Ret pris, navn og udsolgt</h3>
+    <p class="ctx">Du redigerer direkte i rækken. Ret <b>navn</b> eller <b>pris</b> i felterne, og de gemmes automatisk. Kolonnen <span class="chip">Tilgængelig</span> slår varen <span class="chip">Til salg</span> eller <span class="chip">Udsolgt</span>.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bod · Produkter</span></div>
+      <div class="wtapp"><div class="wtmain" style="grid-column:1 / -1">
+        <div class="wtcard">
+          <div class="wtrow" style="font-weight:700;color:#71717a;font-size:10px;text-transform:uppercase"><div class="tk">Produkt</div><div class="assign"><span>Pris</span><span>Lager</span><span>Tilgængelig</span><span>Handlinger</span></div></div>
+          <div class="wtrow"><div class="tk"><span class="wtin">Fadøl 0,4</span></div><div class="assign"><span class="wtin">45</span><span class="wtin">120</span><span class="wtpill ok">Til salg</span><span class="wtbtn">Skift billede</span><span class="wtbtn">Juster lager</span></div></div>
+        </div>
+      </div></div></div>
+    <ol class="steps">
+      <li>Ret <span class="chip">Navn</span> eller <span class="chip">Pris</span> i felterne i rækken. Det gemmes automatisk (kvittering <b>Gemt.</b>).</li>
+      <li>Tryk på status-knappen for at skifte mellem <span class="chip">Til salg</span> og <span class="chip">Udsolgt</span>. En udsolgt vare kan ikke købes i baren, men bliver stående i din liste.</li>
+    </ol>
+    <div class="tip">Ændringer i pris og navn slår kun igennem på <b>din</b> bod. Gæster ser dem, når du har synkroniseret til kassen (se noten nederst).</div>
+
+    <h3 class="flow" id="billede"><span class="g1">Produkter</span>Tilføj et billede</h3>
+    <p class="ctx">Et billede gør varen lettere at genkende. Tryk <span class="chip">Tilføj billede</span> på en vare (eller <span class="chip">Skift billede</span> hvis der allerede er et), og vælg en fil.</p>
+    <ol class="steps">
+      <li>Find varen i listen og tryk <span class="chip">Tilføj billede</span> (eller på billed-feltet).</li>
+      <li>Vælg en fil fra din computer eller telefon. Du får kvitteringen <b>Billede opdateret.</b></li>
+      <li>Vil du fjerne det igen, bruger du <span class="chip">Fjern billede</span>.</li>
+    </ol>
+
+    <div class="pbanner b"><div class="av">📦</div><div><div class="who">Lager</div><h2>Hold styr på beholdningen</h2><p>Læg til, træk fra, eller sæt lageret til et bestemt tal, med en årsag.</p></div></div>
+
+    <h3 class="flow" id="lager"><span class="g1">Lager</span>Justér lager</h3>
+    <p class="ctx">Tryk <span class="chip">Juster lager</span> på en vare. Vælg <span class="chip">± Justér</span> for at lægge til eller trække fra, eller <span class="chip">= Sæt til</span> for at sætte lageret til et bestemt tal. Vælg en <span class="chip">Årsag</span>.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bod · Juster lager</span></div>
+      <div class="wtapp"><div class="wtmain" style="grid-column:1 / -1">
+        <div class="wtmodal">
+          <h6>Juster lager</h6><p class="mp">Fadøl 0,4 · Nuværende: 120 på lager</p>
+          <div class="wtseg"><span class="on">± Justér</span><span>= Sæt til</span></div>
+          <div class="lab" style="margin-top:12px">Antal (negativ for at trække fra)</div><div class="fld">+48</div><div class="hint">+10 eller -5</div>
+          <div class="lab">Årsag</div><div class="fld">Genopfyldning</div>
+          <div class="lab">Note (valgfrit)</div><div class="fld" style="color:#71717a">Kort note til loggen...</div>
+          <div class="foot"><span class="wtbtn">Annullér</span><span class="wtbtn p">Juster lager</span></div>
+        </div>
+      </div></div></div>
+    <ol class="steps">
+      <li>Tryk <span class="chip">Juster lager</span> på varen.</li>
+      <li>Vælg <span class="chip">± Justér</span> og skriv fx <b>+48</b> ved genopfyldning eller <b>-5</b> ved spild. Eller vælg <span class="chip">= Sæt til</span> og skriv det tal, lageret skal stå på (fx efter en optælling).</li>
+      <li>Vælg en <span class="chip">Årsag</span>: <span class="chip">Genopfyldning</span>, <span class="chip">Tab</span>, <span class="chip">Skade</span>, <span class="chip">Optælling</span> eller <span class="chip">Manuel</span>. Skriv evt. en <span class="chip">Note (valgfrit)</span>.</li>
+      <li>Tryk <span class="chip">Juster lager</span>. Du får kvitteringen <b>Lager opdateret.</b>, og ændringen gemmes i loggen.</li>
+    </ol>
+    <div class="note">Lageret kan ikke gå i minus. Lader du en vare stå <b>uden</b> lager (tomt startlager), sælges den frit uden lagertælling.</div>
+
+    <div class="pbanner o"><div class="av">🗂️</div><div><div class="who">Organisér</div><h2>Kategorier og rækkefølge</h2><p>Grupper varerne, så de står rigtigt i kassen på pladsen.</p></div></div>
+
+    <h3 class="flow" id="sortering"><span class="g1">Organisér</span>Kategorier og rækkefølge</h3>
+    <p class="ctx">Under <span class="chip">Sortering</span> grupperer du varerne i kategorier og bestemmer rækkefølgen. Det er den rækkefølge, personalet ser i kassen.</p>
+    <ol class="steps">
+      <li>Vælg <span class="chip">Bod</span> → <span class="chip">Sortering</span>.</li>
+      <li>Opret en kategori i feltet <span class="chip">Ny kategori...</span> (fx "Drikkevarer", "Mad").</li>
+      <li>Træk varerne ind under den rigtige kategori og træk for at ændre rækkefølgen. Varer uden kategori står under <span class="chip">Uden kategori</span>.</li>
+    </ol>
+
+    <h3 class="flow" id="slet"><span class="g1">Produkter</span>Slet et produkt</h3>
+    <p class="ctx">Skal en vare helt væk, bruger du <span class="chip">Slet produkt</span>. Vil du bare skjule den midlertidigt, så brug <span class="chip">Udsolgt</span> i stedet.</p>
+    <ol class="steps">
+      <li>Find varen og tryk <span class="chip">Slet produkt</span>.</li>
+      <li>Bekræft i boksen: <b>Slet [navn]? Dette kan ikke fortrydes.</b> Tryk <span class="chip">Slet</span>.</li>
+      <li>Du får kvitteringen <b>Produkt slettet.</b>, og varen forsvinder fra listen.</li>
+    </ol>
+    <div class="note"><b>Kun midlertidigt udsolgt?</b> Brug <span class="chip">Udsolgt</span> i stedet for at slette. Så beholder du varen (pris, billede, lager) og kan sætte den <span class="chip">Til salg</span> igen med ét tryk.</div>
+
+    <div class="pbanner o" style="background:linear-gradient(100deg,#6d28d9,#4c1d95)"><div class="av">🧾</div><div><div class="who">Salg</div><h2>Følg dit salg</h2><p>Se bodens salg og træk en CSV til regnskabet.</p></div></div>
+
+    <h3 class="flow" id="salg"><span class="g1">Salg</span>Se salg og eksportér</h3>
+    <p class="ctx">Under <span class="chip">Bod</span> → <span class="chip">Salg</span> ser du bodens salg med <span class="chip">Tidspunkt</span>, <span class="chip">Beskrivelse</span>, <span class="chip">Gæst</span> og <span class="chip">Beløb</span>. Tryk <span class="chip">Eksportér CSV</span> for at hente en fil til regnskabet.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">webticket.ringstedfestival.dk/vendor/sales</span></div>
+      <div class="wtapp"><div class="wtmain" style="grid-column:1 / -1">
+        <div class="wth"><div><h5>Salg</h5><p>Bodens salg og transaktioner.</p></div><div class="act"><span class="wtbtn">Eksportér CSV</span></div></div>
+        <div class="wtcard">
+          <div class="wtrow" style="font-weight:700;color:#71717a;font-size:10px;text-transform:uppercase"><div class="tk">Tidspunkt</div><div class="assign"><span>Beskrivelse</span><span>Gæst</span><span>Beløb</span></div></div>
+          <div class="wtrow"><div class="tk">12:34<small>i dag</small></div><div class="assign"><span class="wtin">Fadøl 0,4</span><span class="wtin">Anna J.</span><span class="wtin">45</span></div></div>
+          <div class="wtrow"><div class="tk">12:31<small>i dag</small></div><div class="assign"><span class="wtin">Pommes frites</span><span class="wtin">Mads K.</span><span class="wtin">35</span></div></div>
+        </div>
+      </div></div></div>
+    <ol class="steps">
+      <li>Vælg <span class="chip">Bod</span> → <span class="chip">Salg</span>. Du ser bodens salg med tidspunkt, beskrivelse, gæst og beløb.</li>
+      <li>Tryk <span class="chip">Eksportér CSV</span> for at hente en fil, fx til bogholderi eller afregning.</li>
+    </ol>
+    <div class="tip">Salget kommer løbende fra kassen på pladsen. CSV'en er et øjebliksbillede, du kan give videre til regnskab.</div>
+
+    <div class="pbanner b" style="background:linear-gradient(100deg,#0e7490,#155e75)"><div class="av">🛠️</div><div><div class="who">Bod-info</div><h2>Din bods stamdata</h2><p>Kontakt, drift, fakturering og udbetaling samlet ét sted, og synkronisering til kassen.</p></div></div>
+
+    <h3 class="flow" id="info"><span class="g1">Bod-info</span>Kontakt, drift og udbetaling</h3>
+    <p class="ctx">Under <span class="chip">Bod</span> → <span class="chip">Bod-info</span> udfylder du bodens stamdata. Det meste kan du selv rette, men nogle økonomi-felter er aftalt med festivalen og kan kun ses.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bod · Bod-info</span></div>
+      <div class="wtapp"><div class="wtmain" style="grid-column:1 / -1">
+        <div class="wth"><div><h5>Bod-info</h5><p>Din bods stamdata, drift og udbetaling.</p></div><div class="act"><span class="wtbtn">Gem</span><span class="wtbtn p">Gem og synkronisér til terminal</span></div></div>
+        <div class="wtcard setg" style="padding:12px 14px">
+          <div class="l">Kontakt og profil</div>
+          <div class="g2"><span class="f">Navn · Fadølsbaren</span><span class="f">Kontakt-e-mail · bod@…</span><span class="f">Titel</span><span class="f">Kontakt-telefon</span></div>
+          <div class="l">Nødkontakt</div>
+          <div class="g2"><span class="f">Nødkontakt (navn)</span><span class="f">Nødkontakt (telefon)</span></div>
+          <div class="l">Driftsdetaljer</div>
+          <div class="g2"><span class="f">Pladsbehov (m²) · 24</span><span class="f">Strømbehov (kW) · 16</span><span class="f">Spænding · 400</span><span class="f">Vandbehov (l/t) · 200</span></div>
+          <div class="l">Udbetaling og økonomi</div>
+          <div class="g2"><span class="f">IBAN · DK…</span><span class="f">Udbetalingsmetode</span><span class="f ro">Kommission (%) · 12 <small>· sat af festivalen</small></span><span class="f ro">Afregningscyklus <small>· sat af festivalen</small></span></div>
+        </div>
+      </div></div></div>
+    <ol class="steps">
+      <li><b>Kontakt og profil:</b> <span class="chip">Navn</span>, <span class="chip">Titel</span>, <span class="chip">Beskrivelse</span>, <span class="chip">Hjemmeside</span>, <span class="chip">Kontakt-e-mail</span> og <span class="chip">Kontakt-telefon</span>.</li>
+      <li><b>Nødkontakt:</b> <span class="chip">Nødkontakt (navn)</span> og <span class="chip">Nødkontakt (telefon)</span>, så festivalen kan få fat i jer under drift.</li>
+      <li><b>Driftsdetaljer:</b> <span class="chip">Pladsbehov (m²)</span>, <span class="chip">Strømbehov (kW)</span>, <span class="chip">Spænding</span> (230/400), <span class="chip">Faser</span> (1/3) og <span class="chip">Vandbehov (l/t)</span>, så festivalen kan planlægge din stadeplads.</li>
+      <li><b>Fakturering:</b> <span class="chip">Faktureringsnavn</span>, adresse, <span class="chip">Postnr.</span>, <span class="chip">By</span>, <span class="chip">Land (landekode)</span> og <span class="chip">CVR/moms-nr.</span></li>
+      <li><b>Udbetaling:</b> <span class="chip">Udbetalingsmetode</span>, <span class="chip">IBAN</span>, <span class="chip">BIC/SWIFT</span>, <span class="chip">Kontonummer</span>, <span class="chip">Reg.nr.</span> og <span class="chip">Udbetalingsvaluta</span>, så festivalen kan afregne til jer.</li>
+      <li><b>Tilladelser:</b> <span class="chip">Serverer alkohol</span>, <span class="chip">Alkoholbevilling-nr.</span>, <span class="chip">Fødevaretilladelse-nr.</span>, <span class="chip">Forsikringspolice-nr.</span> og <span class="chip">Max. personale-badges</span>.</li>
+      <li>Tryk <span class="chip">Gem</span>. Du får kvitteringen <b>Gemt.</b></li>
+    </ol>
+    <div class="note"><b>Aftalt med festivalen (kun visning):</b> <span class="chip">Afregningscyklus</span>, <span class="chip">Kommission (%)</span>, <span class="chip">Mindstegaranti</span> og <span class="chip">Depositum</span> er sat af arrangøren og kan ikke rettes her. Er noget forkert, så kontakt festivalkontoret.</div>
+
+    <h3 class="flow" id="terminaler"><span class="g1">Bod-info</span>Terminaler og synkronisering</h3>
+    <p class="ctx">Nederst i <span class="chip">Bod-info</span> ser du de <span class="chip">Terminaler</span>, festivalen har tildelt din bod. Når produkter og priser er klar, trykker du <span class="chip">Gem og synkronisér til terminal</span>, så kassen (POS) på pladsen får dit opdaterede sortiment.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Bod · Bod-info · Terminaler</span></div>
+      <div class="wtapp"><div class="wtmain" style="grid-column:1 / -1">
+        <div class="wtcard setg" style="padding:12px 14px">
+          <div class="l">Terminaler</div>
+          <div class="term">Kasse 1 · Fadølsbaren <span class="wtpill info" style="margin-left:auto">Tildelt</span></div>
+          <div class="h">Tildeles af festival-arrangøren.</div>
+        </div>
+      </div></div></div>
+    <ol class="steps">
+      <li>Under <span class="chip">Terminaler</span> ser du din bods kasseterminaler. De <span class="chip">Tildeles af festival-arrangøren.</span> Står der <b>Ingen terminaler tildelt endnu.</b>, så kontakt festivalkontoret.</li>
+      <li>Når sortimentet er klart, tryk <span class="chip">Gem og synkronisér til terminal</span>. Du får <b>Gemt og synkroniseret til terminal.</b>, og kassen har nu dine varer, priser og udsolgt-status.</li>
+    </ol>
+    <div class="tip">Synkronisér <b>efter</b> ændringer i pris, lager eller udsolgt, så kassen på pladsen altid viser det rigtige. <b>Onboarding:</b> du får login (MitID eller login-link) og din bod oprettet af festivalen. Kan du ikke logge ind eller mangler din bod, så kontakt festivalkontoret.</div>
+
+    <div class="footer">LiveCloud · Ringsted Festival. Guide til boder: opret produkter, styr lager, følg salg og udfyld bod-info i webticket. Skærmene er tro gengivelser af de live webticket-skærme; danske knap-navne står i grå. Se også <a href="../opret-bod.html">Opret en bod (admin)</a>, <a href="virksomhedsejer.html">Virksomhedsejer</a> og <a href="../pos.html">POS (kassen)</a>.</div>
+  </main>
+</div>
+<script src="../guide-enhance.js"></script></body>
+</html>

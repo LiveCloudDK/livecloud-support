@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Medarbejder i Webticket</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--rust:#9a3412;
+    --green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;
+    --amber:#b45309;--amber-bg:#fffbeb;--blue:#0a5cff;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--rust);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1;display:block}aside .brand small{color:var(--muted);font-size:11px;display:block}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  aside .toc a.back{color:var(--muted);font-size:12.5px}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--rust);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--rust);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 8px}
+  .gcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block}
+  .gcard:hover{border-color:#d4d4d8}.gcard .em{font-size:20px}.gcard b{display:block;font-size:14.5px;margin:6px 0 2px}.gcard small{color:var(--muted);font-size:12px}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner.m{background:linear-gradient(100deg,#c2410c,#9a3412)}.pbanner.f{background:linear-gradient(100deg,#3730a3,#312e81)}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}
+  .pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  h3.flow{font-size:20px;margin:28px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--rust);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .app{display:grid;grid-template-columns:146px 1fr;min-height:170px}
+  .side{background:#fafafa;border-right:1px solid var(--line);padding:12px 10px;font-size:12.5px}
+  .side .brand{display:flex;align-items:center;gap:9px;padding:2px 6px 8px}.side .brand .lg{width:23px;height:23px;border-radius:7px;background:var(--rust);color:#fff;display:grid;place-items:center;font-weight:800;font-size:10px}
+  .it{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;color:#3f3f46}.it .ic{width:14px;height:14px;border-radius:4px;background:#e4e4e7;flex:none}
+  .it.on{background:#fde7dc;color:#9a3412;font-weight:600}.it.on .ic{background:var(--rust)}
+  .main2{padding:18px 20px;background:#fff;min-width:0}
+  .ph{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}.ph h5{margin:0;font-size:18px}.ph p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}
+  .card2{border:1px solid var(--line);border-radius:12px;padding:12px 15px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:9px 0}
+  .card2 .t b{font-size:13.5px}.card2 .t p{margin:2px 0 0;color:var(--muted);font-size:12px}.card2 .right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.pill{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 10px;border:1px solid var(--grey-line);background:var(--grey-pill);color:#a1a1aa}.pill.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .field{border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:12.5px;color:var(--muted);background:#fafafa;margin:6px 0}
+  .lab{font-size:11px;font-weight:700;color:#52525b;margin:8px 0 2px}.zap{color:var(--green);font-weight:700}
+  .login{max-width:390px;margin:6px auto;padding:4px}
+  .login .welcome{text-align:center;border:1px solid var(--line);border-radius:15px;padding:16px}.login .welcome h5{margin:6px 0 5px;font-size:22px}.login .welcome p{margin:0;color:var(--muted);font-size:12.5px}
+  .login .box{border:1px solid var(--line);border-radius:15px;padding:16px;margin-top:12px}
+  .tabs{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:12px}.tabs span{flex:1;text-align:center;padding:8px;font-size:12.5px;font-weight:600;color:var(--muted)}.tabs span.on{background:#fff;color:#111;box-shadow:inset 0 0 0 1px var(--line)}
+  .mitid{width:100%;background:var(--blue);color:#fff;border:none;border-radius:11px;padding:11px;font-weight:700;font-size:13.5px}
+  .mut{color:var(--muted);font-size:12px;text-align:center;margin:0 0 10px}
+  .badge{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--rust);color:#fff;font-size:10.5px;font-weight:700;vertical-align:1px;margin-right:3px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--rust);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.tip a{color:#1e40af;font-weight:700}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:repeat(2,1fr)}.app{grid-template-columns:1fr}.app .side{display:none}main{padding:24px 18px 80px}}
+  /* Print: rent A4-ark uden sidebar, sort på hvidt, ingen skygger */
+  @media print{
+    @page{margin:14mm}
+    html{scroll-behavior:auto}
+    body{background:#fff;font-size:11.5pt}
+    aside{display:none !important}
+    .layout{display:block;max-width:none;margin:0}
+    main{padding:0}
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .frame,.gcard,.card2,.pill,.note,.tip,.mitid,.btn,.field{box-shadow:none !important}
+    .pbanner,.frame,.card2,.note,.tip,ol.steps li,.gcard,h3.flow{break-inside:avoid}
+    h1,h2,h3.flow,.pbanner{break-after:avoid}
+    .pbanner{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    a{color:inherit;text-decoration:none}
+    .rule{background:#111}
+  }
+</style>
+<link rel="manifest" href="../manifest.webmanifest"><meta name="theme-color" content="#0f766e"></head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">W</div><div><b>Webticket</b><small>Guide til medarbejder</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du guiden</a>
+      <div class="g">Kom i gang</div>
+      <a href="#login">Log ind</a>
+      <a href="#profil">Udfyld profil (ved løn)</a>
+      <div class="g">Din side</div>
+      <a href="#billetter">Dine billetter</a>
+      <a href="#beats">Beats</a>
+      <a href="#resale">Resale</a>
+      <a href="#kontrakt">Kontrakt</a>
+      <a href="#app">Log ind i app'en</a>
+      <div class="g">Se også</div>
+      <a class="back" href="index.html">Alle webticket-guides</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide til medarbejder</div>
+      <h1>Medarbejder i Webticket</h1>
+      <p class="lede">Webticket'en er din egen side til festivalen. Her logger du ind, udfylder din profil hvis du skal have løn, og finder dine billetter, dine beats og din kontrakt. Knapperne i webticket'en står i grå i guiden, for eksempel <span class="chip">Tank op</span>, så du kan se hvad du skal trykke på.</p>
+      <hr class="rule">
+      <div class="cards">
+        <a class="gcard" href="#login"><span class="em">🔑</span><b>Log ind</b><small>MitID eller e-mailkode</small></a>
+        <a class="gcard" href="#billetter"><span class="em">🎫</span><b>Dine billetter</b><small>Vises som QR-koder</small></a>
+        <a class="gcard" href="#beats"><span class="em">⚡</span><b>Beats</b><small>Betal på pladsen</small></a>
+        <a class="gcard" href="#resale"><span class="em">🔁</span><b>Resale</b><small>Sælg en billet</small></a>
+      </div>
+    </section>
+
+    <div class="pbanner f"><div class="av">🔑</div><div><div class="who">Første gang</div><h2>Kom i gang</h2><p>Log ind, og udfyld din profil hvis du skal have løn.</p></div></div>
+
+    <h3 class="flow" id="login"><span class="g1">Kom i gang</span>Log ind</h3>
+    <p class="ctx">Åbn webticket'en, eller følg det link eller den QR-kode du har fået fra din leder. Der er to måder at logge ind på.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">webticket.ringstedfestival.dk</span></div>
+      <div class="app"><div class="side"><div class="brand"><div class="lg">W</div><div><b>Webticket</b></div></div><div class="it on"><span class="ic"></span>Butik</div><div class="grp" style="margin-top:26px">&nbsp;</div><div class="it"><span class="ic"></span>Lyst</div><div class="it"><span class="ic"></span>Dansk</div><div class="it"><span class="ic"></span>Log ind</div></div>
+        <div class="main2"><div class="login"><div class="welcome"><div class="eyebrow" style="color:var(--muted)">Velkommen</div><h5>Webticket</h5><p>Log ind for at se dine billetter og dine Beats</p></div>
+          <div class="box"><div class="tabs"><span class="on"><span class="badge">1</span>MitID</span><span><span class="badge">2</span>E-mailkode</span></div><p class="mut">Log ind eller opret din konto sikkert med MitID.</p><button class="mitid">Fortsæt med MitID</button></div></div></div></div></div>
+    <ol class="steps">
+      <li>Vælg <span class="chip">MitID</span>, og tryk <span class="chip">Fortsæt med MitID</span>. Det anbefales, fordi det bekræfter hvem du er og henter dit CPR og din adresse, hvis du skal have løn.</li>
+      <li>Eller vælg <span class="chip">E-mailkode</span>, skriv din e-mail, og tast den kode du får tilsendt.</li>
+      <li>Første gang beder webticket'en om dit <span class="chip">Telefonnummer</span>. Skriv det og fortsæt. Du bliver kun spurgt ved første login.</li>
+    </ol>
+
+    <h3 class="flow" id="profil"><span class="g1">Kom i gang</span>Udfyld profil (kun hvis du skal have løn)</h3>
+    <p class="ctx">Skal du have løn, beder webticket'en dig gøre din profil færdig. Oplysningerne gemmes krypteret, bruges kun til løn og vises aldrig for andre.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Webticket · Færdiggør din profil</span></div>
+      <div class="main2"><div class="login"><div class="box" style="margin-top:0"><div class="lab">CPR-nummer</div><div class="field">DDMMÅÅ-XXXX</div><div class="lab">Adresse</div><div class="field">&nbsp;</div>
+        <div style="display:flex;gap:8px"><div style="flex:0 0 90px"><div class="lab">Postnr.</div><div class="field">&nbsp;</div></div><div style="flex:1"><div class="lab">By</div><div class="field">&nbsp;</div></div></div>
+        <button class="mitid" style="background:#111;margin-top:8px">Gem og fortsæt</button></div></div></div></div>
+    <ol class="steps">
+      <li>Loggede du ind med <span class="chip">MitID</span>, er felterne udfyldt for dig.</li>
+      <li>Har du adressebeskyttelse eller skjult CPR, står felterne tomme, og så skriver du dem selv.</li>
+      <li>Tryk <span class="chip">Gem og fortsæt</span>. Din løn-status bliver grøn, når oplysningerne er på plads.</li>
+    </ol>
+
+    <div class="pbanner m"><div class="av">🎫</div><div><div class="who">Din side</div><h2>Billetter, beats og kontrakt</h2><p>Alt det du selv har brug for, samlet i menuen til venstre.</p></div></div>
+
+    <h3 class="flow" id="billetter"><span class="g1">Din side</span>Dine billetter</h3>
+    <p class="ctx">Når du er logget ind, lander du på dine billetter. I menuen til venstre finder du resten: Beats, Resale og din kontrakt.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">webticket.ringstedfestival.dk/tickets</span></div>
+      <div class="app"><div class="side"><div class="brand"><div class="lg">W</div><div><b>Webticket</b></div></div><div class="it on"><span class="ic"></span>Købte billetter</div><div class="it"><span class="ic"></span>Resale</div><div class="it"><span class="ic"></span>Beats</div><div class="it"><span class="ic"></span>Butik</div><div class="it"><span class="ic"></span>Kontrakt</div></div>
+        <div class="main2"><div class="ph"><div><h5>Købte billetter</h5><p>Dine adgange som QR-koder, klar til scanning.</p></div></div>
+          <div class="card2"><div class="t"><b>Backstage Torsdag</b><p>Scan QR ved indgangen, eller tap med dit armbånd.</p></div><div class="right"><span class="pill ok">Aktiv</span></div></div>
+          <div class="card2"><div class="t"><b>Crew Torsdag</b><p>Scan QR ved indgangen, eller tap med dit armbånd.</p></div><div class="right"><span class="pill ok">Aktiv</span></div></div>
+        </div></div></div>
+    <ol class="steps">
+      <li>Under <span class="chip">Købte billetter</span> ligger dine adgange som QR-koder, klar til scanning ved indgangen.</li>
+      <li>Dit <b>armbånd</b> knyttes til en adgang i festival-app'en eller ved skranken, så du bare tapper i stedet for at vise QR.</li>
+      <li>Mangler du en adgang, så sig til din leder. Det er lederen der deler adgange ud.</li>
+    </ol>
+
+    <h3 class="flow" id="beats"><span class="g1">Din side</span>Beats</h3>
+    <p class="ctx">Beats er festival-credits, du betaler med i barer og boder. Din leder kan give dig beats, og du kan selv købe flere.</p>
+    <ol class="steps">
+      <li>Under <span class="chip">Beats</span> ser du din saldo og dine <span class="chip">Kvitteringer</span>.</li>
+      <li>Tryk <span class="chip">Tank op</span> for at købe flere med dit kort.</li>
+      <li>Under <span class="chip">Refusion</span> kan du få de beats tilbage, du selv har tanket op med kort og ikke brugt. Beats, du har tjent eller fået, bliver stående og bruges på pladsen, og det du har tilbage udbetales som en <b>del af dit honorar</b> efter festivalen.</li>
+    </ol>
+
+    <h3 class="flow" id="resale"><span class="g1">Din side</span>Resale</h3>
+    <ol class="steps">
+      <li>Har du en billet, du ikke skal bruge, kan du under <span class="chip">Resale</span> sætte den til salg med <span class="chip">Sæt til salg</span>, hvis det er tilladt for den billet.</li>
+      <li>Du kan også købe en billet, andre har sat til salg, med <span class="chip">Køb</span>. Det hele betales med Beats.</li>
+    </ol>
+
+    <h3 class="flow" id="kontrakt"><span class="g1">Din side</span>Kontrakt</h3>
+    <ol class="steps">
+      <li>Under <span class="chip">Kontrakt</span> ser du din kontrakt med <span class="chip">Se kontrakt</span> og skriver under med <span class="chip">Underskriv kontrakt</span>.</li>
+      <li>Her ser du også din løn-status, altså om dit CPR og din adresse er på plads. Er noget grå, så gør din profil færdig.</li>
+    </ol>
+
+    <h3 class="flow" id="app"><span class="g1">Din side</span>Log ind i app'en</h3>
+    <p class="ctx">Dine billetter og beats følger med i festival-app'en. Log ind på samme måde som i webticket'en.</p>
+    <ol class="steps">
+      <li>Hent festival-app'en, og vælg <span class="chip">Log ind</span>.</li>
+      <li>Brug <span class="chip">MitID</span> eller <span class="chip">e-mail og engangskode</span>, den samme konto som i webticket'en.</li>
+      <li>Nu har du dine billetter, dit armbånd og dine beats i lommen.</li>
+    </ol>
+    <div class="note">Du kan kun se og bruge dine egne billetter og beats. Det er din <b>leder</b>, der deler adgange og beats ud. Mangler du noget, så sig til din leder.</div>
+
+    <div class="footer">LiveCloud · Ringsted Festival. Guide til medarbejder i webticket. Skærmene svarer til den rigtige webticket, og knapperne står i grå.</div>
+  </main>
+</div>
+<script src="../guide-enhance.js"></script></body>
+</html>

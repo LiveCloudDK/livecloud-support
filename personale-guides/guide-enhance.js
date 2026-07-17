@@ -15,7 +15,9 @@
     'honorar-og-beats.html', 'virksomhedsejer-bodejer-webticket.html'
   ];
   var page = (location.pathname.split('/').pop() || 'index.html');
-  var isExternal = EXTERNAL.indexOf(page) !== -1;
+  var isExternal = EXTERNAL.indexOf(page) !== -1 ||
+    location.pathname.indexOf('/webticket/') !== -1 ||
+    /\/webticket\/?$/.test(location.pathname);
 
   var css = document.createElement('style');
   css.textContent = [
@@ -96,6 +98,9 @@
   }
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(function () {});
+    var sc = document.currentScript;
+    var swUrl = 'sw.js';
+    try { if (sc && sc.src) swUrl = new URL('sw.js', sc.src).pathname; } catch (e) {}
+    navigator.serviceWorker.register(swUrl).catch(function () {});
   }
 })();

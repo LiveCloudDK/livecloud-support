@@ -249,23 +249,31 @@
     </ol>
     <div class="note"><b>Kun midlertidigt udsolgt?</b> Brug <span class="chip">Udsolgt</span> i stedet for at slette. Så beholder du varen (pris, billede, lager) og kan sætte den <span class="chip">Til salg</span> igen med ét tryk.</div>
 
-    <div class="pbanner o" style="background:linear-gradient(100deg,#6d28d9,#4c1d95)"><div class="av">🧾</div><div><div class="who">Salg</div><h2>Følg dit salg</h2><p>Se bodens salg og træk en CSV til regnskabet.</p></div></div>
+    <div class="pbanner o" style="background:linear-gradient(100deg,#6d28d9,#4c1d95)"><div class="av">🧾</div><div><div class="who">Salg</div><h2>Følg dit salg</h2><p>Hold øje med bestillingerne, tryk Udlever når gæsten har fået sine varer, og træk en CSV til regnskabet.</p></div></div>
 
-    <h3 class="flow" id="salg"><span class="g1">Salg</span>Se salg og eksportér</h3>
-    <p class="ctx">Under <span class="chip">Bod</span> → <span class="chip">Salg</span> ser du bodens salg med <span class="chip">Tidspunkt</span>, <span class="chip">Beskrivelse</span>, <span class="chip">Gæst</span> og <span class="chip">Beløb</span>. Tryk <span class="chip">Eksportér CSV</span> for at hente en fil til regnskabet.</p>
+    <h3 class="flow" id="salg"><span class="g1">Salg</span>Følg bestillinger og udlevér</h3>
+    <p class="ctx">Under <span class="chip">Bod</span> → <span class="chip">Salg</span> kan skærmen bruges ved disken: Nye bestillinger lander under <span class="chip">I gang</span> med tidspunkt, varer, gæst og beløb. Når gæsten har fået sine varer, trykker du den grønne <span class="chip">Udlever</span>, og ordren flytter ned under <span class="chip">Udleveret</span>. Kom du til at trykke forkert, bruger du <span class="chip">Fortryd</span> på ordren.</p>
     <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">webticket.ringstedfestival.dk/vendor/sales</span></div>
       <div class="wtapp"><div class="wtmain" style="grid-column:1 / -1">
-        <div class="wth"><div><h5>Salg</h5><p>Bodens salg og transaktioner.</p></div><div class="act"><span class="wtbtn">Eksportér CSV</span></div></div>
+        <div class="wth"><div><h5>Salg</h5><p>Bodens bestillinger og transaktioner.</p></div><div class="act"><span class="wtbtn">Eksportér CSV</span></div></div>
         <div class="wtcard">
-          <div class="wtrow" style="font-weight:700;color:#71717a;font-size:10px;text-transform:uppercase"><div class="tk">Tidspunkt</div><div class="assign"><span>Beskrivelse</span><span>Gæst</span><span>Beløb</span></div></div>
-          <div class="wtrow"><div class="tk">12:34<small>i dag</small></div><div class="assign"><span class="wtin">Fadøl 0,4</span><span class="wtin">Anna J.</span><span class="wtin">45</span></div></div>
-          <div class="wtrow"><div class="tk">12:31<small>i dag</small></div><div class="assign"><span class="wtin">Pommes frites</span><span class="wtin">Mads K.</span><span class="wtin">35</span></div></div>
+          <div class="wtrow" style="font-weight:700;color:#71717a;font-size:10px;text-transform:uppercase"><div class="tk">I gang (2)</div><div class="assign"></div></div>
+          <div class="wtrow"><div class="tk">12:34<small>Fadøl 0,4 · 2 stk</small></div><div class="assign"><span class="wtin">Anna J.</span><span class="wtin">90</span><span class="wtbtn" style="background:#16a34a;border-color:#16a34a;color:#fff;font-weight:700">Udlever</span></div></div>
+          <div class="wtrow"><div class="tk">12:31<small>Pommes frites</small></div><div class="assign"><span class="wtin">Mads K.</span><span class="wtin">35</span><span class="wtbtn" style="background:#16a34a;border-color:#16a34a;color:#fff;font-weight:700">Udlever</span></div></div>
+        </div>
+        <div class="wtcard" style="margin-top:10px">
+          <div class="wtrow" style="font-weight:700;color:#71717a;font-size:10px;text-transform:uppercase"><div class="tk">Udleveret (1)</div><div class="assign"></div></div>
+          <div class="wtrow" style="opacity:.75"><div class="tk">12:28<small>Fadøl 0,4</small></div><div class="assign"><span class="wtin">Sofie L.</span><span class="wtin">45</span><span class="wtbtn">Fortryd</span></div></div>
         </div>
       </div></div></div>
     <ol class="steps">
-      <li>Vælg <span class="chip">Bod</span> → <span class="chip">Salg</span>. Du ser bodens salg med tidspunkt, beskrivelse, gæst og beløb.</li>
+      <li>Vælg <span class="chip">Bod</span> → <span class="chip">Salg</span>, og lad skærmen stå fremme ved disken. Bestillinger ligger under <span class="chip">I gang</span> med tidspunkt, varer, gæst og beløb.</li>
+      <li>Når gæsten har fået sine varer: tryk <span class="chip">Udlever</span> på ordren. Den flytter til <span class="chip">Udleveret</span>, så I kan se hvad der mangler.</li>
+      <li>Trykkede du forkert: tryk <span class="chip">Fortryd</span> på ordren under <span class="chip">Udleveret</span>, så ryger den tilbage til <span class="chip">I gang</span>.</li>
+      <li>Genindlæs siden for at hente nye bestillinger ind.</li>
       <li>Tryk <span class="chip">Eksportér CSV</span> for at hente en fil, fx til bogholderi eller afregning.</li>
     </ol>
+    <div class="note"><span class="chip">Udlever</span>-markeringen er en tjekliste på <b>den her skærm</b>: den huskes lokalt på enheden og ændrer ikke selve ordren. Bruger I flere telefoner/skærme ved disken, kan de ikke se hinandens markeringer, så hold udleveringen på én skærm.</div>
     <div class="tip">Salget kommer løbende fra kassen på pladsen. CSV'en er et øjebliksbillede, du kan give videre til regnskab.</div>
 
     <div class="pbanner b" style="background:linear-gradient(100deg,#0e7490,#155e75)"><div class="av">🛠️</div><div><div class="who">Bod-info</div><h2>Din bods stamdata</h2><p>Kontakt, drift, fakturering og udbetaling samlet ét sted, og synkronisering til kassen.</p></div></div>

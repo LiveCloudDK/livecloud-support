@@ -7,7 +7,6 @@
   if (window.__lcGuide) return;
   window.__lcGuide = 1;
 
-  var MAIL = 'support@livecloud.dk', TEL = '+4593104585', PHONE = '93 10 45 85';
 
   var EXTERNAL = [
     'omraadeleder.html', 'medarbejder.html', 'artist-manager.html',
@@ -60,9 +59,7 @@
   } else {
     bar.innerHTML =
       '<span class="lbl">Brug for hjælp?</span>' +
-      '<a href="mailto:' + MAIL + '">✉ ' + MAIL + '</a>' +
-      '<span class="sep">·</span>' +
-      '<a href="tel:' + TEL + '">☎ ' + PHONE + '</a>' +
+      '<span>Gå til Kundeservice, eller din områdeleder: Ole (barer &amp; boder) eller Bjarne (gates).</span>' +
       '<button type="button" id="lcPrint" title="Print eller gem som PDF">🖨 Hent som PDF</button>';
   }
   document.body.appendChild(bar);

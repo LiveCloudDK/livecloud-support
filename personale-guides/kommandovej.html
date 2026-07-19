@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Kommandovej · Ringsted Festival 2026</title>
+<style>
+  :root{
+    --bg:#f4f4f6; --paper:#ffffff; --ink:#16161a; --mid:#45454d; --muted:#75757e;
+    --line:#e6e6ea; --hair:#d7d7dd;
+    --gate:#1f8a4c; --gate-bg:#ecfdf3;
+    --pos:#c2620e; --pos-bg:#fdf3ea;
+    --svc:#0f766e; --svc-bg:#effcf9;
+    --akk:#7c3aed; --akk-bg:#f5f0fe;
+    --lc:#2563eb; --lc-bg:#eff4ff;
+    --warn:#be123c; --warn-bg:#fff1f3;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;
+    -webkit-font-smoothing:antialiased;padding:26px 18px 64px}
+  .wrap{max-width:940px;margin:0 auto}
+  .back{display:inline-block;color:var(--muted);text-decoration:none;font-size:13.5px;margin-bottom:14px}
+  .back:hover{color:var(--ink)}
+
+  .sheet{background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    padding:30px 32px 26px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  h1{font-size:28px;line-height:1.15;margin:6px 0 6px;letter-spacing:-.01em}
+  .lede{font-size:15.5px;color:var(--mid);max-width:640px}
+
+  .rule{margin:20px 0 24px;background:var(--warn-bg);border:1px solid #f6c6d1;border-radius:12px;
+    padding:16px 18px;display:flex;gap:13px;align-items:flex-start}
+  .rule .ic{font-size:22px;line-height:1;flex-shrink:0}
+  .rule b{color:var(--warn)}
+  .rule p{font-size:15px;color:var(--ink);margin:0}
+
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);margin:26px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+
+  .owners{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .owner{border:1px solid var(--line);border-radius:12px;padding:14px 15px;background:var(--paper)}
+  .owner .top{display:flex;align-items:center;gap:9px;margin-bottom:5px}
+  .owner .em{font-size:19px;line-height:1}
+  .owner .area{font-weight:700;font-size:15.5px}
+  .owner .lead{font-family:var(--mono);font-size:12px;padding:2px 8px;border-radius:20px;font-weight:600;margin-left:auto}
+  .owner p{font-size:13.5px;color:var(--mid);margin:0}
+  .owner.gate{background:var(--gate-bg)} .owner.gate .lead{background:#d6f3e1;color:var(--gate)}
+  .owner.pos{background:var(--pos-bg)} .owner.pos .lead{background:#fbe3cd;color:var(--pos)}
+  .owner.svc{background:var(--svc-bg)} .owner.svc .lead{background:#c8f0e8;color:var(--svc)}
+  .owner.akk{background:var(--akk-bg)} .owner.akk .lead{background:#e7dbfb;color:var(--akk)}
+
+  table.matrix{width:100%;border-collapse:collapse;font-size:14px}
+  table.matrix th{text-align:left;font-size:12px;font-family:var(--mono);letter-spacing:.04em;
+    text-transform:uppercase;color:var(--muted);padding:0 12px 8px;font-weight:600}
+  table.matrix td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+  table.matrix td:first-child{color:var(--ink);width:52%}
+  table.matrix td:last-child{color:var(--mid);font-weight:600}
+  table.matrix tr.warn td:last-child{color:var(--warn)}
+
+  .ladder{display:grid;gap:9px}
+  .step{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+  .step .n{width:26px;height:26px;border-radius:50%;background:var(--lc-bg);color:var(--lc);
+    font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--mono)}
+  .step .t{font-size:14px}
+  .step .t b{display:block;font-size:14.5px;margin-bottom:1px}
+  .step .t span{color:var(--mid)}
+
+  .lcrow{margin-top:12px;background:var(--lc-bg);border:1px solid #cfe0fb;border-radius:12px;padding:13px 16px}
+  .lcrow .h{font-weight:700;font-size:14px;color:var(--lc);margin-bottom:6px}
+  .lcrow .pts{display:flex;flex-wrap:wrap;gap:6px 8px}
+  .lcrow .pt{font-size:13px;background:#fff;border:1px solid #cfe0fb;border-radius:20px;padding:3px 11px;color:var(--ink)}
+  .lcrow .pt b{color:var(--lc)}
+
+  .foot{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .foot .note{font-size:13px;color:var(--muted);max-width:640px}
+  .foot .note b{color:var(--ink)}
+  .stamp{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:14px;text-align:right}
+
+  .printbtn{position:fixed;right:16px;bottom:16px;z-index:50;background:var(--ink);color:#fff;border:0;
+    border-radius:999px;padding:11px 18px;font:600 14px var(--sans);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.22)}
+
+  @media (max-width:640px){
+    .owners{grid-template-columns:1fr}
+    .sheet{padding:22px 18px}
+    h1{font-size:24px}
+    table.matrix td:first-child{width:auto}
+  }
+  @media print{
+    body{background:#fff;padding:0}
+    .back,.printbtn{display:none !important}
+    .sheet{border:0;box-shadow:none;border-radius:0;padding:0}
+    .owner,.step,.rule,.lcrow{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">&larr; Alle personale-guides</a>
+
+  <div class="sheet">
+    <div class="eyebrow">Ringsted Festival 2026 · til alle ansvarlige</div>
+    <h1>Kommandovej: hvem kontakter du om hvad</h1>
+    <p class="lede">Ét ark til alle områdeansvarlige på festivalen. Det viser, hvem der ejer hvad, og hvordan en sag flyder fra gæst til den rette hånd.</p>
+
+    <div class="rule">
+      <span class="ic">🚦</span>
+      <p><b>Grundreglen:</b> gæster og medarbejdere taler aldrig direkte med LiveCloud. Alt går gennem festivalens egne teams, som løser det på stedet eller sender det videre.</p>
+    </div>
+
+    <h2>De fire indgange · hvem ejer hvad</h2>
+    <div class="owners">
+      <div class="owner gate">
+        <div class="top"><span class="em">🎫</span><span class="area">Gates &amp; adgang</span><span class="lead">Bjarne</span></div>
+        <p>Indgang, scanning og gate-flow. Billetter der ikke kan scannes, adgangs-tvivl, kø-styring.</p>
+      </div>
+      <div class="owner pos">
+        <div class="top"><span class="em">🍺</span><span class="area">Barer, boder &amp; POS</span><span class="lead">Ole</span></div>
+        <p>Kasse-appen, Beats-betaling og udlevering. Alt salg ved barer og madboder.</p>
+      </div>
+      <div class="owner svc">
+        <div class="top"><span class="em">🎧</span><span class="area">Kundeservice</span><span class="lead">Informationen · gate 4</span></div>
+        <p>Alle gæste- og personalehenvendelser: app, login, billetter, Beats, Wallet og kvitteringer.</p>
+      </div>
+      <div class="owner akk">
+        <div class="top"><span class="em">🎟️</span><span class="area">Akkreditering</span><span class="lead">Akkrediteringsvognen</span></div>
+        <p>Medarbejder-registrering, medarbejder-armbånd og adgange. Check-in af personale.</p>
+      </div>
+    </div>
+
+    <h2>Kontakt-matrix · situation &rarr; hvem</h2>
+    <table class="matrix">
+      <tr><th>Situation</th><th>Gå til</th></tr>
+      <tr><td>Billet kan ikke scannes, eller gate-flowet driller</td><td>Gate-ansvarlig (Bjarne)</td></tr>
+      <tr><td>Gæst-app: login, billet, Beats, Wallet, kvittering</td><td>Kundeservice (Informationen)</td></tr>
+      <tr><td>Kasse eller POS driller ved en bar eller bod</td><td>Bar/bod-ansvarlig (Ole)</td></tr>
+      <tr><td>Terminal er død eller væk</td><td>Byt fra spare-puljen · LiveCloud-support verificerer</td></tr>
+      <tr><td>Penge-sag: dobbelttræk eller forkert beløb</td><td>Log det · områdeleder · LiveCloud backend retter</td></tr>
+      <tr><td>Medarbejder-armbånd, registrering eller adgange</td><td>Akkrediteringsvognen</td></tr>
+      <tr><td>Akut teknik der stopper salg eller indgang</td><td>Kommandocentralen</td></tr>
+      <tr class="warn"><td>Sikkerhed, crowd, mistet barn, ulykke eller brand</td><td>Festivalens beredskab (ikke LiveCloud)</td></tr>
+    </table>
+
+    <h2>Eskaleringstrappen</h2>
+    <div class="ladder">
+      <div class="step"><span class="n">1</span><span class="t"><b>Gæst eller medarbejder</b><span>Henvender sig til festivalens frontlinje: gate, bar/bod eller Informationen.</span></span></div>
+      <div class="step"><span class="n">2</span><span class="t"><b>Frontlinje &rarr; områdeleder</b><span>Kan det ikke løses på stedet, går det til den ansvarlige: Bjarne, Ole eller Kundeservice.</span></span></div>
+      <div class="step"><span class="n">3</span><span class="t"><b>Områdeleder &rarr; LiveCloud</b><span>Er det teknik eller system, tager områdelederen fat i LiveCloud via den embedded supporter eller Kommandocentralen.</span></span></div>
+      <div class="step"><span class="n">4</span><span class="t"><b>LiveCloud 1. linje &rarr; 2. linje</b><span>Den embedded supporter løser eller sender dybe sager til backend og beslutninger.</span></span></div>
+    </div>
+
+    <div class="lcrow">
+      <div class="h">LiveCloud på pladsen · din tekniske indgang</div>
+      <div class="pts">
+        <span class="pt"><b>Informationen</b> · Simon</span>
+        <span class="pt"><b>Gates &amp; terminaler</b> · Mikkel</span>
+        <span class="pt"><b>Hos Bjarne &amp; Informationen</b> · Edwin</span>
+        <span class="pt"><b>Backend &amp; beslutninger</b> · Tony &amp; Jakob</span>
+      </div>
+    </div>
+
+    <div class="foot">
+      <p class="note"><b>Direkte telefonnumre</b> står på dit kontaktkort, ikke på dette ark. Akut teknik der stopper salg eller indgang: gå til <b>Kommandocentralen</b>. Sikkerhed går altid til festivalens eget beredskab.</p>
+    </div>
+    <div class="stamp">Ringsted Festival 2026 · LiveCloud · kommandovej</div>
+  </div>
+</div>
+
+<button class="printbtn" type="button" onclick="window.print()">🖨 Hent som PDF</button>
+</body>
+</html>

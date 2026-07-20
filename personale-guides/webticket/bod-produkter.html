@@ -118,6 +118,8 @@
       <a href="#slet">Slet et produkt</a>
       <div class="g">Salg</div>
       <a href="#salg">Følg bestillinger og udlevér</a>
+      <div class="g">Billetter</div>
+      <a href="#billetter">Uddel billetter til dine folk</a>
       <div class="g">Bod-info</div>
       <a href="#info">Kontakt, drift og udbetaling</a>
       <a href="#terminaler">Terminaler og synkronisering</a>
@@ -127,7 +129,7 @@
     <section id="intro">
       <div class="eyebrow">Guide · du driver en bod i webticket</div>
       <h1>Bod: sæt din bod op i webticket</h1>
-      <p class="lede">Du styrer selv din bod i webticket'en: opret <b>varer</b>, sæt pris og lager, upload billeder, markér udsolgt, sortér til kassen, følg salget under <b>Salg</b>, og udfyld bodens stamdata under <b>Bod-info</b>. Det hele ligger i venstremenuen under <span class="chip">Bod</span>. Knap-navne står i grå, fx <span class="chip">Tilføj produkt</span>.</p>
+      <p class="lede">Du styrer selv din bod i webticket'en: opret <b>varer</b>, sæt pris og lager, upload billeder, markér udsolgt, sortér til kassen, følg salget under <b>Salg</b>, uddel adgange til dine folk under <b>Billetter</b>, og udfyld bodens stamdata under <b>Bod-info</b>. Det hele ligger i venstremenuen under <span class="chip">Bod</span>. Knap-navne står i grå, fx <span class="chip">Tilføj produkt</span>.</p>
       <hr class="rule">
       <div class="cards">
         <a class="gcard" href="#opret"><span class="em">➕</span><b>Opret produkt</b><small>Navn, pris, startlager</small></a>
@@ -274,6 +276,30 @@
     </ol>
     <div class="note"><span class="chip">Udlever</span>-markeringen er en tjekliste på <b>den her skærm</b>: den huskes lokalt på enheden og ændrer ikke selve ordren. Bruger I flere telefoner/skærme ved disken, kan de ikke se hinandens markeringer, så hold udleveringen på én skærm.</div>
     <div class="tip">Salget kommer løbende fra kassen på pladsen. CSV'en er et øjebliksbillede, du kan give videre til regnskab.</div>
+
+    <div class="pbanner o" style="background:linear-gradient(100deg,#be185d,#831843)"><div class="av">🎟️</div><div><div class="who">Billetter</div><h2>Giv dine folk adgang</h2><p>Uddel de armbånd og billetter, festivalen har tildelt din bod, til dine medarbejdere.</p></div></div>
+
+    <h3 class="flow" id="billetter"><span class="g1">Billetter</span>Uddel billetter til dine folk</h3>
+    <p class="ctx">Ud over de <b>varer</b> du sælger, får din bod tildelt <b>adgange</b> (armbånd/billetter) til dine medarbejdere. Dem uddeler du selv fra webticket'en, så hver medarbejder får sin adgang på sin egen telefon.</p>
+    <div class="frame"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">Webticket · Billetter</span></div>
+      <div class="wtapp"><div class="wtmain" style="grid-column:1 / -1">
+        <div class="wth"><div><h5>Billetter</h5><p>Adgange festivalen har tildelt din bod.</p></div><div class="act"><span class="wtbtn">Tildel alle til mig</span></div></div>
+        <div class="wtcard">
+          <div class="wtrow" style="font-weight:700;color:#71717a;font-size:10px;text-transform:uppercase"><div class="tk">Billet</div><div class="assign"><span>Navn</span><span>E-mail</span><span>Status</span></div></div>
+          <div class="wtrow"><div class="tk">Crew-armbånd</div><div class="assign"><span class="wtin">Anna J.</span><span class="wtin">anna@…</span><span class="wtpill ok">Fordelt</span><span class="wtbtn">Tilbagekald</span></div></div>
+          <div class="wtrow"><div class="tk">Crew-armbånd</div><div class="assign"><span class="wtin">Mads K.</span><span class="wtin" style="color:#71717a">E-mail</span><span class="wtpill ok">Tildelt</span><span class="wtbtn">Vis passes</span></div></div>
+          <div class="wtrow"><div class="tk">Crew-armbånd</div><div class="assign"><span class="wtin" style="color:#71717a">Navn</span><span class="wtin" style="color:#71717a">E-mail</span><span class="wtpill">Tilgængelig</span><span class="wtbtn" style="background:#4f46e5;border-color:#4f46e5;color:#fff;font-weight:700">Tildel</span></div></div>
+        </div>
+      </div></div></div>
+    <ol class="steps">
+      <li>Log ind i webticket'en med <span class="chip">MitID</span> eller <span class="chip">E-mailkode</span>. Første gang beder vi om dit telefonnummer.</li>
+      <li>Åbn dine <b>tildelte billetter</b> i venstremenuen. Her ligger de adgange (armbånd/billetter), festivalen har lagt til din bod.</li>
+      <li>Find en billet med status <span class="chip">Tilgængelig</span>. Skriv medarbejderens <span class="chip">Navn</span> og <span class="chip">E-mail</span> (anbefalet) i rækken.</li>
+      <li>Tryk <span class="chip">Tildel</span>. Med e-mail bliver status <span class="chip">Fordelt</span>, og medarbejderen får et <b>hente-link</b> på mail. Kun med navn viser rækken <span class="chip">Tildelt</span>, og QR-koden ligger under <span class="chip">Vis passes</span>, som du kan vise eller printe.</li>
+      <li>Når medarbejderen har hentet billetten på sin telefon, skifter status til <span class="chip">Hentet</span>.</li>
+    </ol>
+    <div class="tip">Holder du selv armbåndene? Tryk <span class="chip">Tildel alle til mig</span>, så navngives billetterne automatisk (Gæst 1, Gæst 2 …) og er klar til at scanne på et armbånd.</div>
+    <div class="note"><b>Rettelser:</b> En forkert tildeling frigives med <span class="chip">Tilbagekald</span>. Er hente-linket væk, sender du det igen med <span class="chip">Send invitation</span>. <b>Bemærk:</b> det her handler om <b>adgang</b> til dine folk, ikke om de <b>varer</b> du sælger i boden. Se den fulde guide <a href="virksomhedsejer-bodejer-webticket.html">Bodejer: webticket</a> for detaljer.</div>
 
     <div class="pbanner b" style="background:linear-gradient(100deg,#0e7490,#155e75)"><div class="av">🛠️</div><div><div class="who">Bod-info</div><h2>Din bods stamdata</h2><p>Kontakt, drift, fakturering og udbetaling samlet ét sted, og synkronisering til kassen.</p></div></div>
 

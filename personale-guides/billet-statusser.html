@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Billet-statusser: hvad betyder de?</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --green:#2563eb;--green-d:#1d4ed8;--green-bg:#eff6ff;--green-line:#bfdbfe;
+    --red:#c92835;--red-bg:#fef2f2;--red-line:#fecaca;--orange:#d97706;--orange-bg:#fff7ed;--orange-line:#fed7aa;
+    --grey:#5a6475;--grey-bg:#f4f4f5;--grey-line:#e4e4e7;--amber:#b45309;--amber-bg:#fffbeb;
+    --blue:#0a5cff;--gold:#ffad00;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  aside .back{display:block;color:var(--muted);text-decoration:none;font-size:12px;margin-bottom:8px}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--green);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-bg);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .status{display:inline-block;font-weight:800;color:#fff;border-radius:7px;padding:2px 10px;font-size:13px;white-space:nowrap}
+  .s-udstedt{background:#5a6475}.s-dist{background:#d97706}.s-hentet{background:#1f9d55}.s-ind{background:#1d4ed8}.s-over{background:#7c3aed}.s-spaer{background:#c92835}
+  table.qref{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  table.qref th,table.qref td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.qref th{background:#fafafa;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#52525b}
+  table.qref tr:last-child td{border-bottom:none}table.qref td b{color:#18181b}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:var(--green-bg);border:1px solid var(--green-line);color:#1e40af;border-radius:11px;padding:12px 15px;margin:12px 0;font-size:14.5px}
+  .stop{background:var(--red-bg);border:1px solid var(--red-line);color:#991b1b;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.stop b{color:#7f1d1d}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:24px 18px 80px}}
+  @media print{@page{margin:14mm}html{scroll-behavior:auto}body{background:#fff;font-size:11.5pt}aside{display:none !important}.layout{display:block;max-width:none;margin:0}main{padding:0}.chip,.note,.tip,.stop,table.qref{box-shadow:none !important}.pbanner,.note,.tip,.stop,ol.steps li,table.qref{break-inside:avoid}h1,h2,h3.flow,.pbanner{break-after:avoid}.pbanner{-webkit-print-color-adjust:exact;print-color-adjust:exact}a{color:inherit;text-decoration:none}}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f766e"></head>
+<body>
+<div class="layout">
+  <aside>
+    <a class="back" href="index.html">&larr; Alle personale-guides</a>
+    <div class="brand"><div class="lg">🎟️</div><div><b>Billet-statusser</b><small>Til Bjarne &amp; Oles teams</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Kort fortalt</a>
+      <div class="g">Sådan gør du</div>
+      <a href="#betyder">Hvad statusserne betyder</a>
+      <a href="#ikke-ind">Når en gæst ikke kan komme ind</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="eyebrow">Ringsted Festival 2026 · support</div>
+    <h1 id="intro">Billet-statusser: hvad betyder de?</h1>
+    <p class="lede">Så I hurtigt kan se, hvor en billet er henne, og hvad I skal gøre. Én ting er vigtig: en billet er først brugbar, når den er <b>hentet/aktiveret</b> på en persons profil.</p>
+    <hr class="rule" />
+
+    <div class="tip"><b>Grundregel:</b> billetten skal hentes/aktiveres i appen, før den virker. Indtil da ligger den bare og venter, den kan ikke scannes ind.</div>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#1d4ed8,#1e3a8a)"><div class="av">🎟️</div><div><div class="who">Sådan gør du</div><h2>Hvad statusserne betyder</h2><p>Find statussen, læs hvad den betyder, og hvad du gør.</p></div></div>
+
+    <table class="qref" id="betyder">
+      <tr><th>Status</th><th>Hvad betyder det</th><th>Hvad gør du</th></tr>
+      <tr><td><span class="status s-udstedt">Udstedt</span></td><td>Billetten er oprettet og tildelt (fx til en virksomhed eller modtager), men <b>ingen har hentet den på sin profil endnu</b>. Den findes, men er ikke aktiv hos en gæst.</td><td>Bed gæsten hente/aktivere den i appen.</td></tr>
+      <tr><td><span class="status s-dist">Under distribution</span></td><td>Billetten er sendt til modtageren (fx pr. mail/invitation) og <b>venter på at blive hentet</b>. Stadig ikke på nogens profil.</td><td>Bed gæsten åbne mailen/invitationen og hente billetten.</td></tr>
+      <tr><td><span class="status s-hentet">Hentet (aktiveret)</span></td><td>Modtageren har hentet/aktiveret billetten på <b>sin egen profil</b>. Nu er den en rigtig, brugbar billet bundet til den person, klar til scanning.</td><td>Skal bare scannes ved gaten. Scanner den ikke, så send videre til LiveCloud.</td></tr>
+      <tr><td><span class="status s-ind">Tjekket ind</span></td><td>Billetten er scannet ind ved en gate. Gæsten er inde (og kan tjekkes ud igen).</td><td>Intet, med mindre der er tvivl om ind/ud.</td></tr>
+      <tr><td><span class="status s-over">Overdraget</span></td><td>Billetten er sendt videre til en anden person. Den oprindelige ejer har ikke længere adgang med den.</td><td>Det er den nye ejer, der har den aktive billet.</td></tr>
+      <tr><td><span class="status s-spaer">Spærret / annulleret</span></td><td>Billetten er ikke længere gyldig.</td><td>Luk ikke ind på den. Ved tvivl: send til LiveCloud.</td></tr>
+    </table>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#b45309,#92400e)"><div class="av">🆘</div><div><div class="who">Når noget driller</div><h2>Når en gæst ikke kan komme ind</h2><p>Tjek statussen først, så ved du hvad der er galt.</p></div></div>
+
+    <ol class="steps" id="ikke-ind">
+      <li>Står billetten <span class="chip">Udstedt</span> eller <span class="chip">Under distribution</span> → den er <b>ikke aktiveret endnu</b>. Hjælp gæsten med at hente/aktivere den i appen.</li>
+      <li>Står den <span class="chip">Hentet / aktiveret</span>, men scanner ikke → det er teknik. <b>Send videre til LiveCloud.</b></li>
+      <li>Står den <span class="chip">Spærret / annulleret</span> → billetten er ikke gyldig. Luk ikke ind på tvivl.</li>
+    </ol>
+
+    <div class="stop"><b>Aldrig:</b> lov ikke refusioner eller udfald, og luk ikke nogen ind på tvivl. Verificér statussen først, og eskalér hvis den ikke stemmer.</div>
+
+    <div class="footer">Ringsted Festival 2026 · billet-statusser · til Bjarne &amp; Oles teams</div>
+  </main>
+</div>
+<script src="guide-enhance.js"></script>
+</body>
+</html>

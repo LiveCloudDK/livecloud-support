@@ -70,6 +70,7 @@
     <nav class="toc">
       <a href="#intro">Din opgave</a>
       <div class="g">Sådan gør du</div>
+      <a href="#fms">FMS · Terminal Handover</a>
       <a href="#station">Station i containeren</a>
       <a href="#bemanding">Bemanding & roller</a>
       <a href="#tid">Tidsplan & kapacitet</a>
@@ -89,7 +90,7 @@
       <p class="lede">I sidder i containerkontoret nær indgangen og udleverer <b>300 Zebra TC27-terminaler</b>: 260 til boder/vendors og 30 til scanning (vagter og operatører). Enhederne er <b>forparret og testet til Scanner-appen</b> på forhånd - bod-folk skal blot <b>logge ind i POS-appen og bekræfte</b> ved skranken. Hver udlevering registreres i <b>FMS · Terminal Handover</b>.</p>
       <div style="display:grid;gap:9px;margin:18px 0 4px;border:2px solid #16161a;border-radius:14px;padding:15px 17px;background:#fff">
         <div style="font:800 11.5px system-ui;letter-spacing:.09em;text-transform:uppercase;color:#71717a">⚡ Hurtig-beslutning</div>
-        <div style="display:flex;gap:11px;align-items:flex-start;font-size:15px"><span>🧾</span><span><b>Registrér altid i FMS først.</b> Enheden må ikke forlade skranken, før serienummeret står på modtageren i Terminal Handover.</span></div>
+        <div style="display:flex;gap:11px;align-items:flex-start;font-size:15px"><span>🧾</span><span><b>Registrér i FMS med det samme.</b> Vælg bod/gate, device-type (POS eller scanner), scan hver enheds-kode, og lad modtageren <b>underskrive</b> - så mailes udleveringssedlen automatisk.</span></div>
         <div style="display:flex;gap:11px;align-items:flex-start;font-size:15px"><span>🔐</span><span>Bod-folk skal <b>logge ind i POS-appen og bekræfte</b> ved login-bænken - ikke ved skranken, så køen kører.</span></div>
         <div style="display:flex;gap:11px;align-items:flex-start;font-size:15px"><span>🔋</span><span>Udlevér <b>kun opladede, testede enheder</b> (mål ≥ 80%). Aldrig fra opladnings-hylden.</span></div>
       </div>
@@ -102,6 +103,20 @@
       </div>
       <div class="note" style="margin-top:16px"><b>Kort om ugen.</b> Udleveringen åbner <b>tirsdag 28. juli</b> og fremefter. <b>Tirsdag og onsdag</b> er de travle bulk-dage, hvor det meste udleveres. <b>Torsdag til lørdag</b> er support: efternølere, bytte af defekte enheder og retur. Bekræft de daglige åbningstider med festivalkontoret og hæng dem på containerdøren.</div>
     </section>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#0f766e,#115e59)"><div class="av">📁</div><div><div class="who">Sådan gør du</div><h2>Sådan virker FMS · Terminal Handover</h2><p>Ét værktøj til det hele: bod, gate og station.</p></div></div>
+
+    <h3 class="flow" id="fms"><span class="g1">Sådan gør du</span>Sådan virker FMS · Terminal Handover</h3>
+    <p class="ctx">Alt registreres i FMS under <b>Operations → Terminal Handover</b> (Terminaludlevering). Kort om modellen, så tallene og trinnene giver mening:</p>
+    <ul class="plain">
+      <li><b>Tre modtager-typer:</b> en <b>bod</b> (POS-enheder), en <b>gate</b> (scanner-enheder), eller en fri <b>station</b> til roaming/servicedesk (kræver et navn/label).</li>
+      <li><b>Device-type:</b> hver udlevering er enten <b>POS</b> eller <b>scanner</b> - hver koblet til sin egen <b>Esper-gruppe</b>.</li>
+      <li><b>Én udlevering = flere enheder:</b> du <b>scanner en liste af enheds-koder</b> (antal tælles automatisk) og sætter en <b>modtager</b> (navn, evt. gæst-opslag + e-mail).</li>
+      <li><b>Underskrift = kvittering:</b> modtageren <b>underskriver på skærmen</b>, og FMS genererer en <b>udleveringsseddel (PDF)</b> og mailer den (kan gensendes). En udlevering er først <b>færdig, når den er underskrevet</b> - usignerede vises på dashboardet.</li>
+      <li><b>Planlægning:</b> <b>Forventet</b> antal pr. bod og pr. gate + <b>Beholdning</b> (fleet POS/scanner i alt) sættes i FMS på forhånd. Dashboardet viser POS ude, scanner ude, færdige (udleveret ≥ forventet & underskrevet) og usignerede.</li>
+      <li><b>Esper-opslag:</b> hver enheds-kode kan åbnes direkte i <b>Esper Console</b> fra udleveringen.</li>
+    </ul>
+    <div class="note"><b>Bemærk om retur.</b> FMS Terminal Handover registrerer i dag <b>kun udlevering</b> - der er <b>ingen indbygget "tjek-ind"/retur endnu</b>. Ved indsamling bruges de registrerede udleveringer som <b>udeståendeliste</b>, og fysisk retur krydses af på et <b>afstemnings-ark</b> + bekræftes via <b>Esper</b> (se <a href="#indsamling">Indsamling</a>). En egentlig hand-in-funktion er ved at blive scopet.</div>
 
     <div class="pbanner" style="background:linear-gradient(100deg,#0f766e,#115e59)"><div class="av">🏗️</div><div><div class="who">Sådan gør du</div><h2>Station i containeren</h2><p>Ét-vejs flow, så folk aldrig krydser tilbage gennem køen.</p></div></div>
 
@@ -162,22 +177,23 @@
 
     <h3 class="flow" id="udlevering"><span class="g1">Sådan gør du</span>Vendor / bod - trin for trin</h3>
     <ol class="steps">
-      <li><b>Verificér</b> at bod'en er ventet (kø-vært tjekker mod vendor-listen / bodnummer).</li>
-      <li><b>Hent en klar enhed</b> fra opladt/klar-hylden.</li>
-      <li><b>Registrér i FMS</b> (Terminal Handover): scan/indtast serienummeret på bod'en/bodnummeret. <b>Gør det, før enheden slipper din hånd.</b></li>
+      <li><b>Verificér</b> at bod'en er ventet (kø-vært tjekker mod bod-listen; boden har et <b>Forventet</b>-antal i FMS).</li>
+      <li><b>Hent klar enhed(er)</b> fra opladt/klar-hylden.</li>
+      <li><b>Registrér i FMS:</b> Terminal Handover → vælg <b>boden</b>, device-type <b>POS</b>, <b>scan hver enheds-kode</b> (antal tælles), og skriv <b>modtagerens navn</b> (+ evt. gæst-opslag / e-mail til kvittering).</li>
+      <li><b>Underskrift:</b> lad modtageren <b>underskrive på skærmen</b> - udleveringssedlen genereres og mailes automatisk. <b>Enheden slipper først hånden, når udleveringen er underskrevet.</b></li>
       <li><b>POS-login:</b> send bod'en til login-bænken, hvor de indtaster POS-loginet og <b>bekræfter</b>. Kontrollér at POS-appen viser logget-ind/klar.</li>
-      <li><b>Kort brief:</b> giv hurtig-guiden - opladning, hvem man ringer til, retur-tid/-sted, "byt aldrig enheder mellem boder".</li>
-      <li><b>Slip</b> bod'en ud ad udgangssiden.</li>
+      <li><b>Kort brief + slip:</b> giv hurtig-guiden (opladning, kontakt, retur-tid/-sted, "byt aldrig enheder mellem boder") og slip bod'en ud ad udgangssiden.</li>
     </ol>
     <div class="note"><b>Login-problemer?</b> Har bod'en ikke sit login, eller fejler det: park dem ved bænken, hold banen kørende, og løs det via POS-supportkontakten. Lad aldrig ét fastlåst login blokere køen.</div>
 
     <h3 class="flow"><span class="g1">Sådan gør du</span>Scanning (vagter / operatører)</h3>
     <ol class="steps">
-      <li><b>Verificér</b> rolle / vagtplacering.</li>
-      <li><b>Hent en scanning-enhed</b> og <b>registrér i FMS</b>.</li>
+      <li><b>Verificér</b> rolle / gate (gaten har et <b>Forventet scanner</b>-antal i FMS).</li>
+      <li><b>Registrér i FMS:</b> Terminal Handover → vælg <b>gaten</b>, device-type <b>scanner</b>, scan enheds-koden(e), skriv modtagerens navn, og lad modtageren <b>underskrive</b>.</li>
       <li><b>Bekræft</b> at Scanner-appen åbner på den rigtige gate/summit (den er forparret) - et 10-sekunders sanity-tjek.</li>
       <li><b>Slip</b> enheden.</li>
     </ol>
+    <div class="tip"><b>Spare til en roaming-supporter eller servicedesk?</b> Brug en <b>station</b>-udlevering (ikke bundet til bod/gate) og giv den et sigende navn/label i FMS.</div>
 
     <div class="pbanner" style="background:linear-gradient(100deg,#0f766e,#115e59)"><div class="av">🔋</div><div><div class="who">Sådan gør du</div><h2>Opladning & klargøring</h2><p>Kun opladede, testede enheder ud.</p></div></div>
 
@@ -195,41 +211,41 @@
 
     <h3 class="flow"><span class="g1">Lørdag</span>Rullende indsamling</h3>
     <ul class="plain">
-      <li><b>Boder afleverer, når de lukker.</b> Efterhånden som boder lukker salget, kommer bod-folk forbi containeren og afleverer terminalen. Tjek hver enhed ind i FMS, hurtigt fysisk tjek (skærm, batteri, skade), log POS ud, og sortér til <b>opladning</b>, <b>defekt</b> eller <b>pakket</b>.</li>
+      <li><b>Boder afleverer, når de lukker.</b> Efterhånden som boder lukker salget, kommer bod-folk forbi containeren og afleverer terminalen. <b>Kryds enheds-koden af på afstemnings-arket</b> (FMS har ingen tjek-ind endnu), hurtigt fysisk tjek (skærm, batteri, skade), log POS ud, og sortér til <b>opladning</b>, <b>defekt</b> eller <b>pakket</b>.</li>
       <li><b>Scanning-enheder er stadig i drift</b> til gatene lukker. Indsaml vagternes/operatørernes enheder <b>ved vagtslut / når gaten lukker</b> - ikke før.</li>
       <li><b>Roaming-indsamlere</b> (1-2) går rundt i de store bod-områder sidst på dagen og henter enheder ind, så efternølere ikke ender som "manglende".</li>
-      <li><b>Følg det udestående live i FMS.</b> Hæng retur-deadline og -sted tydeligt op, og send påmindelse til boder der ikke har afleveret.</li>
+      <li><b>Følg det udestående i FMS.</b> Terminal Handover viser alle <b>udleverede</b> enheds-koder pr. bod/gate - det er din <b>chase-liste</b>. Hæng retur-deadline og -sted tydeligt op, og send påmindelse til boder der ikke har afleveret.</li>
     </ul>
-    <div class="note"><b>Hold styr på tallet gennem hele lørdagen.</b> Afleveret + stadig-i-drift + udestående skal altid give 300. Enheder der ikke er tjekket ind ved dagens slut, ryger på lørdagens udeståendeliste, som søndag starter på.</div>
+    <div class="note"><b>Hold styr på tallet gennem hele lørdagen.</b> Afleveret + stadig-i-drift + udestående skal altid give 300. Enheder der ikke er krydset af ved dagens slut, ryger på lørdagens udeståendeliste, som søndag starter på.</div>
 
     <h3 class="flow"><span class="g1">Søndag</span>Nedtagning & fuld optælling</h3>
     <ol class="steps">
-      <li><b>Fuld afstemning i FMS:</b> udleveret vs. returneret. Generér <b>udeståendelisten</b> - alt der endnu ikke er tjekket ind.</li>
-      <li><b>Jagt det manglende</b> via sidst-registrerede modtager/bodnummer i FMS. Ring/gå ud; eskalér til områdeleder / kommandocentralen for det der ikke dukker op.</li>
-      <li><b>Endeligt fysisk QA:</b> sortér defekte/beskadigede fra, notér serienumre til leverandør/Esper.</li>
+      <li><b>Træk udeståendelisten:</b> alle <b>udleverede</b> enheds-koder fra FMS (pr. bod/gate/station) minus det, der er krydset af som afleveret på afstemnings-arket = stadig ude.</li>
+      <li><b>Jagt det manglende</b> via modtager/bod på udleveringen i FMS (navn + evt. e-mail står på udleveringssedlen). Ring/gå ud; eskalér til områdeleder / kommandocentralen for det der ikke dukker op.</li>
+      <li><b>Endeligt fysisk QA:</b> sortér defekte/beskadigede fra, notér enheds-koder til leverandør/Esper.</li>
       <li><b>Log POS ud</b> på alt, bulk-oplad / sluk, og pak i kasser efter optælling.</li>
-      <li><b>Esper-tjek:</b> bekræft at alle enheder er tilbage i managed inventory / rigtig blueprint; markér alt der ikke er tjekket ind som tabt.</li>
-      <li><b>Sign-off:</b> hold-leder bekræfter den endelige optælling (<b>returneret + defekt + manglende = 300</b>) og overdrager til opbevaring / logistik.</li>
+      <li><b>Esper-tjek (digital retur-kvittering):</b> bekræft at enhederne er tilbage i deres <b>managed gruppe / inventory</b>; enheds-koder der stadig er tildelt men ikke fysisk afleveret markeres som tabt.</li>
+      <li><b>Sign-off:</b> hold-leder bekræfter den endelige optælling (<b>afleveret + defekt + manglende = 300</b>) og overdrager til opbevaring / logistik.</li>
     </ol>
     <table class="qref">
       <tr><th>Rolle (weekend)</th><th>Ansvar</th></tr>
-      <tr><td><b>Indsamlings-leder</b></td><td>Ejer FMS-afstemningen og den endelige optælling; sign-off søndag.</td></tr>
-      <tr><td><b>Skranke-check-in</b></td><td>Tjekker enheder ind i FMS, fysisk tjek, POS-logout, sortering.</td></tr>
+      <tr><td><b>Indsamlings-leder</b></td><td>Ejer afstemningen (FMS-udeståendeliste + afstemnings-ark) og den endelige optælling; sign-off søndag.</td></tr>
+      <tr><td><b>Skranke-modtag</b></td><td>Modtager afleveringer, krydser enheds-koder af på afstemnings-arket, fysisk tjek, POS-logout, sortering.</td></tr>
       <tr><td><b>Roaming-indsamlere</b></td><td>Henter enheder i bod-områderne lørdag; jagter manglende søndag.</td></tr>
       <tr><td><b>Pakning</b></td><td>Oplader, slukker og pakker i kasser efter optælling.</td></tr>
     </table>
-    <div class="stop"><b>Ingen enhed forlader kontoen uafsluttet.</b> Hver aflevering tjekkes ind i FMS med det samme - ellers tæller den som udestående. Manglende enheder søndag aften meldes med serienummer + sidste modtager til områdeleder / kommandocentralen.</div>
+    <div class="stop"><b>Ingen enhed forlader kontoen uafsluttet.</b> Hver aflevering krydses af på afstemnings-arket med det samme (FMS registrerer kun udlevering, ikke retur). Manglende enheder søndag aften meldes med enheds-kode + modtager (fra FMS-udleveringen) til områdeleder / kommandocentralen.</div>
 
-    <div class="pbanner" style="background:linear-gradient(100deg,#4b515e,#3f3f46)"><div class="av">🔁</div><div><div class="who">Når noget går galt</div><h2>Retur, bytte & support</h2><p>Registrér altid begge bevægelser i FMS.</p></div></div>
+    <div class="pbanner" style="background:linear-gradient(100deg,#4b515e,#3f3f46)"><div class="av">🔁</div><div><div class="who">Når noget går galt</div><h2>Retur, bytte & support</h2><p>Ved bytte: ret enheds-koderne på udleveringen i FMS.</p></div></div>
 
     <h3 class="flow" id="retur"><span class="g1">Når noget går galt</span>Situationer</h3>
     <div class="catgrid">
-      <div class="cat ok"><div class="ch">✓ Retur (tor-lør + teardown)</div><div class="cb"><p>Tjek enheden ind igen i FMS. Hurtigt fysisk tjek (skærm, batteri, skade), log POS ud hvis krævet, og læg på oplader-hylden eller defekt-hylden.</p></div></div>
-      <div class="cat retry"><div class="ch">↻ Fladt batteri</div><div class="cb"><p>Byt fra spare-puljen. Registrér begge bevægelser i FMS (returnér den flade, udlevér spare), og sæt den flade til opladning.</p></div></div>
+      <div class="cat ok"><div class="ch">✓ Retur (tor-lør + teardown)</div><div class="cb"><p>Kryds enheds-koden af på afstemnings-arket (FMS har ingen tjek-ind). Hurtigt fysisk tjek (skærm, batteri, skade), log POS ud hvis krævet, og læg på oplader-hylden eller defekt-hylden.</p></div></div>
+      <div class="cat retry"><div class="ch">↻ Fladt batteri / bytte</div><div class="cb"><p>Byt fra spare-puljen. <b>Ret udleveringen i FMS</b> (rediger enheds-koderne: fjern den defekte, tilføj spare-koden) - så passer modtagerens liste stadig.</p></div></div>
       <div class="cat retry"><div class="ch">↻ POS-login fejler</div><div class="cb"><p>Genindtast loginet / tjek at det er den rigtige konto. Løser det ikke sig: eskalér til POS-supportkontakten. Hold banen kørende imens.</p></div></div>
       <div class="cat retry"><div class="ch">↻ Scanner scanner ikke</div><div class="cb"><p>Bekræft hardware-scanner-tilstand / DataWedge, og genstart enheden. Virker det stadig ikke: byt fra spare-puljen.</p></div></div>
       <div class="cat support"><div class="ch">→ Forkert gate / vil ikke parre</div><div class="cb"><p>En scanner-enhed der er sluppet gennem klargøringen. Byt den ud, og send den til om-klargøring offline.</p></div></div>
-      <div class="cat support"><div class="ch">→ Enhed væk / stjålet</div><div class="cb"><p>Notér serienummer og sidste modtager fra FMS, meld til områdeleder / kommandocentralen. Spare-puljen er tynd (10) - prioritér.</p></div></div>
+      <div class="cat support"><div class="ch">→ Enhed væk / stjålet</div><div class="cb"><p>Notér enheds-kode og modtager fra FMS-udleveringen, meld til områdeleder / kommandocentralen. Spare-puljen er tynd (10) - prioritér.</p></div></div>
     </div>
     <table class="qref">
       <tr><th>Problem</th><th>Ring / gå til</th></tr>
@@ -257,9 +273,9 @@
       <li>Alle 300 enheder <b>forparret</b> til rigtig festival/gate og <b>testet</b> (Scanner-appen åbner korrekt).</li>
       <li>Alle 300 <b>bulk-opladt</b> til ≥ 80%.</li>
       <li>POS-appen <b>installeret og tilgængelig</b> på hver enhed (login ikke lavet endnu).</li>
-      <li>FMS Terminal Handover-adgang bekræftet for hver skranke-medarbejder.</li>
-      <li>Vendor-liste / bodnummer-oversigt tilgængelig ved skranken.</li>
-      <li>Printet: hurtig-guides, supportkontakt-ark, papir-fallback-log.</li>
+      <li><b>FMS klargjort:</b> <b>Beholdning</b> (fleet POS/scanner i alt) sat, <b>Forventet</b> antal på hver bod og gate, og <b>Esper-grupper koblet</b> (POS/scanner → gruppe). Terminal Handover-adgang bekræftet for hver skranke-medarbejder.</li>
+      <li>Bod-liste + gate-liste (med Forventet-antal) tilgængelig ved skranken.</li>
+      <li>Printet: hurtig-guides, supportkontakt-ark, papir-fallback-log, <b>afstemnings-ark til retur</b> (enheds-kode ↔ afleveret ✓).</li>
       <li>Containeren sat op: baner, hylder (klar / oplader / spare / retur), skiltning, strøm.</li>
       <li>Spare-puljen (10) sat til side og mærket.</li>
     </ul>
@@ -267,7 +283,7 @@
     <h3 class="flow"><span class="g1">Sådan gør du</span>Daglig åbne / luk</h3>
     <table class="qref">
       <tr><th>Åbne</th><th>Luk</th></tr>
-      <tr><td>Tænd skranke-udstyr, bekræft FMS-login, tæl klar-lager, bekræft at opladningsbanken kører, brief holdet om dagens tider.</td><td>Afstem FMS (udleveret vs. returneret vs. på hylde), flyt returer til opladning, notér defekte, fyld klar-hylden op til i morgen, lås containeren.</td></tr>
+      <tr><td>Tænd skranke-udstyr, bekræft FMS-login, tæl klar-lager, bekræft at opladningsbanken kører, brief holdet om dagens tider.</td><td>Afstem: FMS viser udleveret (POS ude / scanner ude / usignerede); afstemnings-arket viser afleveret. Følg op på <b>usignerede udleveringer</b>, flyt returer til opladning, notér defekte, fyld klar-hylden op til i morgen, lås containeren.</td></tr>
     </table>
 
     <h3 class="flow"><span class="g1">Detaljer</span>Relaterede guides</h3>

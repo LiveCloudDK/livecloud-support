@@ -244,7 +244,7 @@
       <div class="cat retry"><div class="ch">↻ Fladt batteri / bytte</div><div class="cb"><p>Byt fra spare-puljen. <b>Ret udleveringen i FMS</b> (rediger enheds-koderne: fjern den defekte, tilføj spare-koden) - så passer modtagerens liste stadig.</p></div></div>
       <div class="cat retry"><div class="ch">↻ POS-login fejler</div><div class="cb"><p>Genindtast loginet / tjek at det er den rigtige konto. Løser det ikke sig: eskalér til POS-supportkontakten. Hold banen kørende imens.</p></div></div>
       <div class="cat retry"><div class="ch">↻ Scanner scanner ikke</div><div class="cb"><p>Bekræft hardware-scanner-tilstand / DataWedge, og genstart enheden. Virker det stadig ikke: byt fra spare-puljen.</p></div></div>
-      <div class="cat retry"><div class="ch">↻ Ingen data / e-SIM ikke hentet</div><div class="cb"><p>Enheden henter først sit e-SIM, når den er <b>online</b> (Wi-Fi/data) <b>og</b> har OEMConfig - så tjekker den ind og henter profilen automatisk (kan tage minutter). Sæt den på nettet og vent; haster det, byt fra spare-puljen. Vedvarende (fabriksnulstillet / uden OEMConfig / carrier-blokeret kode): eskalér til MDM/e-SIM-kontakten - der er intet fix ved skranken.</p></div></div>
+      <div class="cat retry"><div class="ch">↻ Ingen data / e-SIM ikke hentet</div><div class="cb"><p>Enheden henter først sit e-SIM, når den er <b>online</b> (Wi-Fi/data) <b>og</b> har OEMConfig - så tjekker den ind og henter profilen automatisk (kan tage minutter). Sæt den på nettet og vent; rør <b>ikke</b> ved APN. Haster det, byt fra spare-puljen. Vedvarende (fabriksnulstillet / uden OEMConfig / carrier-blokeret kode): eskalér til MDM/e-SIM-kontakten - der er intet fix ved skranken.</p></div></div>
       <div class="cat support"><div class="ch">→ Forkert gate / vil ikke parre</div><div class="cb"><p>En scanner-enhed der er sluppet gennem klargøringen. Byt den ud, og send den til om-klargøring offline.</p></div></div>
       <div class="cat support"><div class="ch">→ Enhed væk / stjålet</div><div class="cb"><p>Notér enheds-kode og modtager fra FMS-udleveringen, meld til områdeleder / kommandocentralen. Spare-puljen er tynd (10) - prioritér.</p></div></div>
     </div>
@@ -274,7 +274,7 @@
     <ul class="plain">
       <li>Alle 300 enheder <b>forparret</b> til rigtig festival/gate og <b>testet</b> (Scanner-appen åbner korrekt).</li>
       <li>Alle 300 <b>bulk-opladt</b> til ≥ 80%.</li>
-      <li>Alle 300 <b>online i Esper</b> (korrekt blueprint, ingen drift) og <b>e-SIM aktiv</b> - dvs. data-profilen er hentet - <b>verificeret før enheden ryger på klar-hylden</b>. En fabriksnulstillet enhed eller én uden OEMConfig får <b>ikke</b> sit e-SIM, før den er online og har tjekket ind.</li>
+      <li>Alle 300 <b>online i Esper</b> (korrekt blueprint, ingen drift) og <b>e-SIM aktiv</b> - dvs. data-profilen er hentet - <b>verificeret før enheden ryger på klar-hylden</b>. En fabriksnulstillet enhed eller én uden OEMConfig får <b>ikke</b> sit e-SIM, før den er online og har tjekket ind. (Data-kun: intet telefonnummer - tjek at der er <b>mobildata</b> med Wi-Fi slået fra, ikke opkald.)</li>
       <li>POS-appen <b>installeret og tilgængelig</b> på hver enhed (login ikke lavet endnu).</li>
       <li><b>FMS klargjort:</b> <b>Beholdning</b> (fleet POS/scanner i alt) sat, <b>Forventet</b> antal på hver bod og gate, og <b>Esper-grupper koblet</b> (POS/scanner → gruppe). Terminal Handover-adgang bekræftet for hver skranke-medarbejder.</li>
       <li>Bod-liste + gate-liste (med Forventet-antal) tilgængelig ved skranken.</li>

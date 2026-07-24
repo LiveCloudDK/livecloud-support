@@ -75,6 +75,7 @@
       <a href="#tid">Tidsplan & kapacitet</a>
       <a href="#udlevering">Udlevering trin for trin</a>
       <a href="#opladning">Opladning & klargøring</a>
+      <a href="#indsamling">Indsamling (lør-søn)</a>
       <div class="g">Når noget går galt</div>
       <a href="#retur">Retur, bytte & support</a>
       <a href="#beredskab">Beredskab</a>
@@ -186,6 +187,38 @@
       <li>Hold en <b>"klar"-hylde</b> (opladt + testet) og en <b>"oplader"-hylde</b>. Udlevér <b>aldrig</b> fra oplader-hylden.</li>
       <li><b>Før festivalen:</b> bulk-oplad alle 300 dagen før, og bekræft at hver enhed booter ind i Scanner-appen + POS-appen.</li>
     </ul>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#0f766e,#115e59)"><div class="av">📥</div><div><div class="who">Sådan gør du</div><h2>Indsamling - lørdag & søndag</h2><p>Alle 300 skal hjem igen. Lørdag ruller I ind, søndag fejer I rent.</p></div></div>
+
+    <h3 class="flow" id="indsamling"><span class="g1">Sådan gør du</span>Indsamling - lørdag & søndag</h3>
+    <p class="ctx">Målet er at få <b>alle 300 enheder tilbage</b>, afstemt i FMS, med defekte/manglende identificeret og alt pakket klar til opbevaring / retur til leverandøren. Samme container fungerer nu som indsamlingspunkt. Den løbende retur- og bytte-mekanik står i <a href="#retur">Retur, bytte & support</a>; her er selve weekend-flowet.</p>
+
+    <h3 class="flow"><span class="g1">Lørdag</span>Rullende indsamling</h3>
+    <ul class="plain">
+      <li><b>Boder afleverer, når de lukker.</b> Efterhånden som boder lukker salget, kommer bod-folk forbi containeren og afleverer terminalen. Tjek hver enhed ind i FMS, hurtigt fysisk tjek (skærm, batteri, skade), log POS ud, og sortér til <b>opladning</b>, <b>defekt</b> eller <b>pakket</b>.</li>
+      <li><b>Scanning-enheder er stadig i drift</b> til gatene lukker. Indsaml vagternes/operatørernes enheder <b>ved vagtslut / når gaten lukker</b> - ikke før.</li>
+      <li><b>Roaming-indsamlere</b> (1-2) går rundt i de store bod-områder sidst på dagen og henter enheder ind, så efternølere ikke ender som "manglende".</li>
+      <li><b>Følg det udestående live i FMS.</b> Hæng retur-deadline og -sted tydeligt op, og send påmindelse til boder der ikke har afleveret.</li>
+    </ul>
+    <div class="note"><b>Hold styr på tallet gennem hele lørdagen.</b> Afleveret + stadig-i-drift + udestående skal altid give 300. Enheder der ikke er tjekket ind ved dagens slut, ryger på lørdagens udeståendeliste, som søndag starter på.</div>
+
+    <h3 class="flow"><span class="g1">Søndag</span>Nedtagning & fuld optælling</h3>
+    <ol class="steps">
+      <li><b>Fuld afstemning i FMS:</b> udleveret vs. returneret. Generér <b>udeståendelisten</b> - alt der endnu ikke er tjekket ind.</li>
+      <li><b>Jagt det manglende</b> via sidst-registrerede modtager/bodnummer i FMS. Ring/gå ud; eskalér til områdeleder / kommandocentralen for det der ikke dukker op.</li>
+      <li><b>Endeligt fysisk QA:</b> sortér defekte/beskadigede fra, notér serienumre til leverandør/Esper.</li>
+      <li><b>Log POS ud</b> på alt, bulk-oplad / sluk, og pak i kasser efter optælling.</li>
+      <li><b>Esper-tjek:</b> bekræft at alle enheder er tilbage i managed inventory / rigtig blueprint; markér alt der ikke er tjekket ind som tabt.</li>
+      <li><b>Sign-off:</b> hold-leder bekræfter den endelige optælling (<b>returneret + defekt + manglende = 300</b>) og overdrager til opbevaring / logistik.</li>
+    </ol>
+    <table class="qref">
+      <tr><th>Rolle (weekend)</th><th>Ansvar</th></tr>
+      <tr><td><b>Indsamlings-leder</b></td><td>Ejer FMS-afstemningen og den endelige optælling; sign-off søndag.</td></tr>
+      <tr><td><b>Skranke-check-in</b></td><td>Tjekker enheder ind i FMS, fysisk tjek, POS-logout, sortering.</td></tr>
+      <tr><td><b>Roaming-indsamlere</b></td><td>Henter enheder i bod-områderne lørdag; jagter manglende søndag.</td></tr>
+      <tr><td><b>Pakning</b></td><td>Oplader, slukker og pakker i kasser efter optælling.</td></tr>
+    </table>
+    <div class="stop"><b>Ingen enhed forlader kontoen uafsluttet.</b> Hver aflevering tjekkes ind i FMS med det samme - ellers tæller den som udestående. Manglende enheder søndag aften meldes med serienummer + sidste modtager til områdeleder / kommandocentralen.</div>
 
     <div class="pbanner" style="background:linear-gradient(100deg,#4b515e,#3f3f46)"><div class="av">🔁</div><div><div class="who">Når noget går galt</div><h2>Retur, bytte & support</h2><p>Registrér altid begge bevægelser i FMS.</p></div></div>
 

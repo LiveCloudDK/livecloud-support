@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Stations-pakker: guides til hver station og hvert team</title>
+<style>
+  :root{--bg:#f6f6f7;--card:#fff;--ink:#18181b;--muted:#71717a;--line:#e4e4e7;--acc:#0a5cff;
+    --bar:#b45309;--mad:#0f766e;--gate:#6d28d9;--info:#0a5cff;--roam:#be185d;--akk:#059669;--bered:#b91c1c;--drift:#0e7490;--lc:#4338ca}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .doc{max-width:1020px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,4vw,32px) 90px}
+  h1{font-size:clamp(1.7rem,4vw,2.3rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:.2em 0}
+  .eyebrow{letter-spacing:.14em;font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase}
+  .lede{color:#3f3f46;max-width:76ch;font-size:16px}
+  .lede a{color:var(--acc)}
+  .hint{font-size:13px;color:var(--muted);max-width:76ch}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 8px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--ink);text-decoration:none;font-weight:600;font-size:13.5px}
+  .toc a:hover{border-color:var(--acc)}
+  section.pack{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:26px;border-top:4px solid var(--line);scroll-margin-top:14px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  section.pack h2{margin:0;font-size:1.25rem;font-weight:800;display:flex;align-items:center;gap:10px}
+  section.pack h2 .em{font-size:1.5rem}
+  section.pack .who{font-size:12px;color:var(--muted);margin:4px 0 12px}
+  ul.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+  ul.list li{display:grid;grid-template-columns:20px 1fr;gap:9px;align-items:start;font-size:14.5px}
+  ul.list li::before{content:"▢";color:var(--muted);font-size:15px;line-height:1.5}
+  ul.list a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1px solid #d4d4d8}
+  ul.list a:hover{color:var(--acc);border-color:var(--acc)}
+  ul.list .why{color:var(--muted)}
+  .packnote{background:#f4f4f5;border-left:3px solid var(--muted);border-radius:0 9px 9px 0;padding:9px 13px;margin-top:13px;font-size:13px;color:#3f3f46}
+  .packnote.warn{background:#fef2f2;border-color:var(--bered)}
+  #bar{border-top-color:var(--bar)} #madbod{border-top-color:var(--mad)} #gate{border-top-color:var(--gate)}
+  #information{border-top-color:var(--info)} #roaming{border-top-color:var(--roam)} #akkreditering{border-top-color:var(--akk)}
+  #beredskab{border-top-color:var(--bered)} #driftkontor{border-top-color:var(--drift)} #livecloud{border-top-color:var(--lc)}
+  .foot{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  .foot a{color:var(--acc)}
+  @media print{
+    body{background:#fff}
+    .toc,.lede,.hint,.foot{display:none}
+    section.pack{break-inside:avoid;box-shadow:none;margin-top:14px}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+  <span class="eyebrow">LiveCloud · Ringsted Festival 2026</span>
+  <h1>Stations-pakker</h1>
+  <p class="lede">Hvert sted på pladsen har sin egen pakke af guides: håndbogen til dagligdagen øverst, og opslagsguides til de spørgsmål, der lander hos jer. Print pakken eller gem siderne på stationens telefon/tablet, og hæng en QR op med <a href="stationer-qr.html">Print: QR til stationerne</a>, så alle kan åbne guiden på egen telefon.</p>
+  <p class="hint">Alle sider har "Hent som PDF" nederst, så hver pakke kan printes ark for ark.</p>
+
+  <div class="toc">
+    <a href="#bar">🍺 Bar</a>
+    <a href="#madbod">🍔 Madbod</a>
+    <a href="#gate">🎫 Scanner-gate</a>
+    <a href="#information">ℹ️ Informationen</a>
+    <a href="#roaming">🏃 Roaming team</a>
+    <a href="#akkreditering">🎟️ Akkreditering</a>
+    <a href="#beredskab">🚨 Beredskab</a>
+    <a href="#driftkontor">🗂️ Driftkontoret</a>
+    <a href="#livecloud">⚙️ LiveClouds team</a>
+  </div>
+
+  <section class="pack" id="bar">
+    <h2><span class="em">🍺</span>Hver bar</h2>
+    <div class="who">Bartendere og skifteledere. Kassen kører Beats; gæstens spørgsmål handler om betaling og saldo.</div>
+    <ul class="list">
+      <li><div><a href="haandbog-pos.html">Håndbog: Barer, boder &amp; POS</a> <span class="why">· dagens drift fra åbning til lukning</span></div></li>
+      <li><div><a href="pos.html">Guide til POS: bartender</a> <span class="why">· kassen trin for trin, salg og eskalation</span></div></li>
+      <li><div><a href="webticket/beats.html">Beats-guiden</a> <span class="why">· når gæsten spørger om saldo, optankning og refusion</span></div></li>
+      <li><div><a href="kommandovej.html">Kommandovej</a> <span class="why">· hvem I tilkalder, når noget driller</span></div></li>
+    </ul>
+    <div class="packnote">Refusion og annullering ved kassen er skifteleder-opgaver (PIN); bartendere tilkalder, se håndbogen.</div>
+  </section>
+
+  <section class="pack" id="madbod">
+    <h2><span class="em">🍔</span>Hver madbod</h2>
+    <div class="who">Bodejer og bod-personale. Som baren, plus jeres egne produkter, lager og terminal.</div>
+    <ul class="list">
+      <li><div><a href="haandbog-pos.html">Håndbog: Barer, boder &amp; POS</a> <span class="why">· dagens drift fra åbning til lukning</span></div></li>
+      <li><div><a href="pos.html">Guide til POS: bartender</a> <span class="why">· kassen trin for trin</span></div></li>
+      <li><div><a href="webticket/bod-produkter.html">Bod: sæt din bod op i webticket</a> <span class="why">· produkter, priser, lager, salg, og terminal-afhentning ved Gate 4</span></div></li>
+      <li><div><a href="webticket/beats.html">Beats-guiden</a> <span class="why">· gæstens betaling, saldo og refusion</span></div></li>
+      <li><div><a href="kommandovej.html">Kommandovej</a> <span class="why">· hvem I tilkalder</span></div></li>
+    </ul>
+  </section>
+
+  <section class="pack" id="gate">
+    <h2><span class="em">🎫</span>Hver scanner-gate</h2>
+    <div class="who">Gate-personale med scanner. Ind og ud, og de billet-spørgsmål der opstår i køen.</div>
+    <ul class="list">
+      <li><div><a href="haandbog-gates.html">Håndbog: Gate &amp; scanner</a> <span class="why">· dagens drift ved indgangen</span></div></li>
+      <li><div><a href="scanner.html">Guide til Scanner: indgang og check-in</a> <span class="why">· scanneren trin for trin</span></div></li>
+      <li><div><a href="billet-statusser.html">Billet-statusser</a> <span class="why">· hvad skærmen betyder, når et scan afvises</span></div></li>
+      <li><div><a href="../billet-og-adgangstyper.html">Billet- og adgangstyper</a> <span class="why">· overblik over alle billettyper og armbånd</span></div></li>
+      <li><div><a href="festival-app.html">Festival App: sådan hjælper du gæsten</a> <span class="why">· find gæstens pas i appen</span></div></li>
+      <li><div><a href="kommandovej.html">Kommandovej</a> <span class="why">· hvem I tilkalder</span></div></li>
+    </ul>
+    <div class="packnote">Gæster uden fungerende billet sendes til Informationen; gaten diskuterer ikke billetkøb.</div>
+  </section>
+
+  <section class="pack" id="information">
+    <h2><span class="em">ℹ️</span>Informationen</h2>
+    <div class="who">Festivalens ansigt udadtil. Alle svære gæstesager lander her, og terminaler udleveres herfra (Gate 4).</div>
+    <ul class="list">
+      <li><div><a href="haandbog-information.html">Håndbog: Information</a> <span class="why">· dagens drift og de faste sager</span></div></li>
+      <li><div><a href="terminal-udlevering.html">Håndbog: Terminaludlevering</a> <span class="why">· udlevering af bod-terminaler ved Gate 4</span></div></li>
+      <li><div><a href="festival-app.html">Festival App: sådan hjælper du gæsten</a> <span class="why">· appen skærm for skærm</span></div></li>
+      <li><div><a href="../billetguide.html">Sådan håndterer du dine billetter</a> <span class="why">· gæstens egen billetguide, god at vise frem</span></div></li>
+      <li><div><a href="../billet-og-adgangstyper.html">Billet- og adgangstyper</a> <span class="why">· overblik over alle typer</span></div></li>
+      <li><div><a href="walk-up-gaest.html">Walk-up gæst uden smartphone</a> <span class="why">· opret gæst og udsted armbånd/QR</span></div></li>
+      <li><div><a href="udenlandsk-gaest.html">Udenlandsk gæst</a> <span class="why">· login med e-mail og engangskode</span></div></li>
+      <li><div><a href="webticket/fordeling-og-modtagere.html">Fordeling og modtagere i Webticket</a> <span class="why">· hente-link, tildeling og overdragelse forklaret</span></div></li>
+      <li><div><a href="webticket/beats.html">Beats-guiden</a> <span class="why">· saldo, optankning og refusion</span></div></li>
+      <li><div><a href="videresalg-gaest.html">Videresalg: sådan fungerer det</a> <span class="why">· gæstens resale-spørgsmål</span></div></li>
+      <li><div><a href="../faq.html">Ofte stillede spørgsmål</a> <span class="why">· plus Q&amp;A for <a href="../faq-medarbejder.html">medarbejdere</a>, <a href="../faq-crew.html">crew</a> og <a href="../faq-business.html">virksomheder</a></span></div></li>
+      <li><div><a href="kommandovej.html">Kommandovej</a> <span class="why">· hvem I tilkalder og eskalerer til</span></div></li>
+    </ul>
+  </section>
+
+  <section class="pack" id="roaming">
+    <h2><span class="em">🏃</span>Roaming team</h2>
+    <div class="who">Mobil support på pladsen. I møder alt, så pakken er bred men let.</div>
+    <ul class="list">
+      <li><div><a href="haandbog-support.html">Håndbog: Roaming support</a> <span class="why">· jeres egen håndbog</span></div></li>
+      <li><div><a href="festival-app.html">Festival App: sådan hjælper du gæsten</a> <span class="why">· de hyppigste app-sager</span></div></li>
+      <li><div><a href="billet-statusser.html">Billet-statusser</a> <span class="why">· afkod hvad gates og scannere viser</span></div></li>
+      <li><div><a href="webticket/beats.html">Beats-guiden</a> <span class="why">· betaling og refusion på farten</span></div></li>
+      <li><div><a href="scanner-pant-garderobe.html">Scanner: Pant &amp; Garderobe</a> <span class="why">· når I hjælper de stationer</span></div></li>
+      <li><div><a href="kontakt-ansvar.html">Kontakt &amp; ansvar</a> <span class="why">· hvem ejer hvad</span></div></li>
+      <li><div><a href="kommandovej.html">Kommandovej</a> <span class="why">· eskalationsvejen</span></div></li>
+    </ul>
+  </section>
+
+  <section class="pack" id="akkreditering">
+    <h2><span class="em">🎟️</span>Akkrediteringsteamet</h2>
+    <div class="who">Artister, crew, presse og medarbejder-armbånd. Skranken og listerne bag den.</div>
+    <ul class="list">
+      <li><div><a href="haandbog-akkreditering.html">Håndbog: Akkrediterings-teamet</a> <span class="why">· dagens drift ved skranken</span></div></li>
+      <li><div><a href="akkreditering-armbaand.html">Scan medarbejder og udlever armbånd</a> <span class="why">· FMS-flowet trin for trin</span></div></li>
+      <li><div><a href="../akkreditering-overblik.html">Akkreditering &amp; gæsteliste, overblik</a> <span class="why">· hele kæden fra liste til armbånd</span></div></li>
+      <li><div><a href="webticket/artist-manager.html">Artist-manager i Webticket</a> <span class="why">· det managerne ser, når de fordeler til band og gæsteliste</span></div></li>
+      <li><div><a href="webticket/fordeling-og-modtagere.html">Fordeling og modtagere</a> <span class="why">· tildeling vs. overdragelse, når lister driller</span></div></li>
+      <li><div><a href="akkreditering-opret-manager.html">Opret manager, tildel billetter</a> <span class="why">· bag login, når en manager mangler</span></div></li>
+      <li><div><a href="kommandovej.html">Kommandovej</a> <span class="why">· hvem I tilkalder</span></div></li>
+    </ul>
+  </section>
+
+  <section class="pack" id="beredskab">
+    <h2><span class="em">🚨</span>Beredskab</h2>
+    <div class="who">Eskalation og overblik, når noget går galt. Systemsiden af beredskabet.</div>
+    <ul class="list">
+      <li><div><a href="kommandovej.html">Kommandovej</a> <span class="why">· den aftalte eskalationsvej</span></div></li>
+      <li><div><a href="kontakt-ansvar.html">Kontakt &amp; ansvar</a> <span class="why">· hvem ejer hvilke systemer og stationer</span></div></li>
+      <li><div><a href="../ansvarsmatrix.html">Ansvarsmatrix</a> <span class="why">· intern matrix, LiveCloud × festival</span></div></li>
+    </ul>
+    <div class="packnote warn">Selve beredskabsplanen med navne og telefonnumre er intern og ligger ikke på dette site. Den udleveres af driftkontoret; siderne her dækker kun system- og eskalationsdelen.</div>
+  </section>
+
+  <section class="pack" id="driftkontor">
+    <h2><span class="em">🗂️</span>Driftkontoret</h2>
+    <div class="who">Festivalkontoret med FMS-adgang. Opretter, retter og redder alt det, stationerne sender videre.</div>
+    <ul class="list">
+      <li><div><a href="fms.html">Guide til FMS · Bemanding</a> <span class="why">· festivalkontorets hovedværktøj</span></div></li>
+      <li><div><a href="kundeservice-medarbejder.html">Opret medarbejdere</a> <span class="why">· bag login</span></div></li>
+      <li><div><a href="opret-bod.html">Opret en bod, giv login</a> <span class="why">· bag login</span></div></li>
+      <li><div><a href="opret-virksomhed-tilknyt-ejer.html">Opret virksomhed, tilknyt ejer</a> <span class="why">· bag login</span></div></li>
+      <li><div><a href="opret-virksomhed-bod-billetter.html">Virksomhed med bod og billetter</a> <span class="why">· hele kæden i ét flow</span></div></li>
+      <li><div><a href="akkreditering-opret-manager.html">Opret manager, tildel billetter</a> <span class="why">· bag login</span></div></li>
+      <li><div><a href="walk-up-gaest.html">Walk-up gæst uden smartphone</a> <span class="why">· når Informationen eskalerer</span></div></li>
+      <li><div><a href="udenlandsk-gaest.html">Udenlandsk gæst</a> <span class="why">· engangskode-login</span></div></li>
+      <li><div><a href="redaktoer.html">Redaktør: app-indhold i FMS</a> <span class="why">· skærme, toasts og indhold i appen</span></div></li>
+      <li><div><a href="billet-statusser.html">Billet-statusser</a> <span class="why">· fælles sprog med stationerne</span></div></li>
+      <li><div><a href="webticket/index.html">Webticket-guides</a> <span class="why">· hele familien, når eksterne skal guides</span></div></li>
+      <li><div><a href="kommandovej.html">Kommandovej</a> + <a href="kontakt-ansvar.html">Kontakt &amp; ansvar</a> <span class="why">· eskalation og ejerskab</span></div></li>
+    </ul>
+  </section>
+
+  <section class="pack" id="livecloud">
+    <h2><span class="em">⚙️</span>LiveClouds team</h2>
+    <div class="who">Platform-teamet. Fuld reference, flows og tjeklister, på tværs af alle systemer.</div>
+    <ul class="list">
+      <li><div><a href="operator.html">Staffing Operator Guides</a> <span class="why">· den komplette operator-reference (engelsk)</span></div></li>
+      <li><div><a href="features.html">Complete Operations Guide</a> <span class="why">· Festival Pass, login-link, Beats, Pant &amp; Garderobe (engelsk)</span></div></li>
+      <li><div><a href="festival-pass.html">Festival Pass Guide</a> + <a href="festival-plus.html">Festival+ Guide</a> <span class="why">· feature-referencer (engelsk)</span></div></li>
+      <li><div><a href="festival-app-komplet.html">Festival-app: komplet gennemgang</a> <span class="why">· appen fra ende til anden</span></div></li>
+      <li><div><a href="../ticket-flows-qa.html">Billetadministration, oversigt</a> <span class="why">· plus flows for <a href="../ticket-flows-b2b.html">webportal/B2B</a> og <a href="../ticket-flows-accreditation.html">akkreditering</a></span></div></li>
+      <li><div><a href="../klar-til-festival.html">Klar til festivalen</a> <span class="why">· go-live-tjekliste</span></div></li>
+      <li><div><a href="../dev-tjekliste.html">Dev-tjekliste, flow-dækning</a> <span class="why">· intern</span></div></li>
+      <li><div><a href="../ansvarsmatrix.html">Ansvarsmatrix</a> + <a href="kontakt-ansvar.html">Kontakt &amp; ansvar</a> + <a href="kommandovej.html">Kommandovej</a> <span class="why">· ejerskab og eskalation</span></div></li>
+      <li><div><a href="stationer-qr.html">Print: QR til stationerne</a> <span class="why">· hæng QR-koder op til netop disse pakker</span></div></li>
+    </ul>
+  </section>
+
+  <div class="foot">Stations-pakkerne peger kun på guides, der allerede ligger på dette site. Mangler en station noget, så sig til på driftkontoret. <a href="index.html">Alle personale-guides</a></div>
+</div>
+</body>
+</html>

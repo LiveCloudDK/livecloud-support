@@ -124,9 +124,10 @@
   <aside>
     <div class="brand"><div class="lg">W</div><div><b>Webticket</b><small>Fordeling og modtagere</small></div></div>
     <nav class="toc">
+      <a href="#model">Sådan hænger det sammen</a>
       <div class="g">Del 1 · Organisationen</div>
       <a href="#organisation">Ejer / Manager</a>
-      <a href="#fordel">Fordel en billet</a>
+      <a href="#fordel">Tildeling eller overdragelse</a>
       <a href="#passes">Del QR-passes</a>
       <a href="#tilmeld">Tilmeldings-QR</a>
       <div class="g">Fælles</div>
@@ -142,25 +143,42 @@
   <header class="masthead">
     <span class="eyebrow">LiveCloud · Webticket</span>
     <h1>Webticket-guide</h1>
-    <p class="lead" style="margin-top:12px">Tre roller, tre korte guides. <strong>Organisationen</strong> (Ejer eller Manager) fordeler adgange på webticket. En <strong>tilmeldt gæst</strong> kom ind via organisationens tilmeldings-QR. En <strong>modtager</strong> har fået tildelt en billet med et hente-link på mail. Alle knap-navne er citeret præcis som de står i webticket.</p>
+    <p class="lead" style="margin-top:12px">Guiden dækker tre roller: <strong>organisationen</strong>, der deler billetter ud, den <strong>tilmeldte gæst</strong>, der er kommet ind via organisationens tilmeldings-QR, og <strong>modtageren</strong>, der har fået en billet med et hente-link på mail. Alle knap-navne står præcis som i webticket.</p>
   </header>
+
+
+  <!-- ===== SÅDAN HÆNGER DET SAMMEN ===== -->
+  <section class="feature" id="model" style="margin-top:30px">
+    <div class="head"><span class="num">START HER</span><h2>Sådan hænger det sammen</h2></div>
+    <p class="overview"><strong>En organisation</strong> er den, der har billetterne og deler dem ud. Det kan være en <strong>virksomhed</strong>, en <strong>artist eller et band</strong>, eller en <strong>generel akkrediteringsliste</strong>, fx til presse eller samarbejdspartnere. Under en virksomhed kan der også høre <strong>bodholdere</strong> med deres egne adgange.</p>
+    <p class="overview">En organisation kan have <strong>flere lister</strong> (ordrer) med hver sine billetter: fx én liste med lørdagsbilletter til medarbejderne og én med partoutbilletter til ledelsen. Alle lister ligger på siden <span class="ui">Tildelte billetter</span>.</p>
+    <p class="overview">Det er organisationens <strong>Ejer</strong> eller <strong>Manager</strong>, der deler ud. Og uanset hvem der skal have en billet, sker det på én af to måder:</p>
+    <div class="cando">
+      <div class="cd"><h4 style="color:var(--org)">Tildeling · kun navn</h4>
+        <p style="font-size:.88rem;margin:0;max-width:none">Du skriver personens navn på en billet og trykker <span class="ui">Tildel</span>. Personen står nu på listen og har et QR-pas, du kan printe eller sende. Billetten bliver på organisationens liste, og du beholder styringen.</p>
+      </div>
+      <div class="cd"><h4 style="color:var(--accent-ink)">Overdragelse · navn + e-mail</h4>
+        <p style="font-size:.88rem;margin:0;max-width:none">Du skriver navn og e-mail og trykker <span class="ui">Overdrag</span>. Personen får et hente-link på mail og lægger selv billetten ind i sin egen profil. Så er billetten personens egen, og du kan ikke længere ændre den.</p>
+      </div>
+    </div>
+  </section>
 
   <div class="who-row">
     <div class="pcard org"><h3><span class="pchip org">Organisation · Ejer / Manager</span></h3><p>Du fordeler organisationens billetter på siden <span class="ui">Tildelte billetter</span> og deler QR-passes.</p></div>
-    <div class="pcard enr"><h3><span class="pchip enr">Tilmeldt gæst</span></h3><p>Du scannede organisationens QR og trykkede dig igennem "Deltag i festivalen". Du modtager - du administrerer ikke.</p></div>
+    <div class="pcard enr"><h3><span class="pchip enr">Tilmeldt gæst</span></h3><p>Du scannede organisationens QR og trykkede dig igennem "Deltag i festivalen". Du får det, du skal have, og skal ikke styre noget.</p></div>
     <div class="pcard rec"><h3><span class="pchip rec">Modtager af tildelt billet</span></h3><p>Du fik en mail: "… har tildelt dig en billet". Med hente-linket lægger du billetten ind i din egen profil.</p></div>
   </div>
 
   <!-- ===== DEL 1: ORGANISATIONEN ===== -->
   <section class="feature" id="organisation">
     <div class="head"><span class="num">DEL 1</span><h2>Organisationen (Ejer / Manager)</h2><span class="tags"><span class="pchip org">du fordeler adgange</span></span></div>
-    <p class="overview">Rollerne er webtickets egne: <strong>Ejer</strong> "kan alt: bestille og fordele billetter, styre kontaktpersoner og opsætning". <strong>Manager</strong> "kan oprette ordrer og fordele billetter, men ikke ændre kontaktpersoner eller opsætning". Begge fordeler på siden <span class="ui">Tildelte billetter</span>.</p>
+    <p class="overview">Webticket bruger to roller til dem, der deler ud. <strong>Ejer</strong> "kan alt: bestille og fordele billetter, styre kontaktpersoner og opsætning". <strong>Manager</strong> "kan oprette ordrer og fordele billetter, men ikke ændre kontaktpersoner eller opsætning". Begge arbejder på siden <span class="ui">Tildelte billetter</span>.</p>
 
-    <div class="sub-label" id="fordel">Fordel en billet · to måder</div>
+    <div class="sub-label" id="fordel">Tildeling eller overdragelse · sådan gør du</div>
     <div class="stepwrap">
       <ol class="steps">
-        <li><div><p><strong>Kun navn:</strong> skriv navnet på linjen og gem. Personen er på listen, og adgangen ligger som QR-kode under <span class="ui">Vis QR koder</span>. Der sendes ingen mail, og personen behøver ingen profil.</p></div></li>
-        <li><div><p><strong>Navn + e-mail:</strong> personen får et <strong>hente-link</strong> på mail og henter selv billetten ind i sin egen profil. Knappen hedder <span class="ui">Tildel</span> uden e-mail og <span class="ui">Overdrag</span> med.</p></div></li>
+        <li><div><p><strong>Tildeling (kun navn):</strong> skriv navnet på linjen og gem. Personen står nu på listen, og adgangen ligger som QR-kode under <span class="ui">Vis QR koder</span>. Der bliver ikke sendt nogen mail, og personen behøver hverken app eller profil.</p></div></li>
+        <li><div><p><strong>Overdragelse (navn + e-mail):</strong> personen får et <strong>hente-link</strong> på mail og lægger selv billetten ind i sin egen profil. Knappen skifter selv navn: <span class="ui">Tildel</span> uden e-mail, <span class="ui">Overdrag</span> med.</p></div></li>
         <li><div><p>Mailen sendes straks, hvis <span class="ui">Send med det samme</span> er slået til øverst - ellers først når du trykker <span class="ui">Send adgang</span> på linjen. <span class="ui">Gensend adgang</span> sender igen, og <span class="ui">Send adgang til alle (antal)</span> tager hele listen på én gang.</p>
         <p class="hint">Status på linjerne:</p>
         <div class="statusrow"><span class="st unsent">Adgang ikke sendt</span><span class="st wait">Afventer</span><span class="st done">Hentet</span></div>

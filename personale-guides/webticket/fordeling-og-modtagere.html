@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Fordeling og modtagere i Webticket</title>
+<style>
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#F2F4F7;color:#161A21;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1260px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid #E4E8ED;background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:#C6512A;color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1;display:block}aside .brand small{color:#71717a;font-size:11px;display:block}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:#71717a;font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  aside .toc a.back{color:#71717a;font-size:12.5px}
+  .layout > .wrap{min-width:0}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}}
+  @media print{aside{display:none}.layout{grid-template-columns:1fr}body{background:#fff}}
+
+  :root{
+    --paper:#F2F4F7;--ink:#161A21;--muted:#5C6675;--faint:#8A94A2;--line:#E4E8ED;--line-2:#D2D8E0;--card:#FFFFFF;
+    --accent:#C6512A;--accent-ink:#9E3F20;--accent-bg:#FBEDE7;--primary:#1B212A;
+    --ok:#2C7A57;--ok-bg:#E7F3EC;--beats:#9A6A12;--beats-bg:#F6EEDD;--danger:#B02330;--danger-bg:#F9E9EA;
+    --org:#2C7A57;--org-bg:#E7F3EC;--enr:#3C6E93;--enr-bg:#EAF1F6;--rec:#C6512A;--rec-bg:#FBEDE7;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}body{margin:0}
+  .wrap{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:clamp(18px,4vw,52px) clamp(14px,4vw,36px)}
+  .doc{max-width:960px;margin:0 auto}
+  h1{font-size:clamp(1.9rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+  h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;margin:0}
+  h3{font-size:.96rem;font-weight:700;margin:0 0 3px}
+  p{margin:0 0 .7em;max-width:72ch}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+  .lead{font-size:1.06rem;color:var(--muted);max-width:70ch}
+  .ui{font-weight:600;color:var(--ink);background:#EEF1F4;border:1px solid var(--line);border-radius:5px;padding:0 6px;white-space:nowrap;font-size:.92em}
+  .masthead{border-bottom:3px solid var(--ink);padding-bottom:22px;margin-bottom:20px}
+  .masthead .eyebrow{display:block;margin-bottom:10px}
+  .pchip{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap}
+  .pchip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pchip.org{background:var(--org-bg);color:#1F5C40}.pchip.enr{background:var(--enr-bg);color:#2C5573}.pchip.rec{background:var(--rec-bg);color:var(--accent-ink)}
+  .who-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0 4px}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-top:3px solid var(--line)}
+  .pcard.org{border-top-color:var(--org)}.pcard.enr{border-top-color:var(--enr)}.pcard.rec{border-top-color:var(--rec)}
+  .pcard h3{font-size:1rem;margin-bottom:6px}.pcard p{font-size:.88rem;color:var(--muted);margin:0}
+  section.feature{margin-top:48px;scroll-margin-top:16px}
+  .feature>.head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
+  .feature>.head .num{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--accent)}
+  .feature>.head .tags{margin-left:auto}
+  .overview{color:var(--muted);font-size:.98rem;margin:4px 0 6px;max-width:74ch}
+  .sub-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+  .sub-label::after{content:"";flex:1;height:1px;background:var(--line-2)}
+  .stepwrap{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+  @media(min-width:780px){.stepwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:30px}}
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+  ol.steps>li{counter-increment:s;display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}
+  ol.steps>li::before{content:counter(s);font-family:var(--mono);font-weight:700;font-size:.76rem;color:#fff;background:var(--accent);border-radius:50%;width:23px;height:23px;display:grid;place-items:center;margin-top:1px}
+  ol.steps>li>div>p{margin:0}ol.steps>li>div>p+p{margin-top:3px}
+  .hint{color:var(--muted);font-size:.87rem}
+  .result{color:var(--ok);font-size:.87rem;font-weight:600}.result::before{content:"→ "}
+  .note{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:.9rem}
+  .note.warn{background:#FBF1E2;border-color:var(--beats)}.note.info{background:var(--enr-bg);border-color:#3C6E93}
+  .note p{margin:0;max-width:none}.note p+p{margin-top:.5em}
+  .cando{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:10px 0 4px}
+  .cd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .cd h4{margin:0 0 8px;font-size:.8rem;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase}
+  .cd.can h4{color:var(--ok)}.cd.cant h4{color:var(--danger)}
+  .cd ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;font-size:.88rem}
+  .cd li{position:relative;padding-left:24px}
+  .cd li::before{position:absolute;left:0;top:0;font-weight:700}
+  .cd.can li::before{content:"✓";color:var(--ok)}
+  .cd.cant li::before{content:"✕";color:var(--danger)}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-top:14px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.88rem}
+  .fact b{display:block;margin-bottom:4px}
+  .fact p{margin:0;color:var(--muted);max-width:none}
+  .statusrow{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 2px}
+  .st{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:100px}
+  .st.wait{background:var(--beats-bg);color:var(--beats)}.st.unsent{background:var(--danger-bg);color:var(--danger)}.st.done{background:var(--ok-bg);color:var(--ok)}
+  .shot .cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+  .phone{width:214px;margin:0 auto;border-radius:30px;padding:6px;background:#12161C;box-shadow:0 14px 34px -16px rgba(0,0,0,.55)}
+  .phone .scr{border-radius:24px;overflow:hidden;background:#0C0F14}
+  .phone .top{font-family:var(--mono);font-size:.56rem;color:rgba(255,255,255,.5);text-align:center;padding:7px 8px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06)}
+  .phone .body{min-height:250px;padding:22px 18px;color:#EAEFF5;background:radial-gradient(130% 70% at 50% -10%,#2A3444 0%,#0C0F14 62%);display:flex;flex-direction:column;gap:12px}
+  .phone .eyb{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);text-align:center}
+  .phone .h{font-weight:700;font-size:1rem;text-align:center}
+  .phone .m{font-size:.74rem;color:rgba(255,255,255,.64);text-align:center;max-width:24ch;margin:0 auto}
+  .phone .qrmini{width:118px;height:118px;margin:6px auto;border-radius:10px;background:repeating-conic-gradient(#0C0F14 0 25%,#fff 0 50%) 0 0/12px 12px}
+  .phone .pbtn{margin-top:auto;background:#fff;color:#12161C;border-radius:10px;padding:9px;text-align:center;font-weight:700;font-size:.82rem}
+  .phone .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px}
+  .phone .card .tt{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+  .phone .card .tn{font-weight:700;font-size:.88rem;margin-top:3px}
+  .phone .card .tb{font-size:.72rem;color:rgba(255,255,255,.62);margin-top:3px}
+  .frame{background:#fff;border:1px solid var(--line-2);border-radius:12px;box-shadow:0 6px 24px -12px rgba(20,26,40,.28);overflow:hidden}
+  .bbar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#F4F6F8;border-bottom:1px solid var(--line)}
+  .bbar .dot{width:8px;height:8px;border-radius:50%;background:#D4DAE1}.bbar .u{margin-left:8px;font-family:var(--mono);font-size:.62rem;color:var(--faint)}
+  .wt{padding:14px 16px}
+  .wt .h{font-weight:700;font-size:.95rem}.wt .sub{font-size:.76rem;color:var(--muted);margin-bottom:10px}
+  .wt .row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:.78rem;flex-wrap:wrap}
+  .wt .badge{font-size:.64rem;padding:2px 7px;border-radius:100px;font-weight:600}
+  .wt .badge.ok{background:var(--ok-bg);color:var(--ok)}.wt .badge.neu{background:#EEF1F4;color:var(--muted)}.wt .badge.wait{background:var(--beats-bg);color:var(--beats)}.wt .badge.unsent{background:var(--danger-bg);color:var(--danger)}
+  .wt .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .btn{font-size:.78rem;font-weight:600;border-radius:8px;padding:7px 12px;border:1px solid var(--line-2);background:#fff;color:var(--ink)}
+  .btn.primary{background:var(--org);color:#fff;border-color:var(--org)}
+  .passgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:4px 0 8px}
+  .pass{border:1px solid var(--line);border-radius:8px;padding:8px 6px;text-align:center;position:relative}
+  .pass .q{width:52px;height:52px;margin:2px auto;border-radius:5px;background:repeating-conic-gradient(#12181f 0 25%,#fff 0 50%) 0 0/7px 7px}
+  .pass .n{font-size:.68rem;font-weight:700;margin-top:3px}
+  .pass .s{font-size:.58rem;font-weight:700;margin-top:2px}
+  .pass .s.sent{color:var(--ok)}.pass .s.not{color:var(--beats)}
+  .pass .cb{position:absolute;top:5px;left:5px;width:12px;height:12px;border-radius:3px;border:1px solid var(--line-2);display:grid;place-items:center;font-size:.55rem;color:#fff}
+  .pass .cb.on{background:var(--org);border-color:var(--org)}
+  .foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:.82rem}
+  .foot .mono{color:var(--muted);font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">W</div><div><b>Webticket</b><small>Fordeling og modtagere</small></div></div>
+    <nav class="toc">
+      <div class="g">Del 1 · Organisationen</div>
+      <a href="#organisation">Ejer / Manager</a>
+      <a href="#fordel">Fordel en billet</a>
+      <a href="#passes">Del QR-passes</a>
+      <a href="#tilmeld">Tilmeldings-QR</a>
+      <div class="g">Fælles</div>
+      <a href="#faelles">Gælder for alle</a>
+      <div class="g">Del 2 · Modtageren</div>
+      <a href="#modtager">Hent din billet</a>
+      <a href="#kan">Hvad du kan</a>
+      <div class="g">Se også</div>
+      <a class="back" href="index.html">Alle webticket-guides</a>
+    </nav>
+  </aside>
+<div class="wrap"><div class="doc">
+  <header class="masthead">
+    <span class="eyebrow">LiveCloud · Webticket</span>
+    <h1>Webticket-guide</h1>
+    <p class="lead" style="margin-top:12px">Tre roller, tre korte guides. <strong>Organisationen</strong> (Ejer eller Manager) fordeler adgange på webticket. En <strong>tilmeldt gæst</strong> kom ind via organisationens tilmeldings-QR. En <strong>modtager</strong> har fået tildelt en billet med et hente-link på mail. Alle knap-navne er citeret præcis som de står i webticket.</p>
+  </header>
+
+  <div class="who-row">
+    <div class="pcard org"><h3><span class="pchip org">Organisation · Ejer / Manager</span></h3><p>Du fordeler organisationens billetter på siden <span class="ui">Tildelte billetter</span> og deler QR-passes.</p></div>
+    <div class="pcard enr"><h3><span class="pchip enr">Tilmeldt gæst</span></h3><p>Du scannede organisationens QR og trykkede dig igennem "Deltag i festivalen". Du modtager - du administrerer ikke.</p></div>
+    <div class="pcard rec"><h3><span class="pchip rec">Modtager af tildelt billet</span></h3><p>Du fik en mail: "… har tildelt dig en billet". Med hente-linket lægger du billetten ind i din egen profil.</p></div>
+  </div>
+
+  <!-- ===== DEL 1: ORGANISATIONEN ===== -->
+  <section class="feature" id="organisation">
+    <div class="head"><span class="num">DEL 1</span><h2>Organisationen (Ejer / Manager)</h2><span class="tags"><span class="pchip org">du fordeler adgange</span></span></div>
+    <p class="overview">Rollerne er webtickets egne: <strong>Ejer</strong> "kan alt: bestille og fordele billetter, styre kontaktpersoner og opsætning". <strong>Manager</strong> "kan oprette ordrer og fordele billetter, men ikke ændre kontaktpersoner eller opsætning". Begge fordeler på siden <span class="ui">Tildelte billetter</span>.</p>
+
+    <div class="sub-label" id="fordel">Fordel en billet · to måder</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p><strong>Kun navn:</strong> skriv navnet på linjen og gem. Personen er på listen, og adgangen ligger som QR-kode under <span class="ui">Vis QR koder</span>. Der sendes ingen mail, og personen behøver ingen profil.</p></div></li>
+        <li><div><p><strong>Navn + e-mail:</strong> personen får et <strong>hente-link</strong> på mail og henter selv billetten ind i sin egen profil. Knappen hedder <span class="ui">Tildel</span> uden e-mail og <span class="ui">Overdrag</span> med.</p></div></li>
+        <li><div><p>Mailen sendes straks, hvis <span class="ui">Send med det samme</span> er slået til øverst - ellers først når du trykker <span class="ui">Send adgang</span> på linjen. <span class="ui">Gensend adgang</span> sender igen, og <span class="ui">Send adgang til alle (antal)</span> tager hele listen på én gang.</p>
+        <p class="hint">Status på linjerne:</p>
+        <div class="statusrow"><span class="st unsent">Adgang ikke sendt</span><span class="st wait">Afventer</span><span class="st done">Hentet</span></div>
+        <p class="hint"><strong>Adgang ikke sendt</strong> = kun reserveret. <strong>Afventer</strong> = hente-link sendt, ikke hentet. <strong>Hentet</strong> = ligger i modtagerens egen profil, og linjen er låst for dig.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Tildelte billetter</div>
+        <div class="frame"><div class="bbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="u">…/tickets</span></div>
+          <div class="wt">
+            <div class="h">Tildelte billetter</div><div class="sub">Skriv navn og e-mail for at tildele billetten til en person. De får et hente-link på e-mail.</div>
+            <div class="row"><span>Rose Abildgaard</span><span class="badge wait">Afventer</span></div>
+            <div class="row"><span>Anton (kun navn)</span><span class="badge neu">Tildelt</span></div>
+            <div class="row"><span>Mads Esmann</span><span class="badge unsent">Adgang ikke sendt</span></div>
+            <div class="actions"><span class="btn">Send med det samme</span><span class="btn">Importér CSV</span><span class="btn primary">Vis QR koder</span></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sub-label" id="passes">Del QR-passes</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Tryk <span class="ui">Vis QR koder</span> - øverst for hele kontoen, eller på den enkelte ordre-linje for kun dén liste.</p></div></li>
+        <li><div><p>Sæt flueben ved de passes du vil dele. Modtagerfeltet er forudfyldt med din egen mail - ret det frit.</p></div></li>
+        <li><div><p>Tryk <span class="ui">Send PDF</span> eller <span class="ui">Download PDF</span>. Kun de valgte kommer med.</p><p class="result">Hvert pas viser bagefter "Sendt + tidspunkt" eller "Ikke sendt", så du altid kan se, hvad der reelt er afsendt.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Passes · vælg og send</div>
+        <div class="frame"><div class="wt">
+          <div class="h">Passes</div><div class="sub">QR-kode og navn for hver navngiven billet. Download som PDF.</div>
+          <div class="passgrid">
+            <div class="pass"><span class="cb on">✓</span><div class="q"></div><div class="n">Anton</div><div class="s sent">Sendt 27. jul.</div></div>
+            <div class="pass"><span class="cb on">✓</span><div class="q"></div><div class="n">Anna</div><div class="s sent">Sendt 27. jul.</div></div>
+            <div class="pass"><span class="cb"></span><div class="q"></div><div class="n">Christian</div><div class="s not">Ikke sendt</div></div>
+          </div>
+          <div class="actions"><span class="btn">2 af 3 valgt</span><span class="btn">Download PDF</span><span class="btn primary">Send PDF</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sub-label" id="tilmeld">Tilmeldings-QR · og hvad dine tilmeldte gæster kan</div>
+    <p style="font-size:.92rem;max-width:74ch">Med en tilmeldings-QR melder folk sig selv til: de scanner koden, ser <span class="ui">Deltag i festivalen</span> og får automatisk en billet fra puljen, hvis auto-tildeling er slået til. Rollen på kontoen er som standard <strong>Medlem</strong>. Fortæl dine gæster, hvad det giver dem:</p>
+    <div class="cando">
+      <div class="cd can"><h4>Tilmeldte gæster kan</h4><ul>
+        <li>få deres billet og se den under <span class="ui">Mine billetter</span></li>
+        <li>vise deres pas-QR ved indgangen</li>
+        <li>modtage Beats og bruge dem i baren</li>
+        <li>underskrive deres egen kontrakt, hvis de er crew</li>
+      </ul></div>
+      <div class="cd cant"><h4>Tilmeldte gæster kan ikke</h4><ul>
+        <li>se organisationens konto eller billetliste</li>
+        <li>fordele, overdrage eller tilbagekalde kontoens billetter</li>
+        <li>se eller sende andres QR-passes</li>
+        <li>ændre noget som helst i jeres opsætning</li>
+      </ul></div>
+    </div>
+    <div class="note"><p><strong>Værd at vide:</strong> scanner en af jeres egne managers QR-koden, beholder de deres manager-rolle - ingen bliver nedgraderet af at tilmelde sig.</p></div>
+  </section>
+
+  <!-- ===== FÆLLES ===== -->
+  <section class="feature" id="faelles">
+    <div class="head"><span class="num">FÆLLES</span><h2>Gælder for alle</h2></div>
+    <div class="facts">
+      <div class="fact"><b>QR-koden er adgangen.</b><p>Passet scannes ved indgangen - på print eller telefon. Ingen app og ingen profil er nødvendig for at komme ind.</p></div>
+      <div class="fact"><b>Profil = billetten i egen lomme.</b><p>Vil man have billetten i sin egen profil og app, skal den hentes via et hente-link. Man logger ind med <span class="ui">Fortsæt med MitID</span> eller en e-mailkode.</p></div>
+      <div class="fact"><b>Hentet er hentet.</b><p>Når en billet står som <span class="ui">Hentet</span>, er den personens egen. Organisationen kan ikke længere ændre eller flytte den.</p></div>
+      <div class="fact"><b>Beats kræver profil.</b><p>Betaling i barer og boder sker med Beats fra ens egen profil. QR-pas alene kan ikke købe.</p></div>
+      <div class="fact"><b>"Sendt" betyder sendt.</b><p>Statusser og tidsstempler viser hvad der faktisk er afsendt - står der "Ikke sendt" eller "Adgang ikke sendt", er der ikke sendt noget endnu.</p></div>
+      <div class="fact"><b>Forkert e-mail?</b><p>Er linjen ikke hentet endnu, kan organisationen trykke <span class="ui">Redigér</span>, rette e-mailen og sende igen. Ellers: <span class="ui">Tilbagekald</span> og tildel forfra.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== DEL 2: MODTAGEREN ===== -->
+  <section class="feature" id="modtager">
+    <div class="head"><span class="num">DEL 2</span><h2>Modtager af en tildelt billet</h2><span class="tags"><span class="pchip rec">du har fået et hente-link</span></span></div>
+    <p class="overview">Du har fået en mail med teksten "… har tildelt dig en billet" og et hente-link. Sådan får du adgang:</p>
+
+    <div class="sub-label">Hent din billet</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Åbn mailen og tryk på linket. Du lander på <span class="ui">Hent din billet</span> i webticket.</p></div></li>
+        <li><div><p>Tryk <span class="ui">Acceptér billet</span> og log ind: <span class="ui">Fortsæt med MitID</span>, eller vælg <span class="ui">E-mailkode</span> og brug koden du får på mail.</p></div></li>
+        <li><div><p>Billetten ligger nu under <span class="ui">Mine billetter</span> i webticket og i festival-appen med samme login.</p><p class="result">Dit pas er klar under "Din adgang": "Vis denne QR ved indgangen."</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Hente-linket</div>
+        <div class="phone"><div class="scr"><div class="top">webticket.ringstedfestival.dk</div>
+          <div class="body">
+            <div class="eyb">Hent din billet</div>
+            <div class="h">Nørregade ApS har tildelt dig en billet</div>
+            <div class="m">MEDARBEJDER / LØRDAG 2026</div>
+            <div class="qrmini"></div>
+            <div class="pbtn">Acceptér billet</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sub-label" id="kan">Hvad du kan · og ikke kan</div>
+    <div class="cando">
+      <div class="cd can"><h4>Du kan</h4><ul>
+        <li>se din billet og dit pas under <span class="ui">Mine billetter</span></li>
+        <li>bruge <span class="ui">Beats</span>: se saldo, <span class="ui">Tank op</span> med kort og betale i baren</li>
+        <li>se dine kvitteringer og din profil</li>
+        <li>overdrage din egen billet videre, hvis den type billet tillader det</li>
+      </ul></div>
+      <div class="cd cant"><h4>Du kan ikke</h4><ul>
+        <li>se organisationens øvrige billetter eller lister</li>
+        <li>ændre i fordelingen - kontakt din manager, hvis noget er forkert</li>
+        <li>få mailen igen selv - bed din manager trykke <span class="ui">Gensend adgang</span></li>
+      </ul></div>
+    </div>
+
+    <div class="note info"><p><strong>Har du kun fået en QR-kode (uden mail)?</strong> Så er din adgang et navn på organisationens liste. Den virker fint ved indgangen - men vil du have billetten i din egen app, skal du bede den der styrer listen om at knytte din e-mail til adgangen og sende den. Så får du hente-linket og kan følge trinnene ovenfor.</p></div>
+  </section>
+
+  <footer class="foot">
+    <p>Webticket-guide - organisationen (fordeling · QR-passes · tilmeldings-QR), fælles regler, og modtageren (hente-link · Mine billetter · Beats).<br>
+    <strong>Status:</strong> alle labels og rettigheder er verificeret mod produktionen <span class="mono">27. juli 2026</span>, inklusive dagens ændringer: synlig modtager-mail og multiselect på passes, "Sendt/Ikke sendt"-stempler, og at tilmeldte gæster via QR er rene modtagere uden adgang til organisationens konto.</p>
+  </footer>
+</div></div>
+</div>
+</body>
+</html>

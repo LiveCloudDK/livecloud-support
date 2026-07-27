@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Beats i Webticket</title>
+<style>
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#F2F4F7;color:#161A21;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1260px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid #E4E8ED;background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:#9A6A12;color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1;display:block}aside .brand small{color:#71717a;font-size:11px;display:block}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:#71717a;font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  aside .toc a.back{color:#71717a;font-size:12.5px}
+  .layout > .wrap{min-width:0}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}}
+  @media print{aside{display:none}.layout{grid-template-columns:1fr}body{background:#fff}}
+  :root{
+    --paper:#F2F4F7;--ink:#161A21;--muted:#5C6675;--faint:#8A94A2;--line:#E4E8ED;--line-2:#D2D8E0;--card:#FFFFFF;
+    --accent:#9A6A12;--accent-ink:#7C5410;--accent-bg:#F6EEDD;--primary:#1B212A;
+    --ok:#2C7A57;--ok-bg:#E7F3EC;--beats:#9A6A12;--beats-bg:#F6EEDD;--danger:#B02330;--danger-bg:#F9E9EA;
+    --org:#2C7A57;--org-bg:#E7F3EC;--enr:#3C6E93;--enr-bg:#EAF1F6;--rec:#C6512A;--rec-bg:#FBEDE7;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  .wrap{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding:clamp(18px,4vw,52px) clamp(14px,4vw,36px)}
+  .doc{max-width:960px;margin:0 auto}
+  h1{font-size:clamp(1.9rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+  h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;margin:0}
+  h3{font-size:.96rem;font-weight:700;margin:0 0 3px}
+  p{margin:0 0 .7em;max-width:72ch}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+  .lead{font-size:1.06rem;color:var(--muted);max-width:70ch}
+  .ui{font-weight:600;color:var(--ink);background:#EEF1F4;border:1px solid var(--line);border-radius:5px;padding:0 6px;white-space:nowrap;font-size:.92em}
+  .masthead{border-bottom:3px solid var(--ink);padding-bottom:22px;margin-bottom:20px}
+  .masthead .eyebrow{display:block;margin-bottom:10px}
+  .pchip{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap}
+  .pchip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pchip.org{background:var(--org-bg);color:#1F5C40}.pchip.enr{background:var(--enr-bg);color:#2C5573}.pchip.rec{background:var(--rec-bg);color:#9E3F20}
+  .who-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0 4px}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-top:3px solid var(--line)}
+  .pcard.org{border-top-color:var(--org)}.pcard.enr{border-top-color:var(--enr)}.pcard.rec{border-top-color:var(--rec)}
+  .pcard h3{font-size:1rem;margin-bottom:6px}.pcard p{font-size:.88rem;color:var(--muted);margin:0}
+  section.feature{margin-top:48px;scroll-margin-top:16px}
+  .feature>.head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
+  .feature>.head .num{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--accent)}
+  .feature>.head .tags{margin-left:auto}
+  .overview{color:var(--muted);font-size:.98rem;margin:4px 0 6px;max-width:74ch}
+  .sub-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+  .sub-label::after{content:"";flex:1;height:1px;background:var(--line-2)}
+  .stepwrap{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+  @media(min-width:780px){.stepwrap{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:30px}}
+  ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+  ol.steps>li{counter-increment:s;display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start}
+  ol.steps>li::before{content:counter(s);font-family:var(--mono);font-weight:700;font-size:.76rem;color:#fff;background:var(--accent);border-radius:50%;width:23px;height:23px;display:grid;place-items:center;margin-top:1px}
+  ol.steps>li>div>p{margin:0}ol.steps>li>div>p+p{margin-top:3px}
+  .hint{color:var(--muted);font-size:.87rem}
+  .result{color:var(--ok);font-size:.87rem;font-weight:600}.result::before{content:"→ "}
+  .note{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:.9rem}
+  .note.info{background:var(--enr-bg);border-color:#3C6E93}
+  .note p{margin:0;max-width:none}.note p+p{margin-top:.5em}
+  .cando{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:10px 0 4px}
+  .cd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .cd h4{margin:0 0 8px;font-size:.8rem;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase}
+  .cd.can h4{color:var(--ok)}.cd.cant h4{color:var(--danger)}
+  .cd ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;font-size:.88rem}
+  .cd li{position:relative;padding-left:24px}
+  .cd li::before{position:absolute;left:0;top:0;font-weight:700}
+  .cd.can li::before{content:"✓";color:var(--ok)}
+  .cd.cant li::before{content:"✕";color:var(--danger)}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-top:14px}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.88rem}
+  .fact b{display:block;margin-bottom:4px}
+  .fact p{margin:0;color:var(--muted);max-width:none}
+  .shot .cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+  .phone{width:214px;margin:0 auto;border-radius:30px;padding:6px;background:#12161C;box-shadow:0 14px 34px -16px rgba(0,0,0,.55)}
+  .phone .scr{border-radius:24px;overflow:hidden;background:#0C0F14}
+  .phone .top{font-family:var(--mono);font-size:.56rem;color:rgba(255,255,255,.5);text-align:center;padding:7px 8px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06)}
+  .phone .body{min-height:250px;padding:22px 18px;color:#EAEFF5;background:radial-gradient(130% 70% at 50% -10%,#2A3444 0%,#0C0F14 62%);display:flex;flex-direction:column;gap:12px}
+  .phone .ballab{text-align:center;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+  .phone .bal{font-size:1.7rem;font-weight:800;text-align:center;color:#E9C46A}
+  .phone .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px}
+  .phone .card .tt{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+  .phone .card .tb{font-size:.72rem;color:rgba(255,255,255,.62);margin-top:3px}
+  .phone .pbtn{margin-top:auto;background:#fff;color:#12161C;border-radius:10px;padding:9px;text-align:center;font-weight:700;font-size:.82rem}
+  .frame{background:#fff;border:1px solid var(--line-2);border-radius:12px;box-shadow:0 6px 24px -12px rgba(20,26,40,.28);overflow:hidden}
+  .bbar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#F4F6F8;border-bottom:1px solid var(--line)}
+  .bbar .dot{width:8px;height:8px;border-radius:50%;background:#D4DAE1}.bbar .u{margin-left:8px;font-family:var(--mono);font-size:.62rem;color:var(--faint)}
+  .wt{padding:14px 16px}
+  .wt .h{font-weight:700;font-size:.95rem}.wt .sub{font-size:.76rem;color:var(--muted);margin-bottom:10px}
+  .wt .row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:.78rem;flex-wrap:wrap}
+  .wt .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .btn{font-size:.78rem;font-weight:600;border-radius:8px;padding:7px 12px;border:1px solid var(--line-2);background:#fff;color:var(--ink)}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .dialogm{padding:18px}
+  .dialogm .dt{font-weight:800;font-size:1rem}.dialogm .dd{color:var(--muted);font-size:.83rem;margin:4px 0 12px}
+  .dialogm .fld{border:1px solid var(--line-2);border-radius:8px;padding:8px 10px;font-size:.82rem;color:var(--muted);margin-bottom:8px}
+  .dialogm .meta{font-size:.76rem;color:var(--muted);margin:2px 0}
+  .poolbox{background:#FBF8F1;border:1px solid #EADFC8;border-radius:10px;padding:10px 12px;font-size:.8rem;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">B</div><div><b>Webticket</b><small>Beats-guiden</small></div></div>
+    <nav class="toc">
+      <a href="#model">Sådan hænger det sammen</a>
+      <div class="g">Del 1 · Organisationen</div>
+      <a href="#organisation">Beats-puljen</a>
+      <a href="#tildel">Tildel Beats</a>
+      <a href="#tilbagekald">Tilbagekald Beats</a>
+      <div class="g">Fælles</div>
+      <a href="#faelles">Gælder for alle</a>
+      <div class="g">Del 2 · Dig med Beats</div>
+      <a href="#dig">Saldo og optankning</a>
+      <a href="#refusion">Refusion</a>
+      <a href="#kan">Hvad du kan</a>
+      <div class="g">Se også</div>
+      <a class="back" href="fordeling-og-modtagere.html">Fordeling og modtagere</a>
+      <a class="back" href="index.html">Alle webticket-guides</a>
+    </nav>
+  </aside>
+<div class="wrap"><div class="doc">
+  <header class="masthead">
+    <span class="eyebrow">LiveCloud · Webticket</span>
+    <h1>Beats-guiden</h1>
+    <p class="lead" style="margin-top:12px">Beats er festivalens penge. I barer og boder står priserne i Beats, og du betaler med Beats fra din egen profil. Guiden dækker organisationen, der deler Beats ud fra sin pulje, og dig, der har Beats på din profil. Alle knap-navne står præcis som i webticket.</p>
+  </header>
+
+  <!-- ===== SÅDAN HÆNGER DET SAMMEN ===== -->
+  <section class="feature" id="model" style="margin-top:30px">
+    <div class="head"><span class="num">START HER</span><h2>Sådan hænger det sammen</h2></div>
+    <p class="overview">I barer og boder betaler man ikke med kort eller kontanter, men med <strong>Beats</strong> fra sin egen profil: du viser bare din telefon med festival-appen eller dit armbånd. Saldoen følger din profil, så den er den samme i webticket og i appen.</p>
+    <p class="overview">Du kan få Beats på to måder:</p>
+    <div class="cando">
+      <div class="cd"><h4 style="color:var(--accent-ink)">Tank selv op · med kort</h4>
+        <p style="font-size:.88rem;margin:0;max-width:none">På siden <span class="ui">Beats</span> trykker du <span class="ui">Tank op</span> og betaler med kort. Det, du selv har tanket op, kan du altid få refunderet til kortet igen.</p>
+      </div>
+      <div class="cd"><h4 style="color:var(--org)">Få dem tildelt · fra en pulje</h4>
+        <p style="font-size:.88rem;margin:0;max-width:none">En organisation, fx din arbejdsgiver, et band eller en akkrediteringsliste, kan give dig Beats fra sin <strong>Beats-pulje</strong>. Tildelte Beats bruges på pladsen og kan ikke udbetales.</p>
+      </div>
+    </div>
+    <p class="overview" style="margin-top:10px">Organisationerne er de samme som i <a href="fordeling-og-modtagere.html" style="color:var(--accent-ink)">fordeling-guiden</a>: en virksomhed, en artist eller et band, eller en generel akkrediteringsliste. Det er organisationens <strong>Ejer</strong> eller <strong>Manager</strong>, der deler Beats ud.</p>
+  </section>
+
+  <div class="who-row">
+    <div class="pcard org"><h3><span class="pchip org">Organisation · Ejer / Manager</span></h3><p>Du har en Beats-pulje på kontoen og deler ud til dine folk med <span class="ui">Tildel Beats</span>.</p></div>
+    <div class="pcard enr"><h3><span class="pchip enr">Medarbejder · modtager</span></h3><p>Du har fået Beats tildelt. De ligger klar på din profil og bruges i barer og boder.</p></div>
+    <div class="pcard rec"><h3><span class="pchip rec">Gæst · tanker selv op</span></h3><p>Du tanker op med kort på siden <span class="ui">Beats</span> og kan få det urørte refunderet igen.</p></div>
+  </div>
+
+  <!-- ===== DEL 1: ORGANISATIONEN ===== -->
+  <section class="feature" id="organisation">
+    <div class="head"><span class="num">DEL 1</span><h2>Organisationen (Ejer / Manager)</h2><span class="tags"><span class="pchip org">du deler Beats ud</span></span></div>
+    <p class="overview">Organisationens Beats ligger i en pulje på kontoen. Du kan se den øverst på siden <span class="ui">Beats</span>: "Virksomhedens Beats-pulje", "Klar til at fordele til modtagere, når du tildeler billetter." Selve uddelingen sker fra personens linje på <span class="ui">Tildelte billetter</span>.</p>
+
+    <div class="sub-label" id="tildel">Tildel Beats til en person</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Find personen på <span class="ui">Tildelte billetter</span>, og vælg <span class="ui">Beats</span> i menuen på linjen.</p></div></li>
+        <li><div><p>Dialogen <span class="ui">Tildel Beats</span> viser "Giv Beats til [navn] fra områdets pulje", hvad personen "Har nu", og hvor mange "Beats tilbage i puljen" der er. Skriv antallet i <span class="ui">Antal Beats</span>.</p></div></li>
+        <li><div><p>Tryk <span class="ui">Tildel Beats</span>.</p><p class="result">"Tildelte [antal] Beats til [navn]." Personen kan bruge dem med det samme.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Tildel Beats</div>
+        <div class="frame"><div class="dialogm">
+          <div class="dt">Tildel Beats</div>
+          <div class="dd">Giv Beats til Anna fra områdets pulje.</div>
+          <div class="meta">Har nu: 200 Beats.</div>
+          <div class="fld">Antal Beats: 300</div>
+          <div class="poolbox">4.500 Beats tilbage i puljen.</div>
+          <div class="actions" style="display:flex;gap:8px;justify-content:flex-end"><span class="btn">Annullér</span><span class="btn primary">Tildel Beats</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sub-label" id="tilbagekald">Træk Beats tilbage</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Vælg <span class="ui">Tilbagekald Beats</span> på personens linje. Webticket spørger: "Tilbagekald Beats fra [navn]? Ubrugte Beats føres tilbage til puljen."</p></div></li>
+        <li><div><p>Bekræft.</p><p class="result">"[Antal] Beats ført tilbage til puljen." Det er kun <strong>ubrugte</strong> Beats, der kan trækkes tilbage; det, personen allerede har brugt i baren, er brugt.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Beats-pulje på Beats-siden</div>
+        <div class="frame"><div class="bbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="u">…/wallet</span></div>
+          <div class="wt">
+            <div class="h">Virksomhedens Beats-pulje</div>
+            <div class="sub">Klar til at fordele til modtagere, når du tildeler billetter.</div>
+            <div class="row"><span>I puljen</span><span><strong>4.500 Beats</strong></span></div>
+            <div class="row"><span>Tildelt til folk</span><span><strong>2.300 Beats</strong></span></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="note"><p><strong>Mangler du knapperne?</strong> Så siger webticket det selv: "Du har ikke rettigheder til at justere Beats eller tilbagekalde alle tildelinger. Kontakt din leder."</p></div>
+  </section>
+
+  <!-- ===== FÆLLES ===== -->
+  <section class="feature" id="faelles">
+    <div class="head"><span class="num">FÆLLES</span><h2>Gælder for alle</h2></div>
+    <div class="facts">
+      <div class="fact"><b>Barer og boder tager Beats.</b><p>Priserne på pladsen står i Beats, og du betaler fra din egen profil: vis festival-appen eller brug dit armbånd.</p></div>
+      <div class="fact"><b>Beats kræver profil.</b><p>Beats ligger på din profil, så du skal være logget ind, med MitID eller e-mailkode, for at have og bruge dem. Et QR-pas alene kan ikke købe.</p></div>
+      <div class="fact"><b>Samme saldo overalt.</b><p>Webticket og festival-appen viser den samme saldo, når du logger ind med det samme.</p></div>
+      <div class="fact"><b>To slags Beats.</b><p>Kort-optankninger kan refunderes til kortet. Beats, du har tjent eller fået, bliver stående og bruges på pladsen; de kan ikke udbetales.</p></div>
+      <div class="fact"><b>Alt står i Kvitteringer.</b><p>Hvert køb og hver bevægelse ligger under <span class="ui">Kvitteringer</span>: "Se dine køb og bevægelser."</p></div>
+      <div class="fact"><b>Ubrugt kan kaldes tilbage.</b><p>Har en organisation tildelt dig Beats, kan den trække de ubrugte tilbage til puljen igen, fx når festivalen er slut.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== DEL 2: DIG MED BEATS ===== -->
+  <section class="feature" id="dig">
+    <div class="head"><span class="num">DEL 2</span><h2>Dig med Beats på profilen</h2><span class="tags"><span class="pchip rec">gæst og medarbejder</span></span></div>
+    <p class="overview">Uanset om du selv har tanket op eller har fået Beats tildelt, bor det hele på siden <span class="ui">Beats</span>: "Din Beats-saldo og refusion." Under saldoen kan du se, hvor dine Beats kommer fra: "Køb i bar/bod", "Beats-overførsel", "Betalt billetoverdragelse" og "Resale".</p>
+
+    <div class="sub-label">Se saldo og tank op</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Åbn <span class="ui">Beats</span> i menuen. Øverst står <span class="ui">Din Beats-saldo</span>.</p></div></li>
+        <li><div><p>Tryk <span class="ui">Tank op</span>, og betal med kort. Beløbet står på saldoen med det samme.</p></div></li>
+        <li><div><p>På pladsen betaler du med festival-appen eller dit armbånd; hvert køb trækkes fra saldoen og lander under <span class="ui">Kvitteringer</span>.</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Beats-siden</div>
+        <div class="phone"><div class="scr"><div class="top">webticket.ringstedfestival.dk</div>
+          <div class="body">
+            <div class="ballab">Din Beats-saldo</div>
+            <div class="bal">470 Beats</div>
+            <div class="card"><div class="tt">Seneste</div><div class="tb">Køb i bar/bod &nbsp;&minus;30</div><div class="tb">Tildelt fra pulje &nbsp;+300</div><div class="tb">Tank op &nbsp;+200</div></div>
+            <div class="pbtn">Tank op</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sub-label" id="refusion">Refusion · få kort-optankninger tilbage</div>
+    <div class="stepwrap">
+      <ol class="steps">
+        <li><div><p>Under <span class="ui">Refusion</span> på Beats-siden står præcis, hvad der kan komme tilbage: "[Antal] Beats fra dine kort-optankninger kan refunderes til [dit kort]."</p></div></li>
+        <li><div><p>Tryk <span class="ui">Refunder</span>. Webticket spørger "Refunder til kortet?" og gør opmærksom på, at "Det kan tage nogle bankdage før beløbet er synligt."</p><p class="result">"[Antal] Beats er refunderet til dit kort."</p></div></li>
+        <li><div><p>Resten forklarer siden selv: "De øvrige Beats har du tjent eller fået (fx solgte billetter, gaver eller bonus). De bliver stående og kan bruges på pladsen, men kan ikke udbetales til kort."</p></div></li>
+      </ol>
+      <div class="shot"><div class="cap">Refusion</div>
+        <div class="frame"><div class="wt">
+          <div class="h">Refusion</div>
+          <div class="sub">200 Beats fra dine kort-optankninger kan refunderes til Visa &bull;&bull;&bull;&bull; 4217.</div>
+          <div class="row"><span>Kort-optankninger</span><span><strong>200 Beats</strong></span></div>
+          <div class="row"><span>Tjent eller fået</span><span><strong>270 Beats</strong></span></div>
+          <div class="actions"><span class="btn primary">Refunder 200 Beats</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sub-label" id="kan">Hvad du kan · og ikke kan</div>
+    <div class="cando">
+      <div class="cd can"><h4>Du kan</h4><ul>
+        <li>betale i alle barer og boder med appen eller armbåndet</li>
+        <li>tanke op med kort med <span class="ui">Tank op</span></li>
+        <li>få kort-optankninger refunderet med <span class="ui">Refunder</span></li>
+        <li>se alle køb og bevægelser under <span class="ui">Kvitteringer</span></li>
+      </ul></div>
+      <div class="cd cant"><h4>Du kan ikke</h4><ul>
+        <li>få udbetalt Beats, du har tjent eller fået tildelt; de bruges på pladsen</li>
+        <li>betale med kort eller kontanter i barer og boder</li>
+        <li>flytte din saldo til en anden persons profil</li>
+      </ul></div>
+    </div>
+
+    <div class="note info"><p><strong>Har du fået Beats af din arbejdsgiver?</strong> Så ligger de allerede klar på din profil; du skal ikke gøre noget. Vær opmærksom på, at organisationen kan trække <strong>ubrugte</strong> tildelte Beats tilbage igen, og at de ikke kan udbetales; de er til at bruge på pladsen.</p></div>
+  </section>
+</div></div>
+</div>
+</body>
+</html>

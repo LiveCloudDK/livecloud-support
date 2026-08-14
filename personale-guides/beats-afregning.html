@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Beats-afregning &amp; Danløn · FMS Bemanding</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;--rust:#9a3412;
+    --green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;
+    --amber:#b45309;--amber-bg:#fffbeb;--blue:#0a5cff;--wyw-bg:#eef2ff;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:248px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:6px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--rust);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--brand);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .wyw{background:var(--wyw-bg);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:14px 18px;margin:20px 0;font-size:14.5px}.wyw b{color:#1e3a8a}
+  .who{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:18px 0;background:#fff;box-shadow:var(--shadow)}
+  .who .av{width:46px;height:46px;border-radius:13px;background:#eef2ff;display:grid;place-items:center;font-size:22px;flex:none}
+  .who b{font-size:15px}.who p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+  h3.flow{font-size:22px;margin:34px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--rust);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .setup{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:12px 0;font-size:13.8px}
+  .setup .h{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .app{display:grid;grid-template-columns:186px 1fr;min-height:170px}
+  .side{background:#fafafa;border-right:1px solid var(--line);padding:12px 10px;font-size:12.5px}
+  .side .brand{display:flex;align-items:center;gap:9px;padding:2px 6px 8px}
+  .side .brand .lg{width:23px;height:23px;border-radius:7px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:10px}
+  .side .brand small{display:block;color:var(--muted);font-size:10px}
+  .staging{display:inline-block;margin:0 6px 8px;padding:3px 10px;border-radius:999px;background:var(--amber-bg);border:1px solid #fde68a;color:var(--amber);font-size:10px;font-weight:700;letter-spacing:.08em}
+  .grp{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin:11px 8px 4px}
+  .it{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;color:#3f3f46}.it .ic{width:14px;height:14px;border-radius:4px;background:#e4e4e7;flex:none}
+  .it.on{background:#efeff1;color:#111;font-weight:600}.it.on .ic{background:#111}
+  .main2{padding:18px 20px;background:#fff;min-width:0}
+  .ph{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}.ph h5{margin:0;font-size:18px}.ph p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+  .ph .acts{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}.btn.pri{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:4px 0 12px;background:var(--line)}
+  .kpi{padding:11px 12px;background:#fff}.kpi .k{font-size:9.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}.kpi .v{font-size:21px;font-weight:800;margin-top:2px}
+  .card2{border:1px solid var(--line);border-radius:12px;padding:12px 15px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:9px 0}
+  .card2 .t b{font-size:13.5px}.card2 .t p{margin:2px 0 0;color:var(--muted);font-size:12px}.card2 .right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .fakefile{border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--muted);background:#fafafa}
+  .searchbar{display:flex;gap:10px;align-items:center;margin:12px 0 8px}.search{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--muted);font-size:12.5px;background:#fafafa}
+  .toggle{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}.toggle span{padding:6px 11px;font-size:12px;font-weight:600;color:var(--muted)}.toggle span.on{background:#efeff1;color:#111}
+  .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px}.filters .f{border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:12px;color:#52525b;background:#fff}.filters .f::after{content:" ▾";color:var(--muted)}
+  .unit{border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:9px 0}.unit .row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.unit .row1 b{font-size:14px}
+  .tag2{font-size:10.5px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:#52525b;background:#fafafa}
+  .unit .lead{color:var(--muted);font-size:12.5px;margin-top:2px}.unit .meta{display:flex;gap:14px;flex-wrap:wrap;color:#3f3f46;font-size:12.5px;margin-top:8px;align-items:center}.unit .meta .hi{color:var(--green);font-weight:700}
+  .person{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-top:9px;background:#fcfcfd}.person .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.person .top b{font-size:13.5px}
+  .person .top .sp{margin-left:auto;color:var(--muted);font-size:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.pill{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 10px;border:1px solid var(--grey-line);background:var(--grey-pill);color:#a1a1aa}.pill.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .badge{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#111;color:#fff;font-size:10.5px;font-weight:700;vertical-align:1px;margin-right:3px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:#111;color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .guest{border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 10px 10px 0;padding:9px 13px;margin:9px 0;font-size:13.5px;color:#065f46}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .csvcols{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.csvcols span{font-size:11.5px;border:1px solid var(--line);background:#fafafa;border-radius:7px;padding:4px 9px;color:#3f3f46}.csvcols span.acc{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .lab{font-size:11px;font-weight:700;color:#52525b;margin:8px 0 2px}
+  .tree{font-size:13px;line-height:1.95}.tree .lvl1{font-weight:700}.tree .lvl2{margin-left:22px}.tree .lvl3{margin-left:44px;color:#3f3f46}
+  .tree .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#111;margin-right:8px;vertical-align:2px}.tree .lvl2 .dot{background:#6366f1}.tree .lvl3 .dot{background:#a1a1aa}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.app{grid-template-columns:1fr}.app .side{display:none}main{padding:24px 18px 80px}}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f766e"></head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">LC</div><div><b>Beats-afregning</b><small>FMS Bemanding · festivalkontoret</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan bruger du den</a>
+      <a href="#g1">1 · De tre afregnings-ark</a>
+      <a href="#g2">2 · Kontrollisten</a>
+      <a href="#g3">3 · Danløn-opsætning (én gang)</a>
+      <a href="#g4">4 · Importér Danløn-numre</a>
+      <a href="#g5">5 · Lønlinjer &amp; opret først</a>
+      <a href="#g6">6 · Regler &amp; faldgruber</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Guide · du bruger FMS</div>
+      <h1>Beats-afregning &amp; Danløn</h1>
+      <p class="lede">Efter festivalen skal medarbejdernes ubrugte, tildelte beats afregnes som en del af honoraret. Alt kan trækkes direkte i FMS: tre opgørelses-ark til overblik og kontrol, og to Danløn-filer til selve lønkørslen. Danske knap-navne står i grå - fx <span class="chip">Afregning pr. person</span> - så du ved hvad du skal klikke på.</p>
+      <hr class="rule">
+      <div class="who"><div class="av">🧾</div><div><b>Det er dig</b><p>Festival-administration (fx Line). Du arbejder i FMS og afleverer filer til bogholderiet.</p></div></div>
+      <div class="wyw"><b>Hvor du arbejder:</b> alle udtræk ligger under <span class="chip">Bemanding</span> → knappen <span class="chip">Handlinger</span> øverst til højre → gruppen <span class="chip">Beats-afregning</span>. Tjek at den rigtige festival er valgt øverst til venstre, før du trækker noget.</div>
+    </section>
+
+    <h3 class="flow" id="g1"><span class="g1">Trin 1</span>De tre afregnings-ark</h3>
+    <p class="ctx">Arkene åbner direkte i Excel med danske tal og æøå. Øverst i hvert ark står festivalen, hvornår det er genereret, og kursen (fx <span class="chip">1 Beat = 1,00 DKK</span>) - kronebeløbene følger kursen.</p>
+    <ol class="steps">
+      <li><span class="chip">Afregning pr. person</span>: én række pr. tilmeldt medarbejder med område, medarbejdernummer, afregningstype, sats og <b>beats/kroner til afregning</b>. Har en person flere pladser på samme hold, står beløbet kun på den første række, så summer aldrig tæller dobbelt.</li>
+      <li><span class="chip">Afregning pr. område</span>: summen pr. område plus <b>pulje tilbage</b> - så en områdeleder kan se sit eget regnskab.</li>
+      <li>Beløbet er personens <b>ubrugte, tildelte</b> beats. Beats personen selv har tanket op for egne penge, afregnes aldrig - forbrug trækker altid af tildelingen først.</li>
+    </ol>
+
+    <h3 class="flow" id="g2"><span class="g1">Trin 2</span>Kontrollisten</h3>
+    <p class="ctx">Kontrollisten samler det, der skal afklares, før lønkørslen.</p>
+    <ol class="steps">
+      <li><span class="chip">Uden plads</span>: personer der holder ubrugte tildelte beats, men ikke længere har en plads på holdet. De kommer ikke automatisk med i afregningen - afgør dem manuelt.</li>
+      <li><span class="chip">Mangler afregningstype</span>: tilmeldte pladser uden løn/faktura-valg. Ret typen via blyanten på personens række i Bemanding (<span class="chip">Rediger person</span> → <span class="chip">Honorartype</span>).</li>
+      <li>Er der intet at bemærke, står der <span class="chip">Ingen bemærkninger</span> - så er du klar.</li>
+    </ol>
+
+    <h3 class="flow" id="g3"><span class="g1">Trin 3</span>Danløn-opsætning (én gang pr. festival)</h3>
+    <p class="ctx">Lønlinje-filen skal kende Danløns lønartsnumre - ét for løn og ét for honorar (B-indkomst). Numrene får du af bogholderiet.</p>
+    <ol class="steps">
+      <li>Gå til <span class="chip">Indhold → Generelt</span> og find kortet <span class="chip">Danløn</span>.</li>
+      <li>Udfyld <span class="chip">Lønart for løn</span> og <span class="chip">Lønart for honorar</span>, og gem.</li>
+    </ol>
+    <div class="note"><b>Glemmer du opsætningen,</b> siger systemet selv til: i stedet for en fil får du en besked om at udfylde lønartsnumrene under Indhold - Generelt.</div>
+
+    <h3 class="flow" id="g4"><span class="g1">Trin 4</span>Importér Danløn-numre</h3>
+    <p class="ctx">Danløn matcher på sine egne medarbejdernumre, så FMS skal kende bogholderiets numre. Det gøres én gang - nye folk kan altid importeres oveni.</p>
+    <div class="setup"><div class="h">CSV-format</div>To kolonner: <span class="chip">medarbejdernummer;danloen_nummer</span> - medarbejdernummeret er det, der står på personens række i Bemanding og i afregnings-arkene. En valgfri e-mail-kolonne bruges som reserve-match.</div>
+    <ol class="steps">
+      <li>Vælg <span class="chip">Importér Danløn-numre</span> i <span class="chip">Handlinger</span>-menuen, peg på CSV-filen, og klik <span class="chip">Importér</span>.</li>
+      <li>Svaret viser hvor mange numre der blev gemt, og lister rækker der ikke kunne matches - med linjenummer og årsag, så intet forsvinder stille.</li>
+    </ol>
+
+    <h3 class="flow" id="g5"><span class="g1">Trin 5</span>Lønlinjer &amp; opret først</h3>
+    <p class="ctx">To downloads i samme menu gør lønkørslen til en import i stedet for tastearbejde.</p>
+    <ol class="steps">
+      <li><span class="chip">Danløn-lønlinjer</span>: maskinfilen til Danløns import - én linje pr. person med <b>nummer;lønart;beløb</b>. Løn-folk lander på løn-lønarten, honorar-folk på honorar-lønarten, og beløb summeres på tværs af hold.</li>
+      <li><span class="chip">Danløn: opret først</span>: personer med beløb, men uden Danløn-nummer. Opret dem i Danløn først (stamdata med CPR og adresse står i <span class="chip">Løn-eksport</span>), importér deres nye numre (trin 4), og træk lønlinjerne igen.</li>
+    </ol>
+
+    <h3 class="flow" id="g6"><span class="g1">Trin 6</span>Regler &amp; faldgruber</h3>
+    <ol class="steps">
+      <li><b>Træk altid frisk samme dag</b> som lønkørslen. Beats kan stadig bevæge sig (køb, udbetalinger), og et gammelt ark kan betyde dobbeltbetaling.</li>
+      <li><b>Faktura-folk kommer aldrig med i lønlinjerne.</b> De afregnes efter deres egen faktura, og beløbet står i person-arket under deres afregningstype.</li>
+      <li><b>Frivillige og værdikort-folk</b> udløser heller ingen lønlinje.</li>
+      <li><b>Prøve-importér den første fil</b> i Danløns importskærm, før den bruges til en rigtig kørsel.</li>
+      <li>Lønlinje-filen indeholder <b>aldrig CPR</b> - Danløn matcher på medarbejdernummeret. CPR til oprettelse ligger kun i den almindelige <span class="chip">Løn-eksport</span>, som behandles fortroligt.</li>
+    </ol>
+
+    <div class="footer">LiveCloud FMS · Beats-afregning &amp; Danløn - guide til festival-administrationen. Knap-navnene svarer til den live FMS. Se også Bemanding-guiden for import og opsætning af personalet.</div>
+  </main>
+</div>
+<script src="guide-enhance.js"></script></body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nyt festival-år i FMS · festivalhåndbog</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;--rust:#9a3412;
+    --green:#059669;--green-bg:#ecfdf5;--green-line:#a7f3d0;--grey-pill:#f4f4f5;--grey-line:#e4e4e7;
+    --amber:#b45309;--amber-bg:#fffbeb;--blue:#0a5cff;--wyw-bg:#eef2ff;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:248px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:6px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--rust);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--brand);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-pill);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  .wyw{background:var(--wyw-bg);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:14px 18px;margin:20px 0;font-size:14.5px}.wyw b{color:#1e3a8a}
+  .who{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:18px 0;background:#fff;box-shadow:var(--shadow)}
+  .who .av{width:46px;height:46px;border-radius:13px;background:#eef2ff;display:grid;place-items:center;font-size:22px;flex:none}
+  .who b{font-size:15px}.who p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+  h3.flow{font-size:22px;margin:34px 0 2px;letter-spacing:-.01em;scroll-margin-top:16px}
+  h3.flow .g1{color:var(--rust);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:1px}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  .setup{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin:12px 0;font-size:13.8px}
+  .setup .h{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#fff;margin:14px 0}
+  .frame .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#f1f1f2;border-bottom:1px solid var(--line)}
+  .frame .bar .dot{width:11px;height:11px;border-radius:50%}.bar .r{background:#ff5f57}.bar .y{background:#febc2e}.bar .g{background:#28c840}
+  .frame .bar .url{margin-left:10px;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .app{display:grid;grid-template-columns:186px 1fr;min-height:170px}
+  .side{background:#fafafa;border-right:1px solid var(--line);padding:12px 10px;font-size:12.5px}
+  .side .brand{display:flex;align-items:center;gap:9px;padding:2px 6px 8px}
+  .side .brand .lg{width:23px;height:23px;border-radius:7px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:10px}
+  .side .brand small{display:block;color:var(--muted);font-size:10px}
+  .staging{display:inline-block;margin:0 6px 8px;padding:3px 10px;border-radius:999px;background:var(--amber-bg);border:1px solid #fde68a;color:var(--amber);font-size:10px;font-weight:700;letter-spacing:.08em}
+  .grp{color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin:11px 8px 4px}
+  .it{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;color:#3f3f46}.it .ic{width:14px;height:14px;border-radius:4px;background:#e4e4e7;flex:none}
+  .it.on{background:#efeff1;color:#111;font-weight:600}.it.on .ic{background:#111}
+  .main2{padding:18px 20px;background:#fff;min-width:0}
+  .ph{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}.ph h5{margin:0;font-size:18px}.ph p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+  .ph .acts{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:600;color:#27272a;white-space:nowrap}.btn.pri{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:4px 0 12px;background:var(--line)}
+  .kpi{padding:11px 12px;background:#fff}.kpi .k{font-size:9.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}.kpi .v{font-size:21px;font-weight:800;margin-top:2px}
+  .card2{border:1px solid var(--line);border-radius:12px;padding:12px 15px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:9px 0}
+  .card2 .t b{font-size:13.5px}.card2 .t p{margin:2px 0 0;color:var(--muted);font-size:12px}.card2 .right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .fakefile{border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--muted);background:#fafafa}
+  .searchbar{display:flex;gap:10px;align-items:center;margin:12px 0 8px}.search{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--muted);font-size:12.5px;background:#fafafa}
+  .toggle{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}.toggle span{padding:6px 11px;font-size:12px;font-weight:600;color:var(--muted)}.toggle span.on{background:#efeff1;color:#111}
+  .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px}.filters .f{border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:12px;color:#52525b;background:#fff}.filters .f::after{content:" ▾";color:var(--muted)}
+  .unit{border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:9px 0}.unit .row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.unit .row1 b{font-size:14px}
+  .tag2{font-size:10.5px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:#52525b;background:#fafafa}
+  .unit .lead{color:var(--muted);font-size:12.5px;margin-top:2px}.unit .meta{display:flex;gap:14px;flex-wrap:wrap;color:#3f3f46;font-size:12.5px;margin-top:8px;align-items:center}.unit .meta .hi{color:var(--green);font-weight:700}
+  .person{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-top:9px;background:#fcfcfd}.person .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.person .top b{font-size:13.5px}
+  .person .top .sp{margin-left:auto;color:var(--muted);font-size:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.pill{font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 10px;border:1px solid var(--grey-line);background:var(--grey-pill);color:#a1a1aa}.pill.ok{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .badge{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#111;color:#fff;font-size:10.5px;font-weight:700;vertical-align:1px;margin-right:3px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:#111;color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  .guest{border-left:3px solid var(--green);background:var(--green-bg);border-radius:0 10px 10px 0;padding:9px 13px;margin:9px 0;font-size:13.5px;color:#065f46}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .csvcols{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.csvcols span{font-size:11.5px;border:1px solid var(--line);background:#fafafa;border-radius:7px;padding:4px 9px;color:#3f3f46}.csvcols span.acc{background:var(--green-bg);border-color:var(--green-line);color:var(--green)}
+  .lab{font-size:11px;font-weight:700;color:#52525b;margin:8px 0 2px}
+  .tree{font-size:13px;line-height:1.95}.tree .lvl1{font-weight:700}.tree .lvl2{margin-left:22px}.tree .lvl3{margin-left:44px;color:#3f3f46}
+  .tree .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#111;margin-right:8px;vertical-align:2px}.tree .lvl2 .dot{background:#6366f1}.tree .lvl3 .dot{background:#a1a1aa}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.app{grid-template-columns:1fr}.app .side{display:none}main{padding:24px 18px 80px}}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f766e"></head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">LC</div><div><b>Nyt festival-år</b><small>Festivalhåndbog · FMS</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Sådan hænger det sammen</a>
+      <a href="#g1">A · Opret det nye summit</a>
+      <a href="#g2">B · Giv adgange</a>
+      <a href="#g3">C · App &amp; design</a>
+      <a href="#g4">D · Billetter &amp; salg</a>
+      <a href="#g5">E · Scanning &amp; enheder</a>
+      <a href="#g6">F · Mennesker</a>
+      <a href="#g7">Kræver udvikler</a>
+      <a href="#g8">Faldgruber</a>
+    </nav>
+  </aside>
+  <main>
+    <section id="intro">
+      <div class="eyebrow">Festivalhåndbog · du bruger FMS</div>
+      <h1>Nyt festival-år i FMS</h1>
+      <p class="lede">Når et nyt festival-år skal i gang, opretter I et nyt <b>summit</b> i FMS. Denne håndbog er festivalledelsens tjekliste: hvad der følger med fra sidste år, hvad der skal bygges forfra, og i hvilken rækkefølge. I kan gøre næsten alt selv - de få punkter der kræver udvikler, står samlet til sidst.</p>
+      <hr class="rule">
+      <div class="who"><div class="av">📅</div><div><b>Det er jer</b><p>Festivalledelsen/administrationen. I arbejder i FMS; opgaverne løses oppefra og ned.</p></div></div>
+      <div class="wyw"><b>Tre tommelfingerregler:</b> (1) Alt indhold og salg er <b>pr. år</b> og starter tomt: billettyper, produkter, boder, skærm-tekster, bemanding, gates. (2) <b>Personerne følger med</b>: alle med MitID-login dukker automatisk op igen første gang de logger ind - men deres beats-saldo, gemte kort og gamle billetter følger IKKE med. (3) Enkelte ting <b>deles på tværs af år</b>: kunstner-biblioteket, beacon-hardwaren, rolle-definitionerne og betalings-/mail-opsætningen bagved.</div>
+      <div class="setup"><div class="h">Hvad følger med · hvad starter forfra</div>
+        <b>Følger med:</b> FMS-brugerkonti (men ikke deres roller!), kunstnere i biblioteket (gen-tilknyttes med nye spilletider), beacons (gen-tilknyttes), organisationers stamdata (CVR m.m.), Sektionsadgangs-matricen, betalings- og mailsystemet bagved.<br>
+        <b>Starter forfra:</b> billettyper, produkter, priser, salgskanaler, lager, boder og POS-opsætning, kampagner, design og tab-menu, skærm-tilpasninger, app-tekster, nyheder, kort/POI, gates og scanner-profiler, terminaler, NFC-armbånd, bemanding (områder, hold, pladser), Danløn-numre, organisationskonti og deres medlemmer, gæstelister, akkreditering - og alle gæsters beats, gemte kort og billetter.</div>
+    </section>
+
+    <h3 class="flow" id="g1"><span class="g1">Trin A</span>Opret det nye summit</h3>
+    <p class="ctx">Kun en administrator med summit-admin-rettigheder kan oprette. Siden hedder i dag "General Settings" (engelsk); knappen er <span class="chip">Add Summit</span>.</p>
+    <ol class="steps">
+      <li>Gå til <span class="chip">Indhold → Generelt</span> og klik <span class="chip">Add Summit</span>. Udfyld navn, et unikt <span class="chip">Slug</span> med årstal (fx <span class="chip">ringsted-festival-2027</span>), sæson, adresse og kontakt.</li>
+      <li><b>Sæt start- og slutdato med det samme.</b> Datoerne styrer hvornår scannere, gates og apps kan se summittet - se faldgruberne nederst.</li>
+      <li>Efter oprettelsen skifter FMS automatisk til det nye summit. Åbn <span class="chip">Indhold → Generelt</span> IGEN og udfyld det, oprettelsen ikke spørger om: <b>kursen</b> (<span class="chip">kr pr. Beat</span> - udfyldes den ikke, kører systemet stille videre på en standardkurs!), valuta, virksomhedsnavn, <span class="chip">CVR-nr.</span>, EAN, bogholderi-e-mail, og Danløn-kortets to lønartsnumre.</li>
+      <li>Udfyld også <b>Mail-konfigurationen</b> (invitations-skabelon, afsendernavn m.m.) - den er først synlig efter summittet findes, så det er altid et andet gem.</li>
+      <li>Gennemgå feature-slåerne: beats-only, butik med kort/beats, refusion, resale, e-mail-login osv. Alt starter slået FRA.</li>
+    </ol>
+
+    <h3 class="flow" id="g2"><span class="g1">Trin B</span>Giv adgange - før alt andet</h3>
+    <p class="ctx">Roller gives PR. SUMMIT. Alle jeres FMS-brugere findes stadig, men på det nye summit har de ingen roller endnu.</p>
+    <ol class="steps">
+      <li>Gå til brugerlisten og tildel hver kollega deres rolle på det nye summit (samme roller som sidste år - de kopieres ikke).</li>
+      <li>Forvent henvendelser som "FMS er tomt" eller "jeg kan ikke se noget" på dag ét: det betyder bare, at personen mangler sin rolle på det nye summit.</li>
+    </ol>
+
+    <h3 class="flow" id="g3"><span class="g1">Trin C</span>App &amp; design</h3>
+    <p class="ctx">Skærmene bliver født med et fornuftigt standardindhold, men design og tab-menu er helt tomme.</p>
+    <ol class="steps">
+      <li><span class="chip">Visuelt → Design</span>: sæt farver og typografi, og byg <b>tab-menuen</b> (faner + startskærm). Uden den har appen ingen bundmenu.</li>
+      <li><span class="chip">Indhold → Skærme</span>: standard-skærmene findes allerede. Gennemgå rækkefølge og synlighed, og gentag de tekst-tilpasninger I lavede sidste år - de følger ikke med.</li>
+      <li><span class="chip">Indhold → Sider</span>: slet-konto- og resale-siderne oprettes automatisk; andre sider (fx udleveringssedler) skal laves igen.</li>
+      <li>App-tekster/oversættelser, nyheder, toasts, kort, POI'er og venues er alle pr. år - genskab det der skal med.</li>
+      <li><b>Kunstnere:</b> biblioteket består. Tilknyt hver kunstner til det nye summit med nye spilletider og scener. Samme med <b>beacons</b>: hardwaren kendes, men skal kobles på det nye år.</li>
+    </ol>
+
+    <h3 class="flow" id="g4"><span class="g1">Trin D</span>Billetter &amp; salg</h3>
+    <ol class="steps">
+      <li><span class="chip">Billetter &amp; produkter</span>: opret billettyper, produkter, kategorier og priser forfra.</li>
+      <li>Sæt <b>salgskanaler</b> pr. produkt (webticket, app, POS, mad &amp; drikke) med synlighedsdatoer - et produkt uden kanal kan ikke købes nogen steder.</li>
+      <li><span class="chip">Lager</span>: opret lager-stederne og markér ét som <b>standard-depot</b> FØR boder og POS sættes op - uden standard-depot fejler varesalget.</li>
+      <li><span class="chip">Forhandlere</span>: opret boderne igen (samme e-mail som sidste år er OK), bod-grupper og POS-indstillinger.</li>
+      <li>Kampagner og resale-indstillinger genskabes efter behov.</li>
+    </ol>
+
+    <h3 class="flow" id="g5"><span class="g1">Trin E</span>Scanning &amp; enheder</h3>
+    <ol class="steps">
+      <li><span class="chip">Scanning</span>: opret scanner-profiler og gates med friske scanner-logins, og kobl dem sammen.</li>
+      <li><span class="chip">Enheder</span>: registrér terminaler, lav parringskoder og importér NFC-armbånd (samme fysiske armbånd kan genbruges år for år).</li>
+      <li><b>Test-tip:</b> scannere kan først se summittet når startdatoen er nået. Skal I gate-teste FØR festivalen, så sæt startdatoen tidligt nok - ellers ser scanneren ingenting, uden fejlbesked.</li>
+    </ol>
+
+    <h3 class="flow" id="g6"><span class="g1">Trin F</span>Mennesker</h3>
+    <ol class="steps">
+      <li><span class="chip">Modtagere</span>: organisationerne fra sidste år dukker først op på det nye summit, når de får en konto her. Stamdata (CVR m.m.) genbruges, men konti, medlemmer og puljer laves igen, og invitationer gensendes.</li>
+      <li><span class="chip">Bemanding</span>: byg områder og hold igen og importér personale-arket (se Bemanding-guiden). Medarbejderne genkendes på e-mail/login når de tilmelder sig.</li>
+      <li><b>Danløn-numrene skal genimporteres hvert år</b> - de hænger på årets personale-profil (se Beats-afregning &amp; Danløn-guiden). Medarbejderne udfylder selv adresse m.m. igen i webticket'en.</li>
+      <li>Akkreditering, gæstelister og gæstegrupper genskabes.</li>
+      <li><b>Gæsterne:</b> alle med MitID-login genopstår automatisk ved første login - men de starter med 0 beats, uden gemt betalingskort og uden auto-optankning. Sidste års billetter og QR-koder afvises konsekvent ved gaten.</li>
+    </ol>
+
+    <h3 class="flow" id="g7"><span class="g1">Uden for FMS</span>Kræver udvikler</h3>
+    <p class="ctx">Disse fire punkter kan I ikke selv - bestil dem hos LiveCloud i god tid.</p>
+    <ol class="steps">
+      <li><b>Webticket'en</b> skal peges på det nye summit (server-indstilling).</li>
+      <li><b>Appen</b> skal peges på det nye summit; ændres app-scheme eller store-opsætning, kræver det en app-release.</li>
+      <li><b>Betaling og mail</b>: Swedbank- og Postmark-kontiene er fælles for alle år - tjek at de stadig passer til årets juridiske enhed.</li>
+      <li><b>Det gamle summit</b>: lad slutdatoen stå korrekt (afsluttet), så det forsvinder fra scanner- og app-lister af sig selv.</li>
+    </ol>
+
+    <h3 class="flow" id="g8"><span class="g1">Vigtigt</span>Faldgruber</h3>
+    <ol class="steps">
+      <li><b>Datoerne styrer synligheden.</b> Uden slutdato er summittet "aktivt" for evigt og blander sig med det nye år i alle lister; med fremtidig startdato er det usynligt for scannere indtil dagen oprinder.</li>
+      <li><b>Kursen:</b> glemmer I <span class="chip">kr pr. Beat</span>, regner systemet stille videre med standardværdien - sæt den som noget af det første.</li>
+      <li><b>Forkert summit valgt:</b> efter oprettelsen kan FMS ved næste login lande på et vilkårligt af jeres summits. Tjek altid vælgeren øverst til venstre, især før I gemmer noget.</li>
+      <li><b>Skift af summit midt på en side:</b> skifter I summit mens en indstillingsside er åben, kan siden vise det gamle summits værdier. Genindlæs siden efter skift, før I gemmer.</li>
+      <li><b>Standard-depotet</b> skal findes før POS-salg virker (Trin D).</li>
+      <li><b>Krydsscanninger ved årsskiftet:</b> en scanner der stadig er logget ind på sidste års summit, afviser alle årets gæster. Systemet overvåger det og advarer ved mange på én gang - men tjek scanner-login som det første, hvis "alle bliver afvist".</li>
+    </ol>
+
+    <div class="footer">LiveCloud FMS · Nyt festival-år - festivalhåndbog til ledelsen. Se også: Bemanding-guiden (personale-import), Beats-afregning &amp; Danløn (efter festivalen). Knap-navne svarer til den live FMS.</div>
+  </main>
+</div>
+<script src="guide-enhance.js"></script></body>
+</html>

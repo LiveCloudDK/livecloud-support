@@ -84,31 +84,35 @@
     <div class="brand"><div class="lg">LC</div><div><b>Beats-afregning</b><small>FMS Bemanding · festivalkontoret</small></div></div>
     <nav class="toc">
       <a href="#intro">Sådan bruger du den</a>
-      <a href="#g1">1 · De tre afregnings-ark</a>
+      <a href="#g1">1 · Afregnings-arkene</a>
       <a href="#g2">2 · Kontrollisten</a>
       <a href="#g3">3 · Danløn-opsætning (én gang)</a>
       <a href="#g4">4 · Importér Danløn-numre</a>
       <a href="#g5">5 · Lønlinjer &amp; opret først</a>
-      <a href="#g6">6 · Regler &amp; faldgruber</a>
+      <a href="#g6">6 · Nulstil beats efter løn</a>
+      <a href="#g7">7 · Se hvad der blev udbetalt</a>
+      <a href="#g8">8 · Regler &amp; faldgruber</a>
     </nav>
   </aside>
   <main>
     <section id="intro">
       <div class="eyebrow">Guide · du bruger FMS</div>
       <h1>Beats-afregning &amp; Danløn</h1>
-      <p class="lede">Efter festivalen skal medarbejdernes ubrugte, tildelte beats afregnes som en del af honoraret. Alt kan trækkes direkte i FMS: tre opgørelses-ark til overblik og kontrol, og to Danløn-filer til selve lønkørslen. Danske knap-navne står i grå - fx <span class="chip">Afregning pr. person</span> - så du ved hvad du skal klikke på.</p>
+      <p class="lede">Efter festivalen skal medarbejdernes ubrugte, tildelte beats afregnes som en del af honoraret. Alt kan trækkes direkte i FMS: fire opgørelses-ark til overblik, kontrol og historik, og to Danløn-filer til selve lønkørslen. Til sidst nulstilles beats, så saldi ikke lever videre til næste år. Danske knap-navne står i grå - fx <span class="chip">Afregning pr. person</span> - så du ved hvad du skal klikke på.</p>
       <hr class="rule">
       <div class="who"><div class="av">🧾</div><div><b>Det er dig</b><p>Festival-administration (fx Line). Du arbejder i FMS og afleverer filer til bogholderiet.</p></div></div>
       <div class="wyw"><b>Hvor du arbejder:</b> alle udtræk ligger under <span class="chip">Bemanding</span> → knappen <span class="chip">Handlinger</span> øverst til højre → gruppen <span class="chip">Beats-afregning</span>. Tjek at den rigtige festival er valgt øverst til venstre, før du trækker noget.</div>
     </section>
 
-    <h3 class="flow" id="g1"><span class="g1">Trin 1</span>De tre afregnings-ark</h3>
+    <h3 class="flow" id="g1"><span class="g1">Trin 1</span>Afregnings-arkene</h3>
     <p class="ctx">Arkene åbner direkte i Excel med danske tal og æøå. Øverst i hvert ark står festivalen, hvornår det er genereret, og kursen (fx <span class="chip">1 Beat = 1,00 DKK</span>) - kronebeløbene følger kursen.</p>
     <ol class="steps">
       <li><span class="chip">Afregning pr. person</span>: én række pr. tilmeldt medarbejder med område, medarbejdernummer, afregningstype, sats og <b>beats/kroner til afregning</b>. Har en person flere pladser på samme hold, står beløbet kun på den første række, så summer aldrig tæller dobbelt.</li>
       <li><span class="chip">Afregning pr. område</span>: summen pr. område plus <b>pulje tilbage</b> - så en områdeleder kan se sit eget regnskab.</li>
+      <li><span class="chip">Udbetalt (historik)</span>: hvad der rent faktisk <b>er</b> udbetalt, læst af posteringerne. Den er tom indtil du har nulstillet (trin 6), og bliver derefter den blivende kvittering - se trin 7.</li>
       <li>Beløbet er personens <b>ubrugte, tildelte</b> beats. Beats personen selv har tanket op for egne penge, afregnes aldrig - forbrug trækker altid af tildelingen først.</li>
     </ol>
+    <div class="setup"><div class="h">Løn-eksporten findes i to udgaver</div><span class="chip">Løn-eksport (kun aktive pladser)</span> er den du skal bruge: kun åbne pladser med en person på. <span class="chip">Løn-eksport (alle pladser)</span> tager også lukkede og tomme pladser med og er kun til kontrol. Status-kolonnen kan ikke selv skelne, for den siger tilmeldt, inviteret eller åben, men aldrig om pladsen er lukket. Begge udgaver indeholder CPR.</div>
 
     <h3 class="flow" id="g2"><span class="g1">Trin 2</span>Kontrollisten</h3>
     <p class="ctx">Kontrollisten samler det, der skal afklares, før lønkørslen.</p>
@@ -137,17 +141,36 @@
     <h3 class="flow" id="g5"><span class="g1">Trin 5</span>Lønlinjer &amp; opret først</h3>
     <p class="ctx">To downloads i samme menu gør lønkørslen til en import i stedet for tastearbejde.</p>
     <ol class="steps">
-      <li><span class="chip">Danløn-lønlinjer</span>: maskinfilen til Danløns import - én linje pr. person med <b>nummer;lønart;beløb</b>. Løn-folk lander på løn-lønarten, honorar-folk på honorar-lønarten, og beløb summeres på tværs af hold.</li>
-      <li><span class="chip">Danløn: opret først</span>: personer med beløb, men uden Danløn-nummer. Opret dem i Danløn først (stamdata med CPR og adresse står i <span class="chip">Løn-eksport</span>), importér deres nye numre (trin 4), og træk lønlinjerne igen.</li>
+      <li><span class="chip">Danløn-lønlinjer</span>: maskinfilen til Danløns import. Den har en overskriftsrække og seks kolonner - <b>CVR-nummer;medarbejdernummer;løntype;enheder;sats;beløb</b> - hvor enheder og sats står tomme, fordi beløbet er et fast tal og ikke en sats gange et antal. Løn-folk lander på løn-lønarten, honorar-folk på honorar-lønarten, og beløb summeres på tværs af hold.</li>
+      <li><span class="chip">Danløn: opret først</span>: personer med beløb, men uden Danløn-nummer. Opret dem i Danløn først (stamdata med CPR og adresse står i <span class="chip">Løn-eksport (kun aktive pladser)</span>), importér deres nye numre (trin 4), og træk lønlinjerne igen.</li>
     </ol>
 
-    <h3 class="flow" id="g6"><span class="g1">Trin 6</span>Regler &amp; faldgruber</h3>
+    <h3 class="flow" id="g6"><span class="g1">Trin 6</span>Nulstil beats efter løn</h3>
+    <p class="ctx">Når pengene er udbetalt, skal beats tages ud af omløb. Ellers står de på medarbejdernes konti og kan bruges igen, selvom de allerede er betalt kontant.</p>
     <ol class="steps">
+      <li>Vælg <span class="chip">Nulstil beats efter løn</span> nederst i <span class="chip">Beats-afregning</span>-gruppen. Du får først et overblik: hvor mange beats der hentes hjem, fra hvor mange personer og områder, og hvor meget der annulleres i puljerne.</li>
+      <li>Sæt fluebenet om at lønlinjefilen er hentet og beløbene godkendt. Knappen er låst indtil da.</li>
+      <li>Kørslen henter alle ubrugte tildelte beats hjem fra medarbejderne og tømmer derefter områdernes puljer, i én omgang for hele festivalen.</li>
+    </ol>
+    <div class="note"><b>Egne penge røres ikke.</b> Har en medarbejder selv tanket op, bliver den del stående. Kun det I har tildelt, hentes hjem. Forbrug er også urørt - der trækkes kun i det ubrugte.</div>
+
+    <h3 class="flow" id="g7"><span class="g1">Trin 7</span>Se hvad der blev udbetalt</h3>
+    <p class="ctx">Efter nulstillingen står alle saldi på nul, og både <span class="chip">Afregning pr. person</span> og beats-tallet på den enkelte viser derfor nul. Det er ikke en fejl, og der er ikke slettet noget.</p>
+    <ol class="steps">
+      <li>Alle levende visninger regner netto: tildelt minus tilbagetrukket. Nulstillingen trækker tilbage med samme stempel som tildelingen brugte, så de to udligner hinanden.</li>
+      <li><span class="chip">Udbetalt (historik)</span> læser posteringerne i stedet for saldoen og svarer på hvad hver person fik - også om et år. Dato, område, navn, medarbejdernummer, beats og kroner, plus pulje-annulleringerne for sig.</li>
+      <li>Området i arket er det hold der <b>betalte</b>, ikke hvor personen sidder i dag. Flytter nogen plads bagefter, ændrer det ikke historikken.</li>
+    </ol>
+    <div class="note">Arket indeholder <b>ikke</b> CPR og kan derfor deles frit, fx med bogholderiet eller en revisor.</div>
+
+    <h3 class="flow" id="g8"><span class="g1">Trin 8</span>Regler &amp; faldgruber</h3>
+    <ol class="steps">
+      <li><b>Nulstil aldrig før lønlinjefilen er hentet og godkendt.</b> Afregningen regnes ud fra den levende saldo, så nulstiller du først, går udtrækket til nul. Historik-arket kan stadig vise hvad der blev afregnet, men du skal ikke bytte om på trinnene for at teste det.</li>
       <li><b>Træk altid frisk samme dag</b> som lønkørslen. Beats kan stadig bevæge sig (køb, udbetalinger), og et gammelt ark kan betyde dobbeltbetaling.</li>
       <li><b>Faktura-folk kommer aldrig med i lønlinjerne.</b> De afregnes efter deres egen faktura, og beløbet står i person-arket under deres afregningstype.</li>
       <li><b>Frivillige og værdikort-folk</b> udløser heller ingen lønlinje.</li>
       <li><b>Prøve-importér den første fil</b> i Danløns importskærm, før den bruges til en rigtig kørsel.</li>
-      <li>Lønlinje-filen indeholder <b>aldrig CPR</b> - Danløn matcher på medarbejdernummeret. CPR til oprettelse ligger kun i den almindelige <span class="chip">Løn-eksport</span>, som behandles fortroligt.</li>
+      <li>Lønlinje-filen indeholder <b>aldrig CPR</b> - Danløn matcher på medarbejdernummeret. CPR til oprettelse ligger kun i <span class="chip">Løn-eksport</span>, som behandles fortroligt.</li>
     </ol>
 
     <div class="footer">LiveCloud FMS · Beats-afregning &amp; Danløn - guide til festival-administrationen. Knap-navnene svarer til den live FMS. Se også Bemanding-guiden for import og opsætning af personalet.</div>

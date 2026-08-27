@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+<title>Anonymisér en deltager (GDPR)</title>
+<style>
+  :root{--bg:#f6f6f7;--panel:#fff;--ink:#18181b;--muted:#71717a;--line:#ececed;--brand:#0b0b0c;
+    --green:#2563eb;--green-d:#1d4ed8;--green-bg:#eff6ff;--green-line:#bfdbfe;
+    --red:#c92835;--red-bg:#fef2f2;--red-line:#fecaca;--orange:#d97706;--orange-bg:#fff7ed;--orange-line:#fed7aa;
+    --grey:#5a6475;--grey-bg:#f4f4f5;--grey-line:#e4e4e7;--amber:#b45309;--amber-bg:#fffbeb;
+    --blue:#0a5cff;--gold:#ffad00;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(0,0,0,.05)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .layout{display:grid;grid-template-columns:250px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:#fbfbfc}
+  aside .brand{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+  aside .brand .lg{width:32px;height:32px;border-radius:9px;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+  aside .brand b{font-size:14px;line-height:1.1}aside .brand small{color:var(--muted);font-size:11px}
+  aside .toc{margin-top:14px;font-size:13.5px}
+  aside .toc .g{color:var(--muted);font-size:10px;letter-spacing:.09em;text-transform:uppercase;margin:16px 8px 6px}
+  aside .toc a{display:block;color:#3f3f46;text-decoration:none;padding:5px 9px;border-radius:8px}
+  aside .toc a:hover{background:#efeff1;color:#111}
+  aside .back{display:block;color:var(--muted);text-decoration:none;font-size:12px;margin-bottom:8px}
+  main{padding:34px 40px 100px;min-width:0}
+  .eyebrow{letter-spacing:.16em;font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase}
+  h1{font-size:32px;margin:.2em 0 .35em;letter-spacing:-.03em;line-height:1.1}
+  .lede{color:#3f3f46;max-width:74ch;font-size:16px}
+  .rule{height:3px;background:var(--green);border:none;margin:24px 0}
+  .chip{display:inline-block;background:var(--grey-bg);border:1px solid var(--grey-line);border-radius:6px;padding:1px 8px;font-size:.9em;color:#3f3f46;font-weight:600;white-space:nowrap;line-height:1.5}
+  code.k{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;background:var(--grey-bg);border:1px solid var(--grey-line);border-radius:5px;padding:1px 6px;color:#3f3f46;white-space:nowrap}
+  .pbanner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:40px 0 6px;color:#fff;scroll-margin-top:16px}
+  .pbanner .av{width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:23px;flex:none}
+  .pbanner .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:700}
+  .pbanner h2{margin:1px 0 0;font-size:22px}.pbanner p{margin:2px 0 0;font-size:13px;opacity:.9}
+  .ctx{color:var(--muted);margin:2px 0 8px;max-width:74ch;font-size:14.5px}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+  ol.steps li{counter-increment:s;position:relative;padding:10px 14px 10px 42px;background:var(--panel);border:1px solid var(--line);border-radius:11px;font-size:14px}
+  ol.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+  table.qref{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  table.qref th,table.qref td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.qref th{background:#fafafa;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#52525b}
+  table.qref tr:last-child td{border-bottom:none}table.qref td b{color:#18181b}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
+  .tip{background:var(--green-bg);border:1px solid var(--green-line);color:#1e40af;border-radius:11px;padding:12px 15px;margin:12px 0;font-size:14.5px}
+  .stop{background:var(--red-bg);border:1px solid var(--red-line);color:#991b1b;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.stop b{color:#7f1d1d}
+  .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:24px 18px 80px}}
+  @media print{@page{margin:14mm}html{scroll-behavior:auto}body{background:#fff;font-size:11.5pt}aside{display:none !important}.layout{display:block;max-width:none;margin:0}main{padding:0}.chip,.note,.tip,.stop,table.qref{box-shadow:none !important}.pbanner,.note,.tip,.stop,ol.steps li,table.qref{break-inside:avoid}h1,h2,h3.flow,.pbanner{break-after:avoid}.pbanner{-webkit-print-color-adjust:exact;print-color-adjust:exact}a{color:inherit;text-decoration:none}}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f766e"></head>
+<body>
+<div class="layout">
+  <aside>
+    <a class="back" href="index.html">&larr; Alle personale-guides</a>
+    <div class="brand"><div class="lg">&#128100;</div><div><b>Anonymisering</b><small>Kundeservice &amp; admin</small></div></div>
+    <nav class="toc">
+      <a href="#intro">Kort fortalt</a>
+      <div class="g">Før du trykker</div>
+      <a href="#foer">Tjek det her først</a>
+      <a href="#spaerringer">De 8 ting der spærrer</a>
+      <div class="g">Sådan gør du</div>
+      <a href="#saadan">Trin for trin</a>
+      <a href="#hvad">Hvad forsvinder, hvad bliver</a>
+      <div class="g">Når noget driller</div>
+      <a href="#gennemtving">Gennemtving</a>
+      <a href="#fejl">Fejlbeskeder</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="eyebrow">Ringsted Festival 2026 &middot; kundeservice</div>
+    <h1 id="intro">Anonymisér en deltager (GDPR)</h1>
+    <p class="lede">Når en gæst beder om at blive slettet, overskriver vi deres identitet. Én ting er vigtig, og det er hele grundreglen: <b>kontoen skal være gjort op først.</b> Ingen penge, ingen ubrugte billetter, ingen ansvar der hænger.</p>
+    <hr class="rule" />
+
+    <div class="tip"><b>Grundregel:</b> anonymisering fjerner personen fra <b>alle</b> festival-år, ikke kun det du står på. Det kan ikke fortrydes, og der er ingen fortrydelsesknap bagefter.</div>
+
+    <div class="note"><b>Hvorfor alle år?</b> Den samme person har typisk en profil for hvert år, de har været med. Slettede vi kun 2026, ville navn, e-mail og fødselsdag stadig ligge på 2024 og 2025. Så var anmodningen ikke besvaret. Derfor tager systemet dem alle på én gang.</div>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#1d4ed8,#1e3a8a)"><div class="av">&#128269;</div><div><div class="who">Før du trykker</div><h2>Tjek det her først</h2><p>Tre ting, hver gang. De tager et minut og redder dig fra en sletning, der ikke kan rulles tilbage.</p></div></div>
+
+    <ol class="steps" id="foer">
+      <li><b>Er det den rigtige person?</b> Bekræft identiteten, før du gør noget. En sletteanmodning fra en mailadresse er ikke i sig selv bevis for, hvem der skriver.</li>
+      <li><b>Hvornår kom anmodningen?</b> Noter datoen. Vi har en måned til at svare, og fristen regnes fra den dag, anmodningen kom ind, ikke fra den dag du åbner sagen.</li>
+      <li><b>Har du en begrundelse klar?</b> Feltet er obligatorisk, og teksten gemmes i audit-loggen sammen med dit navn. Skriv noget, der giver mening om et halvt år, fx <span class="chip">Sletteanmodning modtaget 12/8, verificeret via MitID</span>.</li>
+    </ol>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#c92835,#7f1d1d)"><div class="av">&#128721;</div><div><div class="who">Vurderingen</div><h2>De 8 ting der spærrer</h2><p>Systemet tjekker dem selv og viser dem i dialogen. Ryd dem, så åbner knappen sig.</p></div></div>
+
+    <p class="ctx">Når du åbner dialogen, henter systemet en vurdering af personen på tværs af alle deres år. Er der noget uafklaret, står året med rød ramme og spærringen skrevet under. Koden i monospace er den samme, som står i sagens historik, så du kan skrive den videre til LiveCloud.</p>
+
+    <table class="qref" id="spaerringer">
+      <tr><th>Kode</th><th>Hvad betyder det</th><th>Hvad gør du</th></tr>
+      <tr>
+        <td><b>Positiv saldo</b><br /><code class="k">positive_balance</code></td>
+        <td>Der står stadig beats på profilen. Vurderingen fortæller, hvor mange der kan refunderes til kort, hvor mange der ikke kan, og hvor meget der skyldes fra videresalg.</td>
+        <td>Kort-beats refunderer gæsten selv i webticket under <b>Beats, Refusion</b>. Resten kan kun afskrives af LiveCloud, og det kræver en begrundelse.</td>
+      </tr>
+      <tr>
+        <td><b>Firma-beats</b><br /><code class="k">company_beats</code></td>
+        <td>En del af beatsene er givet af en virksomhed og tilhører deres pulje, ikke gæsten. Vurderingen navngiver puljen.</td>
+        <td>De skal kaldes tilbage til puljen først. Det gør LiveCloud, og det skal ske <b>før</b> noget afskrives, ellers brænder vi virksomhedens penge af.</td>
+      </tr>
+      <tr>
+        <td><b>Uindløste billetter</b><br /><code class="k">unredeemed_tickets</code></td>
+        <td>Personen har gyldige billetter, der aldrig er brugt. Vurderingen siger også, hvor mange af dem der er udstedt af en virksomhed.</td>
+        <td>Annullér billetterne, eller overdrag dem til en anden. En billet, der stadig er gyldig, kan ikke bare miste sin ejer.</td>
+      </tr>
+      <tr>
+        <td><b>Refusion undervejs</b><br /><code class="k">pending_refund</code></td>
+        <td>Der ligger en refusion, som endnu ikke er gennemført.</td>
+        <td>Vent til den er færdig. Sletter vi først, ved vi ikke længere, hvem pengene skulle til.</td>
+      </tr>
+      <tr>
+        <td><b>Udbetaling ikke afregnet</b><br /><code class="k">pending_cashout</code></td>
+        <td>Personen har bedt om at få beats udbetalt, og udbetalingen er ikke gjort færdig.</td>
+        <td>Afregn udbetalingen først. Samme grund som ovenfor: pengene skal nå frem, før modtageren forsvinder.</td>
+      </tr>
+      <tr>
+        <td><b>Aktive billetdelinger</b><br /><code class="k">active_shares</code></td>
+        <td>Der er åbne delinger, hvor personen enten har sendt en billet videre eller står til at modtage en.</td>
+        <td>Kald delingerne tilbage, eller lad dem blive gjort færdige. Så er det klart, hvem billetten ender hos.</td>
+      </tr>
+      <tr>
+        <td><b>Kontoadministrator</b><br /><code class="k">account_manager</code></td>
+        <td>Personen er ejer eller administrator på en virksomhedskonto. Ens egen private konto tæller ikke med.</td>
+        <td>Overdrag rollen til en anden i virksomheden først. Gør vi det ikke, mister virksomheden adgangen til sin egen pulje.</td>
+      </tr>
+      <tr>
+        <td><b>Medarbejderprofil</b><br /><code class="k">staff_profile</code></td>
+        <td>Personen har været ansat eller frivillig hos os.</td>
+        <td><b>Denne kan du ikke rydde.</b> Ansættelsesdata har sin egen opbevaringsfrist og slettes ikke på anmodning. Send sagen til LiveCloud.</td>
+      </tr>
+    </table>
+
+    <div class="note"><b>Én spærring spærrer det hele.</b> Fordi anonymiseringen tager alle år på én gang, stopper en uindløst billet på 2024 også sletningen af 2026. Det er med vilje: enten svarer vi hele anmodningen, eller også svarer vi den ikke.</div>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#1f9d55,#166534)"><div class="av">&#9989;</div><div><div class="who">Sådan gør du</div><h2>Trin for trin</h2><p>Når vurderingen er ren, tager selve handlingen et halvt minut.</p></div></div>
+
+    <ol class="steps" id="saadan">
+      <li>Gå til <b>Deltagere</b> i FMS, og søg personen frem på navn, e-mail, telefon eller billetkode.</li>
+      <li>Åbn deltageren, klik menuen øverst til højre, og vælg <span class="chip">Anonymisér (GDPR)</span>.</li>
+      <li>Læs vurderingen. Den lister <b>alle</b> de år, personen optræder på, med hvad hvert år indeholder. Røde rækker er spærret, og spærringen står under året.</li>
+      <li>Ryd spærringerne, hvis der er nogen. Luk dialogen, ordn tingene, og åbn den igen, så vurderingen er ny.</li>
+      <li>Skriv begrundelsen i feltet nederst. Mindst et par ord, og skriv det for den, der læser det senere.</li>
+      <li>Tryk <span class="chip">Anonymisér</span>. Bagefter står personen som <b>[redacted]</b> på alle år, og du får en kvittering på hvor mange.</li>
+    </ol>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#5a6475,#3f3f46)"><div class="av">&#128203;</div><div><div class="who">Godt at vide</div><h2>Hvad forsvinder, hvad bliver</h2><p>Så du kan svare gæsten, hvis de spørger.</p></div></div>
+
+    <table class="qref" id="hvad">
+      <tr><th>Det forsvinder</th><th>Det bliver stående</th></tr>
+      <tr>
+        <td>
+          Navn, e-mail, telefonnummer, fødselsdag og alder.<br />
+          Pinkode, scanningskode og profilbillede.<br />
+          Armbånd (frigives til puljen igen), telefoner og enheder, wallet-pas.<br />
+          Alle logins og app-sessioner.<br />
+          Noter på profilen, navne på invitationer og på billetter, personen har haft.
+        </td>
+        <td>
+          Ordrer, betalinger, refusioner og kreditnotaer.<br />
+          Beats-posteringerne i regnskabet.<br />
+          Kontrakter.<br />
+          Medarbejderprofiler.<br />
+          <br />
+          <b>Hvorfor:</b> vi har pligt til at gemme bogføringen i fem år. Den kan ikke slettes på anmodning, og det er lovligt at beholde den.
+        </td>
+      </tr>
+    </table>
+
+    <div class="tip"><b>Sig det sådan til gæsten:</b> &bdquo;Din profil og dine personoplysninger er slettet. De køb, du har lavet, står stadig i vores regnskab, fordi vi er forpligtet til at gemme bogføring i fem år, men de er ikke længere knyttet til dit navn.&ldquo;</div>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#b45309,#92400e)"><div class="av">&#9888;&#65039;</div><div><div class="who">Kun i særlige tilfælde</div><h2>Gennemtving</h2><p>Der er en afkrydsning, der kan omgå spærringerne. Den er ikke en genvej.</p></div></div>
+
+    <p class="ctx" id="gennemtving">Er der spærringer, får du en rød boks med en afkrydsning: <i>&bdquo;Gennemtving alligevel.&ldquo;</i> Den lader anonymiseringen køre, selv om noget ikke er afregnet. Din begrundelse bliver gemt som en <b>bevidst tilsidesættelse</b> med dit navn på.</p>
+
+    <div class="stop"><b>Brug den kun</b>, når spærringen er håndteret på anden vis, og du kan skrive hvordan. Fx: billetten er annulleret manuelt, beatsene er udbetalt kontant og bogført. Er du i tvivl, så lad være, og send sagen til LiveCloud. Der er ingen vej tilbage.</div>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#7c3aed,#5b21b6)"><div class="av">&#128295;</div><div><div class="who">Når noget driller</div><h2>Fejlbeskeder</h2><p>Fire du kan møde, og hvad de betyder.</p></div></div>
+
+    <table class="qref" id="fejl">
+      <tr><th>Det står der</th><th>Hvad betyder det</th><th>Hvad gør du</th></tr>
+      <tr><td>&bdquo;GDPR-skrivninger er slået fra i dette miljø&ldquo;</td><td>Sikkerhedslåsen er slået til. Vurderingen er rigtig nok, men der bliver ikke skrevet noget.</td><td>Send til LiveCloud. Det er en indstilling, ikke noget du kan rette.</td></tr>
+      <tr><td>&bdquo;Deltageren har ingen identitet at anonymisere&ldquo;</td><td>Profilen er aldrig blevet knyttet til en rigtig person (fx et tomt oprettet kort).</td><td>Der er ikke noget at slette. Send til LiveCloud, hvis rækken skal ryddes.</td></tr>
+      <tr><td>&bdquo;Deltageren er allerede anonymiseret&ldquo;</td><td>Sagen er lukket i forvejen.</td><td>Ingenting. Sig til gæsten at det er gjort.</td></tr>
+      <tr><td>Siden svarer <b>403</b>, eller menupunktet mangler</td><td>Du står på et andet festival-år end deltageren, eller du har ikke rettigheden.</td><td>Skift til det rigtige år øverst i FMS. Mangler du rettigheden, så bed en administrator om den.</td></tr>
+    </table>
+
+    <div class="stop"><b>Aldrig:</b> anonymisér ikke på mistanke, og ikke &bdquo;bare for at rydde op&ldquo;. Det skal være en rigtig anmodning fra en person, du har bekræftet. Handlingen kan ikke fortrydes.</div>
+
+    <div class="footer">Ringsted Festival 2026 &middot; anonymisering af deltagere &middot; kundeservice &amp; admin</div>
+  </main>
+</div>
+<script src="guide-enhance.js"></script>
+</body>
+</html>

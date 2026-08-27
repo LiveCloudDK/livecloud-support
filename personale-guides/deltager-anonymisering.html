@@ -45,6 +45,26 @@
   .note{background:var(--amber-bg);border:1px solid #fde68a;color:#7c5107;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.note b{color:#7c2d12}
   .tip{background:var(--green-bg);border:1px solid var(--green-line);color:#1e40af;border-radius:11px;padding:12px 15px;margin:12px 0;font-size:14.5px}
   .stop{background:var(--red-bg);border:1px solid var(--red-line);color:#991b1b;border-radius:11px;padding:10px 14px;margin:12px 0;font-size:13.5px}.stop b{color:#7f1d1d}
+  .mock{border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow);padding:20px 22px;margin:14px 0;max-width:640px}
+  .mock h4{margin:0 0 6px;font-size:17px}
+  .mock .lead{color:#52525b;font-size:13px;margin:0 0 14px;line-height:1.5}
+  .mock .sec{font-weight:600;font-size:13.5px;margin:0 0 2px}
+  .mock .sub{color:var(--muted);font-size:13px;margin:0 0 9px}
+  .mock .srow{border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-bottom:8px;font-size:13px}
+  .mock .srow.bad{border-color:var(--red-line);background:var(--red-bg)}
+  .mock .srow b{font-size:13.5px}
+  .mock .srow .muted{color:var(--muted);display:block}
+  .mock .srow .sep{border-top:1px solid var(--red-line);margin:8px 0 6px}
+  .mock .kode{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:var(--muted);margin-left:6px}
+  .mock .ovr{border:1px solid var(--red-line);background:var(--red-bg);border-radius:9px;padding:10px 12px;font-size:12.5px;display:flex;gap:9px;align-items:flex-start;margin-bottom:12px}
+  .mock .box{width:14px;height:14px;border:1.5px solid var(--red);border-radius:4px;flex:none;margin-top:1px}
+  .mock label{display:block;font-size:12.5px;font-weight:600;margin-bottom:4px}
+  .mock .inp{border:1px solid var(--grey-line);border-radius:8px;padding:8px 11px;color:#a1a1aa;font-size:13px}
+  .mock .btns{display:flex;gap:9px;justify-content:flex-end;margin-top:14px}
+  .mock .btn{border-radius:8px;padding:7px 15px;font-size:13px;font-weight:600;border:1px solid var(--grey-line);background:#fff}
+  .mock .btn.dis{background:#f3b6ba;border-color:#f3b6ba;color:#fff}
+  .callout{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--muted);margin:6px 0 0;max-width:640px}
+  .callout span:first-child{flex:none;font-weight:700;color:var(--green)}
   .footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
   @media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:24px 18px 80px}}
   @media print{@page{margin:14mm}html{scroll-behavior:auto}body{background:#fff;font-size:11.5pt}aside{display:none !important}.layout{display:block;max-width:none;margin:0}main{padding:0}.chip,.note,.tip,.stop,table.qref{box-shadow:none !important}.pbanner,.note,.tip,.stop,ol.steps li,table.qref{break-inside:avoid}h1,h2,h3.flow,.pbanner{break-after:avoid}.pbanner{-webkit-print-color-adjust:exact;print-color-adjust:exact}a{color:inherit;text-decoration:none}}
@@ -57,12 +77,16 @@
     <div class="brand"><div class="lg">&#128100;</div><div><b>Anonymisering</b><small>Kundeservice &amp; admin</small></div></div>
     <nav class="toc">
       <a href="#intro">Kort fortalt</a>
+      <a href="#hvor">Hvor gør man det?</a>
+      <a href="#slet-vs-anon">Slet eller anonymisér?</a>
       <div class="g">Før du trykker</div>
       <a href="#foer">Tjek det her først</a>
       <a href="#spaerringer">De 8 ting der spærrer</a>
       <div class="g">Sådan gør du</div>
       <a href="#saadan">Trin for trin</a>
+      <a href="#dialogen">Sådan ser dialogen ud</a>
       <a href="#hvad">Hvad forsvinder, hvad bliver</a>
+      <a href="#slet-gaest">Slet gæst: den anden knap</a>
       <div class="g">Når noget driller</div>
       <a href="#gennemtving">Gennemtving</a>
       <a href="#fejl">Fejlbeskeder</a>
@@ -72,12 +96,77 @@
   <main>
     <div class="eyebrow">Ringsted Festival 2026 &middot; kundeservice</div>
     <h1 id="intro">Anonymisér en deltager (GDPR)</h1>
-    <p class="lede">Når en gæst beder om at blive slettet, overskriver vi deres identitet. Én ting er vigtig, og det er hele grundreglen: <b>kontoen skal være gjort op først.</b> Ingen penge, ingen ubrugte billetter, ingen ansvar der hænger.</p>
+    <p class="lede">Når en gæst beder om at blive slettet, overskriver vi deres identitet. Der er to knapper i menuen, <b>Anonymisér (GDPR)</b> og <b>Slet gæst</b>, og næsten altid er det den første, du skal bruge. Én ting er hele grundreglen: <b>kontoen skal være gjort op først.</b> Ingen penge, ingen ubrugte billetter, ingen ansvar der hænger.</p>
     <hr class="rule" />
 
     <div class="tip"><b>Grundregel:</b> anonymisering fjerner personen fra <b>alle</b> festival-år, ikke kun det du står på. Det kan ikke fortrydes, og der er ingen fortrydelsesknap bagefter.</div>
 
     <div class="note"><b>Hvorfor alle år?</b> Den samme person har typisk en profil for hvert år, de har været med. Slettede vi kun 2026, ville navn, e-mail og fødselsdag stadig ligge på 2024 og 2025. Så var anmodningen ikke besvaret. Derfor tager systemet dem alle på én gang.</div>
+
+<div class="pbanner" style="background:linear-gradient(100deg,#0f766e,#115e59)"><div class="av">&#128205;</div><div><div class="who">Find vej</div><h2>Hvor gør man det?</h2><p>Tre steder, og de gør ikke det samme.</p></div></div>
+
+    <table class="qref" id="hvor">
+      <tr><th>Sted</th><th>Hvem bruger det</th><th>Hvad sker der</th></tr>
+      <tr>
+        <td><b>Deltagere</b><br /><span class="chip">Drift &rarr; Adgang &amp; billetter &rarr; Deltagere</span></td>
+        <td>Kundeservice</td>
+        <td>Slå personen op, åbn profilen, og brug <span class="chip">Handlinger</span>. Her ligger både <b>Anonymisér (GDPR)</b> og <b>Slet gæst</b>. Det er her arbejdet gøres.</td>
+      </tr>
+      <tr>
+        <td><b>Sletteanmodninger</b><br /><span class="chip">Adgang &amp; log &rarr; Sletteanmodninger</span></td>
+        <td>Kundeservice-ansvarlig</td>
+        <td>Indbakken over alle anmodninger, og hvornår hver enkelt skal være besvaret. Den er <b>ikke</b> afgrænset til det år, du står på, for en anmodning gælder personen. Kræver særlig adgang.</td>
+      </tr>
+      <tr>
+        <td><b>Gæsten selv</b><br /><span class="chip">Appen</span> <span class="chip">/pages/request-delete</span></td>
+        <td>Gæsten</td>
+        <td>Gæsten beder om sletning i appen. Der <b>slettes ikke noget</b> af sig selv: der oprettes en sag, og festivalkontoret får en mail. Nogen skal stadig gøre arbejdet. Den offentlige side er til dem, der ikke kan logge ind.</td>
+      </tr>
+    </table>
+
+    <div class="note"><b>Fristen løber fra anmodningen, ikke fra sagen.</b> Uanset hvilken vej den kom ind, har vi en måned til at svare, og den regnes fra dagen den kom. Derfor oprettes sagen med det samme, også før nogen har set på den.</div>
+
+    <div class="pbanner" style="background:linear-gradient(100deg,#7c3aed,#5b21b6)"><div class="av">&#129518;</div><div><div class="who">Vælg rigtigt</div><h2>Slet eller anonymisér?</h2><p>To knapper i samme menu. Kun den ene er svaret på en sletteanmodning.</p></div></div>
+
+    <p class="ctx" id="slet-vs-anon">Kort sagt: <b>anonymisér</b> er svaret næsten hver gang. <b>Slet gæst</b> virker kun på en profil, der aldrig har været brugt til noget.</p>
+
+    <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="max-width:700px;width:100%;height:auto;margin:14px 0" role="img" aria-label="Beslutningstræ: har profilen historik, så anonymisér, ellers kan den slettes">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#a1a1aa" />
+        </marker>
+      </defs>
+      <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif">
+        <rect x="230" y="10" width="240" height="46" rx="10" fill="#fff" stroke="#e4e4e7" />
+        <text x="350" y="30" text-anchor="middle" font-size="13.5" font-weight="700" fill="#18181b">Gæsten vil slettes</text>
+        <text x="350" y="47" text-anchor="middle" font-size="12" fill="#71717a">Identitet bekræftet</text>
+
+        <line x1="350" y1="56" x2="350" y2="86" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#ar)" />
+
+        <rect x="215" y="88" width="270" height="46" rx="10" fill="#faf5ff" stroke="#d8b4fe" />
+        <text x="350" y="108" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">Har profilen nogen historik?</text>
+        <text x="350" y="125" text-anchor="middle" font-size="11.5" fill="#7c3aed">Ordrer, billetter, beats, scanninger, noter …</text>
+
+        <line x1="290" y1="134" x2="170" y2="176" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#ar)" />
+        <line x1="410" y1="134" x2="530" y2="176" stroke="#a1a1aa" stroke-width="1.5" marker-end="url(#ar)" />
+        <text x="205" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#52525b">JA</text>
+        <text x="500" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#52525b">NEJ</text>
+
+        <rect x="30" y="178" width="270" height="96" rx="10" fill="#eff6ff" stroke="#bfdbfe" />
+        <text x="165" y="200" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1d4ed8">Anonymisér (GDPR)</text>
+        <text x="165" y="220" text-anchor="middle" font-size="11.5" fill="#1e40af">Identiteten overskrives på alle år.</text>
+        <text x="165" y="237" text-anchor="middle" font-size="11.5" fill="#1e40af">Bogføringen bliver stående, uden navn.</text>
+        <text x="165" y="259" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8">Det er svaret næsten hver gang.</text>
+
+        <rect x="400" y="178" width="270" height="96" rx="10" fill="#f4f4f5" stroke="#e4e4e7" />
+        <text x="535" y="200" text-anchor="middle" font-size="13.5" font-weight="700" fill="#3f3f46">Slet gæst</text>
+        <text x="535" y="220" text-anchor="middle" font-size="11.5" fill="#52525b">Rækken fjernes helt. Kun muligt her.</text>
+        <text x="535" y="237" text-anchor="middle" font-size="11.5" fill="#52525b">Gælder kun det år, du står på.</text>
+        <text x="535" y="259" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3f3f46">Fx en tom profil oprettet ved en fejl.</text>
+      </g>
+    </svg>
+
+    <div class="tip"><b>I tvivl? Vælg anonymisér.</b> Systemet stopper dig selv, hvis du vælger forkert: prøver du at slette en profil med historik, bliver handlingen afvist med besked om at anonymisere i stedet. Der er ingen vej til at slette bogføring ved et uheld.</div>
 
     <div class="pbanner" style="background:linear-gradient(100deg,#1d4ed8,#1e3a8a)"><div class="av">&#128269;</div><div><div class="who">Før du trykker</div><h2>Tjek det her først</h2><p>Tre ting, hver gang. De tager et minut og redder dig fra en sletning, der ikke kan rulles tilbage.</p></div></div>
 
@@ -140,13 +229,49 @@
     <div class="pbanner" style="background:linear-gradient(100deg,#1f9d55,#166534)"><div class="av">&#9989;</div><div><div class="who">Sådan gør du</div><h2>Trin for trin</h2><p>Når vurderingen er ren, tager selve handlingen et halvt minut.</p></div></div>
 
     <ol class="steps" id="saadan">
-      <li>Gå til <b>Deltagere</b> i FMS, og søg personen frem på navn, e-mail, telefon eller billetkode.</li>
-      <li>Åbn deltageren, klik menuen øverst til højre, og vælg <span class="chip">Anonymisér (GDPR)</span>.</li>
+      <li>Gå til <b>Drift &rarr; Adgang &amp; billetter &rarr; Deltagere</b>, og søg personen frem på navn, e-mail, telefon eller billetkode. Du finder kun profilen for det år, du står på &ndash; det er i orden, resten kommer med.</li>
+      <li>Åbn deltageren, klik <span class="chip">Handlinger</span> øverst til højre, og vælg <span class="chip">Anonymisér (GDPR)</span>. <b>Ikke</b> <span class="chip">Slet gæst</span>.</li>
       <li>Læs vurderingen. Den lister <b>alle</b> de år, personen optræder på, med hvad hvert år indeholder. Røde rækker er spærret, og spærringen står under året.</li>
       <li>Ryd spærringerne, hvis der er nogen. Luk dialogen, ordn tingene, og åbn den igen, så vurderingen er ny.</li>
       <li>Skriv begrundelsen i feltet nederst. Mindst et par ord, og skriv det for den, der læser det senere.</li>
       <li>Tryk <span class="chip">Anonymisér</span>. Bagefter står personen som <b>[redacted]</b> på alle år, og du får en kvittering på hvor mange.</li>
     </ol>
+
+<h3 class="sec" id="dialogen" style="font-size:17px;margin:26px 0 2px">Sådan ser dialogen ud</h3>
+    <p class="ctx">Her er en person, der optræder på to år. Ringsted er ren; Festhallen har en ubrugt billet, og den række er spærret. Knappen nederst er grå, indtil spærringen er ryddet.</p>
+
+    <div class="mock">
+      <h4>Anonymisér deltager</h4>
+      <p class="lead">Identiteten på Brynhild Saltmarsh overskrives på alle de summits, personen optræder på. Ordrer, betalinger, refusioner, kreditnotaer og beats-posteringer bevares, fordi vi har pligt til at gemme dem i fem år. Handlingen kan ikke fortrydes.</p>
+
+      <p class="sec">Det her anonymiseres</p>
+      <p class="sub">Personen optræder på 2 summits. Alle anonymiseres.</p>
+
+      <div class="srow">
+        <b>Ringsted Festival</b> <span style="color:#a1a1aa;font-size:12px">(den du står på)</span>
+        <span class="muted">Brynhild Saltmarsh · brynhild@eksempel.dk</span>
+        <span class="muted">Ingen historik</span>
+      </div>
+
+      <div class="srow bad">
+        <b>Festhallen</b>
+        <span class="muted">Brynhild Saltmarsh · brynhild@eksempel.dk</span>
+        <span class="muted">1 billet</span>
+        <div class="sep"></div>
+        <b>Uindløste billetter</b><span class="kode">unredeemed_tickets</span>
+        <span class="muted">1 gyldig billet er aldrig brugt, heraf 0 udstedt af en virksomhed</span>
+      </div>
+
+      <div class="ovr"><div class="box"></div><div>Gennemtving alligevel. Jeg er klar over at det anførte ikke er afregnet, og begrundelsen bliver gemt som en bevidst tilsidesættelse.</div></div>
+
+      <label>Begrundelse (gemmes i audit-log)</label>
+      <div class="inp">fx Sletteanmodning modtaget 12/8, verificeret via MitID</div>
+
+      <div class="btns"><div class="btn">Annullér</div><div class="btn dis">Anonymisér</div></div>
+    </div>
+
+    <div class="callout"><span>&#9656;</span><span>Læg mærke til, at <b>Festhallen står med i listen</b>, selvom du står på Ringsted og kun kan se Ringsted-profilen i deltagerlisten. Det er meningen: anmodningen gælder personen, ikke året.</span></div>
+    <div class="callout"><span>&#9656;</span><span>Der er <b>ingen afkrydsning ud for de enkelte år</b>. Man kan ikke vælge et år fra. Den eneste afkrydsning er gennemtvingningen.</span></div>
 
     <div class="pbanner" style="background:linear-gradient(100deg,#5a6475,#3f3f46)"><div class="av">&#128203;</div><div><div class="who">Godt at vide</div><h2>Hvad forsvinder, hvad bliver</h2><p>Så du kan svare gæsten, hvis de spørger.</p></div></div>
 
@@ -172,6 +297,36 @@
     </table>
 
     <div class="tip"><b>Sig det sådan til gæsten:</b> &bdquo;Din profil og dine personoplysninger er slettet. De køb, du har lavet, står stadig i vores regnskab, fordi vi er forpligtet til at gemme bogføring i fem år, men de er ikke længere knyttet til dit navn.&ldquo;</div>
+
+<div class="pbanner" style="background:linear-gradient(100deg,#5a6475,#3f3f46)"><div class="av">&#128465;&#65039;</div><div><div class="who">Den anden knap</div><h2>Slet gæst: hvornår virker den?</h2><p>Kun på en profil helt uden historik. Ellers afviser systemet selv.</p></div></div>
+
+    <p class="ctx" id="slet-gaest"><span class="chip">Handlinger</span> &rarr; <span class="chip">Slet gæst</span> fjerner profilen helt, i stedet for at overskrive den. Bekræftelsesboksen siger det selv: <i>&bdquo;Sletning er kun mulig hvis gæsten ikke har historik. Findes der ordrer, billetter, wallets eller scanninger, bliver handlingen afvist &ndash; de skal afregnes og anonymiseres i stedet.&ldquo;</i></p>
+
+    <table class="qref">
+      <tr><th>Situation</th><th>Hvad sker der</th><th>Hvad gør du</th></tr>
+      <tr>
+        <td><b>Profilen er tom</b><br /><span class="muted" style="color:var(--muted);font-size:12.5px">Ingen billetter, ordrer, beats eller scanninger</span></td>
+        <td>Profilen slettes, og du sendes tilbage til deltagerlisten.</td>
+        <td>Fint. Det er typisk en profil oprettet ved en fejl eller en dublet.</td>
+      </tr>
+      <tr>
+        <td><b>Profilen har historik</b></td>
+        <td>Afvist: <i>&bdquo;Kan ikke slette en deltager med historik (1 billet). Sletning river bogføring med sig, som vi har pligt til at gemme &ndash; afregn og anonymisér i stedet.&ldquo;</i></td>
+        <td>Brug <b>Anonymisér (GDPR)</b>. Beskeden siger det selv.</td>
+      </tr>
+      <tr>
+        <td><b>Personen er allerede anonymiseret</b></td>
+        <td>Afvist: <i>&bdquo;Deltageren er anonymiseret. Rækken bevares med vilje, så ordrer og posteringer bliver hele.&ldquo;</i> Menupunktet <b>Anonymisér (GDPR)</b> er også væk.</td>
+        <td>Ingenting. Sagen er lukket, og rækken skal blive stående.</td>
+      </tr>
+      <tr>
+        <td><b>Der er åbne billetdelinger</b></td>
+        <td>Afvist: <i>&bdquo;Kan ikke slette en deltager med aktive billetdelinger. Kald dem tilbage eller afslut dem først.&ldquo;</i></td>
+        <td>Ryd delingerne. Samme spærring gælder anonymisering.</td>
+      </tr>
+    </table>
+
+    <div class="note"><b>Slet gæst gælder kun det år, du står på.</b> Anonymisering tager alle år; sletning tager én profil. Det er endnu en grund til, at sletning aldrig er svaret på en sletteanmodning fra en person, der har været med flere år.</div>
 
     <div class="pbanner" style="background:linear-gradient(100deg,#b45309,#92400e)"><div class="av">&#9888;&#65039;</div><div><div class="who">Kun i særlige tilfælde</div><h2>Gennemtving</h2><p>Der er en afkrydsning, der kan omgå spærringerne. Den er ikke en genvej.</p></div></div>
 

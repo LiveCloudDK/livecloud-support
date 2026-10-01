@@ -66,7 +66,7 @@
     h3{font-size:10.5pt;margin:8px 0 2px;break-after:avoid}
     .sec-block{margin-bottom:6px}
     ol.steps,.shots,.who .box,.login{break-inside:avoid}
-    .shots{gap:6px;margin:4px 0 6px}.shots figure{max-width:56px}.shots figure.wide,.shots figure[style]{max-width:100% !important}
+    .shots{gap:6px;margin:4px 0 6px}.shots figure{max-width:50px}.shots figure.wide,.shots figure[style]{max-width:100% !important}
     .shots figure.wide img,.shots figure[style] img{max-height:25mm;width:auto;max-width:100%}
     .shots figcaption{font-size:7pt}
     .who{gap:8px}.who .box{padding:8px 10px}
@@ -175,13 +175,18 @@
 
   <div class="sec-block">
   <h2 class="sec" id="betaling"><small>Baren</small>Sælg og tag betaling</h2>
-  <div class="shots"><figure class="wide"><img src="img/pos-festhallen/betaling.jpg" alt="Fire skærme fra Festhallen POS: produkter, pilen op, Betal og valg mellem QR og NFC"><figcaption>Tilføj produkter, tryk <b>Betal</b>, og vælg <b>QR</b> eller <b>NFC</b>.</figcaption></figure></div>
+  <div class="shots">
+    <figure><img src="img/pos-festhallen/salg-1-produkter.jpg" alt="Salgsskærmen i Festhallen POS med produkter og knapperne Tast kode og Scan QR"><figcaption>Salgsskærmen med produkterne.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/salg-2-betal.jpg" alt="Et produkt er valgt, og den grønne knap viser Betal 25 DKK"><figcaption>Den grønne knap <b>Betal</b> viser beløbet.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/salg-3-hvordan-betaler.jpg" alt="Skærmen Hvordan betaler gæsten med knapperne Beats, Kort og Fortsæt uden gæst"><figcaption><b>Hvordan betaler gæsten?</b></figcaption></figure>
+    <figure><img src="img/pos-festhallen/salg-4-tap-to-pay.jpg" alt="Skærmen med total og knappen Tap to Pay"><figcaption><b>Tap to Pay</b> for gæster uden appen.</figcaption></figure>
+  </div>
   <p class="ctx">Tryk på produkterne for at tilføje dem til bestillingen. Du kan rette bestillingen med pilen op (^), før du trykker på <span class="chip">Betal</span>. Gæsterne skal helst betale med Beats fra deres app.</p>
   <h3>Beats fra appen</h3>
   <ol class="steps">
     <li>Tilføj produkter til bestillingen.</li>
-    <li>Tryk på <span class="chip">Betal</span>.</li>
-    <li>Vælg <span class="chip">QR</span>.</li>
+    <li>Tryk på den grønne knap <span class="chip">Betal</span>.</li>
+    <li>Tryk på <span class="chip">Beats</span>.</li>
     <li>Scan QR-koden i gæstens app. Betalingen gennemføres.</li>
   </ol>
   <h3>Beats fra armbåndet</h3>
@@ -194,11 +199,11 @@
   <h3>Betalingskort, gæst uden appen</h3>
   <p class="ctx">Gæster uden appen kan bestille og betale med betalingskort direkte på terminalen.</p>
   <ol class="steps">
-    <li>Tryk på knappen for gæst uden profil.</li>
     <li>Tilføj produkter til bestillingen.</li>
-    <li>Tryk på <span class="chip">Betal</span>.</li>
-    <li>Vælg betaling med kort.</li>
-    <li>Gæsten holder sit betalingskort mod terminalen. Betalingen gennemføres.</li>
+    <li>Tryk på den grønne knap <span class="chip">Betal</span>.</li>
+    <li>Tryk på <span class="chip">Fortsæt uden gæst</span>.</li>
+    <li>Tryk på <span class="chip">Tap to Pay</span>.</li>
+    <li>Gæsten holder sit kort eller sin telefon mod terminalen. Betalingen gennemføres.</li>
   </ol>
   </div>
   <div class="sec-block">

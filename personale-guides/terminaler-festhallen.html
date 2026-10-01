@@ -169,8 +169,8 @@
   </div>
   <h3>RF Scanner, indgangen</h3>
   <ol class="steps">
-    <li>Åbn RF Scanner, og scan indgangens QR-kode. Den sidder på din printede guide. Mangler den, får du den af din leder.</li>
-    <li>Terminalen er nu klar til at scanne gæsternes billetter.</li>
+    <li>Viser appen "PAR SCANNER", scanner du indgangens QR-kode med kameraet. Den sidder på din printede guide. Mangler den, får du den af din leder.</li>
+    <li>Terminalen er nu klar. Tryk på <span class="chip">KLAR TIL AT SCANNE</span>.</li>
   </ol>
   </div>
 
@@ -209,7 +209,7 @@
   </div>
   <div class="sec-block">
   <h2 class="sec" id="optankning"><small>Baren</small>Optankning af Beats</h2>
-  <div class="shots"><figure class="wide"><img src="img/pos-festhallen/optankning.jpg" alt="Fire skærme: gæstens konto, knappen Optankning, valg af beløb og Tap to Pay"><figcaption>Scan gæsten, tryk <b>Optankning</b>, vælg beløb og <b>Tap to Pay</b>.</figcaption></figure></div>
+  <div class="shots no-print"><figure class="wide"><img src="img/pos-festhallen/optankning.jpg" alt="Fire skærme: gæstens konto, knappen Optankning, valg af beløb og Tap to Pay"><figcaption>Scan gæsten, tryk <b>Optankning</b>, vælg beløb og <b>Tap to Pay</b>.</figcaption></figure></div>
   <ol class="steps">
     <li>Find gæsten øverst på salgsskærmen: tryk på <span class="chip">Scan QR</span>, og scan gæstens QR-kode, eller hold gæstens armbånd mod terminalen.</li>
     <li>Tjek sammen med gæsten, at den rigtige konto vises.</li>
@@ -276,39 +276,58 @@
   <div class="sec-block">
   <h2 class="sec" id="scan"><small>Indgangen</small>Scan en gæst</h2>
   <ol class="steps">
+    <li>Tryk på <span class="chip">KLAR TIL AT SCANNE</span> på forsiden af RF Scanner.</li>
     <li>Hold kameraet mod gæstens QR-kode. Terminalen læser den selv. Har gæsten et armbånd, holder du armbåndet tæt på terminalen.</li>
-    <li>Se på farven på skærmen.</li>
+    <li>Se på farven på skærmen. Hver farve har sin egen lyd og vibration.</li>
   </ol>
   <div class="colors">
-    <div class="c ok"><b>Grøn</b>Luk gæsten ind. Terminalen går selv videre efter et par sekunder.</div>
-    <div class="c retry"><b>Orange</b>Scanningen gik galt. Tryk <span class="chip">Næste billet</span>, og scan igen.</div>
-    <div class="c stop"><b>Rød</b>Luk ikke gæsten ind. Send gæsten til garderoben, og tryk <span class="chip">Næste billet</span>.</div>
+    <div class="c ok"><b>Grøn</b>Luk gæsten ind. Terminalen går selv videre efter cirka et sekund.</div>
+    <div class="c retry"><b>Orange</b>Der er et problem med scanningen, ikke med billetten. Tryk <span class="chip">NÆSTE BILLET</span>, og scan igen.</div>
+    <div class="c stop"><b>Rød</b>Luk ikke gæsten ind. Læs overskriften, og tryk <span class="chip">NÆSTE BILLET</span>, når gæsten er sendt videre.</div>
   </div>
-  <p class="ctx">Kan QR-koden ikke læses, så bed gæsten om at skrue op for lysstyrken og holde telefonen stille. Er det mørkt, så tænd lommelygten nederst på skærmen.</p>
+  <p class="ctx"><b>Er du i tvivl, så luk ikke ind.</b></p>
+  <div class="shots no-print">
+    <figure><img src="img/pos-festhallen/scanner-klar.jpg" alt="Forsiden af RF Scanner med knappen KLAR TIL AT SCANNE"><figcaption>Forsiden med <b>KLAR TIL AT SCANNE</b>.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/scanner-scanning.jpg" alt="Scan-skærmen med kamerafelt og lommelygte"><figcaption>Scan-skærmen.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/scanner-groen.jpg" alt="Grøn skærm: Tjekket ind"><figcaption>Grøn: <b>TJEKKET IND</b>.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/scanner-orange.jpg" alt="Orange skærm: Ukendt kode"><figcaption>Orange: <b>UKENDT KODE</b>.</figcaption></figure>
+  </div>
+  <p class="ctx">Kan QR-koden ikke læses, så bed gæsten om at skrue op for lysstyrken og holde telefonen stille. Er det mørkt, så tænd lommelygten under kamerafeltet. Er kameraet gået på pause, trykker du på kamerafeltet.</p>
+  <h3>Gæsten har flere billetter</h3>
+  <p class="ctx">Skærmen viser en liste med "ANTAL BILLETTER". Tjek, at personerne står foran dig. Fravælg dem, der ikke er her, og tryk på <span class="chip">TJEK IND</span>.</p>
+  <h3>Orange skærm</h3>
+  <table class="means">
+    <tr><th>Skærmen siger</th><th>Gør sådan</th></tr>
+    <tr><td><b>UKENDT KODE</b></td><td>Bed gæsten om at åbne billetten i appen, og scan igen. Virker det ikke, sender du gæsten til garderoben.</td></tr>
+    <tr><td><b>SCANNET FOR HURTIGT</b></td><td>Scan én gang til. Står der så ALLEREDE TJEKKET IND, gik den første scanning igennem: luk gæsten ind.</td></tr>
+    <tr><td><b>INGEN FORBINDELSE</b> eller <b>SCANNING MISLYKKEDES</b></td><td>Intet er registreret. Scan igen. Gå eventuelt et par meter for at få bedre signal.</td></tr>
+    <tr><td><b>NFC-TAG KUNNE IKKE LÆSES</b></td><td>Hold armbåndet helt stille mod terminalen, eller scan gæstens QR-kode.</td></tr>
+  </table>
   </div>
 
   <div class="sec-block">
   <h2 class="sec" id="scanfejl"><small>Indgangen</small>Rød skærm ved scanning</h2>
-  <p class="ctx">Rød betyder altid det samme for dig: luk ikke gæsten ind, og send gæsten til garderoben. Du skal ikke selv vurdere, om gæsten må komme ind, og du skal ikke diskutere det ved indgangen.</p>
+  <p class="ctx">Rød betyder: luk ikke gæsten ind. Du skal ikke selv vurdere, om gæsten må komme ind, og du skal ikke diskutere det ved indgangen.</p>
   <ol class="steps">
-    <li>Læs overskriften på den røde skærm, så du kan fortælle gæsten, hvad der står.</li>
+    <li>Læs overskriften på den røde skærm, og find den i tabellen.</li>
     <li>Sig til gæsten, at du ikke kan lukke ind her, og at gæsten kan få hjælp ved garderoben.</li>
-    <li>Tryk på <span class="chip">Næste billet</span>, og tag den næste gæst.</li>
+    <li>Tryk på <span class="chip">NÆSTE BILLET</span>, og tag den næste gæst.</li>
   </ol>
   <table class="means">
-    <tr><th>Skærmen siger</th><th>Det betyder</th></tr>
-    <tr><td><b>Allerede tjekket ind</b></td><td>Billetten er allerede brugt til at komme ind.</td></tr>
-    <tr><td><b>Guest blocked</b></td><td>Gæsten er spærret i systemet.</td></tr>
-    <tr><td><b>Ingen billet til dette event</b></td><td>Gæsten har ingen billet til arrangementet i dag.</td></tr>
-    <tr><td><b>Billet tilbagekaldt eller annulleret</b></td><td>Billetten gælder ikke længere.</td></tr>
-    <tr><td><b>Allerede lukket ind på en anden billet</b></td><td>Gæsten er allerede kommet ind på en anden billet.</td></tr>
+    <tr><th>Skærmen siger</th><th>Det betyder</th><th>Gør sådan</th></tr>
+    <tr><td><b>ALLEREDE TJEKKET IND</b></td><td>Billetten er allerede brugt til at komme ind. Skærmen viser tid og sted.</td><td>Send gæsten til garderoben.</td></tr>
+    <tr><td><b>INGEN BILLET TIL DETTE EVENT</b></td><td>Gæsten har ingen billet til dette arrangement.</td><td>Send gæsten til garderoben.</td></tr>
+    <tr><td><b>BILLET TILBAGEKALDT ELLER ANNULLERET</b></td><td>Gæsten har ingen gyldig billet.</td><td>Send gæsten til garderoben.</td></tr>
+    <tr><td><b>ALLEREDE LUKKET IND PÅ EN ANDEN BILLET</b></td><td>Gæsten har to ens billetter. Denne kopi skal overdrages til den, der skal bruge den.</td><td>Send gæsten til garderoben.</td></tr>
+    <tr><td><b>GUEST BLOCKED</b></td><td>Festhallen har lukket for adgang for gæsten.</td><td>Kald lederen med det samme.</td></tr>
+    <tr><td><b>NOGET GIK GALT</b></td><td>Teknisk fejl. Det er ikke gæstens fejl.</td><td>Tryk NÆSTE BILLET, og scan én gang til.</td></tr>
   </table>
   <div class="shots no-print">
-    <figure><img src="img/pos-festhallen/scan-allerede-tjekket-ind.jpg" alt="Rød skærm: Allerede tjekket ind"><figcaption><b>Allerede tjekket ind</b></figcaption></figure>
-    <figure><img src="img/pos-festhallen/scan-guest-blocked.jpg" alt="Rød skærm: Guest blocked"><figcaption><b>Guest blocked</b></figcaption></figure>
-    <figure><img src="img/pos-festhallen/scan-ingen-billet-til-event.jpg" alt="Rød skærm: Ingen billet til dette event"><figcaption><b>Ingen billet til dette event</b></figcaption></figure>
-    <figure><img src="img/pos-festhallen/scan-billet-tilbagekaldt.jpg" alt="Rød skærm: Billet tilbagekaldt eller annulleret"><figcaption><b>Billet tilbagekaldt eller annulleret</b></figcaption></figure>
-    <figure><img src="img/pos-festhallen/scan-allerede-lukket-ind.jpg" alt="Rød skærm: Allerede lukket ind på en anden billet"><figcaption><b>Allerede lukket ind på en anden billet</b></figcaption></figure>
+    <figure><img src="img/pos-festhallen/scan-allerede-tjekket-ind.jpg" alt="Rød skærm: Allerede tjekket ind"><figcaption><b>ALLEREDE TJEKKET IND</b></figcaption></figure>
+    <figure><img src="img/pos-festhallen/scan-ingen-billet-til-event.jpg" alt="Rød skærm: Ingen billet til dette event"><figcaption><b>INGEN BILLET TIL DETTE EVENT</b></figcaption></figure>
+    <figure><img src="img/pos-festhallen/scan-billet-tilbagekaldt.jpg" alt="Rød skærm: Billet tilbagekaldt eller annulleret"><figcaption><b>BILLET TILBAGEKALDT ELLER ANNULLERET</b></figcaption></figure>
+    <figure><img src="img/pos-festhallen/scan-allerede-lukket-ind.jpg" alt="Rød skærm: Allerede lukket ind på en anden billet"><figcaption><b>ALLEREDE LUKKET IND PÅ EN ANDEN BILLET</b></figcaption></figure>
+    <figure><img src="img/pos-festhallen/scan-guest-blocked.jpg" alt="Rød skærm: Guest blocked"><figcaption><b>GUEST BLOCKED</b></figcaption></figure>
   </div>
   </div>
 
@@ -323,7 +342,7 @@
   <p class="ctx"><span class="leader" style="margin-left:0">Kun leder</span> Lederen kan tage batteriet ud på bagsiden og sætte det i igen.</p>
   <div class="shots no-print"><figure class="wide" style="max-width:320px"><img src="img/pos-festhallen/terminal-batteri.jpg" alt="Bagsiden af terminalen med batteriet markeret"><figcaption>Batteriet sidder på bagsiden.</figcaption></figure></div>
   <h3>Terminalen har mistet internetforbindelsen</h3>
-  <p class="ctx">Terminalen viser "Offline" øverst på skærmen. Tryk på cirklen nederst på skærmen, så kommer du til forsiden. Åbn appen igen derfra. Hjælper det ikke:</p>
+  <p class="ctx">Festhallen POS viser "Offline" øverst på skærmen. RF Scanner viser "Ingen internetforbindelse". Tryk på cirklen nederst på skærmen, så kommer du til forsiden. Åbn appen igen derfra. Hjælper det ikke:</p>
   <ol class="steps">
     <li>Tryk på cirklen nederst, og vælg <span class="chip">Esper-indstillinger</span>.</li>
     <li>Vælg <span class="chip">Trådløst internet</span>. Slå <span class="chip">Brug Wi-Fi</span> fra og til igen.</li>
@@ -336,7 +355,7 @@
   <div class="sec-block">
   <h2 class="sec" id="mindre"><small>Hvis noget går galt</small>Terminalen virker, men noget driller</h2>
   <h3>"Ukendt gæst"</h3>
-  <div class="shots"><figure style="max-width:260px"><img src="img/pos-festhallen/ukendt-gaest.jpg" alt="Skærmen viser Ukendt gæst"><figcaption>Skærmen viser <b>Ukendt gæst</b>.</figcaption></figure></div>
+  <div class="shots no-print"><figure style="max-width:260px"><img src="img/pos-festhallen/ukendt-gaest.jpg" alt="Skærmen viser Ukendt gæst"><figcaption>Skærmen viser <b>Ukendt gæst</b>.</figcaption></figure></div>
   <ol class="steps">
     <li>Prøv én gang mere.</li>
     <li>Tjek, at gæsten er inde i Festhallen-appen og ikke i Ringsted Festival-appen.</li>

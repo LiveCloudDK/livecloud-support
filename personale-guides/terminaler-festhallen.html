@@ -53,6 +53,9 @@
   .colors .ok{border-top-color:#1f8a4c}.colors .retry{border-top-color:#d97706}.colors .stop{border-top-color:#c92835}
   .qrrow{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:10px}
   .qrbox{width:28mm;height:28mm;border:1px dashed var(--brand-ink);display:grid;place-items:center;text-align:center;font-size:8pt;color:var(--brand-muted);flex:none}
+  .means{border-collapse:collapse;margin:10px 0 14px;max-width:72ch;width:100%;font-size:.95em}
+  .means th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-muted);padding:4px 10px 4px 0;border-bottom:1px solid var(--brand-ink)}
+  .means td{padding:5px 10px 5px 0;border-bottom:1px solid var(--brand-line);vertical-align:top}
   .foot{margin-top:48px;padding-top:12px;border-top:1px solid var(--brand-line);color:var(--brand-muted);font-size:13px}
   @media (max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:20px 16px 90px}.who,.roles,.colors{grid-template-columns:1fr}.shots figure{max-width:46%}}
   @media print{
@@ -73,6 +76,8 @@
     .app img{width:34px;height:34px;border-radius:9px}
     .note,.warn{padding:6px 10px}
     .foot{margin-top:6px;padding-top:4px}
+    ol.steps{margin:3px 0 5px}.ctx{margin:2px 0 4px}h2.sec{margin:7px 0 3px;padding-top:6px}
+    .means{font-size:8pt;margin:4px 0 6px}.means td{padding:2px 6px 2px 0}.means th{padding:2px 6px 2px 0}
   }
 </style>
 <link rel="stylesheet" href="brand/livecloud/brand.css" id="lc-brand">
@@ -270,7 +275,20 @@
 
   <div class="sec-block">
   <h2 class="sec" id="scanfejl"><small>Indgangen</small>Rød skærm ved scanning</h2>
-  <p class="ctx">Giver scanningen en rød skærm med en fejl, sender du gæsten til informationen. Du skal ikke selv vurdere, om gæsten må komme ind.</p>
+  <p class="ctx">Rød betyder altid det samme for dig: luk ikke gæsten ind, og send gæsten til informationen. Du skal ikke selv vurdere, om gæsten må komme ind, og du skal ikke diskutere det ved indgangen.</p>
+  <ol class="steps">
+    <li>Læs overskriften på den røde skærm, så du kan fortælle gæsten, hvad der står.</li>
+    <li>Sig til gæsten, at du ikke kan lukke ind her, og at informationen kan hjælpe.</li>
+    <li>Tryk på <span class="chip">Næste billet</span>, og tag den næste gæst.</li>
+  </ol>
+  <table class="means">
+    <tr><th>Skærmen siger</th><th>Det betyder</th></tr>
+    <tr><td><b>Allerede tjekket ind</b></td><td>Billetten er allerede brugt til at komme ind.</td></tr>
+    <tr><td><b>Guest blocked</b></td><td>Gæsten er spærret i systemet.</td></tr>
+    <tr><td><b>Ingen billet til dette event</b></td><td>Gæsten har ingen billet til arrangementet i dag.</td></tr>
+    <tr><td><b>Billet tilbagekaldt eller annulleret</b></td><td>Billetten gælder ikke længere.</td></tr>
+    <tr><td><b>Allerede lukket ind på en anden billet</b></td><td>Gæsten er allerede kommet ind på en anden billet.</td></tr>
+  </table>
   <div class="shots">
     <figure><img src="img/pos-festhallen/scan-allerede-tjekket-ind.jpg" alt="Rød skærm: Allerede tjekket ind"><figcaption><b>Allerede tjekket ind</b></figcaption></figure>
     <figure><img src="img/pos-festhallen/scan-guest-blocked.jpg" alt="Rød skærm: Guest blocked"><figcaption><b>Guest blocked</b></figcaption></figure>

@@ -59,25 +59,29 @@
   .foot{margin-top:48px;padding-top:12px;border-top:1px solid var(--brand-line);color:var(--brand-muted);font-size:13px}
   @media (max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:20px 16px 90px}.who,.roles,.colors{grid-template-columns:1fr}.shots figure{max-width:46%}}
   @media print{
-    body{font-size:8.8pt;line-height:1.28}
-    h1{font-size:20pt}.lede{font-size:10pt}
-    .print-cols{column-count:2;column-gap:9mm}
-    h2.sec{font-size:13pt;margin:10px 0 4px;break-inside:avoid;break-after:avoid-column;page-break-after:avoid}
-    h3{font-size:10pt;margin:6px 0 1px;break-after:avoid}
-    .sec-block{margin-bottom:6px}
-    ol.steps,.shots,.who .box,.login{break-inside:avoid}
-    .shots{gap:6px;margin:4px 0 6px}.shots figure{max-width:46px}.shots figure.wide,.shots figure[style]{max-width:100% !important}
-    .shots figure.wide img,.shots figure[style] img{max-height:21mm;width:auto;max-width:100%}
-    .shots figcaption{font-size:7pt}
+    body{font-size:10pt;line-height:1.4}
+    h1{font-size:20pt}.lede{font-size:10.5pt}
+    .print-cols{columns:auto;column-count:auto;display:block}
+    .pb{break-before:page;page-break-before:always}
+    h2.sec{font-size:14pt;margin:16px 0 4px;break-after:avoid;page-break-after:avoid;break-inside:avoid;page-break-inside:avoid}
+    .pb > h2.sec{margin-top:0}
+    h3{font-size:11pt;margin:12px 0 2px;break-after:avoid;page-break-after:avoid}
+    .ctx{break-after:auto}
+    ol.steps{margin:4px 0 8px}
+    ol.steps,.shots,figure,.means,.who .box,.roles .box,.login,.colors,.note,.warn,.means tr{break-inside:avoid;page-break-inside:avoid}
+    .shots{gap:8px;margin:6px 0 10px}
+    .shots figure{max-width:30mm}
+    .shots figure.wide,.shots figure[style]{max-width:100% !important}
+    .shots figure.wide img,.shots figure[style] img{max-height:48mm;width:auto;max-width:100%}
+    .shots figcaption{font-size:8pt}
     .who{gap:8px}.who .box{padding:8px 10px}
-    .roles{gap:6px}.roles .box{padding:6px 8px;break-inside:avoid}.colors{gap:5px}.colors .c{padding:5px 7px;break-inside:avoid}.colors .c b{font-size:10pt}
-    .colors{grid-template-columns:1fr}
-    .roles{grid-template-columns:repeat(3,1fr)}
-    .app img{width:34px;height:34px;border-radius:9px}
+    .roles{gap:8px;grid-template-columns:repeat(3,1fr)}.roles .box{padding:8px 10px}
+    .colors{gap:6px;grid-template-columns:repeat(3,1fr)}.colors .c{padding:6px 8px}.colors .c b{font-size:11pt}
+    .app img{width:38px;height:38px;border-radius:10px}
+    .means{font-size:9pt;margin:6px 0 10px}.means td,.means th{padding:3px 8px 3px 0}
     .note,.warn{padding:6px 10px}
-    .foot{margin-top:6px;padding-top:4px}
-    ol.steps{margin:3px 0 5px}.ctx{margin:2px 0 4px}h2.sec{margin:7px 0 3px;padding-top:6px}
-    .means{font-size:8pt;margin:4px 0 6px}.means td{padding:2px 6px 2px 0}.means th{padding:2px 6px 2px 0}
+    .qrbox{width:32mm;height:32mm}
+    .foot{margin-top:14px}
   }
 </style>
 <link rel="stylesheet" href="brand/livecloud/brand.css" id="lc-brand">
@@ -174,7 +178,7 @@
   </ol>
   </div>
 
-  <div class="sec-block">
+  <div class="sec-block pb">
   <h2 class="sec" id="betaling"><small>Baren</small>Sælg og tag betaling</h2>
   <div class="shots">
     <figure><img src="img/pos-festhallen/salg-1-produkter.jpg" alt="Salgsskærmen i Festhallen POS med produkter og knapperne Tast kode og Scan QR"><figcaption>Salgsskærmen med produkterne.</figcaption></figure>
@@ -209,7 +213,7 @@
   </div>
   <div class="sec-block">
   <h2 class="sec" id="optankning"><small>Baren</small>Optankning af Beats</h2>
-  <div class="shots no-print"><figure class="wide"><img src="img/pos-festhallen/optankning.jpg" alt="Fire skærme: gæstens konto, knappen Optankning, valg af beløb og Tap to Pay"><figcaption>Scan gæsten, tryk <b>Optankning</b>, vælg beløb og <b>Tap to Pay</b>.</figcaption></figure></div>
+  <div class="shots"><figure class="wide"><img src="img/pos-festhallen/optankning.jpg" alt="Fire skærme: gæstens konto, knappen Optankning, valg af beløb og Tap to Pay"><figcaption>Scan gæsten, tryk <b>Optankning</b>, vælg beløb og <b>Tap to Pay</b>.</figcaption></figure></div>
   <ol class="steps">
     <li>Find gæsten øverst på salgsskærmen: tryk på <span class="chip">Scan QR</span>, og scan gæstens QR-kode, eller hold gæstens armbånd mod terminalen.</li>
     <li>Tjek sammen med gæsten, at den rigtige konto vises.</li>
@@ -231,7 +235,7 @@
   </ol>
   <p class="ctx">Ved spørgsmål sender du gæsten til garderoben.</p>
   </div>
-  <div class="sec-block">
+  <div class="sec-block pb">
   <h2 class="sec" id="garderobe"><small>Garderoben</small>Modtag og udlever tøj</h2>
   <h3>Modtag tøj</h3>
   <ol class="steps">
@@ -273,7 +277,7 @@
   <p class="ctx">Baren og indgangen sender gæster til garderoben, når de ikke selv kan hjælpe. Kan du heller ikke hjælpe gæsten, kontakter du din leder.</p>
   </div>
 
-  <div class="sec-block">
+  <div class="sec-block pb">
   <h2 class="sec" id="scan"><small>Indgangen</small>Scan en gæst</h2>
   <ol class="steps">
     <li>Tryk på <span class="chip">KLAR TIL AT SCANNE</span> på forsiden af RF Scanner.</li>
@@ -286,7 +290,7 @@
     <div class="c stop"><b>Rød</b>Luk ikke gæsten ind. Læs overskriften, og tryk <span class="chip">NÆSTE BILLET</span>, når gæsten er sendt videre.</div>
   </div>
   <p class="ctx"><b>Er du i tvivl, så luk ikke ind.</b></p>
-  <div class="shots no-print">
+  <div class="shots">
     <figure><img src="img/pos-festhallen/scanner-klar.jpg" alt="Forsiden af RF Scanner med knappen KLAR TIL AT SCANNE"><figcaption>Forsiden med <b>KLAR TIL AT SCANNE</b>.</figcaption></figure>
     <figure><img src="img/pos-festhallen/scanner-scanning.jpg" alt="Scan-skærmen med kamerafelt og lommelygte"><figcaption>Scan-skærmen.</figcaption></figure>
     <figure><img src="img/pos-festhallen/scanner-groen.jpg" alt="Grøn skærm: Tjekket ind"><figcaption>Grøn: <b>TJEKKET IND</b>.</figcaption></figure>
@@ -322,7 +326,7 @@
     <tr><td><b>GUEST BLOCKED</b></td><td>Festhallen har lukket for adgang for gæsten.</td><td>Kald lederen med det samme.</td></tr>
     <tr><td><b>NOGET GIK GALT</b></td><td>Teknisk fejl. Det er ikke gæstens fejl.</td><td>Tryk NÆSTE BILLET, og scan én gang til.</td></tr>
   </table>
-  <div class="shots no-print">
+  <div class="shots">
     <figure><img src="img/pos-festhallen/scan-allerede-tjekket-ind.jpg" alt="Rød skærm: Allerede tjekket ind"><figcaption><b>ALLEREDE TJEKKET IND</b></figcaption></figure>
     <figure><img src="img/pos-festhallen/scan-ingen-billet-til-event.jpg" alt="Rød skærm: Ingen billet til dette event"><figcaption><b>INGEN BILLET TIL DETTE EVENT</b></figcaption></figure>
     <figure><img src="img/pos-festhallen/scan-billet-tilbagekaldt.jpg" alt="Rød skærm: Billet tilbagekaldt eller annulleret"><figcaption><b>BILLET TILBAGEKALDT ELLER ANNULLERET</b></figcaption></figure>
@@ -331,7 +335,7 @@
   </div>
   </div>
 
-  <div class="sec-block">
+  <div class="sec-block pb">
   <h2 class="sec" id="kritisk"><small>Hvis noget går galt</small>Terminalen kan ikke bruges</h2>
   <h3>Terminalen er død</h3>
   <ol class="steps">
@@ -340,7 +344,7 @@
     <li>Er den stadig død, så kontakt din leder.</li>
   </ol>
   <p class="ctx"><span class="leader" style="margin-left:0">Kun leder</span> Lederen kan tage batteriet ud på bagsiden og sætte det i igen.</p>
-  <div class="shots no-print"><figure class="wide" style="max-width:320px"><img src="img/pos-festhallen/terminal-batteri.jpg" alt="Bagsiden af terminalen med batteriet markeret"><figcaption>Batteriet sidder på bagsiden.</figcaption></figure></div>
+  <div class="shots"><figure class="wide" style="max-width:320px"><img src="img/pos-festhallen/terminal-batteri.jpg" alt="Bagsiden af terminalen med batteriet markeret"><figcaption>Batteriet sidder på bagsiden.</figcaption></figure></div>
   <h3>Terminalen har mistet internetforbindelsen</h3>
   <p class="ctx">Festhallen POS viser "Offline" øverst på skærmen. RF Scanner viser "Ingen internetforbindelse". Tryk på cirklen nederst på skærmen, så kommer du til forsiden. Åbn appen igen derfra. Hjælper det ikke:</p>
   <ol class="steps">
@@ -355,7 +359,7 @@
   <div class="sec-block">
   <h2 class="sec" id="mindre"><small>Hvis noget går galt</small>Terminalen virker, men noget driller</h2>
   <h3>"Ukendt gæst"</h3>
-  <div class="shots no-print"><figure style="max-width:260px"><img src="img/pos-festhallen/ukendt-gaest.jpg" alt="Skærmen viser Ukendt gæst"><figcaption>Skærmen viser <b>Ukendt gæst</b>.</figcaption></figure></div>
+  <div class="shots"><figure style="max-width:260px"><img src="img/pos-festhallen/ukendt-gaest.jpg" alt="Skærmen viser Ukendt gæst"><figcaption>Skærmen viser <b>Ukendt gæst</b>.</figcaption></figure></div>
   <ol class="steps">
     <li>Prøv én gang mere.</li>
     <li>Tjek, at gæsten er inde i Festhallen-appen og ikke i Ringsted Festival-appen.</li>

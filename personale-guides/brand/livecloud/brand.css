@@ -1,0 +1,30 @@
+/* LiveCloud brand tokens for the personale-guides.
+   This file is the only place with brand values. guide-theme.css reads the
+   --brand-* tokens, and guide-enhance.js takes the logo from logo.svg in the
+   same folder as this file. A tenant brand is a copy of this folder with its
+   own values and logo, linked instead of this one (id="lc-brand"). */
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --brand-name: "LiveCloud";
+  --brand-label: "Personaleguide";
+
+  --brand-bg: #ffffff;
+  --brand-surface: #ffffff;
+  --brand-soft: #f4f4f5;
+  --brand-ink: #0a0a0b;
+  --brand-ink-2: #3f3f46;
+  --brand-muted: #6b6b73;
+  --brand-line: #e4e4e7;
+  --brand-line-strong: #c9c9cf;
+
+  --brand-accent: #0a0a0b;
+  --brand-accent-ink: #ffffff;
+
+  --brand-danger: #b91c1c;
+  --brand-danger-bg: #fef2f2;
+
+  --brand-font: "Raleway", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --brand-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --brand-radius: 10px;
+}

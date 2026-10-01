@@ -1,0 +1,123 @@
+/* Shared look for all personale-guides. Uses only the --brand-* tokens from
+   brand/<brand>/brand.css, so a new brand never needs changes here.
+   Loaded after each page's own <style>, so it wins over the older designs.
+   Screenshots and app mockups keep their own colours on purpose. */
+
+/* Older page designs: point their neutral and brand variables at the tokens.
+   Status colours (green, red, orange, amber, blue) keep their meaning. */
+:root {
+  --bg: var(--brand-bg);
+  --paper: var(--brand-bg);
+  --panel: var(--brand-surface);
+  --card: var(--brand-surface);
+  --bg-card: var(--brand-surface);
+  --bg-card-hover: var(--brand-soft);
+  --ink: var(--brand-ink);
+  --text: var(--brand-ink);
+  --mid: var(--brand-ink-2);
+  --muted: var(--brand-muted);
+  --text-muted: var(--brand-muted);
+  --faint: var(--brand-muted);
+  --text-dim: var(--brand-muted);
+  --line: var(--brand-line);
+  --line-2: var(--brand-line-strong);
+  --hair: var(--brand-line);
+  --border: var(--brand-line);
+  --border-strong: var(--brand-line-strong);
+  --brand: var(--brand-accent);
+  --primary: var(--brand-accent);
+  --acc: var(--brand-accent);
+  --acc-d: var(--brand-accent);
+  --accent: var(--brand-accent);
+  --accent-ink: var(--brand-accent);
+  --accent-bg: var(--brand-soft);
+  --indigo: var(--brand-accent);
+  --indigo-light: var(--brand-accent);
+  --sans: var(--brand-font);
+}
+
+html, body { background: var(--brand-bg) !important; }
+body {
+  color: var(--brand-ink) !important;
+  font-family: var(--brand-font) !important;
+  -webkit-font-smoothing: antialiased;
+}
+code, kbd, .mono { font-family: var(--brand-mono); }
+
+a { color: var(--brand-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+/* Brand bar, added by guide-enhance.js */
+.lc-brandbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 0 12px; margin: 0 0 18px; border-bottom: 2px solid var(--brand-ink);
+}
+.lc-brandbar a { display: inline-flex; align-items: center; border: 0; text-decoration: none; color: var(--brand-ink); }
+.lc-brandbar img { height: 28px; width: auto; display: block; }
+.lc-brandbar .lc-label {
+  font: 700 11px/1 var(--brand-font); letter-spacing: .14em; text-transform: uppercase; color: var(--brand-muted);
+}
+
+/* Side menu */
+aside { background: var(--brand-bg) !important; border-right: 1px solid var(--brand-line) !important; }
+aside .brand .lg { display: none !important; }
+aside .toc a { color: var(--brand-ink-2) !important; }
+aside .toc a:hover { background: var(--brand-soft) !important; color: var(--brand-ink) !important; }
+aside .toc .g { color: var(--brand-muted) !important; }
+
+/* Headings and labels */
+h1, h2, h3, h4 { color: var(--brand-ink); font-family: var(--brand-font); }
+h1 span { color: var(--brand-ink) !important; }
+.eyebrow, h3.flow .g1, .section-label { color: var(--brand-muted) !important; }
+hr.rule { background: var(--brand-ink) !important; height: 2px !important; }
+
+/* Section banners: no coloured gradients, just a clear black edge */
+.pbanner {
+  background: var(--brand-surface) !important; color: var(--brand-ink) !important;
+  border: 1px solid var(--brand-line); border-left: 6px solid var(--brand-ink); box-shadow: none !important;
+}
+.pbanner .av { background: var(--brand-soft) !important; color: var(--brand-ink) !important; }
+.pbanner .who, .pbanner p { color: var(--brand-muted) !important; opacity: 1 !important; }
+.pbanner h2 { color: var(--brand-ink) !important; }
+
+/* Callouts */
+.note, .tip, .info {
+  background: var(--brand-soft) !important; border: 0 !important; border-left: 4px solid var(--brand-ink) !important;
+  color: var(--brand-ink) !important;
+}
+.warn, .danger, .critical {
+  background: var(--brand-danger-bg) !important; border-left: 4px solid var(--brand-danger) !important;
+}
+
+/* Cards */
+.gcard, .card { background: var(--brand-surface) !important; border-color: var(--brand-line) !important; box-shadow: none !important; color: var(--brand-ink); }
+.gcard:hover, .card:hover { border-color: var(--brand-ink) !important; }
+
+/* Shared help bar and jump button from guide-enhance.js */
+.lc-help { background: var(--brand-ink) !important; color: var(--brand-accent-ink) !important; }
+.lc-jump { background: var(--brand-ink) !important; }
+
+/* Print: A4, black on white, no menus */
+@page { size: A4; margin: 14mm 12mm; }
+@media print {
+  html, body { background: #fff !important; font-size: 11pt; }
+  aside, nav.toc, .lc-help, .lc-jump, .lc-jm, .no-print { display: none !important; }
+  .layout { display: block !important; max-width: none !important; }
+  main { padding: 0 !important; }
+  .lc-brandbar { margin-bottom: 10px; }
+  .lc-brandbar img { height: 22px; }
+  .pbanner, .frame, .shotrow, figure, .note, .tip, .warn, table { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+  a { text-decoration: none; }
+  .print-only { display: block !important; }
+}
+.print-only { display: none; }
+
+/* Guide overview pages (index.html) */
+.internal-banner { background: var(--brand-soft) !important; border: 1px solid var(--brand-line) !important; }
+.internal-banner b { background: var(--brand-ink) !important; color: var(--brand-accent-ink) !important; }
+.rolelaunch a { background: var(--brand-surface) !important; color: var(--brand-ink) !important; border: 1px solid var(--brand-line-strong) !important; }
+.rolelaunch a:hover { border-color: var(--brand-ink) !important; }
+.rolelaunch .rl-lbl { color: var(--brand-muted) !important; }
+
+/* Code-style text blocks */
+.ascii { background: var(--brand-soft) !important; color: var(--brand-ink) !important; border: 1px solid var(--brand-line); }

@@ -52,7 +52,7 @@ a { color: var(--brand-ink); text-decoration-thickness: 1px; text-underline-offs
   padding: 14px 0 12px; margin: 0 0 18px; border-bottom: 2px solid var(--brand-ink);
 }
 .lc-brandbar a { display: inline-flex; align-items: center; border: 0; text-decoration: none; color: var(--brand-ink); }
-.lc-brandbar img { height: 34px; width: auto; display: block; }
+.lc-brandbar img { height: 28px; width: auto; display: block; }
 .lc-brandbar .lc-label {
   font: 700 11px/1 var(--brand-font); letter-spacing: .14em; text-transform: uppercase; color: var(--brand-muted);
 }
@@ -104,7 +104,7 @@ hr.rule { background: var(--brand-ink) !important; height: 2px !important; }
   .layout { display: block !important; max-width: none !important; }
   main { padding: 0 !important; }
   .lc-brandbar { margin-bottom: 10px; }
-  .lc-brandbar img { height: 26px; }
+  .lc-brandbar img { height: 22px; }
   .pbanner, .frame, .shotrow, figure, .note, .tip, .warn, table { break-inside: avoid; }
   h2, h3 { break-after: avoid; }
   a { text-decoration: none; }

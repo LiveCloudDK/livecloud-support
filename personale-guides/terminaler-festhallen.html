@@ -51,6 +51,8 @@
   .colors .c{border-radius:var(--brand-radius);padding:10px 12px;border:1px solid var(--brand-line);border-top:6px solid var(--brand-ink)}
   .colors .c b{display:block;font-size:16px}
   .colors .ok{border-top-color:#1f8a4c}.colors .retry{border-top-color:#d97706}.colors .stop{border-top-color:#c92835}
+  .qrrow{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:10px}
+  .qrbox{width:34mm;height:34mm;border:1px dashed var(--brand-ink);display:grid;place-items:center;text-align:center;font-size:8pt;color:var(--brand-muted);flex:none}
   .foot{margin-top:48px;padding-top:12px;border-top:1px solid var(--brand-line);color:var(--brand-muted);font-size:13px}
   @media (max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:20px 16px 90px}.who,.roles,.colors{grid-template-columns:1fr}.shots figure{max-width:46%}}
   @media print{
@@ -110,7 +112,7 @@
       <p class="ctx" style="margin:0">Udfyldes af lederen på dagen.</p>
       <div class="row"><b>Baren</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
       <div class="row"><b>Garderobe</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
-      <p style="margin:6px 0 0"><b>Billetscanning:</b> scan indgangens QR-kode i RF Scanner.</p>
+      <div class="qrrow"><div><b>Billetscanning</b><br>Scan indgangens QR-kode i RF Scanner.</div><div class="qrbox">Indgangens QR-kode<br>sættes ind af lederen</div></div>
     </div>
   </section>
 
@@ -146,7 +148,7 @@
       <h3>Billetscanning ved indgangen</h3>
       <div class="app"><img src="img/pos-festhallen/app-rf-scanner.jpg" alt="App-ikonet for RF Scanner"><div><b>RF Scanner</b><small>Billetter ved indgangen</small></div></div>
       <ol class="steps">
-        <li>Åbn RF Scanner, og scan indgangens QR-kode.</li>
+        <li>Åbn RF Scanner, og scan indgangens QR-kode. Den sidder på din printede guide. Mangler den, får du den af din leder.</li>
         <li>Terminalen er nu klar til at scanne gæsternes billetter.</li>
       </ol>
     </div>
@@ -196,9 +198,9 @@
   <h2 class="sec" id="optankning"><small>Baren</small>Optankning af Beats</h2>
   <div class="shots"><figure class="wide"><img src="img/pos-festhallen/optankning.jpg" alt="Fire skærme: gæstens konto, knappen Optankning, valg af beløb og Tap to Pay"><figcaption>Scan gæsten, tryk <b>Optankning</b>, vælg beløb og <b>Tap to Pay</b>.</figcaption></figure></div>
   <ol class="steps">
-    <li>Scan gæstens armbånd eller QR-kode.</li>
+    <li>Find gæsten øverst på salgsskærmen: tryk på <span class="chip">Scan QR</span>, og scan gæstens QR-kode, eller hold gæstens armbånd mod terminalen.</li>
     <li>Tjek sammen med gæsten, at den rigtige konto vises.</li>
-    <li>Tryk på den gule knap <span class="chip">Optankning</span>.</li>
+    <li>Tryk på den gule knap <span class="chip">Optankning</span> under gæstens navn.</li>
     <li>Vælg beløb, og tryk på <span class="chip">Tap to Pay</span>.</li>
     <li>Gæsten betaler med sit betalingskort.</li>
     <li>Tjek, at det rigtige beløb er lagt til Beats-saldoen under gæstens navn.</li>
@@ -209,8 +211,8 @@
   <div class="warn"><b>Refundering skal altid udføres af en leder.</b></div>
   <ol class="steps">
     <li>Bed gæsten om at vente, og kontakt lederen.</li>
-    <li>Scan gæstens armbånd eller QR-kode.</li>
-    <li>Tryk på den blå knap <span class="chip">Ordre</span>.</li>
+    <li>Find gæsten øverst på salgsskærmen: tryk på <span class="chip">Scan QR</span>, og scan gæstens QR-kode, eller hold gæstens armbånd mod terminalen.</li>
+    <li>Tryk på den blå knap <span class="chip">Ordrer</span> under gæstens navn.</li>
     <li>Tryk på <span class="chip">Refundér</span> ved den ordre, der skal refunderes.</li>
     <li>Indtast PIN-koden. Ordren bliver refunderet.</li>
   </ol>
@@ -260,12 +262,12 @@
   </ol>
   <div class="shots"><figure class="wide" style="max-width:320px"><img src="img/pos-festhallen/terminal-batteri.jpg" alt="Bagsiden af terminalen med batteriet markeret"><figcaption>Batteriet sidder på bagsiden.</figcaption></figure></div>
   <h3>Terminalen har mistet internetforbindelsen</h3>
-  <p class="ctx">Luk appen med cirklen nederst på skærmen, og åbn den igen. Hjælper det ikke:</p>
+  <p class="ctx">Terminalen viser "Offline" øverst på skærmen. Luk appen med cirklen nederst på skærmen, og åbn den igen. Hjælper det ikke:</p>
   <ol class="steps">
     <li>Tryk på cirklen nederst, og vælg <span class="chip">Esper-indstillinger</span>.</li>
     <li>Vælg <span class="chip">Trådløst internet</span>. Slå <span class="chip">Brug Wi-Fi</span> fra og til igen.</li>
     <li>Tjek, at terminalen får forbindelse til Wi-Fi.</li>
-    <li>Hjælper det ikke, så slå mobildata til.</li>
+    <li>Hjælper det ikke, så slå <span class="chip">Mobildata</span> til. Den står lige under Trådløst internet.</li>
     <li>Er forbindelsen stadig ustabil, så byt terminalen i informationen.</li>
   </ol>
   <div class="shots"><figure class="wide"><img src="img/pos-festhallen/terminal-wifi.jpg" alt="Fire skærme: hjemmeskærm, Esper-indstillinger og Trådløst internet med Brug Wi-Fi"><figcaption>Fra cirklen nederst til <b>Esper-indstillinger</b> og <b>Brug Wi-Fi</b>.</figcaption></figure></div>
@@ -280,7 +282,6 @@
     <li>Kontakt lederen, eller send gæsten til informationen.</li>
   </ol>
   <h3>Kortet bliver afvist ved optankning</h3>
-  <p class="ctx">Varer betales altid med Beats.</p>
   <ol class="steps">
     <li>Prøv én gang mere.</li>
     <li>Prøv ikke flere gange. Så kan gæsten blive trukket to gange.</li>

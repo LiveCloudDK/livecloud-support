@@ -51,7 +51,12 @@
 
   var bar = document.createElement('div');
   bar.className = 'lc-help';
-  if (isExternal) {
+  if (document.body.getAttribute('data-help') === 'leader') {
+    bar.innerHTML =
+      '<span class="lbl">Ved tvivl:</span>' +
+      '<span>stop, og kontakt din leder.</span>' +
+      '<button type="button" id="lcPrint" title="Print eller gem som PDF">🖨 Hent som PDF</button>';
+  } else if (isExternal) {
     bar.innerHTML =
       '<span class="lbl">Spørgsmål?</span>' +
       '<span>Kontakt festivalens kundeservice.</span>' +
@@ -63,6 +68,25 @@
       '<button type="button" id="lcPrint" title="Print eller gem som PDF">🖨 Hent som PDF</button>';
   }
   document.body.appendChild(bar);
+
+  // Brand bar: logo from the linked brand folder (link#lc-brand), so a
+  // tenant brand only swaps that link.
+  var brandLink = document.getElementById('lc-brand');
+  if (brandLink && !document.querySelector('.lc-brandbar')) {
+    var logo = new URL('logo.svg', brandLink.href).href;
+    var cs = getComputedStyle(document.documentElement);
+    var bname = (cs.getPropertyValue('--brand-name') || 'LiveCloud').replace(/["']/g, '').trim();
+    var blabel = (cs.getPropertyValue('--brand-label') || '').replace(/["']/g, '').trim();
+    var home = new URL(location.pathname.indexOf('/webticket/') !== -1 ? '../index.html' : 'index.html', location.href).href;
+    var bb = document.createElement('div');
+    bb.className = 'lc-brandbar';
+    bb.innerHTML = '<a href="' + home + '"><img src="' + logo + '" alt="' + bname + '"></a>' +
+      (blabel ? '<span class="lc-label">' + blabel + '</span>' : '');
+    var host = document.querySelector('main') || document.querySelector('.layout > .wrap') ||
+      document.querySelector('.container') || document.querySelector('.wrap') || document.body;
+    host.insertBefore(bb, host.firstChild);
+  }
+
   document.getElementById('lcPrint').addEventListener('click', function () { window.print(); });
 
   function fitPad() { document.body.style.paddingBottom = (bar.offsetHeight + 6) + 'px'; }

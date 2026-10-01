@@ -1,6 +1,6 @@
 /* Offline cache for personale-guides. Network-first, cache fallback:
    any guide you have opened once works without signal afterwards. */
-var CACHE = 'lc-guides-v1';
+var CACHE = 'lc-guides-v2';
 self.addEventListener('install', function () { self.skipWaiting(); });
 self.addEventListener('activate', function (e) {
   e.waitUntil(

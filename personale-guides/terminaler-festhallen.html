@@ -63,16 +63,16 @@
     h1{font-size:20pt}.lede{font-size:10.5pt}
     .print-cols{columns:auto;column-count:auto;display:block}
     .pb{break-before:page;page-break-before:always}
-    h2.sec{font-size:14pt;margin:16px 0 4px;break-after:avoid;page-break-after:avoid;break-inside:avoid;page-break-inside:avoid}
+    h2.sec{font-size:14pt;margin:12px 0 3px;break-after:avoid;page-break-after:avoid;break-inside:avoid;page-break-inside:avoid}
     .pb > h2.sec{margin-top:0}
     h3{font-size:11pt;margin:12px 0 2px;break-after:avoid;page-break-after:avoid}
     .ctx{break-after:auto}
     ol.steps{margin:4px 0 8px}
     ol.steps,.shots,figure,.means,.who .box,.roles .box,.login,.colors,.note,.warn,.means tr{break-inside:avoid;page-break-inside:avoid}
     .shots{gap:8px;margin:6px 0 10px}
-    .shots figure{max-width:30mm}
+    .shots figure{max-width:25mm}
     .shots figure.wide,.shots figure[style]{max-width:100% !important}
-    .shots figure.wide img,.shots figure[style] img{max-height:48mm;width:auto;max-width:100%}
+    .shots figure.wide img,.shots figure[style] img{max-height:40mm;width:auto;max-width:100%}
     .shots figcaption{font-size:8pt}
     .who{gap:8px}.who .box{padding:8px 10px}
     .roles{gap:8px;grid-template-columns:repeat(3,1fr)}.roles .box{padding:8px 10px}
@@ -81,7 +81,7 @@
     .means{font-size:9pt;margin:6px 0 10px}.means td,.means th{padding:3px 8px 3px 0}
     .note,.warn{padding:6px 10px}
     .qrbox{width:32mm;height:32mm}
-    .foot{margin-top:14px}
+    .foot{margin-top:4px;padding-top:2px;border-top:0}
   }
 </style>
 <link rel="stylesheet" href="brand/livecloud/brand.css" id="lc-brand">
@@ -168,8 +168,8 @@
   <p class="ctx">Viser terminalen "Sessionen er udløbet", skriver du adgangskoden igen og trykker på <span class="chip">Fortsæt</span>. Kurven og gæsten bliver stående.</p>
   <p class="ctx">Kun lederen kan skifte terminal bagefter. Det sker under <span class="chip">Indstillinger</span> og <span class="chip">Terminal</span>.</p>
   <div class="shots">
-    <figure><img src="img/pos-festhallen/pos-login.jpg" alt="Login-skærmen i Festhallen POS med brugernavn og adgangskode"><figcaption><b>Log ind</b> med eventets brugernavn og adgangskode.</figcaption></figure>
-    <figure><img src="img/pos-festhallen/pos-vaelg-terminal.jpg" alt="Skærmen Vælg terminal med Terminal 1 og Terminal 2"><figcaption><b>Vælg terminal</b>, hvis appen beder om det.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/login-1-log-ind.jpg" alt="Login-skærmen i Festhallen POS med Brugernavn, Adgangskode og knappen Log ind"><figcaption><b>Log ind</b> med brugernavn og adgangskode.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/login-2-vaelg-terminal.jpg" alt="Skærmen Vælg terminal med Terminal 1 og Terminal 2"><figcaption><b>Vælg terminal</b>: vælg den, du står ved.</figcaption></figure>
   </div>
   <h3>RF Scanner, indgangen</h3>
   <ol class="steps">
@@ -182,7 +182,8 @@
   <h2 class="sec" id="betaling"><small>Baren</small>Sælg og tag betaling</h2>
   <div class="shots">
     <figure><img src="img/pos-festhallen/salg-1-produkter.jpg" alt="Salgsskærmen i Festhallen POS med produkter og knapperne Tast kode og Scan QR"><figcaption>Salgsskærmen med produkterne.</figcaption></figure>
-    <figure><img src="img/pos-festhallen/salg-2-betal.jpg" alt="Et produkt er valgt, og den grønne knap viser Betal 25 DKK"><figcaption>Den grønne knap <b>Betal</b> viser beløbet.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/salg-2-kurv-pil.jpg" alt="Et produkt er valgt. Pilen op ved kurven er markeret, og den grønne knap viser Betal 25 DKK"><figcaption>Pilen op åbner kurven. <b>Betal</b> viser beløbet.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/salg-2b-kurv-aaben.jpg" alt="Kurven er åben med minus, plus og Ryd"><figcaption>Kurven: ret antal, eller tryk <b>Ryd</b>.</figcaption></figure>
     <figure><img src="img/pos-festhallen/salg-3-hvordan-betaler.jpg" alt="Skærmen Hvordan betaler gæsten med knapperne Beats, Kort og Fortsæt uden gæst"><figcaption><b>Hvordan betaler gæsten?</b></figcaption></figure>
     <figure><img src="img/pos-festhallen/salg-4-tap-to-pay.jpg" alt="Skærmen med total og knappen Tap to Pay"><figcaption><b>Tap to Pay</b> for gæster uden appen.</figcaption></figure>
   </div>
@@ -213,7 +214,12 @@
   </div>
   <div class="sec-block">
   <h2 class="sec" id="optankning"><small>Baren</small>Optankning af Beats</h2>
-  <div class="shots"><figure class="wide"><img src="img/pos-festhallen/optankning.jpg" alt="Fire skærme: gæstens konto, knappen Optankning, valg af beløb og Tap to Pay"><figcaption>Scan gæsten, tryk <b>Optankning</b>, vælg beløb og <b>Tap to Pay</b>.</figcaption></figure></div>
+  <div class="shots">
+    <figure><img src="img/pos-festhallen/optankning-1-salgsskaerm.jpg" alt="Salgsskærmen med knappen Scan QR øverst"><figcaption>Find gæsten med <b>Scan QR</b>.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/optankning-2-gaest.jpg" alt="Gæsten er fundet. Knappen Optankning under gæstens navn er markeret"><figcaption><b>Optankning</b> under gæstens navn.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/optankning-3-beloeb.jpg" alt="Valg af beløb fra 100 til 10000 beats"><figcaption>Vælg beløb.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/optankning-4-tap-to-pay.jpg" alt="Optankning 100 DKK med valgene Kort og Tap to Pay. Tap to Pay er markeret"><figcaption>Tryk på <b>Tap to Pay</b>.</figcaption></figure>
+  </div>
   <ol class="steps">
     <li>Find gæsten øverst på salgsskærmen: tryk på <span class="chip">Scan QR</span>, og scan gæstens QR-kode, eller hold gæstens armbånd mod terminalen.</li>
     <li>Tjek sammen med gæsten, at den rigtige konto vises.</li>
@@ -239,40 +245,45 @@
   <h2 class="sec" id="garderobe"><small>Garderoben</small>Modtag og udlever tøj</h2>
   <h3>Modtag tøj</h3>
   <ol class="steps">
-    <li>Tryk på T-shirten i øverste højre hjørne. Garderoben åbner på <span class="chip">Aflever</span>. Scan gæstens QR-kode med scannerknappen på siden af terminalen, eller tryk på <span class="chip">Kamera</span>. Har gæsten et armbånd, holder du det mod terminalen.</li>
-  </ol>
-  <div class="shots">
-    <figure><img src="img/pos-festhallen/garderobe-1-start.jpg" alt="Forsiden i Festhallen POS med T-shirt-ikonet øverst til højre markeret"><figcaption>T-shirten øverst til højre.</figcaption></figure>
-    <figure><img src="img/pos-festhallen/garderobe-1-scan-gaest.jpg" alt="Skærmen Scan gæst"><figcaption><b>Scan gæst</b>.</figcaption></figure>
-  </div>
-  <ol class="steps" start="2">
-    <li>Scan bøjlens QR-kode. Skærmen viser "Bøjle registreret" og bøjlens nummer.</li>
-  </ol>
-  <div class="shots">
-    <figure><img src="img/pos-festhallen/garderobe-2-scan-boejle.jpg" alt="Skærmen Scan bøjle"><figcaption><b>Scan bøjle</b>.</figcaption></figure>
-    <figure><img src="img/pos-festhallen/garderobe-2-registreret.jpg" alt="Bøjle E-21 er registreret"><figcaption>Bøjlen er registreret, fx <b>E-21</b>.</figcaption></figure>
-  </div>
-  <ol class="steps" start="3">
+    <li>Tryk på T-shirten øverst på skærmen. Garderoben åbner på <span class="chip">Aflever</span>.</li>
+    <li>Scan gæstens QR-kode med scannerknappen på siden af terminalen, eller tryk på <span class="chip">Kamera</span>. Har gæsten et armbånd, holder du det mod terminalen.</li>
+    <li>Scan bøjlens QR-kode på samme måde.</li>
+    <li>Skærmen viser "Bøjle registreret" og bøjlens nummer. Terminalen går selv videre, eller du kan trykke på <span class="chip">Næste</span>.</li>
     <li>Tjek, at det rigtige bøjlenummer vises i gæstens app.</li>
   </ol>
   <div class="shots">
-    <figure><img src="img/pos-festhallen/garderobe-3-app-beats.jpg" alt="Gæstens app med punktet Min garderobe markeret"><figcaption>I gæstens app: <b>Min garderobe</b>.</figcaption></figure>
-    <figure><img src="img/pos-festhallen/garderobe-3-app-min-garderobe.jpg" alt="Min garderobe i appen viser bøjle E-21 og en QR-kode"><figcaption>Gæsten ser sit nummer og sin QR-kode.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/garderobe-modtag-1-tshirt.jpg" alt="Salgsskærmen med T-shirt-ikonet øverst markeret"><figcaption>T-shirten øverst åbner garderoben.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/garderobe-modtag-2-scan-gaest.jpg" alt="Garderoben på Aflever med Scan gæst. Knappen Kamera er markeret"><figcaption><b>Scan gæst</b>.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/garderobe-modtag-3-scan-boejle.jpg" alt="Gæsten er fundet, og skærmen viser Scan bøjle. Knappen Kamera er markeret"><figcaption><b>Scan bøjle</b>.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/garderobe-modtag-4-registreret.jpg" alt="Bøjle registreret, A-1. Knappen Næste er markeret"><figcaption><b>Bøjle registreret</b>.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/garderobe-3-app-min-garderobe.jpg" alt="Min garderobe i gæstens app viser bøjlenummer og en QR-kode"><figcaption>Gæstens app: <b>Min garderobe</b>.</figcaption></figure>
+  </div>
+  <h3>Gæsten har ikke appen</h3>
+  <p class="ctx">Tryk på <span class="chip">Uden gæst (anonym)</span> under <span class="chip">Aflever</span>, og scan bøjlen. Når gæsten henter tøjet, scanner du bøjlen under <span class="chip">Udlever</span>.</p>
+  <div class="shots">
+    <figure><img src="img/pos-festhallen/garderobe-anonym.jpg" alt="Garderoben på Aflever. Linket Uden gæst (anonym) er markeret"><figcaption><b>Uden gæst (anonym)</b>.</figcaption></figure>
   </div>
   <p class="ctx">Har gæsten glemt sit nummer, står det i appen under <b>Min garderobe</b>.</p>
   <h3>Udlever tøj</h3>
   <ol class="steps">
-    <li>Tryk på T-shirten i øverste højre hjørne, og vælg <span class="chip">Udlever</span>.</li>
-    <li>Scan gæstens QR-kode.</li>
-    <li>Find bøjlen.</li>
+    <li>Tryk på T-shirten øverst på skærmen, og vælg <span class="chip">Udlever</span>.</li>
+    <li>Scan gæstens QR-kode eller bøjlen.</li>
+    <li>Skærmen viser gæstens navn og bøjlens nummer. Find bøjlen.</li>
     <li>Når tøjet er udleveret, trykker du på <span class="chip">Udleveret</span>.</li>
   </ol>
+  <div class="shots">
+    <figure><img src="img/pos-festhallen/garderobe-udlever-1-scan.jpg" alt="Garderoben på Udlever med Scan gæst eller bøjle. Knappen Kamera er markeret"><figcaption><b>Udlever</b>: scan gæst eller bøjle.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/garderobe-udlever-2-udleveret.jpg" alt="Gæstens navn og bøjle A-1. Knappen Udleveret er markeret"><figcaption>Tryk på <b>Udleveret</b>.</figcaption></figure>
+  </div>
   <h3>Kan gæstens QR-kode ikke scannes ved udlevering?</h3>
   <ol class="steps">
     <li>Tryk på <span class="chip">Find gæst uden QR</span> under <span class="chip">Udlever</span>.</li>
     <li>Skriv gæstens e-mail eller fulde navn, og tryk på <span class="chip">Find</span>.</li>
     <li>Vælg gæsten, og tjek gæstens legitimation, før du udleverer tøjet.</li>
   </ol>
+  <div class="shots">
+    <figure><img src="img/pos-festhallen/garderobe-find-gaest.jpg" alt="Find gæst uden QR med felterne E-mail og Fulde navn og knappen Find"><figcaption><b>Find gæst uden QR</b>.</figcaption></figure>
+  </div>
   <h3>Gæster, der bliver sendt til garderoben</h3>
   <p class="ctx">Baren og indgangen sender gæster til garderoben, når de ikke selv kan hjælpe. Kan du heller ikke hjælpe gæsten, kontakter du din leder.</p>
   </div>
@@ -299,6 +310,9 @@
   <p class="ctx">Kan QR-koden ikke læses, så bed gæsten om at skrue op for lysstyrken og holde telefonen stille. Er det mørkt, så tænd lommelygten under kamerafeltet. Er kameraet gået på pause, trykker du på kamerafeltet.</p>
   <h3>Gæsten har flere billetter</h3>
   <p class="ctx">Skærmen viser en liste med "ANTAL BILLETTER". Tjek, at personerne står foran dig. Fravælg dem, der ikke er her, og tryk på <span class="chip">TJEK IND</span>.</p>
+  <div class="shots">
+    <figure><img src="img/pos-festhallen/scanner-flere-billetter.jpg" alt="Liste med gæstens billetter og knappen TJEK IND"><figcaption>Listen med <b>ANTAL BILLETTER</b>.</figcaption></figure>
+  </div>
   <h3>Orange skærm</h3>
   <table class="means">
     <tr><th>Skærmen siger</th><th>Gør sådan</th></tr>
@@ -354,12 +368,19 @@
     <li>Hjælper det ikke, så slå <span class="chip">Mobildata</span> til. Den står lige under Trådløst internet.</li>
     <li>Er forbindelsen stadig ustabil, så kontakt din leder.</li>
   </ol>
-  <div class="shots"><figure class="wide"><img src="img/pos-festhallen/terminal-wifi.jpg" alt="Fire skærme: hjemmeskærm, Esper-indstillinger og Trådløst internet med Brug Wi-Fi"><figcaption>Fra cirklen nederst til <b>Esper-indstillinger</b> og <b>Brug Wi-Fi</b>.</figcaption></figure></div>
+  <div class="shots">
+    <figure><img src="img/pos-festhallen/net-1-offline.jpg" alt="Rød besked øverst: Offline, ingen forbindelse til serveren"><figcaption>Beskeden <b>Offline</b> øverst.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/net-2-forside.jpg" alt="Terminalens forside med Esper-indstillinger markeret"><figcaption><b>Esper-indstillinger</b> på forsiden.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/net-3-wifi.jpg" alt="Esper-indstillinger med Trådløst internet markeret"><figcaption><b>Trådløst internet</b>.</figcaption></figure>
+    <figure><img src="img/pos-festhallen/net-4-mobildata.jpg" alt="Esper-indstillinger med Mobildata slået til"><figcaption><b>Mobildata</b> slået til.</figcaption></figure>
+  </div>
   </div>
   <div class="sec-block">
   <h2 class="sec" id="mindre"><small>Hvis noget går galt</small>Terminalen virker, men noget driller</h2>
   <h3>"Ukendt gæst"</h3>
-  <div class="shots"><figure style="max-width:260px"><img src="img/pos-festhallen/ukendt-gaest.jpg" alt="Skærmen viser Ukendt gæst"><figcaption>Skærmen viser <b>Ukendt gæst</b>.</figcaption></figure></div>
+  <div class="shots">
+    <figure><img src="img/pos-festhallen/ukendt-gaest.jpg" alt="Besked øverst: Ukendt gæst. Vi kunne ikke finde gæsten. Tjek koden, og prøv igen"><figcaption>Beskeden <b>Ukendt gæst</b>.</figcaption></figure>
+  </div>
   <ol class="steps">
     <li>Prøv én gang mere.</li>
     <li>Tjek, at gæsten er inde i Festhallen-appen og ikke i Ringsted Festival-appen.</li>

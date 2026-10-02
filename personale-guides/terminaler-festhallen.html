@@ -58,11 +58,14 @@
   .means td{padding:5px 10px 5px 0;border-bottom:1px solid var(--brand-line);vertical-align:top}
   .foot{margin-top:48px;padding-top:12px;border-top:1px solid var(--brand-line);color:var(--brand-muted);font-size:13px}
   @media (max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:20px 16px 90px}.who,.roles,.colors{grid-template-columns:1fr}.shots figure{max-width:46%}}
+  @page{@bottom-center{content:"Terminalerne · Festhallen · side " counter(page) " af " counter(pages);font-family:Raleway,system-ui,sans-serif;font-size:8pt;color:#6b6b73}}
   @media print{
     body{font-size:10pt;line-height:1.4}
     h1{font-size:20pt}.lede{font-size:10.5pt}
     .print-cols{columns:auto;column-count:auto;display:block}
     .pb{break-before:page;page-break-before:always}
+    .pb{break-before:right}
+    .unit{break-inside:avoid;page-break-inside:avoid}
     h2.sec{font-size:14pt;margin:12px 0 3px;break-after:avoid;page-break-after:avoid;break-inside:avoid;page-break-inside:avoid}
     .pb > h2.sec{margin-top:0}
     h3{font-size:11pt;margin:12px 0 2px;break-after:avoid;page-break-after:avoid}
@@ -74,7 +77,7 @@
     .shots figure.wide,.shots figure[style]{max-width:100% !important}
     .shots figure.wide img,.shots figure[style] img{max-height:40mm;width:auto;max-width:100%}
     .shots figcaption{font-size:8pt}
-    .who{gap:8px}.who .box{padding:8px 10px}
+    .who{gap:8px;grid-template-columns:1fr 1fr}.who .box{padding:8px 10px}
     .roles{gap:8px;grid-template-columns:repeat(3,1fr)}.roles .box{padding:8px 10px}
     .colors{gap:6px;grid-template-columns:repeat(3,1fr)}.colors .c{padding:6px 8px}.colors .c b{font-size:11pt}
     .app img{width:38px;height:38px;border-radius:10px}
@@ -117,6 +120,7 @@
     <div class="eyebrow">Guide · Festhallen · bar, garderobe og indgang</div>
     <h1>Terminalerne: opsætning og fejlfinding</h1>
     <p class="lede">Du har fået en terminal og denne guide. Læs guiden igennem én gang, så kan du betjene terminalen selv, uanset om du står i baren, i garderoben eller ved indgangen. Knapper er skrevet, som de hedder på skærmen, fx <span class="chip">Betal</span>.</p>
+    <p class="note no-print"><b>Print:</b> tryk på "Hent som PDF" nederst, og vælg tosidet print med vending på den lange kant. Så får hver del sit eget ark: start, baren, garderoben, indgangen og fejl.</p>
     <div class="login print-only">
       <h3>Login til terminalerne</h3>
       <p class="ctx" style="margin:0">Udfyldes af lederen på dagen. Bruges kun, hvis terminalen er logget ud.</p>
@@ -127,6 +131,7 @@
   </section>
 
   <div class="sec-block">
+  <div class="unit">
   <h2 class="sec" id="rolle"><small>Start her</small>Find din opgave</h2>
   <p class="ctx">Læs "Kom i gang" først. Læs derefter afsnittet for det sted, du står. Går noget galt, slår du op under "Hvis noget går galt". Har en gæst brug for hjælp, som du ikke kan give, sender du gæsten til garderoben.</p>
   <div class="roles">
@@ -135,10 +140,12 @@
     <div class="box"><h3>Du står ved indgangen</h3><p>App: <b>RF Scanner</b></p><ol class="steps"><li><a href="#start">Kom i gang</a></li><li><a href="#scan">Scan en gæst</a></li><li><a href="#scanfejl">Rød skærm ved scanning</a></li></ol></div>
   </div>
   </div>
+  </div>
 
   <div class="print-cols">
 
   <div class="sec-block">
+  <div class="unit">
   <h2 class="sec" id="start"><small>Alle</small>Kom i gang</h2>
   <ol class="steps">
     <li>Tænd terminalen med tænd/sluk-knappen i toppen.</li>
@@ -156,10 +163,14 @@
   </div>
   <p class="ctx">Terminalen er normalt logget ind og klar, når du får den. Så kan du gå direkte til afsnittet for det sted, du står.</p>
   </div>
+  </div>
 
   <div class="sec-block">
+  <div class="unit">
   <h2 class="sec" id="login"><small>Alle</small>Hvis terminalen er logget ud</h2>
   <p class="ctx">Er terminalen logget ud, logger du selv ind igen. Oplysningerne står i boksen forrest i den printede guide. Mangler de, får du dem af din leder.</p>
+  </div>
+  <div class="unit">
   <h3>Festhallen POS, baren og garderoben</h3>
   <ol class="steps">
     <li>Indtast eventets brugernavn og adgangskode. Brugernavnet kan være en e-mail.</li>
@@ -171,14 +182,18 @@
     <figure><img src="img/pos-festhallen/login-1-log-ind.jpg" alt="Login-skærmen i Festhallen POS med Brugernavn, Adgangskode og knappen Log ind"><figcaption><b>Log ind</b> med brugernavn og adgangskode.</figcaption></figure>
     <figure><img src="img/pos-festhallen/login-2-vaelg-terminal.jpg" alt="Skærmen Vælg terminal med Terminal 1 og Terminal 2"><figcaption><b>Vælg terminal</b>: vælg den, du står ved.</figcaption></figure>
   </div>
+  </div>
+  <div class="unit">
   <h3>RF Scanner, indgangen</h3>
   <ol class="steps">
     <li>Viser appen "PAR SCANNER", scanner du indgangens QR-kode med kameraet. Den sidder på din printede guide. Mangler den, får du den af din leder.</li>
     <li>Terminalen er nu klar. Tryk på <span class="chip">KLAR TIL AT SCANNE</span>.</li>
   </ol>
   </div>
+  </div>
 
   <div class="sec-block pb">
+  <div class="unit">
   <h2 class="sec" id="betaling"><small>Baren</small>Sælg og tag betaling</h2>
   <div class="shots">
     <figure><img src="img/pos-festhallen/salg-1-produkter.jpg" alt="Salgsskærmen i Festhallen POS med produkter og knapperne Tast kode og Scan QR"><figcaption>Salgsskærmen med produkterne.</figcaption></figure>
@@ -188,6 +203,8 @@
     <figure><img src="img/pos-festhallen/salg-4-tap-to-pay.jpg" alt="Skærmen med total og knappen Tap to Pay"><figcaption><b>Tap to Pay</b> for gæster uden appen.</figcaption></figure>
   </div>
   <p class="ctx">Tryk på produkterne for at tilføje dem til bestillingen. Du kan rette bestillingen med pilen op (^), før du trykker på <span class="chip">Betal</span>. Gæsterne skal helst betale med Beats fra deres app. Når skærmen viser "Betaling gennemført!", trykker du på <span class="chip">Næste kunde</span>.</p>
+  </div>
+  <div class="unit">
   <h3>Beats fra appen eller armbåndet</h3>
   <ol class="steps">
     <li>Tilføj produkter til bestillingen.</li>
@@ -195,6 +212,8 @@
     <li>Har gæsten appen, trykker du på <span class="chip">Beats</span> og scanner QR-koden i gæstens app. Har gæsten et armbånd, holder du armbåndet mod terminalen. Så skal du ikke trykke på noget.</li>
     <li>Skærmen viser totalen og gæstens saldo. Tryk på <span class="chip">Beats</span>. Betalingen gennemføres.</li>
   </ol>
+  </div>
+  <div class="unit">
   <h3>Betalingskort, gæst uden appen</h3>
   <p class="ctx">Gæster uden appen kan bestille og betale med betalingskort direkte på terminalen.</p>
   <ol class="steps">
@@ -205,7 +224,9 @@
     <li>Gæsten holder sit kort eller sin telefon mod terminalen. Betalingen gennemføres.</li>
   </ol>
   </div>
+  </div>
   <div class="sec-block">
+  <div class="unit">
   <h2 class="sec" id="optankning"><small>Baren</small>Optankning af Beats</h2>
   <div class="shots">
     <figure><img src="img/pos-festhallen/optankning-1-salgsskaerm.jpg" alt="Salgsskærmen med knappen Scan QR øverst"><figcaption>Find gæsten med <b>Scan QR</b>.</figcaption></figure>
@@ -222,13 +243,19 @@
     <li>Tjek, at det rigtige beløb er lagt til Beats-saldoen under gæstens navn.</li>
   </ol>
   </div>
+  </div>
   <div class="sec-block">
+  <div class="unit">
   <h2 class="sec" id="refundering"><small>Baren</small>Gæsten vil have pengene tilbage</h2>
   <p class="ctx">Refundering udføres kun af en leder. Bed gæsten om at vente, og kontakt lederen.</p>
   </div>
+  </div>
 
   <div class="sec-block pb">
+  <div class="unit">
   <h2 class="sec" id="garderobe"><small>Garderoben</small>Modtag og udlever tøj</h2>
+  </div>
+  <div class="unit">
   <h3>Modtag tøj</h3>
   <ol class="steps">
     <li>Tryk på T-shirten øverst på skærmen. Garderoben åbner på <span class="chip">Aflever</span>.</li>
@@ -244,12 +271,16 @@
     <figure><img src="img/pos-festhallen/garderobe-modtag-4-registreret.jpg" alt="Bøjle registreret, A-1. Knappen Næste er markeret"><figcaption><b>Bøjle registreret</b>.</figcaption></figure>
     <figure><img src="img/pos-festhallen/garderobe-3-app-min-garderobe.jpg" alt="Min garderobe i gæstens app viser bøjlenummer og en QR-kode"><figcaption>Gæstens app: <b>Min garderobe</b>.</figcaption></figure>
   </div>
+  </div>
+  <div class="unit">
   <h3>Gæsten har ikke appen</h3>
   <p class="ctx">Tryk på <span class="chip">Uden gæst (anonym)</span> under <span class="chip">Aflever</span>, og scan bøjlen. Når gæsten henter tøjet, scanner du bøjlen under <span class="chip">Udlever</span>.</p>
   <div class="shots">
     <figure><img src="img/pos-festhallen/garderobe-anonym.jpg" alt="Garderoben på Aflever. Linket Uden gæst (anonym) er markeret"><figcaption><b>Uden gæst (anonym)</b>.</figcaption></figure>
   </div>
   <p class="ctx">Har gæsten glemt sit nummer, står det i appen under <b>Min garderobe</b>.</p>
+  </div>
+  <div class="unit">
   <h3>Udlever tøj</h3>
   <ol class="steps">
     <li>Tryk på T-shirten øverst på skærmen, og vælg <span class="chip">Udlever</span>.</li>
@@ -261,6 +292,8 @@
     <figure><img src="img/pos-festhallen/garderobe-udlever-1-scan.jpg" alt="Garderoben på Udlever med Scan gæst eller bøjle. Knappen Kamera er markeret"><figcaption><b>Udlever</b>: scan gæst eller bøjle.</figcaption></figure>
     <figure><img src="img/pos-festhallen/garderobe-udlever-2-udleveret.jpg" alt="Gæstens navn og bøjle A-1. Knappen Udleveret er markeret"><figcaption>Tryk på <b>Udleveret</b>.</figcaption></figure>
   </div>
+  </div>
+  <div class="unit">
   <h3>Kan gæstens QR-kode ikke scannes ved udlevering?</h3>
   <ol class="steps">
     <li>Tryk på <span class="chip">Find gæst uden QR</span> under <span class="chip">Udlever</span>.</li>
@@ -270,11 +303,15 @@
   <div class="shots">
     <figure><img src="img/pos-festhallen/garderobe-find-gaest.jpg" alt="Find gæst uden QR med felterne E-mail og Fulde navn og knappen Find"><figcaption><b>Find gæst uden QR</b>.</figcaption></figure>
   </div>
+  </div>
+  <div class="unit">
   <h3>Gæster, der bliver sendt til garderoben</h3>
   <p class="ctx">Baren og indgangen sender gæster til garderoben, når de ikke selv kan hjælpe. Kan du heller ikke hjælpe gæsten, kontakter du din leder.</p>
   </div>
+  </div>
 
   <div class="sec-block pb">
+  <div class="unit">
   <h2 class="sec" id="scan"><small>Indgangen</small>Scan en gæst</h2>
   <ol class="steps">
     <li>Tryk på <span class="chip">KLAR TIL AT SCANNE</span> på forsiden af RF Scanner.</li>
@@ -294,11 +331,15 @@
     <figure><img src="img/pos-festhallen/scanner-orange.jpg" alt="Orange skærm: Ukendt kode"><figcaption>Orange: <b>UKENDT KODE</b>.</figcaption></figure>
   </div>
   <p class="ctx">Kan QR-koden ikke læses, så bed gæsten om at skrue op for lysstyrken og holde telefonen stille. Er det mørkt, så tænd lommelygten under kamerafeltet. Er kameraet gået på pause, trykker du på kamerafeltet.</p>
+  </div>
+  <div class="unit">
   <h3>Gæsten har flere billetter</h3>
   <p class="ctx">Skærmen viser en liste med "ANTAL BILLETTER". Tjek, at personerne står foran dig. Fravælg dem, der ikke er her, og tryk på <span class="chip">TJEK IND</span>.</p>
   <div class="shots">
     <figure><img src="img/pos-festhallen/scanner-flere-billetter.jpg" alt="Liste med gæstens billetter og knappen TJEK IND"><figcaption>Listen med <b>ANTAL BILLETTER</b>.</figcaption></figure>
   </div>
+  </div>
+  <div class="unit">
   <h3>Orange skærm</h3>
   <table class="means">
     <tr><th>Skærmen siger</th><th>Gør sådan</th></tr>
@@ -308,8 +349,10 @@
     <tr><td><b>NFC-TAG KUNNE IKKE LÆSES</b></td><td>Hold armbåndet helt stille mod terminalen, eller scan gæstens QR-kode.</td></tr>
   </table>
   </div>
+  </div>
 
   <div class="sec-block">
+  <div class="unit">
   <h2 class="sec" id="scanfejl"><small>Indgangen</small>Rød skærm ved scanning</h2>
   <p class="ctx">Rød betyder: luk ikke gæsten ind. Du skal ikke selv vurdere, om gæsten må komme ind, og du skal ikke diskutere det ved indgangen.</p>
   <ol class="steps">
@@ -334,9 +377,13 @@
     <figure><img src="img/pos-festhallen/scan-guest-blocked.jpg" alt="Rød skærm: Guest blocked"><figcaption><b>GUEST BLOCKED</b></figcaption></figure>
   </div>
   </div>
+  </div>
 
   <div class="sec-block pb">
+  <div class="unit">
   <h2 class="sec" id="kritisk"><small>Hvis noget går galt</small>Terminalen kan ikke bruges</h2>
+  </div>
+  <div class="unit">
   <h3>Terminalen er død</h3>
   <ol class="steps">
     <li>Sæt terminalen i laderen, og vent et par minutter.</li>
@@ -345,6 +392,8 @@
   </ol>
   <p class="ctx"><span class="leader" style="margin-left:0">Kun leder</span> Lederen kan tage batteriet ud på bagsiden og sætte det i igen.</p>
   <div class="shots"><figure class="wide" style="max-width:320px"><img src="img/pos-festhallen/terminal-batteri.jpg" alt="Bagsiden af terminalen med batteriet markeret"><figcaption>Batteriet sidder på bagsiden.</figcaption></figure></div>
+  </div>
+  <div class="unit">
   <h3>Terminalen har mistet internetforbindelsen</h3>
   <p class="ctx">Festhallen POS viser "Offline" øverst på skærmen. RF Scanner viser "Ingen internetforbindelse". Tryk på cirklen nederst på skærmen, så kommer du til forsiden. Åbn appen igen derfra. Hjælper det ikke:</p>
   <ol class="steps">
@@ -361,8 +410,12 @@
     <figure><img src="img/pos-festhallen/net-4-mobildata.jpg" alt="Esper-indstillinger med Mobildata slået til"><figcaption><b>Mobildata</b> slået til.</figcaption></figure>
   </div>
   </div>
+  </div>
   <div class="sec-block">
+  <div class="unit">
   <h2 class="sec" id="mindre"><small>Hvis noget går galt</small>Terminalen virker, men noget driller</h2>
+  </div>
+  <div class="unit">
   <h3>"Ukendt gæst"</h3>
   <div class="shots">
     <figure><img src="img/pos-festhallen/ukendt-gaest.jpg" alt="Besked øverst: Ukendt gæst. Vi kunne ikke finde gæsten. Tjek koden, og prøv igen"><figcaption>Beskeden <b>Ukendt gæst</b>.</figcaption></figure>
@@ -372,34 +425,47 @@
     <li>Tjek, at gæsten er inde i Festhallen-appen og ikke i Ringsted Festival-appen.</li>
     <li>Kontakt lederen, eller send gæsten til garderoben.</li>
   </ol>
+  </div>
+  <div class="unit">
   <h3>Kortet bliver afvist ved optankning</h3>
   <ol class="steps">
     <li>Prøv én gang mere.</li>
     <li>Prøv ikke flere gange. Så kan gæsten blive trukket to gange.</li>
     <li>Virker det ikke, skal gæsten tanke op i sin egen app eller bruge et andet kort. Du kan også sende gæsten til garderoben.</li>
   </ol>
+  </div>
+  <div class="unit">
   <h3>Gæsten mangler Beats</h3>
   <ol class="steps">
     <li>Bed gæsten om at tanke op i sin egen app med kort, Apple Pay, Google Pay eller MobilePay.</li>
     <li>Kan gæsten ikke det, hjælper du med optankning på terminalen. Bagefter betaler gæsten bestillingen med Beats. Du kan også sende gæsten til garderoben.</li>
   </ol>
+  </div>
+  <div class="unit">
   <h3>"Vi mangler at bekræfte betalingen"</h3>
   <ol class="steps">
     <li>Tryk på <span class="chip">Tjek betaling</span>.</li>
     <li>Tag ikke betalingen igen, før terminalen har svaret.</li>
     <li>Bliver betalingen ikke bekræftet, kontakter du lederen.</li>
   </ol>
+  </div>
+  <div class="unit">
   <h3>"Kortterminal ikke klar"</h3>
   <p class="ctx">Terminalen kan ikke tage kort lige nu. Lad gæsten betale med Beats, eller kontakt lederen.</p>
+  </div>
+  <div class="unit">
   <h3>"Noget gik galt. Prøv igen."</h3>
   <ol class="steps">
     <li>Prøv igen, højst tre gange.</li>
     <li>Kontakt derefter lederen, eller send gæsten til garderoben.</li>
   </ol>
   </div>
+  </div>
   <div class="sec-block">
+  <div class="unit">
   <h2 class="sec" id="slut"><small>Alle</small>Når du er færdig</h2>
   <p class="ctx">Aflevér terminalen til din leder, når din vagt slutter. Lad den ikke ligge fremme.</p>
+  </div>
   </div>
 
 

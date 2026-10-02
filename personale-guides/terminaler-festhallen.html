@@ -108,7 +108,7 @@
     <a data-roles="alle" href="#rolle">Find din opgave</a>
     <a href="#start">Kom i gang</a>
     <a href="#login">Hvis terminalen er logget ud</a>
-    <div class="g" data-roles="bar">Baren</div>
+    <div class="g" data-roles="bar">Bar og bod</div>
     <a data-roles="bar" href="#betaling">Sælg og tag betaling</a>
     <a data-roles="bar" href="#optankning">Optankning af Beats</a>
     <a data-roles="bar" href="#refundering">Gæsten vil have pengene tilbage</a>
@@ -126,15 +126,15 @@
 </aside>
 <main>
   <section id="intro">
-    <div class="eyebrow" id="eyebrow">Guide · Festhallen · bar, garderobe og indgang</div>
+    <div class="eyebrow" id="eyebrow">Guide · Festhallen · bar, bod, garderobe og indgang</div>
     <h1>Terminalerne: opsætning og fejlfinding</h1>
-    <p class="lede">Du har fået en terminal og denne guide. Læs guiden igennem én gang, så kan du betjene terminalen selv, uanset om du står i baren, i garderoben eller ved indgangen. Knapper er skrevet, som de hedder på skærmen, fx <span class="chip">Betal</span>.</p>
-    <p class="rolepick no-print"><span>Vis guiden for:</span> <a href="?rolle=bar" data-pick="bar">Baren</a> <a href="?rolle=garderobe" data-pick="garderobe">Garderoben</a> <a href="?rolle=indgang" data-pick="indgang">Indgangen</a> <a href="?" data-pick="">Hele guiden</a></p>
-    <p class="note no-print"><b>Print:</b> tryk på "Hent som PDF" nederst, og vælg tosidet print med vending på den lange kant. Så får hver del sit eget ark: start, baren, garderoben, indgangen og fejl.</p>
+    <p class="lede">Du har fået en terminal og denne guide. Læs guiden igennem én gang, så kan du betjene terminalen selv, uanset om du står i en bar, i en bod, i garderoben eller ved indgangen. Knapper er skrevet, som de hedder på skærmen, fx <span class="chip">Betal</span>.</p>
+    <p class="rolepick no-print"><span>Vis guiden for:</span> <a href="?rolle=bar" data-pick="bar">Bar og bod</a> <a href="?rolle=garderobe" data-pick="garderobe">Garderoben</a> <a href="?rolle=indgang" data-pick="indgang">Indgangen</a> <a href="?" data-pick="">Hele guiden</a></p>
+    <p class="note no-print"><b>Print:</b> tryk på "Hent som PDF" nederst, og vælg tosidet print med vending på den lange kant. Så får hver del sit eget ark: start, bar og bod, garderoben, indgangen og fejl.</p>
     <div class="login print-only">
       <h3>Login til terminalerne</h3>
       <p class="ctx" style="margin:0">Udfyldes af lederen på dagen. Bruges kun, hvis terminalen er logget ud.</p>
-      <div class="row" data-roles="bar"><b>Baren</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
+      <div class="row" data-roles="bar"><b>Bar og bod</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
       <div class="row" data-roles="garderobe"><b>Garderobe</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
       <div class="qrrow" data-roles="indgang"><div><b>Billetscanning</b><br>Scan indgangens QR-kode i RF Scanner.</div><div class="qrbox">Indgangens QR-kode<br>sættes ind af lederen</div></div>
     </div>
@@ -145,7 +145,7 @@
   <h2 class="sec" id="rolle"><small>Start her</small>Find din opgave</h2>
   <p class="ctx">Læs "Kom i gang" først. Læs derefter afsnittet for det sted, du står. Går noget galt, slår du op under "Hvis noget går galt". Har en gæst brug for hjælp, som du ikke kan give, sender du gæsten til garderoben.</p>
   <div class="roles">
-    <div class="box"><h3>Du står i baren</h3><p>App: <b>Festhallen POS</b></p><ol class="steps"><li><a href="#start">Kom i gang</a></li><li><a href="#betaling">Sælg og tag betaling</a></li><li><a href="#optankning">Optankning af Beats</a></li></ol></div>
+    <div class="box"><h3>Du står i en bar eller en bod</h3><p>App: <b>Festhallen POS</b></p><ol class="steps"><li><a href="#start">Kom i gang</a></li><li><a href="#betaling">Sælg og tag betaling</a></li><li><a href="#optankning">Optankning af Beats</a></li></ol></div>
     <div class="box"><h3>Du står i garderoben</h3><p>App: <b>Festhallen POS</b></p><ol class="steps"><li><a href="#start">Kom i gang</a></li><li><a href="#garderobe">Modtag og udlever tøj</a></li></ol></div>
     <div class="box"><h3>Du står ved indgangen</h3><p>App: <b>RF Scanner</b></p><ol class="steps"><li><a href="#start">Kom i gang</a></li><li><a href="#scan">Scan en gæst</a></li><li><a href="#scanfejl">Rød skærm ved scanning</a></li></ol></div>
   </div>
@@ -165,7 +165,7 @@
   </ol>
   <div class="who">
     <div class="box" data-roles="bar garderobe">
-      <div class="app"><img src="img/pos-festhallen/app-festhallen-pos.jpg" alt="App-ikonet for Festhallen POS"><div><b>Festhallen POS</b><small>Baren og garderoben</small></div></div>
+      <div class="app"><img src="img/pos-festhallen/app-festhallen-pos.jpg" alt="App-ikonet for Festhallen POS"><div><b>Festhallen POS</b><small>Bar, bod og garderobe</small></div></div>
     </div>
     <div class="box" data-roles="indgang">
       <div class="app"><img src="img/pos-festhallen/app-rf-scanner.jpg" alt="App-ikonet for RF Scanner"><div><b>RF Scanner</b><small>Billetter ved indgangen</small></div></div>
@@ -181,7 +181,7 @@
   <p class="ctx">Er terminalen logget ud, logger du selv ind igen. Oplysningerne står i boksen forrest i den printede guide. Mangler de, får du dem af din leder.</p>
   </div>
   <div class="unit" data-roles="bar garderobe">
-  <h3>Festhallen POS, baren og garderoben</h3>
+  <h3>Festhallen POS: bar, bod og garderobe</h3>
   <ol class="steps">
     <li>Indtast eventets brugernavn og adgangskode. Brugernavnet kan være en e-mail.</li>
     <li>Viser appen "Vælg terminal", vælger du den terminal, du står ved, fx Terminal 1. Valget bliver gemt.</li>
@@ -204,7 +204,7 @@
 
   <div class="sec-block pb" data-roles="bar">
   <div class="unit">
-  <h2 class="sec" id="betaling"><small>Baren</small>Sælg og tag betaling</h2>
+  <h2 class="sec" id="betaling"><small>Bar og bod</small>Sælg og tag betaling</h2>
   <div class="shots">
     <figure><img src="img/pos-festhallen/salg-1-produkter.jpg" alt="Salgsskærmen i Festhallen POS med produkter og knapperne Tast kode og Scan QR"><figcaption>Salgsskærmen med produkterne.</figcaption></figure>
     <figure><img src="img/pos-festhallen/salg-2-kurv-pil.jpg" alt="Et produkt er valgt. Pilen op ved kurven er markeret, og den grønne knap viser Betal 25 DKK"><figcaption>Pilen op åbner kurven. <b>Betal</b> viser beløbet.</figcaption></figure>
@@ -237,7 +237,7 @@
   </div>
   <div class="sec-block" data-roles="bar">
   <div class="unit">
-  <h2 class="sec" id="optankning"><small>Baren</small>Optankning af Beats</h2>
+  <h2 class="sec" id="optankning"><small>Bar og bod</small>Optankning af Beats</h2>
   <div class="shots">
     <figure><img src="img/pos-festhallen/optankning-1-salgsskaerm.jpg" alt="Salgsskærmen med knappen Scan QR øverst"><figcaption>Find gæsten med <b>Scan QR</b>.</figcaption></figure>
     <figure><img src="img/pos-festhallen/optankning-2-gaest.jpg" alt="Gæsten er fundet. Knappen Optankning under gæstens navn er markeret"><figcaption><b>Optankning</b> under gæstens navn.</figcaption></figure>
@@ -256,7 +256,7 @@
   </div>
   <div class="sec-block" data-roles="bar">
   <div class="unit">
-  <h2 class="sec" id="refundering"><small>Baren</small>Gæsten vil have pengene tilbage</h2>
+  <h2 class="sec" id="refundering"><small>Bar og bod</small>Gæsten vil have pengene tilbage</h2>
   <p class="ctx">Refundering udføres kun af en leder. Bed gæsten om at vente, og kontakt lederen.</p>
   </div>
   </div>
@@ -316,7 +316,7 @@
   </div>
   <div class="unit">
   <h3>Gæster, der bliver sendt til garderoben</h3>
-  <p class="ctx">Baren og indgangen sender gæster til garderoben, når de ikke selv kan hjælpe. Kan du heller ikke hjælpe gæsten, kontakter du din leder.</p>
+  <p class="ctx">Barerne, boderne og indgangen sender gæster til garderoben, når de ikke selv kan hjælpe. Kan du heller ikke hjælpe gæsten, kontakter du din leder.</p>
   </div>
   </div>
 
@@ -484,7 +484,7 @@
   </div>
 </main>
 </div>
-<script>(function(){var r=document.documentElement.getAttribute("data-role")||"";var n={bar:"Baren",garderobe:"Garderoben",indgang:"Indgangen"}[r];
+<script>(function(){var r=document.documentElement.getAttribute("data-role")||"";var n={bar:"Bar og bod",garderobe:"Garderoben",indgang:"Indgangen"}[r];
 document.querySelectorAll(".rolepick a").forEach(function(a){if(a.getAttribute("data-pick")===r)a.className="on";});
 if(n){document.getElementById("eyebrow").textContent="Guide · Festhallen · "+n;document.title="Terminalerne: "+n+" (Festhallen)";}})();</script>
 <script src="guide-enhance.js"></script>

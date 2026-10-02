@@ -100,7 +100,7 @@
   }
 
   var heads = Array.prototype.slice.call(document.querySelectorAll('h1[id],h2[id],h3[id]'))
-    .filter(function (h) { return (h.textContent || '').trim().length > 1; });
+    .filter(function (h) { return (h.textContent || '').trim().length > 1 && h.offsetParent !== null; });
   if (heads.length >= 3) {
     var btn = document.createElement('button');
     btn.className = 'lc-jump'; btn.type = 'button'; btn.textContent = '≡ Hop til';

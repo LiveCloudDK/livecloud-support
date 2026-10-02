@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>Terminalerne: opsætning og fejlfinding (Festhallen)</title>
+<script>(function(){var r=new URLSearchParams(location.search).get("rolle");if(["bar","garderobe","indgang"].indexOf(r)>-1)document.documentElement.setAttribute("data-role",r);})();</script>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
   *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -56,6 +57,14 @@
   .means{border-collapse:collapse;margin:10px 0 14px;max-width:72ch;width:100%;font-size:.95em}
   .means th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--brand-muted);padding:4px 10px 4px 0;border-bottom:1px solid var(--brand-ink)}
   .means td{padding:5px 10px 5px 0;border-bottom:1px solid var(--brand-line);vertical-align:top}
+  .rolepick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 6px;font-size:14px}
+  .rolepick span{color:var(--brand-muted);font-weight:600}
+  .rolepick a{border:1px solid var(--brand-line-strong);border-radius:999px;padding:4px 14px;text-decoration:none;font-weight:600}
+  .rolepick a.on{background:var(--brand-ink);color:var(--brand-accent-ink);border-color:var(--brand-ink)}
+  html[data-role] [data-roles="alle"]{display:none !important}
+  html[data-role="bar"] [data-roles]:not([data-roles~="bar"]){display:none !important}
+  html[data-role="garderobe"] [data-roles]:not([data-roles~="garderobe"]){display:none !important}
+  html[data-role="indgang"] [data-roles]:not([data-roles~="indgang"]){display:none !important}
   .foot{margin-top:48px;padding-top:12px;border-top:1px solid var(--brand-line);color:var(--brand-muted);font-size:13px}
   @media (max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}main{padding:20px 16px 90px}.who,.roles,.colors{grid-template-columns:1fr}.shots figure{max-width:46%}}
   @page{@bottom-center{content:"Terminalerne · Festhallen · side " counter(page) " af " counter(pages);font-family:Raleway,system-ui,sans-serif;font-size:8pt;color:#6b6b73}}
@@ -96,41 +105,42 @@
   <div class="brand"><b>Terminalerne</b><small>Festhallen · opsætning og fejlfinding</small></div>
   <nav class="toc">
     <div class="g">Start her</div>
-    <a href="#rolle">Find din opgave</a>
+    <a data-roles="alle" href="#rolle">Find din opgave</a>
     <a href="#start">Kom i gang</a>
     <a href="#login">Hvis terminalen er logget ud</a>
-    <div class="g">Baren</div>
-    <a href="#betaling">Sælg og tag betaling</a>
-    <a href="#optankning">Optankning af Beats</a>
-    <a href="#refundering">Gæsten vil have pengene tilbage</a>
-    <div class="g">Garderoben</div>
-    <a href="#garderobe">Modtag og udlever tøj</a>
-    <div class="g">Indgangen</div>
-    <a href="#scan">Scan en gæst</a>
-    <a href="#scanfejl">Rød skærm ved scanning</a>
+    <div class="g" data-roles="bar">Baren</div>
+    <a data-roles="bar" href="#betaling">Sælg og tag betaling</a>
+    <a data-roles="bar" href="#optankning">Optankning af Beats</a>
+    <a data-roles="bar" href="#refundering">Gæsten vil have pengene tilbage</a>
+    <div class="g" data-roles="garderobe">Garderoben</div>
+    <a data-roles="garderobe" href="#garderobe">Modtag og udlever tøj</a>
+    <div class="g" data-roles="indgang">Indgangen</div>
+    <a data-roles="indgang" href="#scan">Scan en gæst</a>
+    <a data-roles="indgang" href="#scanfejl">Rød skærm ved scanning</a>
     <div class="g">Hvis noget går galt</div>
     <a href="#kritisk">Terminalen kan ikke bruges</a>
-    <a href="#mindre">Noget driller</a>
+    <a data-roles="bar garderobe" href="#mindre">Noget driller</a>
     <div class="g">Til sidst</div>
     <a href="#slut">Når du er færdig</a>
   </nav>
 </aside>
 <main>
   <section id="intro">
-    <div class="eyebrow">Guide · Festhallen · bar, garderobe og indgang</div>
+    <div class="eyebrow" id="eyebrow">Guide · Festhallen · bar, garderobe og indgang</div>
     <h1>Terminalerne: opsætning og fejlfinding</h1>
     <p class="lede">Du har fået en terminal og denne guide. Læs guiden igennem én gang, så kan du betjene terminalen selv, uanset om du står i baren, i garderoben eller ved indgangen. Knapper er skrevet, som de hedder på skærmen, fx <span class="chip">Betal</span>.</p>
+    <p class="rolepick no-print"><span>Vis guiden for:</span> <a href="?rolle=bar" data-pick="bar">Baren</a> <a href="?rolle=garderobe" data-pick="garderobe">Garderoben</a> <a href="?rolle=indgang" data-pick="indgang">Indgangen</a> <a href="?" data-pick="">Hele guiden</a></p>
     <p class="note no-print"><b>Print:</b> tryk på "Hent som PDF" nederst, og vælg tosidet print med vending på den lange kant. Så får hver del sit eget ark: start, baren, garderoben, indgangen og fejl.</p>
     <div class="login print-only">
       <h3>Login til terminalerne</h3>
       <p class="ctx" style="margin:0">Udfyldes af lederen på dagen. Bruges kun, hvis terminalen er logget ud.</p>
-      <div class="row"><b>Baren</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
-      <div class="row"><b>Garderobe</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
-      <div class="qrrow"><div><b>Billetscanning</b><br>Scan indgangens QR-kode i RF Scanner.</div><div class="qrbox">Indgangens QR-kode<br>sættes ind af lederen</div></div>
+      <div class="row" data-roles="bar"><b>Baren</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
+      <div class="row" data-roles="garderobe"><b>Garderobe</b><span>Brugernavn</span><span>Adgangskode</span><span>PIN-kode</span></div>
+      <div class="qrrow" data-roles="indgang"><div><b>Billetscanning</b><br>Scan indgangens QR-kode i RF Scanner.</div><div class="qrbox">Indgangens QR-kode<br>sættes ind af lederen</div></div>
     </div>
   </section>
 
-  <div class="sec-block">
+  <div class="sec-block" data-roles="alle">
   <div class="unit">
   <h2 class="sec" id="rolle"><small>Start her</small>Find din opgave</h2>
   <p class="ctx">Læs "Kom i gang" først. Læs derefter afsnittet for det sted, du står. Går noget galt, slår du op under "Hvis noget går galt". Har en gæst brug for hjælp, som du ikke kan give, sender du gæsten til garderoben.</p>
@@ -154,10 +164,10 @@
     <li>Find din app på forsiden, og tryk på den.</li>
   </ol>
   <div class="who">
-    <div class="box">
+    <div class="box" data-roles="bar garderobe">
       <div class="app"><img src="img/pos-festhallen/app-festhallen-pos.jpg" alt="App-ikonet for Festhallen POS"><div><b>Festhallen POS</b><small>Baren og garderoben</small></div></div>
     </div>
-    <div class="box">
+    <div class="box" data-roles="indgang">
       <div class="app"><img src="img/pos-festhallen/app-rf-scanner.jpg" alt="App-ikonet for RF Scanner"><div><b>RF Scanner</b><small>Billetter ved indgangen</small></div></div>
     </div>
   </div>
@@ -170,7 +180,7 @@
   <h2 class="sec" id="login"><small>Alle</small>Hvis terminalen er logget ud</h2>
   <p class="ctx">Er terminalen logget ud, logger du selv ind igen. Oplysningerne står i boksen forrest i den printede guide. Mangler de, får du dem af din leder.</p>
   </div>
-  <div class="unit">
+  <div class="unit" data-roles="bar garderobe">
   <h3>Festhallen POS, baren og garderoben</h3>
   <ol class="steps">
     <li>Indtast eventets brugernavn og adgangskode. Brugernavnet kan være en e-mail.</li>
@@ -183,7 +193,7 @@
     <figure><img src="img/pos-festhallen/login-2-vaelg-terminal.jpg" alt="Skærmen Vælg terminal med Terminal 1 og Terminal 2"><figcaption><b>Vælg terminal</b>: vælg den, du står ved.</figcaption></figure>
   </div>
   </div>
-  <div class="unit">
+  <div class="unit" data-roles="indgang">
   <h3>RF Scanner, indgangen</h3>
   <ol class="steps">
     <li>Viser appen "PAR SCANNER", scanner du indgangens QR-kode med kameraet. Den sidder på din printede guide. Mangler den, får du den af din leder.</li>
@@ -192,7 +202,7 @@
   </div>
   </div>
 
-  <div class="sec-block pb">
+  <div class="sec-block pb" data-roles="bar">
   <div class="unit">
   <h2 class="sec" id="betaling"><small>Baren</small>Sælg og tag betaling</h2>
   <div class="shots">
@@ -225,7 +235,7 @@
   </ol>
   </div>
   </div>
-  <div class="sec-block">
+  <div class="sec-block" data-roles="bar">
   <div class="unit">
   <h2 class="sec" id="optankning"><small>Baren</small>Optankning af Beats</h2>
   <div class="shots">
@@ -244,14 +254,14 @@
   </ol>
   </div>
   </div>
-  <div class="sec-block">
+  <div class="sec-block" data-roles="bar">
   <div class="unit">
   <h2 class="sec" id="refundering"><small>Baren</small>Gæsten vil have pengene tilbage</h2>
   <p class="ctx">Refundering udføres kun af en leder. Bed gæsten om at vente, og kontakt lederen.</p>
   </div>
   </div>
 
-  <div class="sec-block pb">
+  <div class="sec-block pb" data-roles="garderobe">
   <div class="unit">
   <h2 class="sec" id="garderobe"><small>Garderoben</small>Modtag og udlever tøj</h2>
   </div>
@@ -310,7 +320,7 @@
   </div>
   </div>
 
-  <div class="sec-block pb">
+  <div class="sec-block pb" data-roles="indgang">
   <div class="unit">
   <h2 class="sec" id="scan"><small>Indgangen</small>Scan en gæst</h2>
   <ol class="steps">
@@ -351,7 +361,7 @@
   </div>
   </div>
 
-  <div class="sec-block">
+  <div class="sec-block" data-roles="indgang">
   <div class="unit">
   <h2 class="sec" id="scanfejl"><small>Indgangen</small>Rød skærm ved scanning</h2>
   <p class="ctx">Rød betyder: luk ikke gæsten ind. Du skal ikke selv vurdere, om gæsten må komme ind, og du skal ikke diskutere det ved indgangen.</p>
@@ -411,7 +421,7 @@
   </div>
   </div>
   </div>
-  <div class="sec-block">
+  <div class="sec-block" data-roles="bar garderobe">
   <div class="unit">
   <h2 class="sec" id="mindre"><small>Hvis noget går galt</small>Terminalen virker, men noget driller</h2>
   </div>
@@ -426,7 +436,7 @@
     <li>Kontakt lederen, eller send gæsten til garderoben.</li>
   </ol>
   </div>
-  <div class="unit">
+  <div class="unit" data-roles="bar">
   <h3>Kortet bliver afvist ved optankning</h3>
   <ol class="steps">
     <li>Prøv én gang mere.</li>
@@ -434,14 +444,14 @@
     <li>Virker det ikke, skal gæsten tanke op i sin egen app eller bruge et andet kort. Du kan også sende gæsten til garderoben.</li>
   </ol>
   </div>
-  <div class="unit">
+  <div class="unit" data-roles="bar">
   <h3>Gæsten mangler Beats</h3>
   <ol class="steps">
     <li>Bed gæsten om at tanke op i sin egen app med kort, Apple Pay, Google Pay eller MobilePay.</li>
     <li>Kan gæsten ikke det, hjælper du med optankning på terminalen. Bagefter betaler gæsten bestillingen med Beats. Du kan også sende gæsten til garderoben.</li>
   </ol>
   </div>
-  <div class="unit">
+  <div class="unit" data-roles="bar">
   <h3>"Vi mangler at bekræfte betalingen"</h3>
   <ol class="steps">
     <li>Tryk på <span class="chip">Tjek betaling</span>.</li>
@@ -449,7 +459,7 @@
     <li>Bliver betalingen ikke bekræftet, kontakter du lederen.</li>
   </ol>
   </div>
-  <div class="unit">
+  <div class="unit" data-roles="bar">
   <h3>"Kortterminal ikke klar"</h3>
   <p class="ctx">Terminalen kan ikke tage kort lige nu. Lad gæsten betale med Beats, eller kontakt lederen.</p>
   </div>
@@ -474,6 +484,9 @@
   </div>
 </main>
 </div>
+<script>(function(){var r=document.documentElement.getAttribute("data-role")||"";var n={bar:"Baren",garderobe:"Garderoben",indgang:"Indgangen"}[r];
+document.querySelectorAll(".rolepick a").forEach(function(a){if(a.getAttribute("data-pick")===r)a.className="on";});
+if(n){document.getElementById("eyebrow").textContent="Guide · Festhallen · "+n;document.title="Terminalerne: "+n+" (Festhallen)";}})();</script>
 <script src="guide-enhance.js"></script>
 </body>
 </html>

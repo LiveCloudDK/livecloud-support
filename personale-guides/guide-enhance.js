@@ -56,6 +56,11 @@
       '<span class="lbl">Ved tvivl:</span>' +
       '<span>stop, og kontakt din leder.</span>' +
       '<button type="button" id="lcPrint" title="Print eller gem som PDF">🖨 Hent som PDF</button>';
+  } else if (document.body.getAttribute('data-help') === 'livecloud') {
+    bar.innerHTML =
+      '<span class="lbl">Spørgsmål til systemet?</span>' +
+      '<span>Skriv til support@livecloud.dk.</span>' +
+      '<button type="button" id="lcPrint" title="Print eller gem som PDF">🖨 Hent som PDF</button>';
   } else if (isExternal) {
     bar.innerHTML =
       '<span class="lbl">Spørgsmål?</span>' +

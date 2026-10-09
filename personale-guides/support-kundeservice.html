@@ -27,7 +27,8 @@
   .chip{display:inline-block;background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:6px;padding:0 7px;font-weight:600;font-size:.92em;white-space:nowrap}
   .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
   .roles .box{border:1px solid var(--brand-line);border-radius:var(--brand-radius);padding:14px 16px}
-  .roles .box h3{margin:0 0 2px}.roles .box p{margin:0;color:var(--brand-ink-2)}
+  .roles .box h3{margin:0 0 2px}.roles .box p{margin:0 0 4px;color:var(--brand-ink-2)}
+  .roles .box ol.steps{margin:6px 0 0}
   .shots{margin:14px 0 18px}
   .shots figure{margin:0;max-width:760px}
   .shots figure.narrow{max-width:560px}
@@ -78,7 +79,7 @@
   <div class="brand"><b>Support-systemet</b><small>Kundeservice · meld og følg sager</small></div>
   <nav class="toc">
     <div class="g">Start her</div>
-    <a href="#kort">Kort fortalt</a>
+    <a href="#opgave">Find din opgave</a>
     <a href="#login">Log ind</a>
     <div class="g">Meld en sag</div>
     <a href="#mail">Pr. mail</a>
@@ -86,9 +87,9 @@
     <div class="g">Følg en sag</div>
     <a href="#sager">Find jeres sager</a>
     <a href="#sagen">Det står der på sagen</a>
-    <a href="#svar">Svar og nye oplysninger</a>
+    <a href="#svar">Skriv videre på sagen</a>
     <a href="#loest">Når gæsten har fået svar</a>
-    <div class="g">Find løsningen</div>
+    <div class="g">Find svaret</div>
     <a href="#samme">Samme problem</a>
     <a href="#udviklerne">Hos udviklerne</a>
     <div class="g">Til sidst</div>
@@ -100,44 +101,45 @@
   <section id="intro">
     <div class="eyebrow">Guide · Kundeservice</div>
     <h1>Support-systemet: meld og følg jeres sager</h1>
-    <p class="lede">Når I skal have hjælp fra LiveCloud, sker det i support-systemet. Her kan I se, hvad der er sket med hver sag, og hvad I kan svare gæsten. Guiden viser, hvordan I melder en sag, følger den og finder løsningen. Knapper er skrevet, som de hedder på skærmen, fx <span class="chip">Opret sag</span>.</p>
+    <p class="lede">Du har fået et login til support-systemet og denne guide. Læs guiden igennem én gang, så kan du selv melde en sag til LiveCloud, følge den og finde svaret til gæsten. Knapper er skrevet, som de hedder på skærmen, fx <span class="chip">Opret sag</span>.</p>
   </section>
 
   <div class="unit">
-  <h2 class="sec" id="kort"><small>Start her</small>Kort fortalt</h2>
+  <h2 class="sec" id="opgave"><small>Start her</small>Find din opgave</h2>
+  <p class="ctx">Læs "Log ind" først. Læs derefter afsnittet for det, du skal. Går noget galt, slår du op under "Hvis noget driller".</p>
   <div class="roles">
-    <div class="box"><h3>1. Meld</h3><p>Send en mail til <b>support@livecloud.dk</b>, eller opret sagen direkte i systemet.</p></div>
-    <div class="box"><h3>2. Følg</h3><p>Alle jeres sager står under <b>Sager</b>. Det, udviklerne arbejder på, står under <b>Hos udviklerne</b>.</p></div>
-    <div class="box"><h3>3. Svar gæsten</h3><p>Svaret fra LiveCloud står på sagen. I svarer selv gæsten.</p></div>
+    <div class="box"><h3>Du skal melde en sag</h3><p>Gæsten har et problem, du ikke selv kan løse.</p><ol class="steps"><li><a href="#mail">Pr. mail</a></li><li><a href="#opret">Direkte i systemet</a></li></ol></div>
+    <div class="box"><h3>Du vil følge en sag</h3><p>Du vil se, hvad der er sket, eller skrive nyt til LiveCloud.</p><ol class="steps"><li><a href="#sager">Find jeres sager</a></li><li><a href="#svar">Skriv videre på sagen</a></li><li><a href="#loest">Når gæsten har fået svar</a></li></ol></div>
+    <div class="box"><h3>Du leder efter svaret</h3><p>Du vil se, om problemet allerede har en løsning.</p><ol class="steps"><li><a href="#samme">Samme problem</a></li><li><a href="#udviklerne">Hos udviklerne</a></li></ol></div>
   </div>
   </div>
 
   <div class="unit">
-  <h3 id="login">Log ind</h3>
+  <h2 class="sec" id="login"><small>Alle</small>Log ind</h2>
   <ol class="steps">
     <li>Gå til <b>support.livecloud.dk</b>.</li>
     <li>Log ind med din e-mail og din adgangskode.</li>
-    <li>Har du glemt koden, så tryk <span class="chip">Glemt din adgangskode?</span> på login-siden.</li>
+    <li>Har du glemt koden, trykker du på <span class="chip">Glemt din adgangskode?</span> på login-siden.</li>
   </ol>
-  <p class="ctx">Mangler en kollega adgang, så skriv til support@livecloud.dk. LiveCloud opretter brugeren.</p>
+  <p class="ctx">Mangler en kollega adgang, skriver du til support@livecloud.dk. LiveCloud opretter brugeren.</p>
   <div class="shots"><figure>
     <img src="img/support-system/sagsliste.png" alt="Sagslisten med menuen til venstre" width="1600" height="1091" loading="lazy">
-    <figcaption><b>Sagslisten.</b> Menuen til venstre har to punkter, I bruger hver dag: Sager og Hos udviklerne.</figcaption>
+    <figcaption><b>Sagslisten.</b> Menuen til venstre har de to punkter, du bruger hver dag: Sager og Hos udviklerne.</figcaption>
   </figure></div>
   </div>
 
   <div class="pb">
-  <h2 class="sec" id="meld"><small>Del 1</small>Meld en sag</h2>
-  <p class="ctx">I kan melde en sag på to måder. Mail er den nemmeste, når gæsten har skrevet til jer. Opret sagen direkte i systemet, når det haster, eller når I selv har opdaget fejlen.</p>
+  <h2 class="sec" id="meld"><small>Meld</small>Meld en sag</h2>
+  <p class="ctx">Du kan melde en sag på to måder. Mail er nemmest, når gæsten har skrevet til jer. Opret sagen direkte i systemet, når det haster, eller når du selv har opdaget fejlen.</p>
 
   <div class="unit">
   <h3 id="mail">Pr. mail</h3>
   <ol class="steps">
-    <li>Skriv til <b>support@livecloud.dk</b>. Har gæsten skrevet til jer, så videresend gæstens mail.</li>
-    <li>Skriv jeres eget spørgsmål <b>øverst</b>, før den videresendte mail. Skriv også, hvad I allerede har prøvet.</li>
-    <li>Skriv ordrenummeret som "Ordrenr. 12345", og sørg for, at gæstens e-mail står i mailen. Så udfylder systemet selv de to felter på sagen.</li>
+    <li>Skriv til <b>support@livecloud.dk</b>. Har gæsten skrevet til jer, videresender du gæstens mail.</li>
+    <li>Skriv dit eget spørgsmål <b>øverst</b>, før den videresendte mail. Skriv også, hvad du allerede har prøvet.</li>
+    <li>Skriv ordrenummeret som "Ordrenr. 12345", og tjek, at gæstens e-mail står i mailen. Så udfylder systemet selv de to felter på sagen.</li>
     <li>Vedhæft de skærmbilleder, gæsten har sendt.</li>
-    <li>Send mailen. I får en kvittering med sagens nummer, fx <b>[SUP-1006]</b>.</li>
+    <li>Send mailen. Du får en kvittering med sagens nummer, fx <b>[SUP-1006]</b>.</li>
   </ol>
   </div>
 
@@ -146,32 +148,32 @@
   <div class="mail">
     <div class="hd"><b>Til:</b> support@livecloud.dk<br><b>Emne:</b> Festival+ billet er væk efter betaling</div>
     <div class="bd">
-      <p><span class="tag">Jeres spørgsmål øverst</span><br>Hej. Gæsten har betalt for Festival+, men billetten er væk i appen. Vi har bedt hende logge ud og ind igen, og det hjalp ikke. Kan I se, hvad der er sket? Ordrenr. 48213.</p>
+      <p><span class="tag">Dit spørgsmål øverst</span><br>Hej. Gæsten har betalt for Festival+, men billetten er væk i appen. Vi har bedt hende logge ud og ind igen, og det hjalp ikke. Kan I se, hvad der er sket? Ordrenr. 48213.</p>
       <div class="fw"><span class="tag">Gæstens mail, videresendt i sin helhed</span><br>Fra: Gitte Gæst &lt;gitte@example.dk&gt;<br>Hej. Jeg har betalt, men min billet er væk ...</div>
     </div>
   </div>
-  <p class="note"><b>Én mail pr. problem.</b> Står der to forskellige problemer i samme mail, bliver de til én sag, og så er den svær at følge for både jer og LiveCloud.</p>
+  <p class="note"><b>Én mail pr. problem.</b> Står der to forskellige problemer i samme mail, bliver de til én sag. Så er den svær at følge.</p>
   </div>
 
   <div class="unit">
   <div class="shots"><figure>
     <img src="img/support-system/sag.png" alt="En sag med kundeservices spørgsmål og gæstens videresendte mail" width="1520" height="1676" loading="lazy">
-    <figcaption><b>Sådan ser jeres mail ud som sag.</b> Jeres spørgsmål står under "Indmelder skriver". Gæstens mail står under "Videresendt besked". Signaturer og gamle svar er foldet sammen nederst og kan åbnes med et klik.</figcaption>
+    <figcaption><b>Sådan ser din mail ud som sag.</b> Dit spørgsmål står under "Indmelder skriver". Gæstens mail står under "Videresendt besked". Signaturer og gamle svar er foldet sammen nederst.</figcaption>
   </figure></div>
   </div>
 
   <div class="unit">
   <h3 id="opret">Direkte i systemet</h3>
   <ol class="steps">
-    <li>Gå til <b>Sager</b>, og tryk <span class="chip">Opret sag</span>. Siden hedder "Meld en fejl".</li>
+    <li>Gå til <b>Sager</b>, og tryk på <span class="chip">Opret sag</span>. Siden hedder "Meld en fejl".</li>
     <li>Vælg, hvad det handler om: <span class="chip">App-fejl</span> <span class="chip">Finde billet</span> <span class="chip">Indløse billet</span> <span class="chip">Betaling</span> eller <span class="chip">Andet</span>.</li>
     <li>Vælg festivalen under <b>Summit</b>, og skriv en <b>Kort beskrivelse</b>. Forklar resten under <b>Uddybning</b>.</li>
-    <li>Skriv <b>Gæstens email</b>, og skriv <b>Ordrenummer</b>, hvis I har det.</li>
+    <li>Skriv <b>Gæstens email</b>. Skriv også <b>Ordrenummer</b>, hvis du har det.</li>
     <li>Læg skærmbilleder under <b>Screenshots og filer</b>.</li>
-    <li>Tryk <span class="chip">Opret</span>.</li>
+    <li>Tryk på <span class="chip">Opret</span>.</li>
   </ol>
-  <p class="warn"><b>Haster det, og rammer det mange gæster?</b> Sæt <b>Prioritet</b> til <span class="chip">Akut</span>, og slå <b>Det blokerer gæster lige nu</b> til, før I trykker Opret.</p>
-  <p class="ctx">Svaret fra LiveCloud kommer på sagen og som mail til den, der oprettede sagen.</p>
+  <p class="warn"><b>Haster det, og rammer det mange gæster?</b> Sæt <b>Prioritet</b> til <span class="chip">Akut</span>, og slå <b>Det blokerer gæster lige nu</b> til, før du trykker på Opret.</p>
+  <p class="ctx">Svaret fra LiveCloud kommer på sagen og som mail til dig.</p>
   <div class="shots"><figure class="narrow">
     <img src="img/support-system/meld-en-fejl.png" alt="Formularen Meld en fejl" width="1520" height="1997" loading="lazy">
     <figcaption><b>Formularen "Meld en fejl".</b> Felter med en stjerne skal udfyldes.</figcaption>
@@ -180,11 +182,11 @@
   </div>
 
   <div class="pb">
-  <h2 class="sec" id="foelg"><small>Del 2</small>Følg en sag</h2>
+  <h2 class="sec" id="foelg"><small>Følg</small>Følg en sag</h2>
 
   <div class="unit">
   <h3 id="sager">Find jeres sager</h3>
-  <p class="ctx">Under <b>Sager</b> står alle jeres sager. Øverst vælger I mellem <span class="chip">Aktive</span>, <span class="chip">Arkiverede</span> og <span class="chip">Alle</span>. Tryk <span class="chip">Vis</span> på en række for at åbne sagen. I søgefeltet kan I søge på et ord fra sagens overskrift.</p>
+  <p class="ctx">Under <b>Sager</b> står alle jeres sager. Øverst vælger du mellem <span class="chip">Aktive</span>, <span class="chip">Arkiverede</span> og <span class="chip">Alle</span>. Tryk på <span class="chip">Vis</span> for at åbne en sag. I søgefeltet søger du på et ord fra sagens overskrift.</p>
   <table class="means">
     <tr><th>Status</th><th>Det betyder</th></tr>
     <tr><td>Ny</td><td>Sagen er modtaget. Ingen hos LiveCloud har taget den endnu.</td></tr>
@@ -201,9 +203,9 @@
   <table class="means">
     <tr><th>Felt</th><th>Indhold</th></tr>
     <tr><td>Sagen</td><td>Status, gæstens e-mail, ordrenummer og hvornår sagen er oprettet.</td></tr>
-    <tr><td>Beskrivelse</td><td>Jeres mail: jeres spørgsmål øverst og gæstens mail nedenunder.</td></tr>
+    <tr><td>Beskrivelse</td><td>Din mail: dit spørgsmål øverst og gæstens mail nedenunder.</td></tr>
     <tr><td>Samme problem</td><td>Løsningen, hvis flere sager handler om det samme. Se <a href="#samme">Samme problem</a>.</td></tr>
-    <tr><td>Beskeder</td><td>Mails frem og tilbage om sagen.</td></tr>
+    <tr><td>Beskeder</td><td>Det, I og LiveCloud har skrevet til hinanden om sagen.</td></tr>
     <tr><td>Billethistorik &amp; opslag</td><td>Knappen <span class="chip">Åbn i Ringsted billet-opslag</span> åbner opslaget i FMS.</td></tr>
     <tr><td>Tidslinje</td><td>Hvad der er sket med sagen, og hvornår.</td></tr>
   </table>
@@ -214,10 +216,10 @@
   </div>
 
   <div class="unit">
-  <h3 id="svar">Svar og nye oplysninger</h3>
-  <p class="ctx">I kan skrive videre på en sag på to måder. Begge lander under <b>Beskeder</b> på sagen.</p>
+  <h3 id="svar">Skriv videre på sagen</h3>
+  <p class="ctx">Har du nyt til sagen, eller vil du svare LiveCloud, kan du gøre det på to måder. Begge lander under <b>Beskeder</b> på sagen.</p>
   <ol class="steps">
-    <li><b>I systemet:</b> åbn sagen, og tryk <span class="chip">Skriv til LiveCloud</span>. Skriv beskeden, og tryk <span class="chip">Send</span>.</li>
+    <li><b>I systemet:</b> åbn sagen, og tryk på <span class="chip">Skriv til LiveCloud</span>. Skriv beskeden, og tryk på <span class="chip">Send</span>.</li>
     <li><b>Pr. mail:</b> svar på mailen fra LiveCloud Support, og behold sagens nummer i emnefeltet, fx <b>[SUP-1006]</b>.</li>
   </ol>
   <p class="ctx">Sagen bliver markeret hos LiveCloud som afventer svar. Er sagen løst eller lukket, åbner den igen af sig selv.</p>
@@ -225,32 +227,32 @@
 
   <div class="unit">
   <h3 id="loest">Når gæsten har fået svar</h3>
-  <p class="ctx">Tryk <span class="chip">Markér som løst</span> øverst på sagen, når gæsten har fået sit svar. Viser det sig, at problemet ikke er væk, så tryk <span class="chip">Genåbn</span>.</p>
+  <p class="ctx">Tryk på <span class="chip">Markér som løst</span> øverst på sagen, når gæsten har fået sit svar. Er problemet ikke væk alligevel, trykker du på <span class="chip">Genåbn</span>.</p>
   <table class="means">
     <tr><th>Under "Mere"</th><th>Det gør knappen</th></tr>
     <tr><td>Relaterede sager</td><td>Knytter sager sammen, som hører til samme gæst eller samme forløb.</td></tr>
-    <tr><td>Sæt på pause</td><td>Skjuler sagen fra Aktive indtil en dato, I vælger.</td></tr>
+    <tr><td>Sæt på pause</td><td>Skjuler sagen fra Aktive indtil en dato, du vælger.</td></tr>
     <tr><td>Arkivér</td><td>Flytter sagen til Arkiverede. Den kan hentes ud igen.</td></tr>
   </table>
   </div>
   </div>
 
   <div class="pb">
-  <h2 class="sec" id="find"><small>Del 3</small>Find løsningen</h2>
+  <h2 class="sec" id="find"><small>Find svaret</small>Find løsningen</h2>
 
   <div class="unit">
   <h3 id="samme">Samme problem</h3>
   <p class="ctx">Når flere sager handler om det samme, samler LiveCloud dem og skriver løsningen ét sted. Løsningen står så på alle sagerne under <b>Samme problem</b>, sammen med jeres andre sager om det samme.</p>
   <div class="shots"><figure>
     <img src="img/support-system/samme-problem.png" alt="Feltet Samme problem med en løsning" width="1520" height="550" loading="lazy">
-    <figcaption><b>Samme problem.</b> Står der en løsning, kan I svare gæsten med det samme uden at vente på LiveCloud.</figcaption>
+    <figcaption><b>Samme problem.</b> Står der en løsning, kan du svare gæsten med det samme uden at vente på LiveCloud.</figcaption>
   </figure></div>
-  <p class="ctx">Feltet vises kun på sager, hvor LiveCloud har samlet et problem. Længere nede kan der stå <b>Kendte løsninger</b>. Det er forslag fra LiveClouds samling af løsninger, som ligner jeres sag.</p>
+  <p class="ctx">Feltet vises kun på sager, hvor LiveCloud har samlet et problem. Længere nede kan der stå <b>Kendte løsninger</b>. Det er forslag fra LiveClouds samling af løsninger, som ligner din sag.</p>
   </div>
 
   <div class="unit">
   <h3 id="udviklerne">Hos udviklerne</h3>
-  <p class="ctx">Nogle sager kan ikke løses med et svar. De kræver, at en udvikler retter noget. De opgaver står under <b>Hos udviklerne</b>, så I kan se, hvor langt de er.</p>
+  <p class="ctx">Nogle sager kan ikke løses med et svar. De kræver, at en udvikler retter noget. De opgaver står under <b>Hos udviklerne</b>, så du kan se, hvor langt de er.</p>
   <div class="shots"><figure>
     <img src="img/support-system/hos-udviklerne.png" alt="Siden Hos udviklerne" width="1600" height="1019" loading="lazy">
     <figcaption><b>Hos udviklerne.</b> Fanerne øverst skifter mellem Åbne, Afsluttede og Alle. Listen opdateres hvert 10. minut.</figcaption>
@@ -260,9 +262,9 @@
     <tr><td>Venter</td><td>Opgaven står i kø. Ingen er gået i gang endnu.</td></tr>
     <tr><td>I gang</td><td>En udvikler arbejder på den.</td></tr>
     <tr><td>Til test</td><td>Rettelsen er lavet og bliver testet.</td></tr>
-    <tr><td>Afsluttet</td><td>Udviklerne er færdige med opgaven. Hvad I skal sige til gæsten, får I som svar på sagen.</td></tr>
+    <tr><td>Afsluttet</td><td>Udviklerne er færdige med opgaven. Hvad du skal sige til gæsten, får du som svar på sagen.</td></tr>
   </table>
-  <p class="ctx">Overskrifterne står på engelsk, som udviklerne har skrevet dem. Nummeret til venstre, fx LCAP-3104, kan I henvise til, når I skriver til LiveCloud.</p>
+  <p class="ctx">Overskrifterne står på engelsk, som udviklerne har skrevet dem. Nummeret til venstre, fx LCAP-3104, kan du henvise til, når du skriver til LiveCloud.</p>
   </div>
   </div>
 
@@ -271,29 +273,29 @@
   <h2 class="sec" id="regler"><small>Til sidst</small>Retningslinjer</h2>
   <ul class="rules">
     <li><b>Alt, LiveCloud skal følge op på, skal stå som en sag.</b> Det, der kun bliver nævnt i en chat eller i telefonen, kan LiveCloud ikke følge.</li>
-    <li><b>Én sag pr. problem.</b> Har samme gæst to problemer, så meld to sager.</li>
-    <li><b>Jeres spørgsmål øverst.</b> Gæstens mail kommer nedenunder, videresendt i sin helhed.</li>
-    <li><b>Ordrenummer og gæstens e-mail med hver gang.</b> Så kan LiveCloud finde gæsten uden at spørge jer.</li>
-    <li><b>Aldrig CPR-numre, kortnumre eller adgangskoder.</b> Har gæsten selv skrevet dem, så slet dem, før I videresender.</li>
+    <li><b>Én sag pr. problem.</b> Har samme gæst to problemer, melder du to sager.</li>
+    <li><b>Dit spørgsmål øverst.</b> Gæstens mail kommer nedenunder, videresendt i sin helhed.</li>
+    <li><b>Ordrenummer og gæstens e-mail med hver gang.</b> Så kan LiveCloud finde gæsten uden at spørge dig.</li>
+    <li><b>Aldrig CPR-numre, kortnumre eller adgangskoder.</b> Har gæsten selv skrevet dem, sletter du dem, før du videresender.</li>
     <li><b>Følg op på sagen, ikke i en ny mail.</b> Skriv på sagen, eller svar på mailen med sagens nummer i emnefeltet.</li>
-    <li><b>Kig under Samme problem først.</b> Står løsningen der, behøver I ikke at vente på svar.</li>
+    <li><b>Kig under Samme problem først.</b> Står løsningen der, behøver du ikke at vente på svar.</li>
     <li><b>Markér sagen som løst,</b> når gæsten har fået svar.</li>
   </ul>
   </div>
 
   <div class="unit">
-  <h2 class="sec" id="driller"><small>Til sidst</small>Hvis noget driller</h2>
+  <h2 class="sec" id="driller"><small>Hvis noget går galt</small>Hvis noget driller</h2>
   <table class="means wide">
     <tr><th>Det sker</th><th>Gør sådan</th></tr>
-    <tr><td>Jeg kan ikke logge ind</td><td>Tryk <span class="chip">Glemt din adgangskode?</span> på login-siden. Virker det ikke, så skriv til support@livecloud.dk.</td></tr>
-    <tr><td>Jeg fik ingen kvittering på min mail</td><td>Se i uønsket post. Kig derefter under Sager. Står sagen der, er den modtaget.</td></tr>
-    <tr><td>Mit svar blev til en ny sag</td><td>Sagens nummer manglede i emnefeltet. Åbn den nye sag, tryk <span class="chip">Skriv til LiveCloud</span>, og skriv det gamle sagsnummer. Så lægger LiveCloud de to sammen.</td></tr>
-    <tr><td>Jeg kan ikke finde en sag</td><td>Se under <span class="chip">Arkiverede</span> og <span class="chip">Alle</span>, og søg på et ord fra overskriften.</td></tr>
-    <tr><td>Sagen står som Løst, men gæsten har stadig problemet</td><td>Tryk <span class="chip">Genåbn</span>, eller skriv på sagen. Så åbner den igen.</td></tr>
+    <tr><td>Du kan ikke logge ind</td><td>Tryk på <span class="chip">Glemt din adgangskode?</span> på login-siden. Virker det ikke, skriver du til support@livecloud.dk.</td></tr>
+    <tr><td>Du fik ingen kvittering på din mail</td><td>Se i uønsket post. Kig derefter under Sager. Står sagen der, er den modtaget.</td></tr>
+    <tr><td>Dit svar blev til en ny sag</td><td>Sagens nummer manglede i emnefeltet. Åbn den nye sag, tryk på <span class="chip">Skriv til LiveCloud</span>, og skriv det gamle sagsnummer. Så lægger LiveCloud de to sammen.</td></tr>
+    <tr><td>Du kan ikke finde en sag</td><td>Se under <span class="chip">Arkiverede</span> og <span class="chip">Alle</span>, og søg på et ord fra overskriften.</td></tr>
+    <tr><td>Sagen står som Løst, men gæsten har stadig problemet</td><td>Tryk på <span class="chip">Genåbn</span>, eller skriv på sagen. Så åbner den igen.</td></tr>
   </table>
   </div>
 
-  <p class="foot">Spørgsmål til systemet: skriv til support@livecloud.dk.</p>
+  <p class="foot">Ved tvivl: skriv til support@livecloud.dk.</p>
   </div>
 </main>
 </div>

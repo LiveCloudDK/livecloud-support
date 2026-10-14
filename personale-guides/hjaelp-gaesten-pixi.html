@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="da"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Pixi: hjælp gæsten med appen (Festhallen)</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap");
+@page { size: A4 landscape; margin: 8mm; }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; font-family: "Raleway", system-ui, Arial, sans-serif; color: #0a0a0b; font-size: 12.8pt; line-height: 1.3; }
+.sheet { height: 194mm; display: grid; grid-template-columns: repeat(4, 1fr); page-break-after: always; }
+.sheet:last-child { page-break-after: auto; }
+.panel { padding: 6px 9px; border-left: 1px dashed #71717a; display: flex; flex-direction: column; gap: 5px; overflow: hidden; }
+.panel:first-child { border-left: none; }
+h2 { font-size: 16pt; line-height: 1.1; margin: 0 0 2px; display: flex; gap: 6px; align-items: baseline; }
+.n { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; background: #0a0a0b; color: #fff; border-radius: 50%; font-size: 12.5pt; flex: 0 0 auto; }
+.q { font-weight: 800; }
+p { margin: 0; }
+ol, ul { margin: 2px 0 0; padding-left: 1.2em; }
+li { margin: 2px 0; }
+.b { display: inline-block; border: 1.3px solid #0a0a0b; border-radius: 5px; padding: 0 4px; font-weight: 800; white-space: nowrap; background: #f4f4f5; font-size: 11.6pt; }
+.box { border: 1.6px solid #0a0a0b; border-radius: 8px; padding: 6px 8px; }
+.soft { background: #f4f4f5; }
+.cover { justify-content: space-between; }
+.cover svg { width: 26px; height: auto; }
+.cover h1 { font-size: 23pt; line-height: 1.02; margin: 4px 0; }
+.small { font-size: 10.6pt; color: #3f3f46; }
+.stamp { display: inline-block; font-size: 7.5pt; font-weight: 800; letter-spacing: .08em; color: #b91c1c; border: 1.4px solid #b91c1c; padding: 0 5px; border-radius: 4px; }
+.line { display: inline-block; border-bottom: 1.3px solid #0a0a0b; min-width: 30mm; height: 1.05em; vertical-align: bottom; }
+
+.bar { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 10px 0; margin-bottom: 8px; border-bottom: 1px solid #e4e4e7; font-size: 14px; }
+.bar a, .bar button { font: inherit; font-weight: 700; color: #0a0a0b; background: #fff; border: 1.5px solid #0a0a0b; border-radius: 8px; padding: 6px 12px; text-decoration: none; cursor: pointer; }
+.bar span { color: #3f3f46; }
+.page-title { display: none; }
+@media screen {
+  body { max-width: 1180px; margin: 0 auto; padding: 12px 16px 40px; font-size: 16px; }
+  .sheet { height: auto; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 14px; border: 1px solid #d4d4d8; border-radius: 12px; overflow: hidden; }
+  .panel { padding: 14px 16px; overflow: visible; }
+  h2 { font-size: 18px; }
+  .n { font-size: 14px; }
+  .b { font-size: 15px; }
+  .small { font-size: 13.5px; }
+  .cover h1 { font-size: 26px; }
+}
+@media screen and (max-width: 900px) {
+  .sheet { grid-template-columns: 1fr 1fr; }
+  .panel:nth-child(odd) { border-left: none; }
+  .panel { border-top: 1px dashed #71717a; }
+  .panel:nth-child(-n+2) { border-top: none; }
+}
+@media screen and (max-width: 560px) {
+  .sheet { grid-template-columns: 1fr; }
+  .panel { border-left: none; border-top: 1px dashed #71717a; }
+  .panel:first-child { border-top: none; }
+}
+@media print { .bar { display: none; } }
+</style></head><body>
+<div class="bar"><a href="index.html">Alle guider</a><span>Pixi til personalet</span><button type="button" onclick="window.print()">Print eller gem som PDF</button></div>
+<section class="sheet">
+ <div class="panel cover"><div><svg  viewBox="0 0 2930 2404" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1464.89 0L2203.33 1211.81H1460.89L1104.91 1795.64H2559.3L2929.77 2404H0L1464.89 0Z" fill="currentColor"/>
+</svg>
+<h1>Hjælp gæsten med appen</h1><p>Festhallen · Oktoberfest og julefesterne</p>
+  <p class="small" style="margin-top:6px">Find gæstens problem. Følg trinnene. Hjælper det ikke: ring til din leder.</p></div>
+  <div><p class="small"><b>Foldning:</b> Print på begge sider, og fold som en harmonika.</p><p style="margin-top:6px"><span class="stamp">UDKAST</span> 14. oktober</p></div></div>
+ <div class="panel"><h2><span class="n">1</span> Kommer ikke ind</h2>
+  <p class="q">QR-koden virker ikke</p>
+  <ul><li>Appen er åben, og gæsten er logget ind med den konto, billetten er hentet med.</li><li>Tryk <span class="b">DIT FESTIVAL ID</span>. Skru lysstyrken helt op.</li><li>Hold telefonen 5-10 cm fra scanneren. Rens skærmen.</li></ul>
+  <p class="q" style="margin-top:4px">Billetten er ikke i appen</p>
+  <ul><li>Log ud og ind med den rigtige konto.</li><li>Står den som brugt, eller mangler den: ring til din leder.</li></ul></div>
+ <div class="panel"><h2><span class="n">2</span> Ikke nok Beats</h2>
+  <p class="q">Gæsten skal tanke op</p>
+  <ol><li><span class="b">Beats</span>, derefter <span class="b">TANK OP</span>.</li><li>Vælg beløb.</li><li>Gemt kort: to tryk. Ellers <b>Apple Pay</b> eller <b>Google Pay</b>, som er hurtigst.</li><li>MobilePay virker også.</li></ol>
+  <p class="small" style="margin-top:4px">Fejler det: prøv en anden betalingsmetode. Tjek, at kortet ikke er spærret.</p>
+  <p class="small">Gæsten kan også betale med kort direkte i baren.</p></div>
+ <div class="panel"><h2><span class="n">3</span> Betalingen hænger</h2>
+  <div class="box soft"><b>Gæsten skal ikke betale igen.</b></div>
+  <ul><li>Står der, at vi bekræfter betalingen: vent et øjeblik.</li><li>Træk ned på forsiden, så siden henter igen.</li><li>Hjælper det ikke: luk appen helt, og åbn den igen.</li><li>Gæsten kan vise kvitteringen på mail som bevis.</li></ul></div>
+</section>
+<section class="sheet">
+ <div class="panel"><h2><span class="n">4</span> Betalt, men ingen Beats</h2>
+  <ol><li>Bed gæsten vente 1-2 minutter.</li><li>Træk ned på forsiden.</li><li>Luk appen helt, og åbn den igen.</li><li>Kommer de stadig ikke: noter navn og tidspunkt, og ring til din leder.</li></ol>
+  <p class="small" style="margin-top:4px">Du løser ikke betalingstvister på stedet.</p></div>
+ <div class="panel"><h2><span class="n">5</span> Garderoben</h2>
+  <ul><li>Jakken er med i billetten.</li><li>Bøjlenummeret står i appen: <span class="b">Beats</span>, derefter <span class="b">Min garderobe</span>.</li><li>Gæsten viser appen, når jakken hentes.</li><li>Mangler gæsten nummeret eller QR-koden: send gæsten til garderoben.</li></ul></div>
+ <div class="panel"><h2><span class="n">6</span> Har ikke appen</h2>
+  <ul><li>Gæsten henter <b>Festhallen</b> i App Store eller Google Play.</li><li>Log ind med MitID, og tryk <span class="b">DIT FESTIVAL ID</span>.</li><li>Uden app kan gæsten betale med kort i baren, men kommer ikke ind uden appen.</li></ul>
+  <p class="small" style="margin-top:4px">Billetten er personlig og ligger i appen.</p></div>
+ <div class="panel"><h2><span class="n">7</span> Penge tilbage og hjælp</h2>
+  <ul><li><b>Refusion:</b> Du kan ikke gøre det. Gæsten kan selv: <span class="b">Beats</span>, derefter <span class="b">Refundér Beats</span>.</li></ul>
+  <div class="box" style="margin-top:6px"><p><b>Ring til:</b></p><p>Din leder: <span class="line"></span></p><p style="margin-top:6px">Appen eller terminalen, LiveCloud: <span class="line"></span></p></div></div>
+</section>
+</body></html>
